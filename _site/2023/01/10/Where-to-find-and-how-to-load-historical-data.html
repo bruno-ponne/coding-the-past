@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="social data science, python and r, historical data, pandas dataframe, read csv in R">
+    <meta name="description" content="Use R and Python to load csv historical data.">
+    <title>Where To Find And How To Load Historical Data</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google Font: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Google icon: -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body">
+            <div class="post-body">
+    <h1 id = "post-main-title">Where To Find And How To Load Historical Data</h1>
+    <p id = "author">Bruno Ponne &#9679 10 Jan 2023</p>
+    <hr>
+    <ul class = "meta-info">
+        
+        <li>Easy</li>
+        
+        <li>Python</li>
+        
+        <li>R</li>
+        
+        <li>10 min</li>
+        
+    </ul>
+    <br>
+    <h1>What you will learn</h1>
+    <ul>
+        
+        <li class = "objectives"> Get to know good sources of historical data;</li>
+        
+        <li class = "objectives"> Be able to load data in R and Python;</li>
+        
+    </ul>
+    <br>
+    <h1>Table of Contents</h1>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#data-sources">Data Sources</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#1-harvard-business-school">1. Harvard Business School</a></li>
+<li class="toc-entry toc-h2"><a href="#2-human-mortality-database">2. Human Mortality Database</a></li>
+<li class="toc-entry toc-h2"><a href="#3-national-centers-for-environmental-information">3. National Centers for Environmental Information</a></li>
+<li class="toc-entry toc-h2"><a href="#4-clarin-historical-corpora">4. Clarin Historical Corpora</a></li>
+<li class="toc-entry toc-h2"><a href="#5-slave-voyages">5. Slave Voyages</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-importing-a-csv--file-into-python">Coding the past: importing a csv  file into Python</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#1-pandas-read_csv">1. Pandas read_csv()</a></li>
+<li class="toc-entry toc-h2"><a href="#2-the-pandas-dataframe-object">2. The Pandas DataFrame object</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-reading-a-csv--file-in-r">Coding the past: reading a csv  file in R</a></li>
+<li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
+</ul><p><br></p>
+
+<h1 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p><strong>‘Information is not knowledge’</strong>
+<br>
+Albert Einstein</p>
+
+<p><br></p>
+
+<p>With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data and how to load datasets in Python and R.</p>
+
+<p><br></p>
+
+<p><br></p>
+
+<hr>
+
+<p><br></p>
+
+<h1 id="data-sources">
+<a class="anchor" href="#data-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Sources</h1>
+
+<p><br></p>
+
+<h2 id="1-harvard-business-school">
+<a class="anchor" href="#1-harvard-business-school" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a>
+</h2>
+
+<p>The Harvard Business School developed the project ‘Historical Data Visualization’ to foster the understanding of global capitalism throughout time. The page offers more than 40 datasets about a broad range of topics. For instance, you can find data on life expectancy, literacy rates or economic activity in several countries during the 19th and 20th century. Datasets are mostly in Excel format. Definitely worth a visit!</p>
+
+<p><br></p>
+
+<h2 id="2-human-mortality-database">
+<a class="anchor" href="#2-human-mortality-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. <a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a>
+</h2>
+
+<p>Human Mortality Database (HMD) provides death rates and life expectancy for several countries over the last two centuries. Even though the platform requires a quick registration to give you access to the data, it is very complete and straightforward to understand. Datasets are in tab-delimited text (ASCII) files.</p>
+
+<p><br></p>
+
+<h2 id="3-national-centers-for-environmental-information">
+<a class="anchor" href="#3-national-centers-for-environmental-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. <a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a>
+</h2>
+
+<p>Would you like to study how climate has changed over the last centuries? Then this is an invaluable source for you! The National Centers for Environmental Information is the leading authority for environmental data in the USA and provides high quality data about climate, ecosystems and water resources. Data files can be downloaded in comma separated values format.</p>
+
+<p><br></p>
+
+<h2 id="4-clarin-historical-corpora">
+<a class="anchor" href="#4-clarin-historical-corpora" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. <a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a>
+</h2>
+
+<p>If you wish to work with text data, this is a valuable source of material. It offers access to ancient and medieval greek texts, the manifests wrote during the American Revolution, court proceedings in England in the 18th century and many other instigating materials. Files are usually provided in .txt format. The requirements to access files varies according to each case, since data comes from different institutions.</p>
+
+<p><br></p>
+
+<h2 id="5-slave-voyages">
+<a class="anchor" href="#5-slave-voyages" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a>
+</h2>
+
+<p>This impressive platform, supported by the Hutchins Center of Harvard University, gathers data regarding the forced relocations of more than 12 million African people between the 16th and 19th century. Files are provided in SPSS or comma separated values format.</p>
+
+<p><br></p>
+
+<p><br></p>
+
+<hr>
+
+<p><br></p>
+
+<h1 id="coding-the-past-importing-a-csv--file-into-python">
+<a class="anchor" href="#coding-the-past-importing-a-csv--file-into-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: importing a <em>csv</em>  file into Python</h1>
+
+<h2 id="1-pandas-read_csv">
+<a class="anchor" href="#1-pandas-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Pandas <em>read_csv()</em>
+</h2>
+<p>In this section, you will learn to load data into Python. You will be using <a href="https://www.slavevoyages.org/voyage/downloads#the-trans-atlantic-slave-trade-database/1/en/" target="_blank">data</a> provided by the <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a> website. The dataset contains data regarding 36,108 transatlantic slave trade voyages. <a href="https://www.slavevoyages.org/voyage/about#variable-list/2/en/" target="_blank">Learn more about the variables here</a>.</p>
+
+<p><br></p>
+
+<p>To load our data in Python, we will use <a href="https://pandas.pydata.org/docs/index.html" target="_blank">Pandas</a>, a Python library that provides data structures and analysis tools. The Pandas method <code class="language-plaintext highlighter-rouge">read_csv()</code> is the ideal option to load comma separated values into a dataframe. A dataframe is one of the data structures provided by Pandas and it consists of a table with columns (variables) and rows (observations). Bellow, we use the default configuration of <code class="language-plaintext highlighter-rouge">read_csv()</code> to load our data. Note that the only parameter passed to the method is the file path where you saved the dataset.</p>
+
+<p><br></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"/content/drive/MyDrive/historical_data/tastdb-exp-2019.csv"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br></p>
+
+<p><br></p>
+
+<hr>
+
+<p><br></p>
+
+<h2 id="2-the-pandas-dataframe-object">
+<a class="anchor" href="#2-the-pandas-dataframe-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. The Pandas DataFrame object</h2>
+
+<p>A dataframe object is now created. It has several attributes or characteristics. For example, we can check its dimensions with <code class="language-plaintext highlighter-rouge">shape</code> and its column names with <code class="language-plaintext highlighter-rouge">columns</code>. Note that column names are the names of our variables. Moreover, you can also call methods, which, in general, carry out an operation to analyze the data contained in the dataframe. For example, the method <code class="language-plaintext highlighter-rouge">describe()</code> calculates summary statistics of each variable and <code class="language-plaintext highlighter-rouge">head()</code> filters and displays only the first n observations of your data. Check all <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" target="_blank">Pandas <em>DataFrame</em> attributes and methods here</a>.</p>
+
+<p><br></p>
+
+<p><img src="/assets/images/lesson_02_01.png" alt="Pandas DataFrame Object "></p>
+
+<p><br></p>
+
+<p>Use the following code to check the dimensions and variable names of the dataset:</p>
+
+<p><br></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="s">"Dimensions: "</span><span class="p">,</span> <span class="n">df</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> 
+      <span class="s">"Variable names: "</span><span class="p">,</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br></p>
+
+<p>The attributes show that there are 276 variables and 36,108 observations in this dataset. Let us suppose you are only interested in the number of slaves disembarked (<em>slamimp</em>) in America per year (<em>yearam</em>). You could load only these two variables using the <code class="language-plaintext highlighter-rouge">read_csv()</code> parameter <code class="language-plaintext highlighter-rouge">usecols</code>. This parameter receives a list with variable names you wish to load. In larger datasets this parameter is very handy because you do not want to load variables not relevant to your study.</p>
+
+<p><br></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"/content/drive/MyDrive/historical_data/tastdb-exp-2019.csv"</span><span class="p">,</span>
+                 <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s">'YEARAM'</span><span class="p">,</span> <span class="s">'SLAMIMP'</span><span class="p">])</span>
+
+<span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br></p>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>SLAMIMP</th>
+      <th>YEARAM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>290.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>223.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>350.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>342.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>516.0</td>
+      <td>1817</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<p>Now the dataframe is loaded only with the two specified variables. As said, Pandas dataframes offer tools to analyze the data, using <em>DataFrame</em> methods. Above, we use the method <code class="language-plaintext highlighter-rouge">head()</code> to display the five first observation in our dataframe. You can set how many observations <code class="language-plaintext highlighter-rouge">head()</code> should return through the <code class="language-plaintext highlighter-rouge">n</code> parameter (default is 5).</p>
+
+<p><br></p>
+
+<p>Moreover, we can use <code class="language-plaintext highlighter-rouge">describe()</code> to obtain summary statistics of our variables. From the summary statistics we can see that the earliest record is from the year 1514 and the latest one of 1886. Also, the maximum number of slaves traded in one voyage was 1,700.</p>
+
+<p><br></p>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>SLAMIMP</th>
+      <th>YEARAM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>34182.00</td>
+      <td>36108.00</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>269.24</td>
+      <td>1764.33</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>137.32</td>
+      <td>59.47</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.00</td>
+      <td>1514.00</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>177.00</td>
+      <td>1732.00</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>261.00</td>
+      <td>1773.00</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>350.00</td>
+      <td>1806.00</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1700.00</td>
+      <td>1866.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<p><br></p>
+
+<hr>
+
+<p><br></p>
+
+<h1 id="coding-the-past-reading-a-csv--file-in-r">
+<a class="anchor" href="#coding-the-past-reading-a-csv--file-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: reading a <em>csv</em>  file in R</h1>
+<p>In R there are several functions that load comma separated files. I chose <code class="language-plaintext highlighter-rouge">fread</code> from the <code class="language-plaintext highlighter-rouge">data.table</code> library, because it offers a straightforward parameter to select the variables you wish to load (<code class="language-plaintext highlighter-rouge">select</code>). <code class="language-plaintext highlighter-rouge">fread</code> creates a data frame, similar to a pandas dataframe.</p>
+
+<p><br></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"tastdb-exp-2019.csv"</span><span class="p">,</span><span class="w"> 
+            </span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"YEARAM"</span><span class="p">,</span><span class="s2">"SLAMIMP"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br></p>
+
+<p>To get summary statistics about your variables you can use the function <code class="language-plaintext highlighter-rouge">summary(df)</code>. To view the n first observations of your dataframe, use <code class="language-plaintext highlighter-rouge">head(df,n)</code> as shown bellow. <code class="language-plaintext highlighter-rouge">Summary</code> and <code class="language-plaintext highlighter-rouge">head</code> produce very similar results to <code class="language-plaintext highlighter-rouge">describe</code> and <code class="language-plaintext highlighter-rouge">head</code> in Python.</p>
+
+<p><br></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">head</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="m">10</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br>
+More posts on how to find reliable data will be published soon!
+<br></p>
+
+<hr>
+
+<p><br></p>
+
+<h1 id="conclusions">
+<a class="anchor" href="#conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>These websites offer high quality historical data:
+    <ul>
+      <li><a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a></li>
+      <li><a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a></li>
+      <li><a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a></li>
+      <li><a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a></li>
+      <li><a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a></li>
+    </ul>
+  </li>
+  <li>You can load comma separated values in Python with the pandas method <code class="language-plaintext highlighter-rouge">.read_csv()</code>;</li>
+  <li>You can load comma separated values in R with the function <code class="language-plaintext highlighter-rouge">fread()</code> from the library <code class="language-plaintext highlighter-rouge">data.table</code>;</li>
+</ul>
+<p><br></p>
+
+<hr>
+
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_02.png&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script
+            type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            Coding the Past © 2022 Copyright
+        </div>
+    </div>
+</footer>
+    </div>  
+</body>
+<script src = "/assets/js/copycode.js"></script>
+<script src = "/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</html>

@@ -1,0 +1,14 @@
+<nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        {% for item in site.data.navigation %}
+        <li>
+            <a href="{{ item.link }}" {% if page.url==item.link %} class="current" {% endif %}>
+                {{ item.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>

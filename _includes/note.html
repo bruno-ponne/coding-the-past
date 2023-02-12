@@ -1,0 +1,12 @@
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> {{include.content}}
+        {% if include.url %}
+        <a href='{{include.url}}' target="_blank"> {{include.url_description}}</a>
+        {% endif %}
+    </div>
+</div>
+
