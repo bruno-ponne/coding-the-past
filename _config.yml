@@ -3,7 +3,7 @@ highlighter: rouge
 kramdown:
   input: GFM
   hard_wrap: false
-url: "https://codingthepast.com/"
+url: "https://codingthepast.com"
 plugins:
   - jekyll-toc
   - jekyll-sitemap
