@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="beautiful visualizations, historical weather data, using ggplot in r, ggplot2 colors">
-    <meta name="description" content="Code beautiful visualizations using ggplot in R.">
+    <meta name="keywords" content="effective data visualization, graphical data analysis with r, using ggplot in r, ggplot2 dotplot">
+    <meta name="description" content="Code effective visualizations using ggplot2 dotplot.">
     <meta property= og:image content=/assets/images/lesson_03_06.png />
-    <title>How to show historical weather data with ggplot2 customized plots</title>
+    <title>Climate Data Visualization Throughout History</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">How to show historical weather data with ggplot2 customized plots</h1>
+    <h1 id = "post-main-title">Climate Data Visualization Throughout History</h1>
     <p id = "author">Bruno Ponne &#9679 24 Jan 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -85,13 +85,13 @@
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#data-source">Data Source</a></li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-using-ggplot-in-r">Coding the past: using ggplot in R</a>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-graphical-data-analysis-with-r">Coding the past: graphical data analysis with r</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#1-loading-historical-weather-data-with-fread">1. Loading historical weather data with fread</a></li>
-<li class="toc-entry toc-h2"><a href="#2-impute-missing-values-in-r">2. Impute missing values in R</a></li>
+<li class="toc-entry toc-h2"><a href="#2-imputing-missing-values-in-r">2. Imputing missing values in R</a></li>
 <li class="toc-entry toc-h2"><a href="#3-what-is-ggplot2-and-the-grammar-of-graphics">3. What is ggplot2 and the grammar of graphics?</a></li>
-<li class="toc-entry toc-h2"><a href="#4-ggplot-dot-plot">4. Ggplot dot plot</a></li>
-<li class="toc-entry toc-h2"><a href="#5-setting-ggplot2-colors">5. Setting ggplot2 colors</a></li>
+<li class="toc-entry toc-h2"><a href="#4-ggplot2-dotplot">4. ggplot2 dotplot</a></li>
+<li class="toc-entry toc-h2"><a href="#5-setting-colors-with-scale_color_gradient">5. Setting colors with scale_color_gradient</a></li>
 <li class="toc-entry toc-h2"><a href="#6-create-your-own-ggplot2-theme">6. Create your own ggplot2 theme</a></li>
 <li class="toc-entry toc-h2"><a href="#7-adding-a-second-layer-containing-ggplot-line">7. Adding a second layer containing ggplot line</a></li>
 </ul>
@@ -130,8 +130,8 @@
 
 <p><br></p>
 
-<h1 id="coding-the-past-using-ggplot-in-r">
-<a class="anchor" href="#coding-the-past-using-ggplot-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: using ggplot in R</h1>
+<h1 id="coding-the-past-graphical-data-analysis-with-r">
+<a class="anchor" href="#coding-the-past-graphical-data-analysis-with-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: graphical data analysis with r</h1>
 
 <h2 id="1-loading-historical-weather-data-with-fread">
 <a class="anchor" href="#1-loading-historical-weather-data-with-fread" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Loading historical weather data with <em>fread</em>
@@ -166,8 +166,8 @@
 
 <p><br></p>
 
-<h2 id="2-impute-missing-values-in-r">
-<a class="anchor" href="#2-impute-missing-values-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Impute missing values in R</h2>
+<h2 id="2-imputing-missing-values-in-r">
+<a class="anchor" href="#2-imputing-missing-values-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Imputing missing values in R</h2>
 
 <p><em>TAVG</em> has missing values and was loaded as character. Let us convert it to numeric and impute missing values with linear interpolation using ` na_interpolation`, available in the <em>imputeTS</em> library.</p>
 
@@ -218,8 +218,8 @@
 
 <p><br></p>
 
-<h2 id="4-ggplot-dot-plot">
-<a class="anchor" href="#4-ggplot-dot-plot" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Ggplot dot plot</h2>
+<h2 id="4-ggplot2-dotplot">
+<a class="anchor" href="#4-ggplot2-dotplot" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. ggplot2 dotplot</h2>
 
 <p>In this section, we will use ggplot2 to depict the historical temperatures in the city of Oxford from 1815 to 2022. We will use points do identify the temperature over the years. Although we usually use line plots to represent time series, some researchers claim that the lines do not represent observed data. Actually lines only connect the dots. Therefore, in this lesson, you will learn to plot time series both with dots and with lines.</p>
 
@@ -270,8 +270,8 @@
 
 <p><br></p>
 
-<h2 id="5-setting-ggplot2-colors">
-<a class="anchor" href="#5-setting-ggplot2-colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Setting ggplot2 colors</h2>
+<h2 id="5-setting-colors-with-scale_color_gradient">
+<a class="anchor" href="#5-setting-colors-with-scale_color_gradient" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Setting colors with scale_color_gradient</h2>
 
 <p>One improvement could be representing lower temperatures with blue colors and higher temperatures with red. Moreover this default behavior is not intuitive, since darker colors are usually associated with larger quantities and not otherwise. Note that <em>TAVG</em> is a numeric variable and when we map it to color, ggplot uses a gradient to color the geom object. Adding the <code class="language-plaintext highlighter-rouge">scale_color_gradient()</code> layer allows us to define the color associated with low and high values. Moreover, it allows us to choose the name of the scale:</p>
 

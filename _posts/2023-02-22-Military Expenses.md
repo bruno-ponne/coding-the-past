@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title:  How to choose an R color palette
+title:  Changing ggplot colors with scale_color_brewer
 attributes:
   - e: Medium
   - e: R
@@ -12,8 +12,8 @@ abstract: Use RColorBrewer to choose professional color palettes.
 objectives:
   - o: Learn to transform data from wide to long format with tidyr;
   - o: Be able to choose a different color palette with RColorBrewer;
-keywords: r color palette, rcolorbrewer, scale_color_brewer, ggplot2
-description: Use RColorBrewer to choose different color palettes
+keywords: r color palette, rcolorbrewer, scale_color_brewer, ggplot, how to use pivot_longer
+description: Use scale_color_brewer to choose different color palettes
 ---
 
 <br>
@@ -48,10 +48,10 @@ Have you ever seen a webpage where text and visualizations do not have the right
  
 <br>
 
-# Coding the past: improve your plot's colors with RColorBrewer
+# Coding the past: improve your plot’s colors with scale_color_brewer
 
 
-## 1. Loading the data with read_csv()
+## 1. Importing data into R
 
 <br>
 Download the [data file here][1] and load the libraries we will need, according to the code below. To read the data, use the R function `read_csv()`. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with `[1:5, c(3, 5:36)]`. 
@@ -81,7 +81,7 @@ military <- read_csv('military.csv')[1:5, c(3, 5:36)]
  
 <br>
 
-## 2. Transforming your dataset from wide to long with pivot_longer
+## 2. How to use pivot_longer?
 
 <br>
 
@@ -138,7 +138,7 @@ names(military_long) <- c('country', 'year', 'expense')
  
 <br>
 
-## 3. Using RColorBrewer to improve your plots' colors
+## 3. Using scale_color_brewer to improve your plots’ colors
 
 <br>
 

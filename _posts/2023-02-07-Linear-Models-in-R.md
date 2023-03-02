@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title:  Are more carbon emissions associated with higher temperatures? Use R to prove it.
+title:  R programming for climate data analysis and visualization
 attributes:
   - e: Advanced
   - e: R
@@ -13,8 +13,8 @@ objectives:
   - o: Learn what is linear regression and the intuition behind it;
   - o: Be able to fit a model with the R lm() function using real world data;
   - o: Learn how to interpret linear regression results.
-keywords: historical weather data, using lm in r
-description: lesson about lm in r
+keywords: historical weather data, using lm in r, inner_join in R, Plotting correlation in r
+description: lesson about Linear Regression in R
 ---
 
 <br>
@@ -49,7 +49,7 @@ Data for this lesson comes from two different sources: data of historical temper
 
 # Coding the Past: Linear Regression in R
 
-## 1. Preparing data and performing an *inner join* with R dplyr
+## 1. Preparing the data and performing an inner_join in R
 
 First, we will use the data prepared for the lesson ['How to show historical weather data with ggplot2 customized plots']({% post_url 2023-01-24-Historical-Weather-Data %}). Please, download it [here][1]
 
@@ -153,7 +153,7 @@ If you run the code above, you will see that there is a moderate linear correlat
  
 <br>
 
-## 3. Checking correlation visually
+## 3. Plotting correlation in r
 
 One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how [dplyr filter()](https://dplyr.tidyverse.org/reference/filter.html) works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson ['How to show historical weather data with ggplot2 customized plots']({% post_url 2023-01-24-Historical-Weather-Data %})
 
@@ -210,7 +210,7 @@ ggplot(data = filter(df, DATE > 1900), aes(x= TOT_EMISSIONS, y = TAVG, color = T
  
 <br>
 
-## 4. Describing the relationship of carbon emissions and temperatures with R lm
+## 4. Implementing linear models with R
 
 Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.
 

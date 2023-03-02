@@ -93,13 +93,13 @@
 <li class="toc-entry toc-h2"><a href="#5-slave-voyages">5. Slave Voyages</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-importing-a-csv--file-into-python">Coding the past: importing a csv  file into Python</a>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-how-to-load-data-in-python">Coding the past: how to load data in Python</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#1-pandas-read_csv">1. Pandas read_csv()</a></li>
-<li class="toc-entry toc-h2"><a href="#2-the-pandas-dataframe-object">2. The Pandas DataFrame object</a></li>
+<li class="toc-entry toc-h2"><a href="#2-getting-pandas-dataframe-info">2. Getting pandas dataframe info</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-reading-a-csv--file-in-r">Coding the past: reading a csv  file in R</a></li>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-how-to-import-a-dataset-in-r">Coding the past: how to import a dataset in R</a></li>
 <li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
 </ul><p><br></p>
 
@@ -173,8 +173,8 @@ Albert Einstein</p>
 
 <p><br></p>
 
-<h1 id="coding-the-past-importing-a-csv--file-into-python">
-<a class="anchor" href="#coding-the-past-importing-a-csv--file-into-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: importing a <em>csv</em>  file into Python</h1>
+<h1 id="coding-the-past-how-to-load-data-in-python">
+<a class="anchor" href="#coding-the-past-how-to-load-data-in-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: how to load data in Python</h1>
 
 <h2 id="1-pandas-read_csv">
 <a class="anchor" href="#1-pandas-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Pandas <em>read_csv()</em>
@@ -208,8 +208,8 @@ Albert Einstein</p>
 
 <p><br></p>
 
-<h2 id="2-the-pandas-dataframe-object">
-<a class="anchor" href="#2-the-pandas-dataframe-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. The Pandas DataFrame object</h2>
+<h2 id="2-getting-pandas-dataframe-info">
+<a class="anchor" href="#2-getting-pandas-dataframe-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Getting pandas dataframe info</h2>
 
 <p>A dataframe object is now created. It has several attributes or characteristics. For example, we can check its dimensions with <code class="language-plaintext highlighter-rouge">shape</code> and its column names with <code class="language-plaintext highlighter-rouge">columns</code>. Note that column names are the names of our variables. Moreover, you can also call methods, which, in general, carry out an operation to analyze the data contained in the dataframe. For example, the method <code class="language-plaintext highlighter-rouge">describe()</code> calculates summary statistics of each variable and <code class="language-plaintext highlighter-rouge">head()</code> filters and displays only the first n observations of your data. Check all <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" target="_blank">Pandas <em>DataFrame</em> attributes and methods here</a>.</p>
 
@@ -366,8 +366,9 @@ Albert Einstein</p>
 
 <p><br></p>
 
-<h1 id="coding-the-past-reading-a-csv--file-in-r">
-<a class="anchor" href="#coding-the-past-reading-a-csv--file-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: reading a <em>csv</em>  file in R</h1>
+<h1 id="coding-the-past-how-to-import-a-dataset-in-r">
+<a class="anchor" href="#coding-the-past-how-to-import-a-dataset-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: how to import a dataset in R</h1>
+
 <p>In R there are several functions that load comma separated files. I chose <code class="language-plaintext highlighter-rouge">fread</code> from the <code class="language-plaintext highlighter-rouge">data.table</code> library, because it offers a straightforward parameter to select the variables you wish to load (<code class="language-plaintext highlighter-rouge">select</code>). <code class="language-plaintext highlighter-rouge">fread</code> creates a data frame, similar to a pandas dataframe.</p>
 
 <p><br></p>

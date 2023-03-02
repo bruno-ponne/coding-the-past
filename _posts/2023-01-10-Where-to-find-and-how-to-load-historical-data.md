@@ -76,7 +76,7 @@ This impressive platform, supported by the Hutchins Center of Harvard University
  
 <br>
 
-# Coding the past: importing a *csv*  file into Python
+# Coding the past: how to load data in Python
 
 ## 1. Pandas *read_csv()*
 In this section, you will learn to load data into Python. You will be using [data](https://www.slavevoyages.org/voyage/downloads#the-trans-atlantic-slave-trade-database/1/en/){:target="_blank"} provided by the [Slave Voyages](https://www.slavevoyages.org/){:target="_blank"} website. The dataset contains data regarding 36,108 transatlantic slave trade voyages. [Learn more about the variables here](https://www.slavevoyages.org/voyage/about#variable-list/2/en/){:target="_blank"}.
@@ -105,7 +105,7 @@ df = pd.read_csv("/content/drive/MyDrive/historical_data/tastdb-exp-2019.csv")
  
 <br>
 
-## 2. The Pandas DataFrame object
+## 2. Getting pandas dataframe info
 
 A dataframe object is now created. It has several attributes or characteristics. For example, we can check its dimensions with `shape` and its column names with `columns`. Note that column names are the names of our variables. Moreover, you can also call methods, which, in general, carry out an operation to analyze the data contained in the dataframe. For example, the method `describe()` calculates summary statistics of each variable and `head()` filters and displays only the first n observations of your data. Check all [Pandas *DataFrame* attributes and methods here](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame){:target="_blank"}.
 
@@ -258,7 +258,8 @@ Moreover, we can use `describe()` to obtain summary statistics of our variables.
  
 <br>
 
-# Coding the past: reading a *csv*  file in R
+# Coding the past: how to import a dataset in R
+
 In R there are several functions that load comma separated files. I chose `fread` from the `data.table` library, because it offers a straightforward parameter to select the variables you wish to load (`select`). `fread` creates a data frame, similar to a pandas dataframe.
 
 <br>

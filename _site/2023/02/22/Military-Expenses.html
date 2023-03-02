@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="r color palette, rcolorbrewer, scale_color_brewer, ggplot2">
-    <meta name="description" content="Use RColorBrewer to choose different color palettes">
+    <meta name="keywords" content="r color palette, rcolorbrewer, scale_color_brewer, ggplot, how to use pivot_longer">
+    <meta name="description" content="Use scale_color_brewer to choose different color palettes">
     <meta property= og:image content= />
-    <title>How to choose an R color palette</title>
+    <title>Changing ggplot colors with scale_color_brewer</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">How to choose an R color palette</h1>
+    <h1 id = "post-main-title">Changing ggplot colors with scale_color_brewer</h1>
     <p id = "author">Bruno Ponne &#9679 22 Feb 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -83,11 +83,11 @@
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#data-source">Data source</a></li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-improve-your-plots-colors-with-rcolorbrewer">Coding the past: improve your plot’s colors with RColorBrewer</a>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#1-loading-the-data-with-read_csv">1. Loading the data with read_csv()</a></li>
-<li class="toc-entry toc-h2"><a href="#2-transforming-your-dataset-from-wide-to-long-with-pivot_longer">2. Transforming your dataset from wide to long with pivot_longer</a></li>
-<li class="toc-entry toc-h2"><a href="#3-using-rcolorbrewer-to-improve-your-plots-colors">3. Using RColorBrewer to improve your plots’ colors</a></li>
+<li class="toc-entry toc-h2"><a href="#1-importing-data-into-r">1. Importing data into R</a></li>
+<li class="toc-entry toc-h2"><a href="#2-how-to-use-pivot_longer">2. How to use pivot_longer?</a></li>
+<li class="toc-entry toc-h2"><a href="#3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</a></li>
 <li class="toc-entry toc-h2"><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li>
 </ul>
 </li>
@@ -126,11 +126,11 @@
 
 <p><br></p>
 
-<h1 id="coding-the-past-improve-your-plots-colors-with-rcolorbrewer">
-<a class="anchor" href="#coding-the-past-improve-your-plots-colors-with-rcolorbrewer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: improve your plot’s colors with RColorBrewer</h1>
+<h1 id="coding-the-past-improve-your-plots-colors-with-scale_color_brewer">
+<a class="anchor" href="#coding-the-past-improve-your-plots-colors-with-scale_color_brewer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: improve your plot’s colors with scale_color_brewer</h1>
 
-<h2 id="1-loading-the-data-with-read_csv">
-<a class="anchor" href="#1-loading-the-data-with-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Loading the data with read_csv()</h2>
+<h2 id="1-importing-data-into-r">
+<a class="anchor" href="#1-importing-data-into-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Importing data into R</h2>
 
 <p><br>
 Download the <a href="http://localhost:4000/assets/data/military.csv">data file here</a> and load the libraries we will need, according to the code below. To read the data, use the R function <code class="language-plaintext highlighter-rouge">read_csv()</code>. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with <code class="language-plaintext highlighter-rouge">[1:5, c(3, 5:36)]</code>.</p>
@@ -160,8 +160,8 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 <p><br></p>
 
-<h2 id="2-transforming-your-dataset-from-wide-to-long-with-pivot_longer">
-<a class="anchor" href="#2-transforming-your-dataset-from-wide-to-long-with-pivot_longer" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Transforming your dataset from wide to long with pivot_longer</h2>
+<h2 id="2-how-to-use-pivot_longer">
+<a class="anchor" href="#2-how-to-use-pivot_longer" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. How to use pivot_longer?</h2>
 
 <p><br></p>
 
@@ -230,8 +230,8 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 <p><br></p>
 
-<h2 id="3-using-rcolorbrewer-to-improve-your-plots-colors">
-<a class="anchor" href="#3-using-rcolorbrewer-to-improve-your-plots-colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Using RColorBrewer to improve your plots’ colors</h2>
+<h2 id="3-using-scale_color_brewer-to-improve-your-plots-colors">
+<a class="anchor" href="#3-using-scale_color_brewer-to-improve-your-plots-colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Using scale_color_brewer to improve your plots’ colors</h2>
 
 <p><br></p>
 

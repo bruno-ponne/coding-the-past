@@ -166,11 +166,22 @@ h2 {
   text-transform: uppercase;
 }
 
+.intro-text h2 {
+  padding-left: 3%;
+  padding-right: 3%;
+  font-weight: bold;
+  color: white;
+}
+
 .intro-text p {
   margin-bottom: 1%;
   padding-left: 3%;
   padding-right: 3%;
   color: rgb(236, 232, 232);
+}
+
+.intro-text a {
+  text-decoration: none;
 }
 
 .latest-updates {

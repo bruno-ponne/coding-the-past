@@ -85,7 +85,7 @@ There are many ways you can use Matplotlib, but in order to be able to customize
  
 <br>
 
-## 2. Loading the data with `read_csv()`
+## 2. Loading the data with read_csv
 
 <br>
 Download the [data file here][1]. To read the data, use the pandas method `pd.read_csv()`, which takes 3 parameters. The first is the file path. The second is `index_col` and it tells pandas which column should be the index of the data frame. Finally, `parse_dates` set to True converts the index into date format. In the code below, data is loaded and one dataframe is created for each country with the pandas method `loc`.

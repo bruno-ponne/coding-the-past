@@ -88,7 +88,7 @@
 <li class="toc-entry toc-h1"><a href="#coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#1-what-is-matplotlib">1. What is Matplotlib?</a></li>
-<li class="toc-entry toc-h2"><a href="#2-loading-the-data-with-read_csv">2. Loading the data with read_csv()</a></li>
+<li class="toc-entry toc-h2"><a href="#2-loading-the-data-with-read_csv">2. Loading the data with read_csv</a></li>
 <li class="toc-entry toc-h2"><a href="#2-matplotlib-basic-plot">2. Matplotlib basic plot</a></li>
 <li class="toc-entry toc-h2"><a href="#3-restricting-time-span">3. Restricting time span</a></li>
 <li class="toc-entry toc-h2"><a href="#4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</a></li>
@@ -190,8 +190,7 @@
 <p><br></p>
 
 <h2 id="2-loading-the-data-with-read_csv">
-<a class="anchor" href="#2-loading-the-data-with-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Loading the data with <code class="language-plaintext highlighter-rouge">read_csv()</code>
-</h2>
+<a class="anchor" href="#2-loading-the-data-with-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Loading the data with read_csv</h2>
 
 <p><br>
 Download the <a href="http://localhost:4000/assets/data/gdp_prepared.csv">data file here</a>. To read the data, use the pandas method <code class="language-plaintext highlighter-rouge">pd.read_csv()</code>, which takes 3 parameters. The first is the file path. The second is <code class="language-plaintext highlighter-rouge">index_col</code> and it tells pandas which column should be the index of the data frame. Finally, <code class="language-plaintext highlighter-rouge">parse_dates</code> set to True converts the index into date format. In the code below, data is loaded and one dataframe is created for each country with the pandas method <code class="language-plaintext highlighter-rouge">loc</code>.</p>

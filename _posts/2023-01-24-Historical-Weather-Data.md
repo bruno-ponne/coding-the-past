@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title:  How to show historical weather data with ggplot2 customized plots
+title:  Climate Data Visualization Throughout History
 attributes:
   - e: Medium
   - e: R
@@ -14,8 +14,8 @@ objectives:
   - o: Get comfortable with using ggplot2;
   - o: Be able create your own ggplot2 theme;
   - o: Learn how to code ggplot dot and line plots
-keywords: beautiful visualizations, historical weather data, using ggplot in r, ggplot2 colors
-description: Code beautiful visualizations using ggplot in R.
+keywords: effective data visualization, graphical data analysis with r, using ggplot in r, ggplot2 dotplot
+description: Code effective visualizations using ggplot2 dotplot.
 ---
 
 <br>
@@ -49,7 +49,7 @@ Data for this lesson comes from the [National Centers for Environmental Informat
  
  <br>
 
-# Coding the past: using ggplot in R
+# Coding the past: graphical data analysis with r
 
 ## 1. Loading historical weather data with *fread*
 
@@ -82,7 +82,7 @@ temperatures <- fread("oxford_temp.csv",
  <br>
 
 
-## 2. Impute missing values in R
+## 2. Imputing missing values in R
 
 
  *TAVG* has missing values and was loaded as character. Let us convert it to numeric and impute missing values with linear interpolation using ` na_interpolation`, available in the *imputeTS* library. 
@@ -135,7 +135,7 @@ In the figure bellow, you see the 3 main elements of ggplot2. First, you need a 
  
  <br>
 
-## 4. Ggplot dot plot
+## 4. ggplot2 dotplot
 
 In this section, we will use ggplot2 to depict the historical temperatures in the city of Oxford from 1815 to 2022. We will use points do identify the temperature over the years. Although we usually use line plots to represent time series, some researchers claim that the lines do not represent observed data. Actually lines only connect the dots. Therefore, in this lesson, you will learn to plot time series both with dots and with lines. 
 
@@ -174,7 +174,7 @@ ggplot(data = temperatures, aes(x= DATE, y = TAVG, color = TAVG))+
 
  <br>
 
-## 5. Setting ggplot2 colors
+## 5. Setting colors with scale_color_gradient
 
 One improvement could be representing lower temperatures with blue colors and higher temperatures with red. Moreover this default behavior is not intuitive, since darker colors are usually associated with larger quantities and not otherwise. Note that *TAVG* is a numeric variable and when we map it to color, ggplot uses a gradient to color the geom object. Adding the `scale_color_gradient()` layer allows us to define the color associated with low and high values. Moreover, it allows us to choose the name of the scale:
 

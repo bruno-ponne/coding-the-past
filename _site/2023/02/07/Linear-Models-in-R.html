@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="historical weather data, using lm in r">
-    <meta name="description" content="lesson about lm in r">
+    <meta name="keywords" content="historical weather data, using lm in r, inner_join in R, Plotting correlation in r">
+    <meta name="description" content="lesson about Linear Regression in R">
     <meta property= og:image content= />
-    <title>Are more carbon emissions associated with higher temperatures? Use R to prove it.</title>
+    <title>R programming for climate data analysis and visualization</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Are more carbon emissions associated with higher temperatures? Use R to prove it.</h1>
+    <h1 id = "post-main-title">R programming for climate data analysis and visualization</h1>
     <p id = "author">Bruno Ponne &#9679 07 Feb 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -87,10 +87,10 @@
 <li class="toc-entry toc-h1"><a href="#data-source">Data Source</a></li>
 <li class="toc-entry toc-h1"><a href="#coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#1-preparing-data-and-performing-an-inner-join-with-r-dplyr">1. Preparing data and performing an inner join with R dplyr</a></li>
+<li class="toc-entry toc-h2"><a href="#1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</a></li>
 <li class="toc-entry toc-h2"><a href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R cortest</a></li>
-<li class="toc-entry toc-h2"><a href="#3-checking-correlation-visually">3. Checking correlation visually</a></li>
-<li class="toc-entry toc-h2"><a href="#4-describing-the-relationship-of-carbon-emissions-and-temperatures-with-r-lm">4. Describing the relationship of carbon emissions and temperatures with R lm</a></li>
+<li class="toc-entry toc-h2"><a href="#3-plotting-correlation-in-r">3. Plotting correlation in r</a></li>
+<li class="toc-entry toc-h2"><a href="#4-implementing-linear-models-with-r">4. Implementing linear models with R</a></li>
 <li class="toc-entry toc-h2"><a href="#5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</a></li>
 </ul>
 </li>
@@ -130,8 +130,8 @@
 <h1 id="coding-the-past-linear-regression-in-r">
 <a class="anchor" href="#coding-the-past-linear-regression-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the Past: Linear Regression in R</h1>
 
-<h2 id="1-preparing-data-and-performing-an-inner-join-with-r-dplyr">
-<a class="anchor" href="#1-preparing-data-and-performing-an-inner-join-with-r-dplyr" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Preparing data and performing an <em>inner join</em> with R dplyr</h2>
+<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">
+<a class="anchor" href="#1-preparing-the-data-and-performing-an-inner_join-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Preparing the data and performing an inner_join in R</h2>
 
 <p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
 
@@ -246,8 +246,8 @@
 
 <p><br></p>
 
-<h2 id="3-checking-correlation-visually">
-<a class="anchor" href="#3-checking-correlation-visually" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Checking correlation visually</h2>
+<h2 id="3-plotting-correlation-in-r">
+<a class="anchor" href="#3-plotting-correlation-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Plotting correlation in r</h2>
 
 <p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a></p>
 
@@ -306,8 +306,8 @@
 
 <p><br></p>
 
-<h2 id="4-describing-the-relationship-of-carbon-emissions-and-temperatures-with-r-lm">
-<a class="anchor" href="#4-describing-the-relationship-of-carbon-emissions-and-temperatures-with-r-lm" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Describing the relationship of carbon emissions and temperatures with R lm</h2>
+<h2 id="4-implementing-linear-models-with-r">
+<a class="anchor" href="#4-implementing-linear-models-with-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Implementing linear models with R</h2>
 
 <p>Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.</p>
 
