@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title:  Climate Data Visualization Throughout History
+title:  Climate Data Visualization
 attributes:
   - e: Medium
   - e: R
