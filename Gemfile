@@ -9,3 +9,4 @@ gem "rouge"
 gem 'jekyll-toc'
 gem 'jekyll-sitemap'
 gem 'jemoji'
+gem 'jekyll-feed'

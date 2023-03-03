@@ -6,6 +6,7 @@ attributes:
   - e: Python
   - e: R
   - e: 10 min
+tags: r python data read_csv
 image: lesson_02.png
 toc: true
 abstract: Learn 5 great websites to find reliable historical data and how to load it in R and Python.

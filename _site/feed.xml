@@ -1,0 +1,1767 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-03-03T16:39:19-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Changing ggplot colors with scale_color_brewer</title><link href="http://localhost:4000/2023/02/22/Military-Expenses.html" rel="alternate" type="text/html" title="Changing ggplot colors with scale_color_brewer" /><published>2023-02-22T00:00:00-03:00</published><updated>2023-02-22T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/22/Military%20Expenses</id><content type="html" xml:base="http://localhost:4000/2023/02/22/Military-Expenses.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p><strong>‘War is over, if you want it, war is over, now’</strong></p>
+
+<p>John Lennon</p>
+
+<p><br /></p>
+
+<p>Have you ever seen a webpage where text and visualizations do not have the right contrast or where colors do not match? I have had this experience and I have to admit that I myself have difficulty choosing adequate colors for my plots. There are so many technical details to pay attention to! Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer. We will use data on military expenses of the main capitalist countries during the Cold War.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>Data used in this lesson is available on the <a href="https://databank.worldbank.org/home" target="_blank">World Bank</a> website.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</h1>
+
+<h2 id="1-importing-data-into-r">1. Importing data into R</h2>
+
+<p><br />
+Download the <a href="http://localhost:4000/assets/data/military.csv">data file here</a> and load the libraries we will need, according to the code below. To read the data, use the R function <code class="language-plaintext highlighter-rouge">read_csv()</code>. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with <code class="language-plaintext highlighter-rouge">[1:5, c(3, 5:36)]</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-5-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
+
+</span><span class="n">military</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'military.csv'</span><span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">36</span><span class="p">)]</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-how-to-use-pivot_longer">2. How to use pivot_longer?</h2>
+
+<p><br /></p>
+
+<p>If you take a look at the dataframe you just loaded, you will see that it has one column for each year. To use ggplot your data has to be tidy. According to Hadley Wickham, in a tidy dataframe:</p>
+
+<p><br /></p>
+
+<ol class="conclusion-list">
+  <li>Each variable must have its own column;</li>
+  <li>Each observation must have its own row;</li>
+  <li>Each value must have its own cell;</li>
+</ol>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Learn more about tidy data and how to transform a dataframe from wide to long format 
+        
+        <a href="https://r4ds.had.co.nz/tidy-data.html" target="_blank"> here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>To make our data tidy, we will transform all the year columns in one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the <code class="language-plaintext highlighter-rouge">pivot_longer</code> function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, <code class="language-plaintext highlighter-rouge">names_to</code> indicates the name of the new column that will receive the years and <code class="language-plaintext highlighter-rouge">values_to</code> indicates the name of the new column that will receive the values of the year columns.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_05_01.png" alt="Conversion of dataframe from wide to long format" title="Image" /></p>
+<p class="fig-caption">Illustration created by the Author</p>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">mutate</code> function makes two adjustments in the new long dataset. First, it eliminates the second part of the year names, e.g., <code class="language-plaintext highlighter-rouge">[YR1960]</code>. Second, it rounds the expenses values to two decimal places.</p>
+
+<p><br /></p>
+
+<p>Finally, we change the names of the columns (variables) in our dataset.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-5-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">military_long</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">military</span><span class="p">,</span><span class="w"> 
+                              </span><span class="s1">'1960 [YR1960]'</span><span class="o">:</span><span class="s1">'1991 [YR1991]'</span><span class="p">,</span><span class="w"> 
+                              </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'year'</span><span class="p">,</span><span class="w"> 
+                              </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'expense'</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="n">expense</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="nf">names</span><span class="p">(</span><span class="n">military_long</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'country'</span><span class="p">,</span><span class="w"> </span><span class="s1">'year'</span><span class="p">,</span><span class="w"> </span><span class="s1">'expense'</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</h2>
+
+<p><br /></p>
+
+<p>To see all the colors palettes the RColorBrewer offers, use the following code:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-5-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+</span><span class="n">display.brewer.all</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_05_02.png" alt="RColorBrewer available palettes" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p>We will be using palette <code class="language-plaintext highlighter-rouge">Set1</code> in our line plot. To set it, add the layer <code class="language-plaintext highlighter-rouge">scale_color_brewer(palette = 'Set1')</code>. <strong>Note</strong> that we also set the x-axis to have labels every 4 years with <code class="language-plaintext highlighter-rouge">scale_x_discrete(breaks = seq(1960, 1990, by=4))</code>. Color  and group aesthetics were mapped to countries so that each country has a different color.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-5-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">military_long</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_x_discrete</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1960</span><span class="p">,</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="m">4</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_brewer</span><span class="p">(</span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Set1'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Military expenditure (% of GDP)'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s1">'Military Expenses of the Main Capitalist Economies'</span><span class="p">,</span><span class="w">
+          </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1960 - 1991'</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_05_03.png" alt="plot using RColorBrewer palette" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</h2>
+
+<p><br />
+To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-5-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">military_long</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">))</span><span class="o">+</span><span class="w">
+</span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
+</span><span class="n">scale_x_discrete</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1960</span><span class="p">,</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="m">4</span><span class="p">))</span><span class="o">+</span><span class="w">
+</span><span class="n">scale_color_brewer</span><span class="p">(</span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Set1'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Military expenditure (% of GDP)'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s1">'Military Expenses of the Main Capitalist Economies'</span><span class="p">,</span><span class="w">
+          </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1960 - 1991'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">guides</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guide_legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+            </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+            </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+            </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+            </span><span class="n">legend.key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+            </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
+            </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+            </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="c1"># Eliminates grids:</span><span class="w">
+            </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+            </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+            </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+            </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
+            </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+            </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_05_04.png" alt="Plot with new theme" /></p>
+
+<p><br /></p>
+
+<p>Feel free to test other color palettes and check the one you like the most!</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>You can transform your dataframe from wide to long format using <code class="language-plaintext highlighter-rouge">pivot_longer</code>;</li>
+  <li>RColorBrewer offers color palettes to make your plots more effective and beautiful.</li>
+</ul>
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="visualization" /><category term="ggplot2" /><summary type="html"><![CDATA[Use scale_color_brewer to choose different color palettes]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_05.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_05.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Use Matplotlib line plot to create clear and compelling visualizations</title><link href="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html" rel="alternate" type="text/html" title="Use Matplotlib line plot to create clear and compelling visualizations" /><published>2023-02-11T00:00:00-03:00</published><updated>2023-02-11T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations</id><content type="html" xml:base="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p><strong>‘All that is solid melts into the air’</strong></p>
+
+<p>Karl Marx and Friedrich Engels</p>
+
+<p><br /></p>
+
+<p>As a historian and social scientist I often find it challenging to customize my Python plots and make them clear and compelling. What is a Python class, object or method? 😲 In this lesson, you will learn what those concepts are and how to use them to create effective graphs with Matplotlib. We will plot and highlight elements in the trend of Gross Domestic Product (GDP) per capita of Germany and the USA during the 1929 crisis. If you would like to know more about this event, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>Data used in this lesson is available at <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/details?data_id=27" target="_blank">Harvard Business School</a></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> GDP is given in 1990 International Geary-Khamis dollars. To learn more about this unit, see this
+        
+        <a href="https://en.wikipedia.org/wiki/International_dollar" target="_blank"> link.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</h1>
+
+<h2 id="1-what-is-matplotlib">1. What is Matplotlib?</h2>
+
+<p><br /></p>
+
+<p>Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.</p>
+
+<p><br /></p>
+
+<p>Before we dive into Matplotlib, we have to understand the concept of class and object. A Python object could be a plot, a string of text or a dataframe, for example. ‘<b>Classes</b> are a sort of blueprint for objects, specifying their properties (attributes) and behaviors (methods). For example, an object of the Matplotlib class <i>Axes</i> will store a plot and will always have an x axis label attribute. The class <i>Axes</i> might give origin to several different objects (plots), all with an x axis label property, but the content of this property is particular to each plot. We say we instantiate an object of a certain class when we create it.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Learn more about classes in this
+        
+        <a href="https://realpython.com/lessons/classes-python/" target="_blank"> video.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>There are many ways you can use Matplotlib, but in order to be able to customize your plot, it is recommended to use the Matplotlib <code class="language-plaintext highlighter-rouge">subplots()</code> method. It creates two objects: one object of the class <em>Figure</em>, usually called <em>fig</em> and one object of the class <em>Axes</em>, usually called <em>ax</em>. The former is a sort of container where your plot will be created. The latter is the plot itself. Note that the <em>Axes</em> object is contained in the <em>Figure</em> object. Refer to the <a href="https://matplotlib.org/stable/tutorials/introductory/quick_start.html" target="_blank">Matplotlib documentation</a> for further details.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_01.png" alt="Matplotlib objects" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-loading-the-data-with-read_csv">2. Loading the data with read_csv</h2>
+
+<p><br />
+Download the <a href="http://localhost:4000/assets/data/gdp_prepared.csv">data file here</a>. To read the data, use the pandas method <code class="language-plaintext highlighter-rouge">pd.read_csv()</code>, which takes 3 parameters. The first is the file path. The second is <code class="language-plaintext highlighter-rouge">index_col</code> and it tells pandas which column should be the index of the data frame. Finally, <code class="language-plaintext highlighter-rouge">parse_dates</code> set to True converts the index into date format. In the code below, data is loaded and one dataframe is created for each country with the pandas method <code class="language-plaintext highlighter-rouge">loc</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <span class="s">"/content/drive/MyDrive/historical_data/gdp_prepared.csv"</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span>   
+                 <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  
+                 <span class="n">parse_dates</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>  
+
+<span class="n">ger</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"country"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"Germany"</span><span class="p">]</span>
+<span class="n">usa</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"country"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"United States of America"</span><span class="p">]</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-matplotlib-basic-plot">2. Matplotlib basic plot</h2>
+
+<p><br />
+Although in this lesson our fig object will have only one plot, it might have more. Most of the customization will be made through <em>ax</em> methods. To start we will call the ax method <code class="language-plaintext highlighter-rouge">plot()</code> twice to create our plots. Note that <code class="language-plaintext highlighter-rouge">plot()</code>’s first argument contains the dates and is plotted on the x axis while the second, containing the GDP, is plotted on the y axis. Finally, we show the plot.</p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_02.png" alt="First version of the plot" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-restricting-time-span">3. Restricting time span</h2>
+
+<p><br /></p>
+
+<p>One important aspect to consider when you tell a story with a plot is what you would like to highlight. In this plot, we want to highlight the effect of the 1929 crisis on GDP per capita rather than the effect of the Second or First World War. Thus, let us restrict our time span to the period 1920/1938. Note that when your index is a date you can use pandas <code class="language-plaintext highlighter-rouge">loc</code> to specify a certain period of the data:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">ger</span> <span class="o">=</span> <span class="n">ger</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">"1920-01-01"</span><span class="p">:</span><span class="s">"1938-01-01"</span><span class="p">]</span>
+<span class="n">usa</span> <span class="o">=</span> <span class="n">usa</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">"1920-01-01"</span><span class="p">:</span><span class="s">"1938-01-01"</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_03.png" alt="Second version of the plot" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</h2>
+
+<p><br /></p>
+
+<p>To add a legend, first you have to label each of the line plots and then call the <code class="language-plaintext highlighter-rouge">legend()</code> method of <em>ax</em>. Quite intuitive, right?</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-4">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+<span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_04.png" alt="Third version of the plot" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</h2>
+
+<p><br /></p>
+
+<p>There are three methods of <em>ax</em> to set title and labels. They start with <em>set</em> followed by the title or label they set: <code class="language-plaintext highlighter-rouge">set_xlabel</code>, <code class="language-plaintext highlighter-rouge">set_ylabel</code>, <code class="language-plaintext highlighter-rouge">set_title</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-5">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_05.png" alt="Fourth version of the plot" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-changing-line-colors">6. Changing line colors</h2>
+
+<p><br />
+One way of creating your own color palette is with a Python list containing the colors you would like to use. <a href="https://colorbrewer2.org/" target="_blank">This page</a> has smart recommendations on the use of colors. In this case, a diverging color was chosen to distinguish between the two countries. Color is an argument of <code class="language-plaintext highlighter-rouge">plot()</code> and colors are selected by the list index.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-6">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_palette</span> <span class="o">=</span> <span class="p">[</span><span class="s">"#C84848"</span><span class="p">,</span> <span class="s">"#2E3031"</span><span class="p">,</span> <span class="s">"#FEE090"</span><span class="p">,</span> <span class="s">"#d3d3d3"</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_06.png" alt="Fifth version of the plot" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</h2>
+
+<p><br /></p>
+
+<p>In this step, we start by increasing the line width of both trends to 3. After that, we would like to highlight the period of crisis. For that we use the method <code class="language-plaintext highlighter-rouge">axvspan(xmin, xmax, ymin=0, ymax=1, ...)</code> in which we specify the start and end date of the desired period. The y axis is not specified because, by default, the highlighted area goes from zero to the maximum value of y. <code class="language-plaintext highlighter-rouge">alpha</code> adds a degree of transparency to the region highlighted.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-7')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-7">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_palette</span> <span class="o">=</span> <span class="p">[</span><span class="s">"#C84848"</span><span class="p">,</span> <span class="s">"#2E3031"</span><span class="p">,</span> <span class="s">"#FEE090"</span><span class="p">,</span> <span class="s">"#d3d3d3"</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1929-01-01"</span><span class="p">),</span> 
+           <span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1932-10-01"</span><span class="p">),</span> 
+           <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> 
+           <span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_07.png" alt="Sixth version of the plot" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</h2>
+
+<p><br /></p>
+
+<p>Edward Tufte, an expert in the field of data visualization, introduced the concept of data-ink ratio in the book <em>The Visual Display of Quantitative Information</em>. Data-ink ratio is the proportion of ink in a plot used to display non-redundant data. The author recommends maximizing this ratio as much as possible to make your plot clearer and to avoid distracting your reader.</p>
+
+<p><br /></p>
+
+\[data \: ink \: ratio = {data \: ink  \over total \:ink}\]
+
+<p><br /></p>
+
+<p>In order to improve our data-ink ratio, we will eliminate the legend frame. This can be done by setting <code class="language-plaintext highlighter-rouge">framon</code> parameter to false inside the <code class="language-plaintext highlighter-rouge">legend()</code> method.</p>
+
+<p><br /></p>
+
+<p>The frame around the plot is made by objects of the class <em>Spine</em>. Print <code class="language-plaintext highlighter-rouge">ax.spines</code> and note that you have 4 spines (left, right, bottom, top). It would be nice to have this frame in a lighter color so that it does not call so much attention. This can be done by the <code class="language-plaintext highlighter-rouge">set_edgecolor()</code> method . To set all of them to the same color, we can iterate them in <code class="language-plaintext highlighter-rouge">ax.spines.values()</code> and set one by one to light gray:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-8')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-1-8">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_palette</span> <span class="o">=</span> <span class="p">[</span><span class="s">"#C84848"</span><span class="p">,</span> <span class="s">"#2E3031"</span><span class="p">,</span> <span class="s">"#FEE090"</span><span class="p">,</span> <span class="s">"#d3d3d3"</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1929-01-01"</span><span class="p">),</span> 
+           <span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1932-10-01"</span><span class="p">),</span> 
+           <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> 
+           <span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">spine</span><span class="p">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="n">my_palette</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_01_09.png" alt="Seventh version of the plot" /></p>
+
+<p><br /></p>
+
+<p>In the next lessons you will learn how to further improve graphs like this. Thanks for reading! 😊</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>To customize your plot, use Matplotlib method <code class="language-plaintext highlighter-rouge">subplots()</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">Subplots()</code> creates two objects: one of the class <em>Figure</em>, usually called fig and one of the class <em>Axes</em>, usually called ax;</li>
+  <li>Use <em>Axes</em> methods to shape your plot according to your needs.</li>
+</ul>
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="visualization" /><category term="matplotlib" /><summary type="html"><![CDATA[Use Matplotlib to code beautiful visualizations]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_01.png" /><media:content medium="image" url="http://localhost:4000/lesson_01.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">R programming for climate data analysis and visualization</title><link href="http://localhost:4000/2023/02/07/Linear-Models-in-R.html" rel="alternate" type="text/html" title="R programming for climate data analysis and visualization" /><published>2023-02-07T00:00:00-03:00</published><updated>2023-02-07T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/07/Linear-Models-in-R</id><content type="html" xml:base="http://localhost:4000/2023/02/07/Linear-Models-in-R.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><strong>‘Intuition is a very powerful thing, more powerful than intellect’</strong></p>
+
+<p>Steve Jobs</p>
+
+<p><br /></p>
+
+<p>Linear regression is one of the most popular tools in social data science. It has been used over the last decades to study how variables relate to each other. In this lesson, you will learn the intuition behind linear regression and how to use it in R.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data Source</h1>
+
+<p>Data for this lesson comes from two different sources: data of historical temperature in the city of Oxford comes from the <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/UK000056225.csv" target="_blank">National Centers for Environmental Information</a> and historical data regarding total carbon emissions comes from the US <a href="https://cdiac.ess-dive.lbl.gov/ftp/ndp030/CSV-FILES/global.1751_2014.csv" target="_blank">Carbon Dioxide Information Analysis Center</a>. Temperatures are given in degree Celsius and carbon emissions in million metric tons of C.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</h1>
+
+<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</h2>
+
+<p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
+
+<p><br /></p>
+
+<p>Second, the carbon emissions data will be loaded. We will only load the year and the value regarding the total carbon emissions from fossil fuel consumption and cement production (in million metric tons of C).</p>
+
+<p><br /></p>
+
+<p>Data will be loaded with <code class="language-plaintext highlighter-rouge">read.csv</code>. The selection of rows and columns is made by index using the following syntax: <em>df[rows to include, columns to include]</em>. In the code bellow we chose to keep all rows except for the first, because it contains the source of the data. Additionally, only columns 1 and 2 are kept. Column names are changed to be the same as in the temperatures dataframe. Since both variables were loaded as factors, we convert them first to characters and then to integers. Note that converting a factor directly to integer would distort the values.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-4-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">temperatures</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">load</span><span class="p">(</span><span class="s2">"temperatures.RData"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">carbon</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"carbon.csv"</span><span class="p">)[</span><span class="m">2</span><span class="o">:</span><span class="m">265</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">]</span><span class="w">
+
+</span><span class="nf">names</span><span class="p">(</span><span class="n">carbon</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TOT_EMISSIONS"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">carbon</span><span class="o">$</span><span class="n">DATE</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">carbon</span><span class="o">$</span><span class="n">DATE</span><span class="p">))</span><span class="w">
+
+</span><span class="n">carbon</span><span class="o">$</span><span class="n">TOT_EMISSIONS</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">carbon</span><span class="o">$</span><span class="n">TOT_EMISSIONS</span><span class="w"> </span><span class="p">))</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>The last step of data preparation is to join the two dataframes. Since they cover different periods, R dplyr <code class="language-plaintext highlighter-rouge">inner_join()</code> will be used to keep only observations contained in both dataframes. See how <code class="language-plaintext highlighter-rouge">inner_join()</code> works in the figure below:</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_04_01.png" alt="dplyr inner_join" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-4-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">inner_join</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">carbon</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"DATE"</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>If you prefer to skip this step, download the prepared data <a href="http://localhost:4000/assets/data/gw.RData">here</a> (<em>.RData</em> format)</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></h2>
+
+<p><a href="https://www.bbc.co.uk/bitesize/guides/zc7sb82/revision/5" target="_blank">Correlation</a> measures how much two variables change together. In our case, we would like to know if increases in carbon emissions are associated with increases in temperature. One method to assess linear correlation is the Pearson correlation. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation.</p>
+
+<p><br /></p>
+
+<p>In R, we can use the function <code class="language-plaintext highlighter-rouge">cor.test()</code> to estimate correlation with the argument <code class="language-plaintext highlighter-rouge">method</code> set to “pearson”. This function returns the correlation and a p-value. The p-value tells us if we can reject the hypothesis that the correlation between carbon emissions and temperature is zero.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-4-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cor.test</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pearson"</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>If you run the code above, you will see that there is a moderate linear correlation of <strong>0.57</strong> between temperature and carbon emissions in our sample. This means that when emissions increase, so does temperature. Moreover, this value is statistically different from zero, since the p-value is a lot lower than 0.05 (with a 95% confidence interval). So, there is a correlation between the two variables!</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> The <b>p-value</b>, in the context of this example, is the probability that we would find a correlation estimate of at least 0.57 under the hypothesis that there is no correlation between temperatures and carbon emissions (null hypothesis). If this probability is very low, then the null hypothesis is not likely to be true, because it is not compatible with data we observed in reality. In this case we reject the null and accept the hypothesis that the correlation is not zero. Confusing? Try reading a little more about it 
+        
+        <a href="https://online.stat.psu.edu/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach" target="_blank"> here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-plotting-correlation-in-r">3. Plotting correlation in r</h2>
+
+<p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a></p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-4-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
+        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Eliminates grids:</span><span class="w">
+        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
+        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+  </span><span class="p">)}</span><span class="w">
+  
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">DATE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1900</span><span class="p">),</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Emissions [million metric tons of C]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_04_02.png" alt="scatterplot of temperatures versus carbon emissions" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-implementing-linear-models-with-r">4. Implementing linear models with R</h2>
+
+<p>Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.</p>
+
+<p><br /></p>
+
+<p>One quick question before we proceed: What is the simplest “model” for describing the temperature in Oxford throughout the last centuries if we did not have any other variable than the temperature itself?</p>
+
+<p><br /></p>
+
+<p>It could be the average of the temperature over the period, right? At any point in time, this simple “model” would predict a 9.9 ºC temperature:</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_04_03.png" alt="scatterplot of temperatures versus carbon emissions with temperatures average line" /></p>
+
+<p><br /></p>
+
+<p>Now imagine that we have access to a second variable, the total carbon emissions, and we know it has a correlation with temperatures. Wouldn’t this variable add information to better predict temperature? Yes!</p>
+
+<p><br /></p>
+
+<p>Linear regression is a method to relate these two variables through a straight line (a linear function) that might fit the data a lot better than the mean (if they are sufficiently associated). In the figure above, imagine that you could rotate this line to better fit the data: this is what the regression line does! (see plot in step 5)</p>
+
+<p><br /></p>
+
+<p>A regression line is described by the equation <strong>Y = a + bX</strong>  where a and b are found by an <a href="https://en.wikipedia.org/wiki/Least_squares">algorithm</a> so that the line best fits the data.</p>
+
+<p><br /></p>
+
+<p>Thankfully, you do not need to worry how to compute a and b. R does it for you with the <code class="language-plaintext highlighter-rouge">lm()</code> function, where you specify your dataframe, and the formula of the relationship you want to study. A formula has the following syntax: <em>independent variable ~ dependent variable</em>. To model temperature as a function of carbon emissions, use the following code:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-4-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">linear_model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">TAVG</span><span class="o">~</span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">summary</span><span class="p">(</span><span class="n">linear_model</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<table class="dataframe">
+ <thead>
+  <tr>
+   <th> Term </th>
+   <th> estimate </th>
+   <th> std.error </th>
+   <th> statistic </th>
+   <th> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td> Intercept </td>
+   <td> 9.5627927 </td>
+   <td> 0.0546872 </td>
+   <td> 174.863537 </td>
+   <td> 0 </td>
+  </tr>
+  <tr>
+   <td> Emissions </td>
+   <td> 0.0001628 </td>
+   <td> 0.0000166 </td>
+   <td> 9.835066 </td>
+   <td> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+<p><br /></p>
+
+<p>In this table you see the coefficients a (intercept) and b (coefficient of TOT_EMISSIONS) calculated by R. They form the regression line TAVG = 9.57 + 0.00016*TOT_EMISSIONS. The interpretation of them is as follows:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>a or the intercept is the value of y when x is zero. In our case a is the value of the temperature when the emissions are zero. You have to evaluate if x = 0 makes sense for your analysis.</li>
+  <li>b is how much, on average, y increases when x increases by 1 unit. In our example, when total emissions increase by 1 million metric tons of carbon, then the temperature increases by 0.00016 ºC. It does not seem a lot at a first glance, but if you consider that from 1950 to 2022 emissions increased by 8,225 million metric tons of carbon, this would translate, in our model, to an increase of 1.3ºC!</li>
+</ul>
+
+<p><br /></p>
+
+<p>Note that p-values are zero (very close to zero), providing evidence that a and b are statistically significant.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</h2>
+
+<p>To draw the regression line, use geom_smooth() with the argument <code class="language-plaintext highlighter-rouge">method</code> set to ‘lm’ (linear model). The argument <code class="language-plaintext highlighter-rouge">se</code> specifies if you would like to plot the error associated with the regression estimate across the line.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-4-6">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">DATE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1900</span><span class="p">),</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lm"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Emissions [million metric tons of C]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_04_04.png" alt="regression line plot" /></p>
+
+<p><br /></p>
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> In the example studied we know that carbon emissions are <b>causing</b> global warming, because scientists have extensively studied this topic with multiple models and approaches. However, only correlation or linear relation identified with a regression model does not imply causation! Read more
+        
+        <a href="https://sitn.hms.harvard.edu/flash/2021/when-correlation-does-not-imply-causation-why-your-gut-microbes-may-not-yet-be-a-silver-bullet-to-all-your-problems/" target="_blank"> about this topic.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>An inner join can be used to join two dataframes when you only want to keep observations contained in both dataframes;</li>
+  <li>Correlation measures how much two variables change together, it can be calculated in R with cor.test();</li>
+  <li>A linear regression model relates one dependent variable to an independent or explanatory variable. It provides you with an estimate of how much the dependent variable vary when the independent variable changes by one unit. Regression can be computed in R with lm();</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="regression" /><category term="analysis" /><summary type="html"><![CDATA[lesson about Linear Regression in R]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_04.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_04.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Climate Data Visualization</title><link href="http://localhost:4000/2023/01/24/Historical-Weather-Data.html" rel="alternate" type="text/html" title="Climate Data Visualization" /><published>2023-01-24T00:00:00-03:00</published><updated>2023-01-24T00:00:00-03:00</updated><id>http://localhost:4000/2023/01/24/Historical-Weather-Data</id><content type="html" xml:base="http://localhost:4000/2023/01/24/Historical-Weather-Data.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><strong>‘Global warming isn’t a prediction. It is happening.’</strong></p>
+
+<p>James Hansen</p>
+
+<p><br /></p>
+
+<p>There is indisputable evidence that our planet is warming at an abnormal rate. The effects of global warming already started to affect the Earth. Melting glaciers, sea level rise, and intense heat waves already affect several countries. In this lesson, you will use historical weather data to plot graphs that help to raise awareness about climate change.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data Source</h1>
+<p>Data for this lesson comes from the <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/UK000056225.csv" target="_blank">National Centers for Environmental Information</a>. This institution provides historical weather data by city and country over the last centuries.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-graphical-data-analysis-with-r">Coding the past: graphical data analysis with r</h1>
+
+<h2 id="1-loading-historical-weather-data-with-fread">1. Loading historical weather data with <em>fread</em></h2>
+
+<p>First, we will load the <a href="http://localhost:4000/assets/data/oxford_temp.csv">temperature database</a> with the R function <code class="language-plaintext highlighter-rouge">fread()</code>. Note that there are many variables available (<a href="https://www.ncei.noaa.gov/pub/data/metadata/documents/GSOYReadme.txt" target="_blank">read more about them</a>). However, we are only interested in <em>DATE</em> and <em>TAVG</em> (average annual temperature in Oxford). The <code class="language-plaintext highlighter-rouge">select</code> parameter is used to select which variables to load.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">imputeTS</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+
+</span><span class="n">temperatures</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"oxford_temp.csv"</span><span class="p">,</span><span class="w">
+                      </span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TAVG"</span><span class="p">))</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-imputing-missing-values-in-r">2. Imputing missing values in R</h2>
+
+<p><em>TAVG</em> has missing values and was loaded as character. Let us convert it to numeric and impute missing values with linear interpolation using ` na_interpolation`, available in the <em>imputeTS</em> library.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">imputeTS</span><span class="p">)</span><span class="w">
+
+</span><span class="n">temperatures</span><span class="o">$</span><span class="n">TAVG</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">na_interpolation</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">temperatures</span><span class="o">$</span><span class="n">TAVG</span><span class="p">),</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="s2">"linear"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>If you prefer to skip steps 1 and 2, <a href="http://localhost:4000/assets/data/temperatures.RData">download here</a> the prepared dataset in <em>.RData</em> format. It will be used for the next steps.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-what-is-ggplot2-and-the-grammar-of-graphics">3. What is ggplot2 and the grammar of graphics?</h2>
+
+<p><a href="https://ggplot2.tidyverse.org/" target="_blank">Ggplot2</a> is an R library to create statistical graphics. It is based in the <a href="https://vita.had.co.nz/papers/layered-grammar.html" target="_blank">grammar of graphics</a>, a tool to understand graphics as a set of components which together give you flexibility to create original visualizations.</p>
+
+<p><br /></p>
+
+<p>In the figure bellow, you see the 3 main elements of ggplot2. First, you need a dataset with variables. Each of these variables can be mapped to one particular aesthetic - a visual property of a geom object. Geom objects are the elements you see in your graph (line and dots, for instance). Their characteristics (position on y axis, position on x axis, color, size, etc.) are defined by aesthetics mapping. One graph can contain several layers, each one with a geom object.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_01.png" alt="ggplot geom objects and layers" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-ggplot2-dotplot">4. ggplot2 dotplot</h2>
+
+<p>In this section, we will use ggplot2 to depict the historical temperatures in the city of Oxford from 1815 to 2022. We will use points do identify the temperature over the years. Although we usually use line plots to represent time series, some researchers claim that the lines do not represent observed data. Actually lines only connect the dots. Therefore, in this lesson, you will learn to plot time series both with dots and with lines.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> The author of "Fundamentals of Data Visualization", Claus O. Wilke, clarifies the use of dots and lines to plot time series. To read more about it, see
+        
+        <a href="https://clauswilke.com/dataviz/time-series.html" target="_blank"> the book here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">ggplot()</code> function will contain two arguments. The first is the data and the second is <em>aes()</em> (aesthetics), which maps the position on the x axis to the variable <em>DATE</em>, the position on the y axis to <em>TAVG</em> and color to <em>TAVG</em>, meaning the color of the geom objects will depend on average annual temperature. After the mapping, we add the first layer of our plot with <code class="language-plaintext highlighter-rouge">geom_point()</code>. The points represent the observations in the dataset with x and y position as well as color defined by the mapping we set. Two additional layers set x and y axis names.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_02.png" alt="ggplot dot plot with default theme" /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-setting-colors-with-scale_color_gradient">5. Setting colors with scale_color_gradient</h2>
+
+<p>One improvement could be representing lower temperatures with blue colors and higher temperatures with red. Moreover this default behavior is not intuitive, since darker colors are usually associated with larger quantities and not otherwise. Note that <em>TAVG</em> is a numeric variable and when we map it to color, ggplot uses a gradient to color the geom object. Adding the <code class="language-plaintext highlighter-rouge">scale_color_gradient()</code> layer allows us to define the color associated with low and high values. Moreover, it allows us to choose the name of the scale:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_03.png" alt="ggplot dot plot with customized colors" /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-create-your-own-ggplot2-theme">6. Create your own ggplot2 theme</h2>
+
+<p>The plot above got a little better, but how to customize it further? There are several R packages providing ggplot2 themes, but if we would like a theme that matches the theme of this page, for example, what could we do? An option is to create our own theme with the <code class="language-plaintext highlighter-rouge">theme()</code> layer. <code class="language-plaintext highlighter-rouge">theme()</code> offers several arguments to create your style. In the figure bellow you can see the arguments necessary to change the background and text color of the elements in our plot. Moreover, there are arguments to eliminate grids.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_04.png" alt="ggplot theme arguments" /></p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> To know more <i>theme()</i> arguments available, check
+        
+        <a href="https://ggplot2.tidyverse.org/reference/theme.html" target="_blank"> the ggplot2 reference page.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>A theme can be created by a customized function which executes the ggplot <code class="language-plaintext highlighter-rouge">theme()</code>. In the code bellow you can see that the theme is built starting from the black and white ggplot2 theme.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
+        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Eliminates grids:</span><span class="w">
+        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
+        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Let us now try our theme:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-6">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_05.png" alt="ggplot customized theme " /></p>
+
+<p><br /></p>
+
+<p>The plot fits the page and highlight the data a lot better now. You could still increase the size of your point geom objects to highlight them. When you do not want to map a certain aesthetic to a variable, you can declare it outside of the <code class="language-plaintext highlighter-rouge">aes()</code> argument. Bellow, two changes are made in the point geom objects. First, <code class="language-plaintext highlighter-rouge">alpha</code> adds transparency. Second, <code class="language-plaintext highlighter-rouge">size</code> increases the size of all the points (without mapping).</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-7')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-7">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_06.png" alt="ggplot customized theme with changes in size and alpha " /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="7-adding-a-second-layer-containing-ggplot-line">7. Adding a second layer containing ggplot line</h2>
+
+<p>Now we will make use of the flexibility of the grammar of graphics to add an additional layer to our plot. This time we will add a geom line object:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-8')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-3-8">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_line</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_03_07.png" alt="ggplot customized theme with and a second geom layer " /></p>
+
+<p><br /></p>
+
+<p>It is clear that average temperatures are increasing year by year!</p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>Ggplot2 creates effective statistical graphics making use of layers to produce flexible and original visualizations;</li>
+  <li>Follow two basic steps to plot in ggplot2:
+    <ul>
+      <li>map your variables to the desired aesthetics (visual aspect of a geom object);</li>
+      <li>create the layers containing the geom objects;</li>
+    </ul>
+  </li>
+  <li>Use <code class="language-plaintext highlighter-rouge">theme()</code> to create your own customized theme;</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="visualization" /><category term="ggplot2" /><summary type="html"><![CDATA[Code effective visualizations using ggplot2 dotplot.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_03.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_03.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Where To Find And How To Load Historical Data</title><link href="http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html" rel="alternate" type="text/html" title="Where To Find And How To Load Historical Data" /><published>2023-01-10T00:00:00-03:00</published><updated>2023-01-10T00:00:00-03:00</updated><id>http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data</id><content type="html" xml:base="http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><strong>‘Information is not knowledge’</strong>
+<br />
+Albert Einstein</p>
+
+<p><br /></p>
+
+<p>With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data and how to load datasets in Python and R.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-sources">Data Sources</h1>
+
+<p><br /></p>
+
+<h2 id="1-harvard-business-school">1. <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a></h2>
+
+<p>The Harvard Business School developed the project ‘Historical Data Visualization’ to foster the understanding of global capitalism throughout time. The page offers more than 40 datasets about a broad range of topics. For instance, you can find data on life expectancy, literacy rates or economic activity in several countries during the 19th and 20th century. Datasets are mostly in Excel format. Definitely worth a visit!</p>
+
+<p><br /></p>
+
+<h2 id="2-human-mortality-database">2. <a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a></h2>
+
+<p>Human Mortality Database (HMD) provides death rates and life expectancy for several countries over the last two centuries. Even though the platform requires a quick registration to give you access to the data, it is very complete and straightforward to understand. Datasets are in tab-delimited text (ASCII) files.</p>
+
+<p><br /></p>
+
+<h2 id="3-national-centers-for-environmental-information">3. <a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a></h2>
+
+<p>Would you like to study how climate has changed over the last centuries? Then this is an invaluable source for you! The National Centers for Environmental Information is the leading authority for environmental data in the USA and provides high quality data about climate, ecosystems and water resources. Data files can be downloaded in comma separated values format.</p>
+
+<p><br /></p>
+
+<h2 id="4-clarin-historical-corpora">4. <a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a></h2>
+
+<p>If you wish to work with text data, this is a valuable source of material. It offers access to ancient and medieval greek texts, the manifests wrote during the American Revolution, court proceedings in England in the 18th century and many other instigating materials. Files are usually provided in .txt format. The requirements to access files varies according to each case, since data comes from different institutions.</p>
+
+<p><br /></p>
+
+<h2 id="5-slave-voyages">5. <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a></h2>
+
+<p>This impressive platform, supported by the Hutchins Center of Harvard University, gathers data regarding the forced relocations of more than 12 million African people between the 16th and 19th century. Files are provided in SPSS or comma separated values format.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-how-to-load-data-in-python">Coding the past: how to load data in Python</h1>
+
+<h2 id="1-pandas-read_csv">1. Pandas <em>read_csv()</em></h2>
+<p>In this section, you will learn to load data into Python. You will be using <a href="https://www.slavevoyages.org/voyage/downloads#the-trans-atlantic-slave-trade-database/1/en/" target="_blank">data</a> provided by the <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a> website. The dataset contains data regarding 36,108 transatlantic slave trade voyages. <a href="https://www.slavevoyages.org/voyage/about#variable-list/2/en/" target="_blank">Learn more about the variables here</a>.</p>
+
+<p><br /></p>
+
+<p>To load our data in Python, we will use <a href="https://pandas.pydata.org/docs/index.html" target="_blank">Pandas</a>, a Python library that provides data structures and analysis tools. The Pandas method <code class="language-plaintext highlighter-rouge">read_csv()</code> is the ideal option to load comma separated values into a dataframe. A dataframe is one of the data structures provided by Pandas and it consists of a table with columns (variables) and rows (observations). Bellow, we use the default configuration of <code class="language-plaintext highlighter-rouge">read_csv()</code> to load our data. Note that the only parameter passed to the method is the file path where you saved the dataset.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"/content/drive/MyDrive/historical_data/tastdb-exp-2019.csv"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-getting-pandas-dataframe-info">2. Getting pandas dataframe info</h2>
+
+<p>A dataframe object is now created. It has several attributes or characteristics. For example, we can check its dimensions with <code class="language-plaintext highlighter-rouge">shape</code> and its column names with <code class="language-plaintext highlighter-rouge">columns</code>. Note that column names are the names of our variables. Moreover, you can also call methods, which, in general, carry out an operation to analyze the data contained in the dataframe. For example, the method <code class="language-plaintext highlighter-rouge">describe()</code> calculates summary statistics of each variable and <code class="language-plaintext highlighter-rouge">head()</code> filters and displays only the first n observations of your data. Check all <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" target="_blank">Pandas <em>DataFrame</em> attributes and methods here</a>.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_02_01.png" alt="Pandas DataFrame Object " /></p>
+
+<p><br /></p>
+
+<p>Use the following code to check the dimensions and variable names of the dataset:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="s">"Dimensions: "</span><span class="p">,</span> <span class="n">df</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> 
+      <span class="s">"Variable names: "</span><span class="p">,</span> <span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The attributes show that there are 276 variables and 36,108 observations in this dataset. Let us suppose you are only interested in the number of slaves disembarked (<em>slamimp</em>) in America per year (<em>yearam</em>). You could load only these two variables using the <code class="language-plaintext highlighter-rouge">read_csv()</code> parameter <code class="language-plaintext highlighter-rouge">usecols</code>. This parameter receives a list with variable names you wish to load. In larger datasets this parameter is very handy because you do not want to load variables not relevant to your study.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"/content/drive/MyDrive/historical_data/tastdb-exp-2019.csv"</span><span class="p">,</span>
+                 <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s">'YEARAM'</span><span class="p">,</span> <span class="s">'SLAMIMP'</span><span class="p">])</span>
+
+<span class="n">df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>SLAMIMP</th>
+      <th>YEARAM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>290.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>223.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>350.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>342.0</td>
+      <td>1817</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>516.0</td>
+      <td>1817</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p>Now the dataframe is loaded only with the two specified variables. As said, Pandas dataframes offer tools to analyze the data, using <em>DataFrame</em> methods. Above, we use the method <code class="language-plaintext highlighter-rouge">head()</code> to display the five first observation in our dataframe. You can set how many observations <code class="language-plaintext highlighter-rouge">head()</code> should return through the <code class="language-plaintext highlighter-rouge">n</code> parameter (default is 5).</p>
+
+<p><br /></p>
+
+<p>Moreover, we can use <code class="language-plaintext highlighter-rouge">describe()</code> to obtain summary statistics of our variables. From the summary statistics we can see that the earliest record is from the year 1514 and the latest one of 1886. Also, the maximum number of slaves traded in one voyage was 1,700.</p>
+
+<p><br /></p>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>SLAMIMP</th>
+      <th>YEARAM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>34182.00</td>
+      <td>36108.00</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>269.24</td>
+      <td>1764.33</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>137.32</td>
+      <td>59.47</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.00</td>
+      <td>1514.00</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>177.00</td>
+      <td>1732.00</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>261.00</td>
+      <td>1773.00</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>350.00</td>
+      <td>1806.00</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1700.00</td>
+      <td>1866.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-how-to-import-a-dataset-in-r">Coding the past: how to import a dataset in R</h1>
+
+<p>In R there are several functions that load comma separated files. I chose <code class="language-plaintext highlighter-rouge">fread</code> from the <code class="language-plaintext highlighter-rouge">data.table</code> library, because it offers a straightforward parameter to select the variables you wish to load (<code class="language-plaintext highlighter-rouge">select</code>). <code class="language-plaintext highlighter-rouge">fread</code> creates a data frame, similar to a pandas dataframe.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"tastdb-exp-2019.csv"</span><span class="p">,</span><span class="w"> 
+            </span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"YEARAM"</span><span class="p">,</span><span class="s2">"SLAMIMP"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>To get summary statistics about your variables you can use the function <code class="language-plaintext highlighter-rouge">summary(df)</code>. To view the n first observations of your dataframe, use <code class="language-plaintext highlighter-rouge">head(df,n)</code> as shown bellow. <code class="language-plaintext highlighter-rouge">Summary</code> and <code class="language-plaintext highlighter-rouge">head</code> produce very similar results to <code class="language-plaintext highlighter-rouge">describe</code> and <code class="language-plaintext highlighter-rouge">head</code> in Python.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-2-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">head</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="m">10</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br />
+More posts on how to find reliable data will be published soon!
+<br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>These websites offer high quality historical data:
+    <ul>
+      <li><a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a></li>
+      <li><a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a></li>
+      <li><a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a></li>
+      <li><a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a></li>
+      <li><a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a></li>
+    </ul>
+  </li>
+  <li>You can load comma separated values in Python with the pandas method <code class="language-plaintext highlighter-rouge">.read_csv()</code>;</li>
+  <li>You can load comma separated values in R with the function <code class="language-plaintext highlighter-rouge">fread()</code> from the library <code class="language-plaintext highlighter-rouge">data.table</code>;</li>
+</ul>
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="python" /><category term="data" /><category term="read_csv" /><summary type="html"><![CDATA[Use R and Python to load csv historical data.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_02.png" /><media:content medium="image" url="http://localhost:4000/lesson_02.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

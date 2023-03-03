@@ -6,6 +6,7 @@ attributes:
   - e: Medium
   - e: R
   - e: 20 min
+tags: r visualization ggplot2
 image: lesson_03.jpeg
 social_media_img: /assets/images/lesson_03_06.png
 toc: true
