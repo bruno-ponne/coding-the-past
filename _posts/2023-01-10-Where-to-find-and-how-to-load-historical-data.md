@@ -15,6 +15,7 @@ objectives:
   - o: Be able to load data in R and Python;
 keywords: social data science, python and r, historical data, pandas dataframe, read csv in R
 description: Use R and Python to load csv historical data.
+last_modified_at: 05-Mar-23
 ---
 
 <br>

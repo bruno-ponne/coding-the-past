@@ -16,6 +16,7 @@ objectives:
   - o: Learn how to identify and highlight important components in your graph.
 keywords: beautiful visualizations, matplotlib line plot, matplotlib legend, matplotlib axes
 description: Use Matplotlib to code beautiful visualizations
+last_modified_at: 05-Mar-23
 ---
 
 <br>

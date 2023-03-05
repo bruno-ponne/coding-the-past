@@ -17,6 +17,7 @@ objectives:
   - o: Learn how to code ggplot dot and line plots
 keywords: effective data visualization, graphical data analysis with r, using ggplot in r, ggplot2 dotplot
 description: Code effective visualizations using ggplot2 dotplot.
+last_modified_at: 05-Mar-23
 ---
 
 <br>

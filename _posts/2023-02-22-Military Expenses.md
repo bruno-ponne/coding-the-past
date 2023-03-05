@@ -15,6 +15,7 @@ objectives:
   - o: Be able to choose a different color palette with RColorBrewer;
 keywords: r color palette, rcolorbrewer, scale_color_brewer, ggplot, how to use pivot_longer
 description: Use scale_color_brewer to choose different color palettes
+last_modified_at: 05-Mar-23
 ---
 
 <br>

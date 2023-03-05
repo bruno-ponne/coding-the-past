@@ -16,6 +16,7 @@ objectives:
   - o: Learn how to interpret linear regression results.
 keywords: historical weather data, using lm in r, inner_join in R, Plotting correlation in r
 description: lesson about Linear Regression in R
+last_modified_at: 05-Mar-23
 ---
 
 <br>
