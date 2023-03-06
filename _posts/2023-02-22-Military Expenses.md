@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: post
 author: Bruno Ponne
 title:  Changing ggplot colors with scale_color_brewer
 attributes:

@@ -1,48 +1,151 @@
-<p><br /></p>
+<!DOCTYPE html>
+<html lang="en">
 
-<h1 id="introduction">Introduction</h1>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K2DKTESR2N');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="historical weather data, using lm in r, inner_join in R, Plotting correlation in r">
+    <meta name="description" content="lesson about Linear Regression in R">
+    <meta property= og:image content= />
+    <title>R programming for climate data analysis and visualization</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google Font: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <!-- Google icon: -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Canonical Domain -->
+    <link rel="canonical" href="http://localhost:4000/2023/02/07/Linear-Models-in-R.html">
+</head>
+
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body">
+            <div class="post-body">
+    <h1 id = "post-main-title">R programming for climate data analysis and visualization</h1>
+    <p id = "author">Bruno Ponne &#9679 07 Feb 2023</p>
+    <hr>
+    <ul class = "meta-info">
+        
+        <li>Advanced</li>
+        
+        <li>R</li>
+        
+        <li>30 min</li>
+        
+    </ul>
+    <br>
+    <h1>What you will learn</h1>
+    <ul>
+        
+        <li class = "objectives"> Learn what is linear regression and the intuition behind it;</li>
+        
+        <li class = "objectives"> Be able to fit a model with the R lm() function using real world data;</li>
+        
+        <li class = "objectives"> Learn how to interpret linear regression results.</li>
+        
+    </ul>
+    <br>
+    <h1>Table of Contents</h1>
+
+
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#data-source">Data Source</a></li>
+<li class="toc-entry toc-h1"><a href="#coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</a></li>
+<li class="toc-entry toc-h2"><a href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R cortest</a></li>
+<li class="toc-entry toc-h2"><a href="#3-plotting-correlation-in-r">3. Plotting correlation in r</a></li>
+<li class="toc-entry toc-h2"><a href="#4-implementing-linear-models-with-r">4. Implementing linear models with R</a></li>
+<li class="toc-entry toc-h2"><a href="#5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
+</ul><p><br></p>
+
+<h1 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p><strong>‘Intuition is a very powerful thing, more powerful than intellect’</strong></p>
 
 <p>Steve Jobs</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Linear regression is one of the most popular tools in social data science. It has been used over the last decades to study how variables relate to each other. In this lesson, you will learn the intuition behind linear regression and how to use it in R.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h1 id="data-source">Data Source</h1>
+<h1 id="data-source">
+<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Source</h1>
 
 <p>Data for this lesson comes from two different sources: data of historical temperature in the city of Oxford comes from the <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/UK000056225.csv" target="_blank">National Centers for Environmental Information</a> and historical data regarding total carbon emissions comes from the US <a href="https://cdiac.ess-dive.lbl.gov/ftp/ndp030/CSV-FILES/global.1751_2014.csv" target="_blank">Carbon Dioxide Information Analysis Center</a>. Temperatures are given in degree Celsius and carbon emissions in million metric tons of C.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h1 id="coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</h1>
+<h1 id="coding-the-past-linear-regression-in-r">
+<a class="anchor" href="#coding-the-past-linear-regression-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the Past: Linear Regression in R</h1>
 
-<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</h2>
+<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">
+<a class="anchor" href="#1-preparing-the-data-and-performing-an-inner_join-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Preparing the data and performing an inner_join in R</h2>
 
 <p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Second, the carbon emissions data will be loaded. We will only load the year and the value regarding the total carbon emissions from fossil fuel consumption and cement production (in million metric tons of C).</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Data will be loaded with <code class="language-plaintext highlighter-rouge">read.csv</code>. The selection of rows and columns is made by index using the following syntax: <em>df[rows to include, columns to include]</em>. In the code bellow we chose to keep all rows except for the first, because it contains the source of the data. Additionally, only columns 1 and 2 are kept. Column names are changed to be the same as in the temperatures dataframe. Since both variables were loaded as factors, we convert them first to characters and then to integers. Note that converting a factor directly to integer would distort the values.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-1')">
   content_copy
@@ -63,17 +166,17 @@
 
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>The last step of data preparation is to join the two dataframes. Since they cover different periods, R dplyr <code class="language-plaintext highlighter-rouge">inner_join()</code> will be used to keep only observations contained in both dataframes. See how <code class="language-plaintext highlighter-rouge">inner_join()</code> works in the figure below:</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><img src="/assets/images/lesson_04_01.png" alt="dplyr inner_join" /></p>
+<p><img src="/assets/images/lesson_04_01.png" alt="dplyr inner_join"></p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-2')">
   content_copy
@@ -86,25 +189,27 @@
 
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>If you prefer to skip this step, download the prepared data <a href="http://localhost:4000/assets/data/gw.RData">here</a> (<em>.RData</em> format)</p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h2 id="2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></h2>
+<h2 id="2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">
+<a class="anchor" href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Correlation between carbon emissions and temperatures with R <em>cortest</em>
+</h2>
 
 <p><a href="https://www.bbc.co.uk/bitesize/guides/zc7sb82/revision/5" target="_blank">Correlation</a> measures how much two variables change together. In our case, we would like to know if increases in carbon emissions are associated with increases in temperature. One method to assess linear correlation is the Pearson correlation. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>In R, we can use the function <code class="language-plaintext highlighter-rouge">cor.test()</code> to estimate correlation with the argument <code class="language-plaintext highlighter-rouge">method</code> set to “pearson”. This function returns the correlation and a p-value. The p-value tells us if we can reject the hypothesis that the correlation between carbon emissions and temperature is zero.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-3')">
   content_copy
@@ -117,17 +222,17 @@
 
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>If you run the code above, you will see that there is a moderate linear correlation of <strong>0.57</strong> between temperature and carbon emissions in our sample. This means that when emissions increase, so does temperature. Moreover, this value is statistically different from zero, since the p-value is a lot lower than 0.05 (with a 95% confidence interval). So, there is a correlation between the two variables!</p>
 
-<p><br /></p>
+<p><br></p>
 
 <div class="text-note">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">&nbsp; </span> 
+    <span class="text-note-title">  </span> 
     <div class="text-note-content"> The <b>p-value</b>, in the context of this example, is the probability that we would find a correlation estimate of at least 0.57 under the hypothesis that there is no correlation between temperatures and carbon emissions (null hypothesis). If this probability is very low, then the null hypothesis is not likely to be true, because it is not compatible with data we observed in reality. In this case we reject the null and accept the hypothesis that the correlation is not zero. Confusing? Try reading a little more about it 
         
         <a href="https://online.stat.psu.edu/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach" target="_blank"> here.</a>
@@ -135,19 +240,20 @@
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h2 id="3-plotting-correlation-in-r">3. Plotting correlation in r</h2>
+<h2 id="3-plotting-correlation-in-r">
+<a class="anchor" href="#3-plotting-correlation-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Plotting correlation in r</h2>
 
 <p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-4')">
   content_copy
@@ -190,51 +296,52 @@
 
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<p><img src="/assets/images/lesson_04_02.png" alt="scatterplot of temperatures versus carbon emissions" /></p>
+<p><img src="/assets/images/lesson_04_02.png" alt="scatterplot of temperatures versus carbon emissions"></p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h2 id="4-implementing-linear-models-with-r">4. Implementing linear models with R</h2>
+<h2 id="4-implementing-linear-models-with-r">
+<a class="anchor" href="#4-implementing-linear-models-with-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Implementing linear models with R</h2>
 
 <p>Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>One quick question before we proceed: What is the simplest “model” for describing the temperature in Oxford throughout the last centuries if we did not have any other variable than the temperature itself?</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>It could be the average of the temperature over the period, right? At any point in time, this simple “model” would predict a 9.9 ºC temperature:</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><img src="/assets/images/lesson_04_03.png" alt="scatterplot of temperatures versus carbon emissions with temperatures average line" /></p>
+<p><img src="/assets/images/lesson_04_03.png" alt="scatterplot of temperatures versus carbon emissions with temperatures average line"></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Now imagine that we have access to a second variable, the total carbon emissions, and we know it has a correlation with temperatures. Wouldn’t this variable add information to better predict temperature? Yes!</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Linear regression is a method to relate these two variables through a straight line (a linear function) that might fit the data a lot better than the mean (if they are sufficiently associated). In the figure above, imagine that you could rotate this line to better fit the data: this is what the regression line does! (see plot in step 5)</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>A regression line is described by the equation <strong>Y = a + bX</strong>  where a and b are found by an <a href="https://en.wikipedia.org/wiki/Least_squares">algorithm</a> so that the line best fits the data.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Thankfully, you do not need to worry how to compute a and b. R does it for you with the <code class="language-plaintext highlighter-rouge">lm()</code> function, where you specify your dataframe, and the formula of the relationship you want to study. A formula has the following syntax: <em>independent variable ~ dependent variable</em>. To model temperature as a function of carbon emissions, use the following code:</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-5')">
   content_copy
@@ -250,7 +357,7 @@
 
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <table class="dataframe">
  <thead>
@@ -280,32 +387,33 @@
 </tbody>
 </table>
 
-<p><br /></p>
+<p><br></p>
 
 <p>In this table you see the coefficients a (intercept) and b (coefficient of TOT_EMISSIONS) calculated by R. They form the regression line TAVG = 9.57 + 0.00016*TOT_EMISSIONS. The interpretation of them is as follows:</p>
 
-<p><br /></p>
+<p><br></p>
 
 <ul class="conclusion-list">
   <li>a or the intercept is the value of y when x is zero. In our case a is the value of the temperature when the emissions are zero. You have to evaluate if x = 0 makes sense for your analysis.</li>
   <li>b is how much, on average, y increases when x increases by 1 unit. In our example, when total emissions increase by 1 million metric tons of carbon, then the temperature increases by 0.00016 ºC. It does not seem a lot at a first glance, but if you consider that from 1950 to 2022 emissions increased by 8,225 million metric tons of carbon, this would translate, in our model, to an increase of 1.3ºC!</li>
 </ul>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Note that p-values are zero (very close to zero), providing evidence that a and b are statistically significant.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h2 id="5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</h2>
+<h2 id="5-plotting-the-regression-line-with-geom_smooth">
+<a class="anchor" href="#5-plotting-the-regression-line-with-geom_smooth" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Plotting the regression line with geom_smooth</h2>
 
 <p>To draw the regression line, use geom_smooth() with the argument <code class="language-plaintext highlighter-rouge">method</code> set to ‘lm’ (linear model). The argument <code class="language-plaintext highlighter-rouge">se</code> specifies if you would like to plot the error associated with the regression estimate across the line.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-6')">
   content_copy
@@ -325,16 +433,16 @@
 
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<p><img src="/assets/images/lesson_04_04.png" alt="regression line plot" /></p>
+<p><img src="/assets/images/lesson_04_04.png" alt="regression line plot"></p>
 
-<p><br /></p>
+<p><br></p>
 <div class="text-note">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">&nbsp; </span> 
+    <span class="text-note-title">  </span> 
     <div class="text-note-content"> In the example studied we know that carbon emissions are <b>causing</b> global warming, because scientists have extensively studied this topic with multiple models and approaches. However, only correlation or linear relation identified with a regression model does not imply causation! Read more
         
         <a href="https://sitn.hms.harvard.edu/flash/2021/when-correlation-does-not-imply-causation-why-your-gut-microbes-may-not-yet-be-a-silver-bullet-to-all-your-problems/" target="_blank"> about this topic.</a>
@@ -342,15 +450,16 @@
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
 
-<p><br /></p>
+<p><br></p>
 
-<h1 id="conclusions">Conclusions</h1>
+<h1 id="conclusions">
+<a class="anchor" href="#conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h1>
 
 <ul class="conclusion-list">
   <li>An inner join can be used to join two dataframes when you only want to keep observations contained in both dataframes;</li>
@@ -358,6 +467,123 @@
   <li>A linear regression model relates one dependent variable to an independent or explanatory variable. It provides you with an estimate of how much the dependent variable vary when the independent variable changes by one unit. Regression can be computed in R with lm();</li>
 </ul>
 
-<p><br /></p>
+<p><br></p>
 
-<hr />
+<hr>
+
+    
+
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/02/07/Linear-Models-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/02/07/Linear-Models-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/02/07/Linear-Models-in-R.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_04.jpeg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/02/07/Linear-Models-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script
+            type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            <h2><b>Additional resources</b></h2>
+            <a href="https://www.r-bloggers.com/">R Bloggers</a>
+        </div>
+        <div>
+            Coding the Past © 2023 Copyright
+        </div>
+    </div>
+</footer>
+    </div>
+</body>
+<script src="/assets/js/copycode.js"></script>
+<script src="/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"></script>
+
+</html>
