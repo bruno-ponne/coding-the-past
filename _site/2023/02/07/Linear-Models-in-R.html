@@ -84,68 +84,53 @@
     <h1>Table of Contents</h1>
 
 
-    <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
-<li class="toc-entry toc-h1"><a href="#data-source">Data Source</a></li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</a></li>
-<li class="toc-entry toc-h2"><a href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R cortest</a></li>
-<li class="toc-entry toc-h2"><a href="#3-plotting-correlation-in-r">3. Plotting correlation in r</a></li>
-<li class="toc-entry toc-h2"><a href="#4-implementing-linear-models-with-r">4. Implementing linear models with R</a></li>
-<li class="toc-entry toc-h2"><a href="#5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
-</ul><p><br></p>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data Source</a></li><li><a href="#coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</a><ul><li><a href="#1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</a></li><li><a href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></a></li><li><a href="#3-plotting-correlation-in-r">3. Plotting correlation in r</a></li><li><a href="#4-implementing-linear-models-with-r">4. Implementing linear models with R</a></li><li><a href="#5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
-<h1 id="introduction">
-<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+    <p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
 
 <p><strong>‘Intuition is a very powerful thing, more powerful than intellect’</strong></p>
 
 <p>Steve Jobs</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Linear regression is one of the most popular tools in social data science. It has been used over the last decades to study how variables relate to each other. In this lesson, you will learn the intuition behind linear regression and how to use it in R.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="data-source">
-<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Source</h1>
+<h1 id="data-source">Data Source</h1>
 
 <p>Data for this lesson comes from two different sources: data of historical temperature in the city of Oxford comes from the <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/UK000056225.csv" target="_blank">National Centers for Environmental Information</a> and historical data regarding total carbon emissions comes from the US <a href="https://cdiac.ess-dive.lbl.gov/ftp/ndp030/CSV-FILES/global.1751_2014.csv" target="_blank">Carbon Dioxide Information Analysis Center</a>. Temperatures are given in degree Celsius and carbon emissions in million metric tons of C.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="coding-the-past-linear-regression-in-r">
-<a class="anchor" href="#coding-the-past-linear-regression-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the Past: Linear Regression in R</h1>
+<h1 id="coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</h1>
 
-<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">
-<a class="anchor" href="#1-preparing-the-data-and-performing-an-inner_join-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Preparing the data and performing an inner_join in R</h2>
+<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</h2>
 
 <p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Second, the carbon emissions data will be loaded. We will only load the year and the value regarding the total carbon emissions from fossil fuel consumption and cement production (in million metric tons of C).</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Data will be loaded with <code class="language-plaintext highlighter-rouge">read.csv</code>. The selection of rows and columns is made by index using the following syntax: <em>df[rows to include, columns to include]</em>. In the code bellow we chose to keep all rows except for the first, because it contains the source of the data. Additionally, only columns 1 and 2 are kept. Column names are changed to be the same as in the temperatures dataframe. Since both variables were loaded as factors, we convert them first to characters and then to integers. Note that converting a factor directly to integer would distort the values.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-1')">
   content_copy
@@ -166,17 +151,17 @@
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>The last step of data preparation is to join the two dataframes. Since they cover different periods, R dplyr <code class="language-plaintext highlighter-rouge">inner_join()</code> will be used to keep only observations contained in both dataframes. See how <code class="language-plaintext highlighter-rouge">inner_join()</code> works in the figure below:</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_04_01.png" alt="dplyr inner_join"></p>
+<p><img src="/assets/images/lesson_04_01.png" alt="dplyr inner_join" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-2')">
   content_copy
@@ -189,27 +174,25 @@
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>If you prefer to skip this step, download the prepared data <a href="http://localhost:4000/assets/data/gw.RData">here</a> (<em>.RData</em> format)</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">
-<a class="anchor" href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Correlation between carbon emissions and temperatures with R <em>cortest</em>
-</h2>
+<h2 id="2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></h2>
 
 <p><a href="https://www.bbc.co.uk/bitesize/guides/zc7sb82/revision/5" target="_blank">Correlation</a> measures how much two variables change together. In our case, we would like to know if increases in carbon emissions are associated with increases in temperature. One method to assess linear correlation is the Pearson correlation. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>In R, we can use the function <code class="language-plaintext highlighter-rouge">cor.test()</code> to estimate correlation with the argument <code class="language-plaintext highlighter-rouge">method</code> set to “pearson”. This function returns the correlation and a p-value. The p-value tells us if we can reject the hypothesis that the correlation between carbon emissions and temperature is zero.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-3')">
   content_copy
@@ -222,17 +205,17 @@
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>If you run the code above, you will see that there is a moderate linear correlation of <strong>0.57</strong> between temperature and carbon emissions in our sample. This means that when emissions increase, so does temperature. Moreover, this value is statistically different from zero, since the p-value is a lot lower than 0.05 (with a 95% confidence interval). So, there is a correlation between the two variables!</p>
 
-<p><br></p>
+<p><br /></p>
 
 <div class="text-note">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">  </span> 
+    <span class="text-note-title">&nbsp; </span> 
     <div class="text-note-content"> The <b>p-value</b>, in the context of this example, is the probability that we would find a correlation estimate of at least 0.57 under the hypothesis that there is no correlation between temperatures and carbon emissions (null hypothesis). If this probability is very low, then the null hypothesis is not likely to be true, because it is not compatible with data we observed in reality. In this case we reject the null and accept the hypothesis that the correlation is not zero. Confusing? Try reading a little more about it 
         
         <a href="https://online.stat.psu.edu/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach" target="_blank"> here.</a>
@@ -240,20 +223,19 @@
     </div>
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="3-plotting-correlation-in-r">
-<a class="anchor" href="#3-plotting-correlation-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Plotting correlation in r</h2>
+<h2 id="3-plotting-correlation-in-r">3. Plotting correlation in r</h2>
 
 <p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-4')">
   content_copy
@@ -296,52 +278,51 @@
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_04_02.png" alt="scatterplot of temperatures versus carbon emissions"></p>
+<p><img src="/assets/images/lesson_04_02.png" alt="scatterplot of temperatures versus carbon emissions" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="4-implementing-linear-models-with-r">
-<a class="anchor" href="#4-implementing-linear-models-with-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Implementing linear models with R</h2>
+<h2 id="4-implementing-linear-models-with-r">4. Implementing linear models with R</h2>
 
 <p>Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>One quick question before we proceed: What is the simplest “model” for describing the temperature in Oxford throughout the last centuries if we did not have any other variable than the temperature itself?</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>It could be the average of the temperature over the period, right? At any point in time, this simple “model” would predict a 9.9 ºC temperature:</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_04_03.png" alt="scatterplot of temperatures versus carbon emissions with temperatures average line"></p>
+<p><img src="/assets/images/lesson_04_03.png" alt="scatterplot of temperatures versus carbon emissions with temperatures average line" /></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Now imagine that we have access to a second variable, the total carbon emissions, and we know it has a correlation with temperatures. Wouldn’t this variable add information to better predict temperature? Yes!</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Linear regression is a method to relate these two variables through a straight line (a linear function) that might fit the data a lot better than the mean (if they are sufficiently associated). In the figure above, imagine that you could rotate this line to better fit the data: this is what the regression line does! (see plot in step 5)</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>A regression line is described by the equation <strong>Y = a + bX</strong>  where a and b are found by an <a href="https://en.wikipedia.org/wiki/Least_squares">algorithm</a> so that the line best fits the data.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Thankfully, you do not need to worry how to compute a and b. R does it for you with the <code class="language-plaintext highlighter-rouge">lm()</code> function, where you specify your dataframe, and the formula of the relationship you want to study. A formula has the following syntax: <em>independent variable ~ dependent variable</em>. To model temperature as a function of carbon emissions, use the following code:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-5')">
   content_copy
@@ -357,7 +338,7 @@
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <table class="dataframe">
  <thead>
@@ -387,33 +368,32 @@
 </tbody>
 </table>
 
-<p><br></p>
+<p><br /></p>
 
 <p>In this table you see the coefficients a (intercept) and b (coefficient of TOT_EMISSIONS) calculated by R. They form the regression line TAVG = 9.57 + 0.00016*TOT_EMISSIONS. The interpretation of them is as follows:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <ul class="conclusion-list">
   <li>a or the intercept is the value of y when x is zero. In our case a is the value of the temperature when the emissions are zero. You have to evaluate if x = 0 makes sense for your analysis.</li>
   <li>b is how much, on average, y increases when x increases by 1 unit. In our example, when total emissions increase by 1 million metric tons of carbon, then the temperature increases by 0.00016 ºC. It does not seem a lot at a first glance, but if you consider that from 1950 to 2022 emissions increased by 8,225 million metric tons of carbon, this would translate, in our model, to an increase of 1.3ºC!</li>
 </ul>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Note that p-values are zero (very close to zero), providing evidence that a and b are statistically significant.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="5-plotting-the-regression-line-with-geom_smooth">
-<a class="anchor" href="#5-plotting-the-regression-line-with-geom_smooth" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Plotting the regression line with geom_smooth</h2>
+<h2 id="5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</h2>
 
 <p>To draw the regression line, use geom_smooth() with the argument <code class="language-plaintext highlighter-rouge">method</code> set to ‘lm’ (linear model). The argument <code class="language-plaintext highlighter-rouge">se</code> specifies if you would like to plot the error associated with the regression estimate across the line.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-6')">
   content_copy
@@ -433,16 +413,16 @@
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_04_04.png" alt="regression line plot"></p>
+<p><img src="/assets/images/lesson_04_04.png" alt="regression line plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 <div class="text-note">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">  </span> 
+    <span class="text-note-title">&nbsp; </span> 
     <div class="text-note-content"> In the example studied we know that carbon emissions are <b>causing</b> global warming, because scientists have extensively studied this topic with multiple models and approaches. However, only correlation or linear relation identified with a regression model does not imply causation! Read more
         
         <a href="https://sitn.hms.harvard.edu/flash/2021/when-correlation-does-not-imply-causation-why-your-gut-microbes-may-not-yet-be-a-silver-bullet-to-all-your-problems/" target="_blank"> about this topic.</a>
@@ -450,16 +430,15 @@
     </div>
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="conclusions">
-<a class="anchor" href="#conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h1>
+<h1 id="conclusions">Conclusions</h1>
 
 <ul class="conclusion-list">
   <li>An inner join can be used to join two dataframes when you only want to keep observations contained in both dataframes;</li>
@@ -467,9 +446,9 @@
   <li>A linear regression model relates one dependent variable to an independent or explanatory variable. It provides you with an estimate of how much the dependent variable vary when the independent variable changes by one unit. Regression can be computed in R with lm();</li>
 </ul>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
     
 

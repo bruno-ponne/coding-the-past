@@ -6,7 +6,6 @@ source "https://rubygems.org"
 
 gem "jekyll"
 gem "rouge"
-gem 'jekyll-toc'
 gem 'jekyll-sitemap'
 gem 'jemoji'
 gem 'jekyll-feed'

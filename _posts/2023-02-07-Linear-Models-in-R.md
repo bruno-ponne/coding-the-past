@@ -8,7 +8,6 @@ attributes:
   - e: 30 min
 tags: r regression analysis
 image: lesson_04.jpeg
-toc: true
 abstract: Learn the basics of linear regression models and how to use them to study the relationship between two variables.
 objectives:
   - o: Learn what is linear regression and the intuition behind it;

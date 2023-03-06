@@ -84,46 +84,29 @@
     <h1>Table of Contents</h1>
 
 
-    <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
-<li class="toc-entry toc-h1"><a href="#data-source">Data source</a></li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#1-what-is-matplotlib">1. What is Matplotlib?</a></li>
-<li class="toc-entry toc-h2"><a href="#2-loading-the-data-with-read_csv">2. Loading the data with read_csv</a></li>
-<li class="toc-entry toc-h2"><a href="#2-matplotlib-basic-plot">2. Matplotlib basic plot</a></li>
-<li class="toc-entry toc-h2"><a href="#3-restricting-time-span">3. Restricting time span</a></li>
-<li class="toc-entry toc-h2"><a href="#4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</a></li>
-<li class="toc-entry toc-h2"><a href="#5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</a></li>
-<li class="toc-entry toc-h2"><a href="#6-changing-line-colors">6. Changing line colors</a></li>
-<li class="toc-entry toc-h2"><a href="#7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</a></li>
-<li class="toc-entry toc-h2"><a href="#8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
-</ul><p><br></p>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</a><ul><li><a href="#1-what-is-matplotlib">1. What is Matplotlib?</a></li><li><a href="#2-loading-the-data-with-read_csv">2. Loading the data with read_csv</a></li><li><a href="#2-matplotlib-basic-plot">2. Matplotlib basic plot</a></li><li><a href="#3-restricting-time-span">3. Restricting time span</a></li><li><a href="#4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</a></li><li><a href="#5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</a></li><li><a href="#6-changing-line-colors">6. Changing line colors</a></li><li><a href="#7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</a></li><li><a href="#8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
-<h1 id="introduction">
-<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+    <p><br /></p>
 
-<p><br></p>
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
 
 <p><strong>‘All that is solid melts into the air’</strong></p>
 
 <p>Karl Marx and Friedrich Engels</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>As a historian and social scientist I often find it challenging to customize my Python plots and make them clear and compelling. What is a Python class, object or method? 😲 In this lesson, you will learn what those concepts are and how to use them to create effective graphs with Matplotlib. We will plot and highlight elements in the trend of Gross Domestic Product (GDP) per capita of Germany and the USA during the 1929 crisis. If you would like to know more about this event, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="data-source">
-<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data source</h1>
+<h1 id="data-source">Data source</h1>
 
 <p>Data used in this lesson is available at <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/details?data_id=27" target="_blank">Harvard Business School</a></p>
 
@@ -131,7 +114,7 @@
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">  </span> 
+    <span class="text-note-title">&nbsp; </span> 
     <div class="text-note-content"> GDP is given in 1990 International Geary-Khamis dollars. To learn more about this unit, see this
         
         <a href="https://en.wikipedia.org/wiki/International_dollar" target="_blank"> link.</a>
@@ -139,35 +122,33 @@
     </div>
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="coding-the-past-beautiful-visualizations-with-matplotlib">
-<a class="anchor" href="#coding-the-past-beautiful-visualizations-with-matplotlib" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: beautiful visualizations with Matplotlib</h1>
+<h1 id="coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</h1>
 
-<h2 id="1-what-is-matplotlib">
-<a class="anchor" href="#1-what-is-matplotlib" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. What is Matplotlib?</h2>
+<h2 id="1-what-is-matplotlib">1. What is Matplotlib?</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Before we dive into Matplotlib, we have to understand the concept of class and object. A Python object could be a plot, a string of text or a dataframe, for example. ‘<b>Classes</b> are a sort of blueprint for objects, specifying their properties (attributes) and behaviors (methods). For example, an object of the Matplotlib class <i>Axes</i> will store a plot and will always have an x axis label attribute. The class <i>Axes</i> might give origin to several different objects (plots), all with an x axis label property, but the content of this property is particular to each plot. We say we instantiate an object of a certain class when we create it.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <div class="text-note">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">  </span> 
+    <span class="text-note-title">&nbsp; </span> 
     <div class="text-note-content"> Learn more about classes in this
         
         <a href="https://realpython.com/lessons/classes-python/" target="_blank"> video.</a>
@@ -175,29 +156,28 @@
     </div>
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>There are many ways you can use Matplotlib, but in order to be able to customize your plot, it is recommended to use the Matplotlib <code class="language-plaintext highlighter-rouge">subplots()</code> method. It creates two objects: one object of the class <em>Figure</em>, usually called <em>fig</em> and one object of the class <em>Axes</em>, usually called <em>ax</em>. The former is a sort of container where your plot will be created. The latter is the plot itself. Note that the <em>Axes</em> object is contained in the <em>Figure</em> object. Refer to the <a href="https://matplotlib.org/stable/tutorials/introductory/quick_start.html" target="_blank">Matplotlib documentation</a> for further details.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_01.png" alt="Matplotlib objects"></p>
+<p><img src="/assets/images/lesson_01_01.png" alt="Matplotlib objects" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="2-loading-the-data-with-read_csv">
-<a class="anchor" href="#2-loading-the-data-with-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Loading the data with read_csv</h2>
+<h2 id="2-loading-the-data-with-read_csv">2. Loading the data with read_csv</h2>
 
-<p><br>
+<p><br />
 Download the <a href="http://localhost:4000/assets/data/gdp_prepared.csv">data file here</a>. To read the data, use the pandas method <code class="language-plaintext highlighter-rouge">pd.read_csv()</code>, which takes 3 parameters. The first is the file path. The second is <code class="language-plaintext highlighter-rouge">index_col</code> and it tells pandas which column should be the index of the data frame. Finally, <code class="language-plaintext highlighter-rouge">parse_dates</code> set to True converts the index into date format. In the code below, data is loaded and one dataframe is created for each country with the pandas method <code class="language-plaintext highlighter-rouge">loc</code>.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-1')">
   content_copy
@@ -219,16 +199,15 @@ Download the <a href="http://localhost:4000/assets/data/gdp_prepared.csv">data f
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="2-matplotlib-basic-plot">
-<a class="anchor" href="#2-matplotlib-basic-plot" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Matplotlib basic plot</h2>
+<h2 id="2-matplotlib-basic-plot">2. Matplotlib basic plot</h2>
 
-<p><br>
+<p><br />
 Although in this lesson our fig object will have only one plot, it might have more. Most of the customization will be made through <em>ax</em> methods. To start we will call the ax method <code class="language-plaintext highlighter-rouge">plot()</code> twice to create our plots. Note that <code class="language-plaintext highlighter-rouge">plot()</code>’s first argument contains the dates and is plotted on the x axis while the second, containing the GDP, is plotted on the y axis. Finally, we show the plot.</p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-2')">
@@ -248,26 +227,25 @@ Although in this lesson our fig object will have only one plot, it might have mo
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_02.png" alt="First version of the plot"></p>
+<p><img src="/assets/images/lesson_01_02.png" alt="First version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="3-restricting-time-span">
-<a class="anchor" href="#3-restricting-time-span" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Restricting time span</h2>
+<h2 id="3-restricting-time-span">3. Restricting time span</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>One important aspect to consider when you tell a story with a plot is what you would like to highlight. In this plot, we want to highlight the effect of the 1929 crisis on GDP per capita rather than the effect of the Second or First World War. Thus, let us restrict our time span to the period 1920/1938. Note that when your index is a date you can use pandas <code class="language-plaintext highlighter-rouge">loc</code> to specify a certain period of the data:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-3')">
   content_copy
@@ -286,26 +264,25 @@ Although in this lesson our fig object will have only one plot, it might have mo
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_03.png" alt="Second version of the plot"></p>
+<p><img src="/assets/images/lesson_01_03.png" alt="Second version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="4-adding-a-matplotlib-legend">
-<a class="anchor" href="#4-adding-a-matplotlib-legend" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Adding a Matplotlib legend</h2>
+<h2 id="4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>To add a legend, first you have to label each of the line plots and then call the <code class="language-plaintext highlighter-rouge">legend()</code> method of <em>ax</em>. Quite intuitive, right?</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-4')">
   content_copy
@@ -324,26 +301,25 @@ Although in this lesson our fig object will have only one plot, it might have mo
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_04.png" alt="Third version of the plot"></p>
+<p><img src="/assets/images/lesson_01_04.png" alt="Third version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="5-adding-a-title-and-and-labels-to-matplotlib-axes">
-<a class="anchor" href="#5-adding-a-title-and-and-labels-to-matplotlib-axes" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Adding a title and and labels to matplotlib axes</h2>
+<h2 id="5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>There are three methods of <em>ax</em> to set title and labels. They start with <em>set</em> followed by the title or label they set: <code class="language-plaintext highlighter-rouge">set_xlabel</code>, <code class="language-plaintext highlighter-rouge">set_ylabel</code>, <code class="language-plaintext highlighter-rouge">set_title</code>.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-5')">
   content_copy
@@ -368,25 +344,24 @@ Although in this lesson our fig object will have only one plot, it might have mo
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_05.png" alt="Fourth version of the plot"></p>
+<p><img src="/assets/images/lesson_01_05.png" alt="Fourth version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="6-changing-line-colors">
-<a class="anchor" href="#6-changing-line-colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Changing line colors</h2>
+<h2 id="6-changing-line-colors">6. Changing line colors</h2>
 
-<p><br>
+<p><br />
 One way of creating your own color palette is with a Python list containing the colors you would like to use. <a href="https://colorbrewer2.org/" target="_blank">This page</a> has smart recommendations on the use of colors. In this case, a diverging color was chosen to distinguish between the two countries. Color is an argument of <code class="language-plaintext highlighter-rouge">plot()</code> and colors are selected by the list index.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-6')">
   content_copy
@@ -415,26 +390,25 @@ One way of creating your own color palette is with a Python list containing the 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_06.png" alt="Fifth version of the plot"></p>
+<p><img src="/assets/images/lesson_01_06.png" alt="Fifth version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="7-highligthing-areas-and-elements-with-axvspan">
-<a class="anchor" href="#7-highligthing-areas-and-elements-with-axvspan" aria-hidden="true"><span class="octicon octicon-link"></span></a>7. Highligthing areas and elements with axvspan</h2>
+<h2 id="7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>In this step, we start by increasing the line width of both trends to 3. After that, we would like to highlight the period of crisis. For that we use the method <code class="language-plaintext highlighter-rouge">axvspan(xmin, xmax, ymin=0, ymax=1, ...)</code> in which we specify the start and end date of the desired period. The y axis is not specified because, by default, the highlighted area goes from zero to the maximum value of y. <code class="language-plaintext highlighter-rouge">alpha</code> adds a degree of transparency to the region highlighted.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-7')">
   content_copy
@@ -469,38 +443,37 @@ One way of creating your own color palette is with a Python list containing the 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_07.png" alt="Sixth version of the plot"></p>
+<p><img src="/assets/images/lesson_01_07.png" alt="Sixth version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="8-eliminating-the-frame-of-matplotlib-legend">
-<a class="anchor" href="#8-eliminating-the-frame-of-matplotlib-legend" aria-hidden="true"><span class="octicon octicon-link"></span></a>8. Eliminating the frame of matplotlib legend</h2>
+<h2 id="8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Edward Tufte, an expert in the field of data visualization, introduced the concept of data-ink ratio in the book <em>The Visual Display of Quantitative Information</em>. Data-ink ratio is the proportion of ink in a plot used to display non-redundant data. The author recommends maximizing this ratio as much as possible to make your plot clearer and to avoid distracting your reader.</p>
 
-<p><br></p>
+<p><br /></p>
 
 \[data \: ink \: ratio = {data \: ink  \over total \:ink}\]
 
-<p><br></p>
+<p><br /></p>
 
 <p>In order to improve our data-ink ratio, we will eliminate the legend frame. This can be done by setting <code class="language-plaintext highlighter-rouge">framon</code> parameter to false inside the <code class="language-plaintext highlighter-rouge">legend()</code> method.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>The frame around the plot is made by objects of the class <em>Spine</em>. Print <code class="language-plaintext highlighter-rouge">ax.spines</code> and note that you have 4 spines (left, right, bottom, top). It would be nice to have this frame in a lighter color so that it does not call so much attention. This can be done by the <code class="language-plaintext highlighter-rouge">set_edgecolor()</code> method . To set all of them to the same color, we can iterate them in <code class="language-plaintext highlighter-rouge">ax.spines.values()</code> and set one by one to light gray:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-8')">
   content_copy
@@ -538,32 +511,30 @@ One way of creating your own color palette is with a Python list containing the 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_01_09.png" alt="Seventh version of the plot"></p>
+<p><img src="/assets/images/lesson_01_09.png" alt="Seventh version of the plot" /></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>In the next lessons you will learn how to further improve graphs like this. Thanks for reading! 😊</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="conclusions">
-<a class="anchor" href="#conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h1>
+<h1 id="conclusions">Conclusions</h1>
 
 <ul class="conclusion-list">
   <li>To customize your plot, use Matplotlib method <code class="language-plaintext highlighter-rouge">subplots()</code>;</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">Subplots()</code> creates two objects: one of the class <em>Figure</em>, usually called fig and one of the class <em>Axes</em>, usually called ax;</li>
+  <li><code class="language-plaintext highlighter-rouge">Subplots()</code> creates two objects: one of the class <em>Figure</em>, usually called fig and one of the class <em>Axes</em>, usually called ax;</li>
   <li>Use <em>Axes</em> methods to shape your plot according to your needs.</li>
 </ul>
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
     
 

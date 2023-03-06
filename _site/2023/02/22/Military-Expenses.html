@@ -82,62 +82,48 @@
     <h1>Table of Contents</h1>
 
 
-    <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
-<li class="toc-entry toc-h1"><a href="#data-source">Data source</a></li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#1-importing-data-into-r">1. Importing data into R</a></li>
-<li class="toc-entry toc-h2"><a href="#2-how-to-use-pivot_longer">2. How to use pivot_longer?</a></li>
-<li class="toc-entry toc-h2"><a href="#3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</a></li>
-<li class="toc-entry toc-h2"><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
-</ul><p><br></p>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</a><ul><li><a href="#1-importing-data-into-r">1. Importing data into R</a></li><li><a href="#2-how-to-use-pivot_longer">2. How to use pivot_longer?</a></li><li><a href="#3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</a></li><li><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
-<h1 id="introduction">
-<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+    <p><br /></p>
 
-<p><br></p>
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
 
 <p><strong>‘War is over, if you want it, war is over, now’</strong></p>
 
 <p>John Lennon</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Have you ever seen a webpage where text and visualizations do not have the right contrast or where colors do not match? I have had this experience and I have to admit that I myself have difficulty choosing adequate colors for my plots. There are so many technical details to pay attention to! Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer. We will use data on military expenses of the main capitalist countries during the Cold War.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="data-source">
-<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data source</h1>
+<h1 id="data-source">Data source</h1>
 
 <p>Data used in this lesson is available on the <a href="https://databank.worldbank.org/home" target="_blank">World Bank</a> website.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="coding-the-past-improve-your-plots-colors-with-scale_color_brewer">
-<a class="anchor" href="#coding-the-past-improve-your-plots-colors-with-scale_color_brewer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: improve your plot’s colors with scale_color_brewer</h1>
+<h1 id="coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</h1>
 
-<h2 id="1-importing-data-into-r">
-<a class="anchor" href="#1-importing-data-into-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Importing data into R</h2>
+<h2 id="1-importing-data-into-r">1. Importing data into R</h2>
 
-<p><br>
+<p><br />
 Download the <a href="http://localhost:4000/assets/data/military.csv">data file here</a> and load the libraries we will need, according to the code below. To read the data, use the R function <code class="language-plaintext highlighter-rouge">read_csv()</code>. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with <code class="language-plaintext highlighter-rouge">[1:5, c(3, 5:36)]</code>.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-1')">
   content_copy
@@ -156,20 +142,19 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="2-how-to-use-pivot_longer">
-<a class="anchor" href="#2-how-to-use-pivot_longer" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. How to use pivot_longer?</h2>
+<h2 id="2-how-to-use-pivot_longer">2. How to use pivot_longer?</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>If you take a look at the dataframe you just loaded, you will see that it has one column for each year. To use ggplot your data has to be tidy. According to Hadley Wickham, in a tidy dataframe:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <ol class="conclusion-list">
   <li>Each variable must have its own column;</li>
@@ -181,7 +166,7 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
-    <span class="text-note-title">  </span> 
+    <span class="text-note-title">&nbsp; </span> 
     <div class="text-note-content"> Learn more about tidy data and how to transform a dataframe from wide to long format 
         
         <a href="https://r4ds.had.co.nz/tidy-data.html" target="_blank"> here.</a>
@@ -189,24 +174,24 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
     </div>
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>To make our data tidy, we will transform all the year columns in one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the <code class="language-plaintext highlighter-rouge">pivot_longer</code> function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, <code class="language-plaintext highlighter-rouge">names_to</code> indicates the name of the new column that will receive the years and <code class="language-plaintext highlighter-rouge">values_to</code> indicates the name of the new column that will receive the values of the year columns.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_05_01.png" alt="Conversion of dataframe from wide to long format" title="Image"></p>
+<p><img src="/assets/images/lesson_05_01.png" alt="Conversion of dataframe from wide to long format" title="Image" /></p>
 <p class="fig-caption">Illustration created by the Author</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>The <code class="language-plaintext highlighter-rouge">mutate</code> function makes two adjustments in the new long dataset. First, it eliminates the second part of the year names, e.g., <code class="language-plaintext highlighter-rouge">[YR1960]</code>. Second, it rounds the expenses values to two decimal places.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Finally, we change the names of the columns (variables) in our dataset.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-2')">
   content_copy
@@ -226,20 +211,19 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="3-using-scale_color_brewer-to-improve-your-plots-colors">
-<a class="anchor" href="#3-using-scale_color_brewer-to-improve-your-plots-colors" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Using scale_color_brewer to improve your plots’ colors</h2>
+<h2 id="3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</h2>
 
-<p><br></p>
+<p><br /></p>
 
 <p>To see all the colors palettes the RColorBrewer offers, use the following code:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-3')">
   content_copy
@@ -254,17 +238,17 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_05_02.png" alt="RColorBrewer available palettes"></p>
+<p><img src="/assets/images/lesson_05_02.png" alt="RColorBrewer available palettes" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>We will be using palette <code class="language-plaintext highlighter-rouge">Set1</code> in our line plot. To set it, add the layer <code class="language-plaintext highlighter-rouge">scale_color_brewer(palette = 'Set1')</code>. <strong>Note</strong> that we also set the x-axis to have labels every 4 years with <code class="language-plaintext highlighter-rouge">scale_x_discrete(breaks = seq(1960, 1990, by=4))</code>. Color  and group aesthetics were mapped to countries so that each country has a different color.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-4')">
   content_copy
@@ -285,25 +269,24 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_05_03.png" alt="plot using RColorBrewer palette"></p>
+<p><img src="/assets/images/lesson_05_03.png" alt="plot using RColorBrewer palette" /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="4-adding-a-theme-to-the-plot">
-<a class="anchor" href="#4-adding-a-theme-to-the-plot" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Adding a theme to the plot</h2>
+<h2 id="4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</h2>
 
-<p><br>
+<p><br />
 To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-5')">
   content_copy
@@ -349,30 +332,29 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_05_04.png" alt="Plot with new theme"></p>
+<p><img src="/assets/images/lesson_05_04.png" alt="Plot with new theme" /></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Feel free to test other color palettes and check the one you like the most!</p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="conclusions">
-<a class="anchor" href="#conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h1>
+<h1 id="conclusions">Conclusions</h1>
 
 <ul class="conclusion-list">
   <li>You can transform your dataframe from wide to long format using <code class="language-plaintext highlighter-rouge">pivot_longer</code>;</li>
   <li>RColorBrewer offers color palettes to make your plots more effective and beautiful.</li>
 </ul>
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
     
 

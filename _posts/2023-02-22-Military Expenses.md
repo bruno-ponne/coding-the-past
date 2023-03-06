@@ -8,7 +8,6 @@ attributes:
   - e: 10 min
 tags: r visualization ggplot2
 image: lesson_05.jpeg
-toc: true
 abstract: Use RColorBrewer to choose professional color palettes.
 objectives:
   - o: Learn to transform data from wide to long format with tidyr;

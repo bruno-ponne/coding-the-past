@@ -21,7 +21,9 @@ layout: default
     <h1>Table of Contents</h1>
 
 
-    {{ content | toc }}
+    {% include toc.html html=content class = "toc-entry" %}
+
+    {{ content }}
     
 
 </div>

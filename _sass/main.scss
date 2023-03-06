@@ -315,7 +315,16 @@ h2{
     text-decoration: none;
 }
 
-.toc-entry.toc-h2{
+.toc-entry{
+    padding-left: 20px;
+    list-style-type: none;
+    text-decoration: none;
+    line-height: 35px;
+    border: 1px solid #e8e8e8;
+
+}
+
+.toc-entry ul li{
     padding-left: 20px;
     list-style-type: none;
     text-decoration: none;

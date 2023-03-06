@@ -84,110 +84,78 @@
     <h1>Table of Contents</h1>
 
 
-    <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
-<li class="toc-entry toc-h1"><a href="#data-sources">Data Sources</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#1-harvard-business-school">1. Harvard Business School</a></li>
-<li class="toc-entry toc-h2"><a href="#2-human-mortality-database">2. Human Mortality Database</a></li>
-<li class="toc-entry toc-h2"><a href="#3-national-centers-for-environmental-information">3. National Centers for Environmental Information</a></li>
-<li class="toc-entry toc-h2"><a href="#4-clarin-historical-corpora">4. Clarin Historical Corpora</a></li>
-<li class="toc-entry toc-h2"><a href="#5-slave-voyages">5. Slave Voyages</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-how-to-load-data-in-python">Coding the past: how to load data in Python</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#1-pandas-read_csv">1. Pandas read_csv()</a></li>
-<li class="toc-entry toc-h2"><a href="#2-getting-pandas-dataframe-info">2. Getting pandas dataframe info</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#coding-the-past-how-to-import-a-dataset-in-r">Coding the past: how to import a dataset in R</a></li>
-<li class="toc-entry toc-h1"><a href="#conclusions">Conclusions</a></li>
-</ul><p><br></p>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-sources">Data Sources</a><ul><li><a href="#1-harvard-business-school">1. <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a></a></li><li><a href="#2-human-mortality-database">2. <a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a></a></li><li><a href="#3-national-centers-for-environmental-information">3. <a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a></a></li><li><a href="#4-clarin-historical-corpora">4. <a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a></a></li><li><a href="#5-slave-voyages">5. <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a></a></li></ul></li><li><a href="#coding-the-past-how-to-load-data-in-python">Coding the past: how to load data in Python</a><ul><li><a href="#1-pandas-read_csv">1. Pandas <em>read_csv()</em></a></li><li><a href="#2-getting-pandas-dataframe-info">2. Getting pandas dataframe info</a></li></ul></li><li><a href="#coding-the-past-how-to-import-a-dataset-in-r">Coding the past: how to import a dataset in R</a></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
-<h1 id="introduction">
-<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+    <p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
 
 <p><strong>‘Information is not knowledge’</strong>
-<br>
+<br />
 Albert Einstein</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data and how to load datasets in Python and R.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="data-sources">
-<a class="anchor" href="#data-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Sources</h1>
+<h1 id="data-sources">Data Sources</h1>
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="1-harvard-business-school">
-<a class="anchor" href="#1-harvard-business-school" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a>
-</h2>
+<h2 id="1-harvard-business-school">1. <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a></h2>
 
 <p>The Harvard Business School developed the project ‘Historical Data Visualization’ to foster the understanding of global capitalism throughout time. The page offers more than 40 datasets about a broad range of topics. For instance, you can find data on life expectancy, literacy rates or economic activity in several countries during the 19th and 20th century. Datasets are mostly in Excel format. Definitely worth a visit!</p>
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="2-human-mortality-database">
-<a class="anchor" href="#2-human-mortality-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. <a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a>
-</h2>
+<h2 id="2-human-mortality-database">2. <a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a></h2>
 
 <p>Human Mortality Database (HMD) provides death rates and life expectancy for several countries over the last two centuries. Even though the platform requires a quick registration to give you access to the data, it is very complete and straightforward to understand. Datasets are in tab-delimited text (ASCII) files.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="3-national-centers-for-environmental-information">
-<a class="anchor" href="#3-national-centers-for-environmental-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. <a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a>
-</h2>
+<h2 id="3-national-centers-for-environmental-information">3. <a href="https://www.ncei.noaa.gov/" target="_blank">National Centers for Environmental Information</a></h2>
 
 <p>Would you like to study how climate has changed over the last centuries? Then this is an invaluable source for you! The National Centers for Environmental Information is the leading authority for environmental data in the USA and provides high quality data about climate, ecosystems and water resources. Data files can be downloaded in comma separated values format.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="4-clarin-historical-corpora">
-<a class="anchor" href="#4-clarin-historical-corpora" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. <a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a>
-</h2>
+<h2 id="4-clarin-historical-corpora">4. <a href="https://www.clarin.eu/resource-families/historical-corpora" target="_blank">Clarin Historical Corpora</a></h2>
 
 <p>If you wish to work with text data, this is a valuable source of material. It offers access to ancient and medieval greek texts, the manifests wrote during the American Revolution, court proceedings in England in the 18th century and many other instigating materials. Files are usually provided in .txt format. The requirements to access files varies according to each case, since data comes from different institutions.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="5-slave-voyages">
-<a class="anchor" href="#5-slave-voyages" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a>
-</h2>
+<h2 id="5-slave-voyages">5. <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a></h2>
 
 <p>This impressive platform, supported by the Hutchins Center of Harvard University, gathers data regarding the forced relocations of more than 12 million African people between the 16th and 19th century. Files are provided in SPSS or comma separated values format.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="coding-the-past-how-to-load-data-in-python">
-<a class="anchor" href="#coding-the-past-how-to-load-data-in-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: how to load data in Python</h1>
+<h1 id="coding-the-past-how-to-load-data-in-python">Coding the past: how to load data in Python</h1>
 
-<h2 id="1-pandas-read_csv">
-<a class="anchor" href="#1-pandas-read_csv" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Pandas <em>read_csv()</em>
-</h2>
+<h2 id="1-pandas-read_csv">1. Pandas <em>read_csv()</em></h2>
 <p>In this section, you will learn to load data into Python. You will be using <a href="https://www.slavevoyages.org/voyage/downloads#the-trans-atlantic-slave-trade-database/1/en/" target="_blank">data</a> provided by the <a href="https://www.slavevoyages.org/" target="_blank">Slave Voyages</a> website. The dataset contains data regarding 36,108 transatlantic slave trade voyages. <a href="https://www.slavevoyages.org/voyage/about#variable-list/2/en/" target="_blank">Learn more about the variables here</a>.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>To load our data in Python, we will use <a href="https://pandas.pydata.org/docs/index.html" target="_blank">Pandas</a>, a Python library that provides data structures and analysis tools. The Pandas method <code class="language-plaintext highlighter-rouge">read_csv()</code> is the ideal option to load comma separated values into a dataframe. A dataframe is one of the data structures provided by Pandas and it consists of a table with columns (variables) and rows (observations). Bellow, we use the default configuration of <code class="language-plaintext highlighter-rouge">read_csv()</code> to load our data. Note that the only parameter passed to the method is the file path where you saved the dataset.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-1')">
   content_copy
@@ -202,28 +170,27 @@ Albert Einstein</p>
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h2 id="2-getting-pandas-dataframe-info">
-<a class="anchor" href="#2-getting-pandas-dataframe-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Getting pandas dataframe info</h2>
+<h2 id="2-getting-pandas-dataframe-info">2. Getting pandas dataframe info</h2>
 
 <p>A dataframe object is now created. It has several attributes or characteristics. For example, we can check its dimensions with <code class="language-plaintext highlighter-rouge">shape</code> and its column names with <code class="language-plaintext highlighter-rouge">columns</code>. Note that column names are the names of our variables. Moreover, you can also call methods, which, in general, carry out an operation to analyze the data contained in the dataframe. For example, the method <code class="language-plaintext highlighter-rouge">describe()</code> calculates summary statistics of each variable and <code class="language-plaintext highlighter-rouge">head()</code> filters and displays only the first n observations of your data. Check all <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" target="_blank">Pandas <em>DataFrame</em> attributes and methods here</a>.</p>
 
-<p><br></p>
+<p><br /></p>
 
-<p><img src="/assets/images/lesson_02_01.png" alt="Pandas DataFrame Object "></p>
+<p><img src="/assets/images/lesson_02_01.png" alt="Pandas DataFrame Object " /></p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Use the following code to check the dimensions and variable names of the dataset:</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-2')">
   content_copy
@@ -238,11 +205,11 @@ Albert Einstein</p>
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>The attributes show that there are 276 variables and 36,108 observations in this dataset. Let us suppose you are only interested in the number of slaves disembarked (<em>slamimp</em>) in America per year (<em>yearam</em>). You could load only these two variables using the <code class="language-plaintext highlighter-rouge">read_csv()</code> parameter <code class="language-plaintext highlighter-rouge">usecols</code>. This parameter receives a list with variable names you wish to load. In larger datasets this parameter is very handy because you do not want to load variables not relevant to your study.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-3')">
   content_copy
@@ -259,7 +226,7 @@ Albert Einstein</p>
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <table class="dataframe">
   <thead>
@@ -298,15 +265,15 @@ Albert Einstein</p>
   </tbody>
 </table>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Now the dataframe is loaded only with the two specified variables. As said, Pandas dataframes offer tools to analyze the data, using <em>DataFrame</em> methods. Above, we use the method <code class="language-plaintext highlighter-rouge">head()</code> to display the five first observation in our dataframe. You can set how many observations <code class="language-plaintext highlighter-rouge">head()</code> should return through the <code class="language-plaintext highlighter-rouge">n</code> parameter (default is 5).</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p>Moreover, we can use <code class="language-plaintext highlighter-rouge">describe()</code> to obtain summary statistics of our variables. From the summary statistics we can see that the earliest record is from the year 1514 and the latest one of 1886. Also, the maximum number of slaves traded in one voyage was 1,700.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <table class="dataframe">
   <thead>
@@ -360,20 +327,19 @@ Albert Einstein</p>
   </tbody>
 </table>
 
-<p><br></p>
+<p><br /></p>
 
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="coding-the-past-how-to-import-a-dataset-in-r">
-<a class="anchor" href="#coding-the-past-how-to-import-a-dataset-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coding the past: how to import a dataset in R</h1>
+<h1 id="coding-the-past-how-to-import-a-dataset-in-r">Coding the past: how to import a dataset in R</h1>
 
 <p>In R there are several functions that load comma separated files. I chose <code class="language-plaintext highlighter-rouge">fread</code> from the <code class="language-plaintext highlighter-rouge">data.table</code> library, because it offers a straightforward parameter to select the variables you wish to load (<code class="language-plaintext highlighter-rouge">select</code>). <code class="language-plaintext highlighter-rouge">fread</code> creates a data frame, similar to a pandas dataframe.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-4')">
   content_copy
@@ -390,11 +356,11 @@ Albert Einstein</p>
 
 </div>
 
-<p><br></p>
+<p><br /></p>
 
 <p>To get summary statistics about your variables you can use the function <code class="language-plaintext highlighter-rouge">summary(df)</code>. To view the n first observations of your dataframe, use <code class="language-plaintext highlighter-rouge">head(df,n)</code> as shown bellow. <code class="language-plaintext highlighter-rouge">Summary</code> and <code class="language-plaintext highlighter-rouge">head</code> produce very similar results to <code class="language-plaintext highlighter-rouge">describe</code> and <code class="language-plaintext highlighter-rouge">head</code> in Python.</p>
 
-<p><br></p>
+<p><br /></p>
 
 <p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-2-5')">
   content_copy
@@ -410,16 +376,15 @@ Albert Einstein</p>
 
 </div>
 
-<p><br>
+<p><br />
 More posts on how to find reliable data will be published soon!
-<br></p>
+<br /></p>
 
-<hr>
+<hr />
 
-<p><br></p>
+<p><br /></p>
 
-<h1 id="conclusions">
-<a class="anchor" href="#conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h1>
+<h1 id="conclusions">Conclusions</h1>
 
 <ul class="conclusion-list">
   <li>These websites offer high quality historical data:
@@ -434,9 +399,9 @@ More posts on how to find reliable data will be published soon!
   <li>You can load comma separated values in Python with the pandas method <code class="language-plaintext highlighter-rouge">.read_csv()</code>;</li>
   <li>You can load comma separated values in R with the function <code class="language-plaintext highlighter-rouge">fread()</code> from the library <code class="language-plaintext highlighter-rouge">data.table</code>;</li>
 </ul>
-<p><br></p>
+<p><br /></p>
 
-<hr>
+<hr />
 
     
 
