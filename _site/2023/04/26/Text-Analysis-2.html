@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K2DKTESR2N');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="tf-idf, text data, bag of words, text mining, text analysis">
+    <meta name="description" content="learn to calculate tf-idf scores and visualize your results.">
+    <meta property= og:image content= />
+    <title>Text Mining in Python - TF-IDF</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google Font: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <!-- Google icon: -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Canonical Domain -->
+    <link rel="canonical" href="http://localhost:4000/2023/04/26/Text-Analysis-2.html">
+</head>
+
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body">
+            <div class="post-body">
+    <h1 id = "post-main-title">Text Mining in Python - TF-IDF</h1>
+    <p id = "author">Bruno Ponne &#9679 26 Apr 2023</p>
+    <hr>
+    <ul class = "meta-info">
+        
+        <li>Medium</li>
+        
+        <li>Python</li>
+        
+        <li>15 min</li>
+        
+    </ul>
+    <br>
+    <h1>What you will learn</h1>
+    <ul>
+        
+        <li class = "objectives"> Learn the concept behind TF-IDF;</li>
+        
+        <li class = "objectives"> Be able to create a function that calculates TF-IDF;</li>
+        
+        <li class = "objectives"> Learn to interpret TF-IDF scores;</li>
+        
+        <li class = "objectives"> Be comfortable with visualizing your results.</li>
+        
+    </ul>
+    <br>
+    <h1>Table of Contents</h1>
+
+
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-identifying-relevant-words-in-historical-documents">Coding the past: identifying relevant words in historical documents</a><ul><li><a href="#1-tf-idf-formula">1. TF-IDF formula</a></li><li><a href="#2-tf-idf-calculation-example">2. TF-IDF calculation example</a></li><li><a href="#3-preprocessing-text-data-in-python">3. Preprocessing text data in Python</a></li><li><a href="#3-calculating-term-frequencies-for-each-document">3. Calculating term frequencies for each document</a></li><li><a href="#4-calculating-how-many-times-a-word-appears-in-each-document-in-the-corpus">4. Calculating how many times a word appears in each document in the corpus</a></li><li><a href="#5-tf-idf-calculation">5. TF-IDF calculation</a></li><li><a href="#5-comparing-tf-top-10-words-with-tf-idf-top-10-words">5. Comparing TF top 10 words with TF-IDF top 10 words</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+
+    <p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p>“Changes are shifting outside the words.”</p>
+
+<p>Annie Lennox</p>
+
+<p><br /></p>
+
+<p>In the <a href="/2023/04/02/Text-Analysis-1.html">Visualizing Text Data</a> lesson we learned how to use term frequency to identify the most frequent words in a document. However, this method only considers the frequency of each term within a single document and doesn’t account for the frequency of the same word in other documents in the corpus. To account for this limitation, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. It is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus. In this lesson, we’ll explore how to calculate TF-IDF scores and visualize the results using Python.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>Data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a> website. To know more about textual data sources, please check out this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-identifying-relevant-words-in-historical-documents">Coding the past: identifying relevant words in historical documents</h1>
+
+<p><br /></p>
+
+<h2 id="1-tf-idf-formula">1. TF-IDF formula</h2>
+
+<p><br /></p>
+
+<p>TF-IDF (Term Frequency-Inverse Document Frequency) is a numerical measure that indicates the importance of a word in a document taking into account how frequent the word is in other documents in the same corpus. It consists of multiplying the term frequency (TF) by the inverse document frequency (IDF), which is the logarithm of the total number of documents divided by the number of documents containing the term. The formula is as follows:</p>
+
+<p><br /></p>
+
+\[w_{ij} = tf_{ij} * log(\frac{N}{df_i})\]
+
+<p><br /></p>
+
+<p>Where:</p>
+
+<ul class="conclusion-list">
+  <li>\(w_{ij}\) is the tf-idf weight for word \(i\) in document \(j\);</li>
+  <li>\(tf_{ij}\) is the number of times word \(i\) appears in document \(j\) divided by the total number of words in document \(j\);</li>
+  <li>\(N\) is the total number of documents in the corpus;</li>
+  <li>\(df_i\) is the number of documents in the corpus that contain word \(i\).</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="2-tf-idf-calculation-example">2. TF-IDF calculation example</h2>
+
+<p>Suppose you want to calculate the TF-IDF weight for the word “British”, which appears 5 times in a document containing 100 words. Given a corpus containing 4 documents, with 2 documents mentioning the word “British”, TF-IDF can be calculated by:</p>
+
+\[w_{British} = \frac{5}{100} * log(\frac{4}{2}) = 0.015\]
+
+<p><br /></p>
+
+<p>TF-IDF increases as the term frequency increases, but it decreases as the number of times the word appears in other documents in the corpus increases. Variations of the TF-IDF weighting scheme are often used by search engines as a central tool in scoring and ranking a document’s relevance given a user query.</p>
+
+<p><br /></p>
+
+<h2 id="3-preprocessing-text-data-in-python">3. Preprocessing text data in Python</h2>
+
+<p><br /></p>
+
+<p>We will be using the same functions from the lesson <a href="/2023/04/02/Text-Analysis-1.html">Visualizing Text Data</a> to preprocess the text data. The functions are:</p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">load_text</code>: loads the text from a <em>txt</em> file and returns a list of words;</li>
+  <li><code class="language-plaintext highlighter-rouge">prepare_text</code>: preprocesses the text by removing stopwords, removing words with less than 3 characters, and transforming all words to lower case;</li>
+  <li><code class="language-plaintext highlighter-rouge">count_freq</code>: counts the frequency of each word in the the document and returns a dataframe with the results.</li>
+</ul>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-8-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">islice</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="k">def</span> <span class="nf">load_text</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">my_text</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span> <span class="s">"latin-1"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">islice</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="n">my_text</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">my_text</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">my_text</span><span class="p">]</span>
+    <span class="n">flat_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">my_text</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">flat_list</span>
+
+<span class="k">def</span> <span class="nf">prepare_text</span><span class="p">(</span><span class="n">list_of_words</span><span class="p">):</span>
+  <span class="c1">#load stopwords:
+</span>  <span class="n">stops</span> <span class="o">=</span> <span class="n">stopwords</span><span class="p">.</span><span class="n">words</span><span class="p">(</span><span class="s">'english'</span><span class="p">)</span>
+  <span class="c1">#transform all word characters to lower case:
+</span>  <span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">list_of_words</span><span class="p">]</span>
+  <span class="c1">#remove all words containing up to two characters:
+</span>  <span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">list_of_words</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
+  <span class="c1">#remove stopwords:
+</span>  <span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">list_of_words</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stops</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">list_of_words</span>
+
+<span class="k">def</span> <span class="nf">count_freq</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
+    <span class="n">unique_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># create a list of unique words:
+</span>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span> 
+        <span class="n">unique_words</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># count the frequency of each word:
+</span>    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span>
+      <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">word</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+          <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="n">counts</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+
+    <span class="c1"># create a dataframe with the words and their frequencies:
+</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"word"</span><span class="p">:</span> <span class="n">unique_words</span><span class="p">,</span> <span class="s">"count"</span><span class="p">:</span> <span class="n">counts</span><span class="p">})</span>
+    <span class="n">df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s">"count"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>After loading the functions above, we can use them to preprocess the text data.</p>
+
+<p><br /></p>
+
+<p>Now we load the manifests of three authors: Oxenbridge Thacher, James Otis, and James Mayhew. The results are stored in three lists called <code class="language-plaintext highlighter-rouge">thacher</code>, <code class="language-plaintext highlighter-rouge">otis</code>, and <code class="language-plaintext highlighter-rouge">mayhew</code>. After that, we preprocess the text data using the function <code class="language-plaintext highlighter-rouge">prepare_text</code> and count the frequency of each word in each document using the function <code class="language-plaintext highlighter-rouge">count_freq</code>. Results are stored in three dataframes called <code class="language-plaintext highlighter-rouge">thacher_df</code>, <code class="language-plaintext highlighter-rouge">otis_df</code>, and <code class="language-plaintext highlighter-rouge">mayhew_df</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-8-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">thacher</span> <span class="o">=</span> <span class="n">load_text</span><span class="p">(</span><span class="s">'thacher-2021.txt'</span><span class="p">)</span>
+<span class="n">otis</span> <span class="o">=</span> <span class="n">load_text</span><span class="p">(</span><span class="s">'otis-2021.txt'</span><span class="p">)</span>
+<span class="n">mayhew</span> <span class="o">=</span> <span class="n">load_text</span><span class="p">(</span><span class="s">'mayhew2-2021.txt'</span><span class="p">)</span>
+
+<span class="n">thacher_prepared</span> <span class="o">=</span> <span class="n">prepare_text</span><span class="p">(</span><span class="n">thacher</span><span class="p">)</span>
+<span class="n">otis_prepared</span> <span class="o">=</span> <span class="n">prepare_text</span><span class="p">(</span><span class="n">otis</span><span class="p">)</span>
+<span class="n">mayhew_prepared</span> <span class="o">=</span> <span class="n">prepare_text</span><span class="p">(</span><span class="n">mayhew</span><span class="p">)</span>
+
+<span class="n">thacher_df</span> <span class="o">=</span> <span class="n">count_freq</span><span class="p">(</span><span class="n">thacher_prepared</span><span class="p">)</span>
+<span class="n">otis_df</span> <span class="o">=</span> <span class="n">count_freq</span><span class="p">(</span><span class="n">otis_prepared</span><span class="p">)</span>
+<span class="n">mayhew_df</span> <span class="o">=</span> <span class="n">count_freq</span><span class="p">(</span><span class="n">mayhew_prepared</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-calculating-term-frequencies-for-each-document">3. Calculating term frequencies for each document</h2>
+
+<p><br /></p>
+
+<p>As we have seen, the first component to calculate the TF-IDF weight is the term frequency. We can calculate the term frequency for each document by dividing the number of times a word appears in the document by the total number of words in it.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-8-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">thacher_df</span><span class="p">[</span><span class="s">"TF"</span><span class="p">]</span> <span class="o">=</span> <span class="n">thacher_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">thacher_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">])</span>
+<span class="n">otis_df</span><span class="p">[</span><span class="s">"TF"</span><span class="p">]</span> <span class="o">=</span> <span class="n">otis_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">otis_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">])</span>
+<span class="n">mayhew_df</span><span class="p">[</span><span class="s">"TF"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mayhew_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">mayhew_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">])</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-calculating-how-many-times-a-word-appears-in-each-document-in-the-corpus">4. Calculating how many times a word appears in each document in the corpus</h2>
+
+<p><br /></p>
+
+<p>To calculate \(df_i\), we will left join all our dataframes. Then, for each row (word) we will sum the number of times its term frequency is greater than zero. In other words, we will count in how many documents the word appears at least once. This value will vary from 1 to 3, since we have three documents in our corpus. This count can be made with the pandas method <code class="language-plaintext highlighter-rouge">ne()</code> that checks if the values in the columns specified are not equal (ne) to zero. The results are booleans that can be summed to get the number of documents in which the word appears.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-8-4">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#left join all dataframes:
+</span><span class="n">thacher_otis</span> <span class="o">=</span> <span class="n">thacher_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF"</span><span class="p">]].</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">otis_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF"</span><span class="p">]],</span> 
+    <span class="n">on</span> <span class="o">=</span> <span class="s">"word"</span><span class="p">,</span> 
+    <span class="n">how</span> <span class="o">=</span> <span class="s">"outer"</span><span class="p">,</span> 
+    <span class="n">suffixes</span> <span class="o">=</span> <span class="p">(</span><span class="s">"_thacher"</span><span class="p">,</span> <span class="s">"_otis"</span><span class="p">)).</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">thacher_otis_may</span> <span class="o">=</span> <span class="n">thacher_otis</span><span class="p">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">mayhew_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF"</span><span class="p">]],</span>
+    <span class="n">on</span> <span class="o">=</span> <span class="s">"word"</span><span class="p">,</span>
+    <span class="n">how</span> <span class="o">=</span> <span class="s">"outer"</span><span class="p">).</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#rename TF column to TF_mayhew:
+</span><span class="n">thacher_otis_may</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s">"TF"</span><span class="p">:</span> <span class="s">"TF_mayhew"</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="c1">#count in how many documents each word appears:
+</span>
+<span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"dfi"</span><span class="p">]</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"TF_thacher"</span><span class="p">,</span> <span class="s">"TF_otis"</span><span class="p">,</span> <span class="s">"TF_mayhew"</span><span class="p">]].</span><span class="n">ne</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-tf-idf-calculation">5. TF-IDF calculation</h2>
+
+<p><br /></p>
+
+<p>Finally we have all elements to calculate the TF-IDF weight. Note that we will be using base 10 logarithms. To calculate the logarithm, we can use the library <code class="language-plaintext highlighter-rouge">math</code> and its method <code class="language-plaintext highlighter-rouge">log10()</code>. We use the <code class="language-plaintext highlighter-rouge">apply()</code> method to apply the logarithm to each row of <em>dfi</em> and then multiply it by the term frequency. The results are stored in three new columns called <code class="language-plaintext highlighter-rouge">TF-IDF_thacher</code>, <code class="language-plaintext highlighter-rouge">TF-IDF_otis</code>, and <code class="language-plaintext highlighter-rouge">TF-IDF_mayhew</code>. Note that <em>dfi</em> varies from 1 to 3, so when the word appears in all three documents, the logarithm element will be zero and consequently TF-IDF  will be zero as well (\(log_{10} 1 = 0\)).
+<br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-8-5">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"TF-IDF_thacher"</span><span class="p">]</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"TF_thacher"</span><span class="p">]</span> <span class="o">*</span> <span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"dfi"</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">math</span><span class="p">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="n">x</span><span class="p">))</span>
+<span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"TF-IDF_otis"</span><span class="p">]</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"TF_otis"</span><span class="p">]</span> <span class="o">*</span> <span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"dfi"</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">math</span><span class="p">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="n">x</span><span class="p">))</span>
+<span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"TF-IDF_mayhew"</span><span class="p">]</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"TF_mayhew"</span><span class="p">]</span> <span class="o">*</span> <span class="n">thacher_otis_may</span><span class="p">[</span><span class="s">"dfi"</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">math</span><span class="p">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="n">x</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-comparing-tf-top-10-words-with-tf-idf-top-10-words">5. Comparing TF top 10 words with TF-IDF top 10 words</h2>
+
+<p><br /></p>
+
+<p>Now we can compare how the two methods define the 10 most important words in each document. Keep in mind that the term frequency does not account for the words in other documents of the corpus while TF-IDF does. TF logic is that the most important words are the ones that appear the most in the document. TF-IDF logic is that the most important words are the ones that appear the most in the document but not in the other documents of the corpus. TF-IDF is more sophisticated because it helps you to distinguish one document from the others.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-8-6">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#create 2 dataframes with the top 10 words for each method:
+</span>
+<span class="n">TF_IDF_thacher</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF-IDF_thacher"</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s">"TF-IDF_thacher"</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">TF_thacher</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF_thacher"</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s">"TF_thacher"</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1">#plot:
+</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1">#barplot:
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">TF_thacher</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">TF_thacher</span><span class="p">[</span><span class="s">"TF_thacher"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">TF_IDF_thacher</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">TF_IDF_thacher</span><span class="p">[</span><span class="s">"TF-IDF_thacher"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">)</span>
+
+<span class="c1">#title:
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Thacher TF"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Thacher TF-IDF"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.003</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="p">.</span><span class="n">axes</span><span class="p">:</span>                             <span class="c1"># iterate over ax1, ax2, ax3 to: 
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">invert_yaxis</span><span class="p">()</span>                           <span class="c1"># invert the y axis; 
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>                              <span class="c1"># eliminate grid;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>                 <span class="c1"># set title font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    <span class="c1"># set x axis font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    <span class="c1"># set y axis font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>                 <span class="c1"># set ax background color to #2E3031;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         <span class="c1"># eliminate spines;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'bottom'</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
+
+<span class="c1">#fig background color:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
+<span class="c1">#layout:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_08_01.png" alt="Comparison TF vs TF-IDF: Thacher" /></p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-7')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-8-7">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">TF_IDF_otis</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF-IDF_otis"</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s">"TF-IDF_otis"</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">TF_otis</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF_otis"</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s">"TF_otis"</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># barplot:
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">TF_otis</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">TF_otis</span><span class="p">[</span><span class="s">"TF_otis"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">TF_IDF_otis</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">TF_IDF_otis</span><span class="p">[</span><span class="s">"TF-IDF_otis"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">)</span>
+
+<span class="c1"># title:
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Otis TF"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Otis TF-IDF"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">,</span> <span class="mf">0.0010</span><span class="p">,</span> <span class="mf">0.0015</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="p">.</span><span class="n">axes</span><span class="p">:</span>                             <span class="c1"># iterate over ax1, ax2, ax3 to: 
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">invert_yaxis</span><span class="p">()</span>                           <span class="c1"># invert the y axis; 
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>                              <span class="c1"># eliminate grid;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>                 <span class="c1"># set title font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    <span class="c1"># set x axis font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    <span class="c1"># set y axis font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>                 <span class="c1"># set ax background color to #2E3031;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         <span class="c1"># eliminate spines;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'bottom'</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
+
+<span class="c1"># fig background color:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
+<span class="c1"># layout:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_08_02.png" alt="Comparison TF vs TF-IDF: Otis" /></p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-8-8')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-8-8">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">TF_IDF_mayhew</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF-IDF_mayhew"</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s">"TF-IDF_mayhew"</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">TF_mayhew</span> <span class="o">=</span> <span class="n">thacher_otis_may</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"TF_mayhew"</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s">"TF_mayhew"</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># barplot:
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">TF_mayhew</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">TF_mayhew</span><span class="p">[</span><span class="s">"TF_mayhew"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">TF_IDF_mayhew</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">TF_IDF_mayhew</span><span class="p">[</span><span class="s">"TF-IDF_mayhew"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">)</span>
+
+<span class="c1"># title:
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Mayhew TF"</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Mayhew TF-IDF"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="p">.</span><span class="n">axes</span><span class="p">:</span>                             <span class="c1"># iterate over ax1, ax2, ax3 to: 
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">invert_yaxis</span><span class="p">()</span>                           <span class="c1"># invert the y axis; 
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>                              <span class="c1"># eliminate grid;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>                 <span class="c1"># set title font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    <span class="c1"># set x axis font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    <span class="c1"># set y axis font color to white;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>                 <span class="c1"># set ax background color to #2E3031;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         <span class="c1"># eliminate spines;
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'bottom'</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
+
+<span class="c1"># fig background color:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
+<span class="c1"># layout:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_08_03.png" alt="Comparison TF vs TF-IDF: Otis" /></p>
+
+<p><br /></p>
+
+<p>Please note that common words in the corpus, such as “Britain” and “government,” simply do not appear in the top 10 chart because they are present in all three documents. The intuition behind this is that these words are so common in the corpus that they do not provide much useful information. The top 10 words found with TF-IDF have a stronger explanatory power in distinguishing between the three authors. Furthermore, despite being present in two documents, the word “colonies” continues to have a strong TF-IDF score. This is because the word is not present in all three documents, and it is very common in the two documents where it appears.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>TF-IDF depends on two factors: the frequency of a word in a document, and the inverse frequency of the word in the corpus;</li>
+  <li>It is possible to calculate TF-IDF scores from scratch in Python, which helps you to understand the logic behind the calculation;</li>
+  <li>TF-IDF is a useful tool when you want to identify words that are specific to a particular document.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+    
+
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/04/26/Text-Analysis-2.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/04/26/Text-Analysis-2.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/04/26/Text-Analysis-2.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_08.jpg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/04/26/Text-Analysis-2.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script
+            type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            <h2><b>Additional resources</b></h2>
+            <a href="https://programminghistorian.org/">Programming Historian</a>
+            <a href="https://rweekly.org/">R Weekly</a>
+            <a href="https://www.r-bloggers.com/">R Bloggers</a>
+            <a href="https://python-bloggers.com/">Python Bloggers</a>
+        </div>
+        <div>
+            Coding the Past © 2023 Copyright
+        </div>
+    </div>
+</footer>
+    </div>
+</body>
+<script src="/assets/js/copycode.js"></script>
+<script src="/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"></script>
+
+</html>

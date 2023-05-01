@@ -14,7 +14,7 @@ objectives:
   - o: Be able to clean your data to retain only the relevant information;
   - o: Learn to count words in a list;
   - o: Be comfortable with visualizing text data;
-keywords: nltk, tokenizer, text data, matplotlib, how to use pivot_longer
+keywords: nltk, tokenizer, text data, matplotlib, word frequency
 description: learn to tokenize texts with nltk
 last_modified_at: 02-Apr-23
 ---

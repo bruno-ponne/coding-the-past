@@ -429,6 +429,11 @@ h2 {
   padding-bottom: 3%;
 }
 
+.pic_attribution {
+  font-size: 10px;
+  text-align: left;
+}
+
 /*  Share buttons  */
 .share {
   display: flex;
