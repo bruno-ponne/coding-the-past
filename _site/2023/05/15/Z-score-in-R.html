@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K2DKTESR2N');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="z score, standard deviation, histogram, R, statistics">
+    <meta name="description" content="learn to calculate and visualize z scores.">
+    <meta property= og:image content= />
+    <title>Z score in R</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google Font: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <!-- Google icon: -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Canonical Domain -->
+    <link rel="canonical" href="http://localhost:4000/2023/05/15/Z-score-in-R.html">
+</head>
+
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body">
+            <div class="post-body">
+    <h1 id = "post-main-title">Z score in R</h1>
+    <p id = "author">Bruno Ponne &#9679 15 May 2023</p>
+    <hr>
+    <ul class = "meta-info">
+        
+        <li>Easy</li>
+        
+        <li>R</li>
+        
+        <li>7 min</li>
+        
+    </ul>
+    <br>
+    <h1>What you will learn</h1>
+    <ul>
+        
+        <li class = "objectives"> Learn the definition of Z score;</li>
+        
+        <li class = "objectives"> Be able to calculate and visualize Z scores in R;</li>
+        
+        <li class = "objectives"> Be confident in interpreting Z scores.</li>
+        
+    </ul>
+    <br>
+    <h1>Table of Contents</h1>
+
+
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-z-score-in-r">Coding the past: Z score in R</a><ul><li><a href="#1-what-is-the-z-score">1. What is the Z score?</a></li><li><a href="#2-calculating-z-score-in-r">2. Calculating Z score in R</a></li><li><a href="#3-visualizing-z-scores-in-a-histogram">3. Visualizing Z scores in a histogram</a></li><li><a href="#4-skewness-of-the-distribution">4. Skewness of the distribution</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+
+    <p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p>“We don’t need no education.”</p>
+
+<p>Pink Floyd</p>
+
+<p><br /></p>
+
+<p>In this lesson we will use data of the General Social Survey (1972-1978) to study American society in the seventies. In particular, we would like to study schooling duration for individuals in our sample and how specific observations compare to the rest of the sample. To do so, we will use the Z score - a measure of how many standard deviations below or above the population mean an observation is.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>Data used in this lesson is included in the <a href="https://cran.r-project.org/web/packages/survival/index.html">R Survival Package</a> and was originally used in Logan (1983) - <em>A Multivariate Model for Mobility Tables</em>. The data is part of the <a href="https://gss.norc.org/">General Social Survey</a> (1972-1978).</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-z-score-in-r">Coding the past: Z score in R</h1>
+
+<p><br /></p>
+
+<h2 id="1-what-is-the-z-score">1. What is the Z score?</h2>
+
+<p>The Z score is a measure of how many standard deviations a data point in a set is away from the mean of that set of values. Below you find the expression to calculate the Z score of a given point in a sample.</p>
+
+\[Z_{X} = \frac{X - \overline{X}}{S}\]
+
+<p>Where:</p>
+
+<ul class="conclusion-list">
+  <li>\(Z_{X}\) is the Z score of the point \(X\);</li>
+  <li>\(X\) is the value for which we want to calculate the Z score;</li>
+  <li>\(\overline{X}\) is the mean of the sample;</li>
+  <li>\(S\) is the standard deviation of the sample.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-calculating-z-score-in-r">2. Calculating Z score in R</h2>
+
+<p>Implementing the Z score formula in R is quite straightforward. To reuse code, we will create a function called <code class="language-plaintext highlighter-rouge">calculate_z</code> using the <code class="language-plaintext highlighter-rouge">mean</code> and <code class="language-plaintext highlighter-rouge">sd</code> base functions to calculate Z.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-9-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">calculate_z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">X_mean</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">){</span><span class="w">
+  </span><span class="nf">return</span><span class="p">((</span><span class="n">X</span><span class="o">-</span><span class="n">X_mean</span><span class="p">)</span><span class="o">/</span><span class="n">S</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>To load the data, we will use the <code class="language-plaintext highlighter-rouge">data</code> function and specify the <code class="language-plaintext highlighter-rouge">survival</code> package. The dataset we are interested in is called <code class="language-plaintext highlighter-rouge">logan</code> and contains information about the duration of education for 838 individuals. The variable <code class="language-plaintext highlighter-rouge">education</code> contains the number of years of schooling for each individual.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-9-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span><span class="w">
+
+</span><span class="n">data</span><span class="p">(</span><span class="n">logan</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="o">=</span><span class="s2">"survival"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">mean</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">)</span><span class="w">
+
+</span><span class="n">sd</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The average education duration in our sample is 13.58 years, with a standard deviation of 2.73 years. With this information, we can proceed to calculate the Z score for each observation in the dataset.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-9-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">logan</span><span class="o">$</span><span class="n">z_score</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">calculate_z</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">mean</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">),</span><span class="w">
+                             </span><span class="n">sd</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span><span class="w">
+
+</span><span class="n">head</span><span class="p">(</span><span class="n">logan</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<table class="dataframe">
+<tr> <th>occupation</th> <th>focc</th> <th> education </th> <th> race </th> <th> z_score </th>  </tr>
+  <tr>  <td> sales </td> <td>professional</td> <td>4</td> <td> non-black </td> <td> 0.15 </td> </tr>
+  <tr>  <td> craftsmen </td> <td>sales</td> <td>13</td> <td> non-black </td> <td> -0.21 </td> </tr>
+  <tr>  <td> sales </td> <td>professional</td> <td>16</td> <td> non-black </td> <td> 0.89 </td> </tr>
+  <tr>  <td> craftsmen </td> <td>sales</td> <td>16</td> <td> non-black </td> <td> 0.89 </td> </tr>
+  <tr>  <td> operatives </td> <td>professional</td> <td>14</td> <td> non-black </td> <td> 0.15 </td> </tr>
+</table>
+
+<p><br /></p>
+
+<p>As you can see in the dataframe, the first individual spent 0.15 standard deviations more time in school compared to the average. A negative Z score indicates that the observation is below the average, while a positive Z score indicates that it is above the average.</p>
+
+<p><br /></p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">summary(logan$z_score)</code> to check the Z score summary statistics. You will observe that the individual with the shortest education duration in our dataset has a schooling period that is 4.23 standard deviations below the mean. Conversely, the individual with the longest schooling duration is 2.35 standard deviations above the average.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-visualizing-z-scores-in-a-histogram">3. Visualizing Z scores in a histogram</h2>
+
+<p>One way to visually represent our data is by using a histogram. It shows how often each different value occurs. The x-axis represents the variable values, while the y-axis represents the count of occurrences for each value in our sample.</p>
+
+<p><br /></p>
+
+<p>You can plot a histogram in ggplot2 with the geom layer called <code class="language-plaintext highlighter-rouge">geom_histogram()</code>. It has the argument bins where you can pass the number of intervals you would like to divide your data, that is, how many bars you will have.</p>
+
+<p><br /></p>
+
+<p>In the plot below, the white dashed lines indicate the interval of two standard deviations (Z=+/-2) around the mean. Similarly, the yellow dashed lines represent the interval of three standard deviations (Z=+/-3) around the mean. These lines are added with the <code class="language-plaintext highlighter-rouge">geom_vline()</code> function.</p>
+
+<p><br /></p>
+
+<p>To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-9-4">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
+        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Eliminates grids:</span><span class="w">
+        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
+        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">mean_edu</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">sd_edu</span><span class="w">   </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logan</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">education</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> 
+                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> 
+                </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> 
+                </span><span class="n">bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Years of education"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">   
+             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">   
+             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
+            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=-3"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21</span><span class="p">,</span><span class="w">   </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
+            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=3"</span><span class="p">,</span><span class="w">  </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7.3</span><span class="p">,</span><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
+            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=-2"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">18.3</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
+            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=2"</span><span class="p">,</span><span class="w">  </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_09_01.png" alt="Histogram of Schooling Duration" /></p>
+
+<p><br /></p>
+
+<p>One remarkable conclusion we draw from the plot above is that the majority of data points fall within a range of up to two standard deviations from the mean. In fact, only 4.4% of our observations exceed this threshold of two standard deviations. Note as well that there are 15 bars in the histogram, which is the number of bins we specified in the <code class="language-plaintext highlighter-rouge">geom_histogram()</code> function.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-skewness-of-the-distribution">4. Skewness of the distribution</h2>
+
+<p>Skewness refers to the asymmetry of a distribution. The distribution of education duration is skewed to the left. This means there are more individuals with a very low education duration compared to those with a very large duration. This can also be seen by the minimum and maximum Z score. While the minimum is -4.23, the maximum is only 2.35. Extreme Z-scores are also indicators of outliers, that is, values unusually high or low compared to most of the observations.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> To know more about z scores and distributions , check
+        
+        <a href="https://soc.utah.edu/sociology3112/normal-distribution.php" target="_blank"> this page of the University of Utah.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>In the next lesson, we will explore a specific type of distribution known as the normal distribution. This distribution is symmetric and has certain properties that make it easier to analyze.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>The Z score is a measure of how many standard deviations a data point is away from the mean. It can be easily calculated in R;</li>
+  <li>ggplot2 can be used to visualize the different Z scores in a distribution;</li>
+  <li>Extreme Z-scores might indicate outliers or skewed distributions;</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+    
+
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/05/15/Z-score-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/05/15/Z-score-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/05/15/Z-score-in-R.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_09.jpeg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/05/15/Z-score-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script
+            type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            <h2><b>Additional resources</b></h2>
+            <a href="https://programminghistorian.org/">Programming Historian</a>
+            <a href="https://rweekly.org/">R Weekly</a>
+            <a href="https://www.r-bloggers.com/">R Bloggers</a>
+            <a href="https://python-bloggers.com/">Python Bloggers</a>
+        </div>
+        <div>
+            Coding the Past © 2023 Copyright
+        </div>
+    </div>
+</footer>
+    </div>
+</body>
+<script src="/assets/js/copycode.js"></script>
+<script src="/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"></script>
+
+</html>

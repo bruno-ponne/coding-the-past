@@ -593,8 +593,22 @@ h2 {
 .intro-contacts {
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: 20%;
   margin-bottom: 5%;
+  color: #2E3031;
+}
+
+.about-photo {
+  background-color: white;
+  margin-top: 5%;
+}
+
+.about-photo img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  margin-top: 15%;
+  margin-bottom: 2%;
 }
 
 .contacts {
@@ -604,7 +618,7 @@ h2 {
   align-items: center;
   flex-wrap: wrap;
   background-color: white;
-  height: 20vh;
+  height: 15vh;
   width: 100%;
 }
 
