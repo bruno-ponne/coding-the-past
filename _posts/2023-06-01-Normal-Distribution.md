@@ -16,7 +16,7 @@ objectives:
   - o: Learn how to calculate probabilities of normally distributed data.
 keywords: histogram, density-plot, R, statistics, normality, normal-distribution, probability
 description: learn to identify normal distributions in R.
-last_modified_at: 29-May-23
+last_modified_at: 01-June-23
 ---
 
 <br>
