@@ -180,7 +180,7 @@ In the plot below, the white dashed lines indicate the interval of two standard 
 
 <br>
 
-To customize our plot, we will use the ggplot theme developed in the lesson ['How to show historical weather data with ggplot2 customized plots']({% post_url 2023-01-24-Historical-Weather-Data %}).
+To customize our plot, we will use the ggplot theme developed in the lesson ['Climate data visualization']({% post_url 2023-01-24-Historical-Weather-Data %}).
 
 <br>
 

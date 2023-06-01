@@ -52,7 +52,7 @@ Data for this lesson comes from two different sources: data of historical temper
 
 ## 1. Preparing the data and performing an inner_join in R
 
-First, we will use the data prepared for the lesson ['How to show historical weather data with ggplot2 customized plots']({% post_url 2023-01-24-Historical-Weather-Data %}). Please, download it [here][1]
+First, we will use the data prepared for the lesson ['Climate data visualization']({% post_url 2023-01-24-Historical-Weather-Data %}). Please, download it [here][1]
 
 [1]:{{ site.url }}/assets/data/temperatures.RData
 
@@ -156,7 +156,7 @@ If you run the code above, you will see that there is a moderate linear correlat
 
 ## 3. Plotting correlation in r
 
-One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how [dplyr filter()](https://dplyr.tidyverse.org/reference/filter.html) works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson ['How to show historical weather data with ggplot2 customized plots']({% post_url 2023-01-24-Historical-Weather-Data %})
+One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how [dplyr filter()](https://dplyr.tidyverse.org/reference/filter.html) works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson ['Climate data visualization']({% post_url 2023-01-24-Historical-Weather-Data %})
 
 <br>
 

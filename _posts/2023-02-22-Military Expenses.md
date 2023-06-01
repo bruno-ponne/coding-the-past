@@ -202,7 +202,7 @@ ggplot(data = military_long, aes(x = year, y = expense, group = country, color =
 ## 4. Adding a theme to the plot
 
 <br>
-To customize our plot, we will use the ggplot theme developed in the lesson ['How to show historical weather data with ggplot2 customized plots']({% post_url 2023-01-24-Historical-Weather-Data %}). Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.
+To customize our plot, we will use the ggplot theme developed in the lesson ['Climate data visualization']({% post_url 2023-01-24-Historical-Weather-Data %}). Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.
 
 <br>
 

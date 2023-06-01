@@ -1,4 +1,523 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-05-22T11:03:26-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Z score in R</title><link href="http://localhost:4000/2023/05/15/Z-score-in-R.html" rel="alternate" type="text/html" title="Z score in R" /><published>2023-05-15T00:00:00-03:00</published><updated>2023-05-15T00:00:00-03:00</updated><id>http://localhost:4000/2023/05/15/Z-score-in-R</id><content type="html" xml:base="http://localhost:4000/2023/05/15/Z-score-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-06-01T08:43:25-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Checking normality in R</title><link href="http://localhost:4000/2023/05/29/Normal-Distribution.html" rel="alternate" type="text/html" title="Checking normality in R" /><published>2023-05-29T00:00:00-03:00</published><updated>2023-05-29T00:00:00-03:00</updated><id>http://localhost:4000/2023/05/29/Normal-Distribution</id><content type="html" xml:base="http://localhost:4000/2023/05/29/Normal-Distribution.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p>“The normal distribution describes the manner in which many phenomena vary around a central value that represents their most probable outcome”</p>
+
+<p>Leonard Mlodinow</p>
+
+<p><br /></p>
+
+<p>In this lesson, we will dive into the concept of the normal distribution, which is a fundamental concept within statistics. Also known as the Gaussian distribution or bell curve, the normal distribution is a symmetric probability distribution that manifests in numerous natural and social phenomena. During this lesson, we will employ the Swiss dataset to examine and visualize the normal distribution. This dataset comprises the infant mortality rate of 47 French-speaking provinces in Switzerland around 1888.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Infant Mortality Rate is the number of children deaths under one year of age per 1,000 live births. Learn more 
+        
+        <a href="https://data.oecd.org/healthstat/infant-mortality-rates.htm" target="_blank"> on this OECD page.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>The <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/swiss.html">Swiss Fertility and Socioeconomic Indicators (1888) Data</a> is available in the <code class="language-plaintext highlighter-rouge">datasets</code> R package and was originally used in <em>Data Analysis and Regression: A Second Course in Statistics</em> by Mosteller and Tukey (1977).</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-testing-normality-in-r">Coding the past: testing normality in R</h1>
+
+<p><br /></p>
+
+<h2 id="1-what-is-a-normal-distribution">1. What is a normal distribution?</h2>
+
+<p>As we learned from the lesson <a href="/2023/05/15/Z-score-in-R.html">‘Z score in R’</a>, a distribution of data illustrates the frequency of occurrence for different values of a variable. One common way to visualize a distribution is through a histogram.</p>
+
+<p><br /></p>
+
+<p>The normal distribution is a particular kind of data distribution characterized by the following aspects:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>approximately 95% of all observations of the data fall within 2 standard deviations from the mean. This means that the vast majority of data points cluster closely around the average value;</li>
+</ul>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>when visualized with a histogram, it forms a symmetrical bell-shaped curve. This symmetry indicates that the distribution’s shape is identical on both sides of the mean.</li>
+</ul>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>three important measures of central tendency coincide - the mean, the mode, and the median. This implies that the average value, the most frequently occurring value, and the middle value of the dataset tend to be all equal.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-what-is-rnorm-in-r">2. What is rnorm in R?</h2>
+
+<p>Suppose we want to generate a dataset of heights that follows a normal distribution in R. Specifically, we aim to generate the heights of 1,000 students with a mean of 175 cm and a standard deviation of 5 cm. R provides a function called <code class="language-plaintext highlighter-rouge">rnorm</code> that generates normally distributed data. It takes three arguments: the number of observations you would like to be generated, mean, and standard deviation. In the code below, we generate a normally distributed dataset and plot its histogram.</p>
+
+<p><br /></p>
+
+<p>To ensure reproducibility, we use <code class="language-plaintext highlighter-rouge">set.seed(42)</code> to obtain the same set of numbers every time the code is run. Moreover, to customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+
+</span><span class="n">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Generating normally distributed data</span><span class="w">
+
+</span><span class="n">heights</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">heights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="m">175</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Checking the summary statistics</span><span class="w">
+
+</span><span class="n">summary</span><span class="p">(</span><span class="n">heights</span><span class="o">$</span><span class="n">heights</span><span class="p">)</span><span class="w">
+</span><span class="n">sd</span><span class="p">(</span><span class="n">heights</span><span class="o">$</span><span class="n">heights</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
+        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Eliminates grids:</span><span class="w">
+        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
+        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">heights</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">heights</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Height [cm]"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_01.png" alt="Histogram of simulated normal distribution " /></p>
+
+<p><br /></p>
+
+<p>As you can see, the distribution has a bell shape and is approximately symmetric, with data centered mostly around the mean (175 cm). According to the summary statistics, the shortest person in our sample measures 158.1 cm, while the tallest stands at 192.5 cm. Besides that, the standard deviation is very close to 5 cm.</p>
+
+<p><br /></p>
+
+<p>Based on our definition, approximately 95% of the observations should fall within a range of minus 2 standard deviations from the mean to plus 2 standard deviations from the mean. Now, let us verify if this holds true for our specific example.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">std_dev</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">heights</span><span class="o">$</span><span class="n">heights</span><span class="p">)</span><span class="w">
+
+</span><span class="n">heights</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">heights</span><span class="o">&gt;</span><span class="m">175</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">std_dev</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">heights</span><span class="o">&lt;</span><span class="w"> </span><span class="m">175</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">std_dev</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">nrow</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>As expected, only 47 out of 1000 observations, or 4.7%, are more than 2 standard deviations away from the mean.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-r-swiss-dataset">3. R swiss dataset</h2>
+
+<p>Now, let’s examine whether infant mortality rates in 47 provinces of Switzerland in about 1888 follow a normal distribution. Before plotting the histogram, we should first verify if the mean and median of our data points are approximately equal, as is typically the case in a normal distribution, as mentioned earlier. The swiss dataset can be directly loaded to a variable as shown in the code below.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-3">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">swiss</span><span class="w">
+
+</span><span class="n">sd</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Infant.Mortality</span><span class="p">)</span><span class="w">
+</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Infant.Mortality</span><span class="p">)</span><span class="w">
+</span><span class="n">median</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Infant.Mortality</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The standard deviation of infant mortality is 2.91 and its mean is 19.94255. Note that indeed the mean and the median (20) are very similar. Below we plot the histogram to check the shape of our distribution. We also check how many observations are more than 2 standard deviations away from the mean.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-4">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Infant Mortality"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">Infant.Mortality</span><span class="o">&gt;</span><span class="m">19.94255</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="m">2.91</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="o">&lt;</span><span class="w"> </span><span class="m">19.94255</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="m">2.91</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">nrow</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_02.png" alt="Histogram of infant mortality from the swiss dataset " /></p>
+
+<p><br /></p>
+
+<p>The shape appears to be of a normal distribution, slightly skewed to the left. Furthermore, only 2 out of 47 observations, or 4.2%, in our distribution are more than 2 standard deviations away from the mean. This also suggests that our data is indeed normally distributed.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-probability-density-function-in-r">4. Probability Density Function in R</h2>
+
+<p>A density curve follows the shape of the histogram of the data, but instead of providing the frequency of each value, the area under this curve provides the probability that a certain range of values will occur. For the normal distribution, the density curve is defined as a function \(f(x)\) dependent on \(\mu\) (mean) and \(\sigma\) (standard deviation).</p>
+
+\[f(x) = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{(x-\mu)^{2}}{2\sigma^2}}\]
+
+<p>With the formula above, we can implement this function in R to calculate the density for each value of our data.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-5">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">calculate_density</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">st_dev</span><span class="p">){</span><span class="w">
+  </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="n">st_dev</span><span class="o">*</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">)))</span><span class="o">*</span><span class="nf">exp</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">mean</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="n">st_dev</span><span class="o">^</span><span class="m">2</span><span class="p">)))</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Now we can calculate the density for each data point of the infant mortality variable and plot the density as a function of the data points.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-6">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="o">$</span><span class="n">density</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">calculate_density</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Infant.Mortality</span><span class="p">,</span><span class="w"> </span><span class="m">19.94255</span><span class="p">,</span><span class="w"> </span><span class="m">2.91</span><span class="p">)</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">density</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Infant Mortality"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_03.png" alt="Density plot of infant mortality from the swiss dataset drawn with geom_line " /></p>
+
+<p><br /></p>
+
+<p>Note that the curve does not form a perfect bell shape due to the limited number of observations.</p>
+
+<p><br /></p>
+
+<p>Fortunately, you do not need to create these functions manually in order to plot a density plot. Firstly, R offers a built-in function called <code class="language-plaintext highlighter-rouge">dnorm</code> that performs the same calculations as the <code class="language-plaintext highlighter-rouge">calculate_density</code> function we created earlier. It accepts identical arguments. Additionally, the <code class="language-plaintext highlighter-rouge">ggplot2</code> package includes a layer called <code class="language-plaintext highlighter-rouge">geom_density</code> which calculates the density and plots it simultaneously. Let’s explore this functionality in the example below.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-7')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-7">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_density</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">bw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Infant Mortality"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_04.png" alt="Density plot of infant mortality from the swiss dataset drawn with geom_density " /></p>
+
+<p><br /></p>
+
+<p>Note that the <code class="language-plaintext highlighter-rouge">geom_density</code> computes kernel density estimates and allows you to control how smooth the curve is through the <code class="language-plaintext highlighter-rouge">bw</code> argument. The higher the value of <code class="language-plaintext highlighter-rouge">bw</code>, the smoother the curve.</p>
+
+<p><br /></p>
+
+<p>But, after all, why are density curves so important?</p>
+
+<p><br /></p>
+
+<p>That is because the area under these curves gives us the probability that a certain range of values occurs. Calculating the area under a curve typically requires integration. However, as an approximation, we can approximate the probability of finding Swiss provinces with infant mortality rates ranging from 19 to 21 without resorting to integrals. To do this, we draw a rectangle that approximates the area under the curve within this interval. The plot below illustrates this approach.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-8')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-10-8">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_density</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">bw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Infant Mortality"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"rect"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">19</span><span class="p">,</span><span class="w"> </span><span class="n">xmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="n">ymin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">ymax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.13</span><span class="p">,</span><span class="w">
+           </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_05.png" alt="Approach to calculate the area under the density curve " /></p>
+
+<p><br /></p>
+
+<p>The area of the rectangle can be calculated by multiplying 2 (width) by 0.13 (height) which results in 0.26. This means that the probability of finding a province with infant mortality between 19 and 21 is 26%.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-how-to-use-pnorm-in-r">5. How to use pnorm in R</h2>
+
+<p>There is a function in R called <code class="language-plaintext highlighter-rouge">pnorm</code> that calculates the probability of an interval of values occurring in a normal distribution. The first argument, <code class="language-plaintext highlighter-rouge">x</code>, specifies the interval for which the probability is to be calculated. By default, the calculated probability corresponds to the interval of values to the left of <code class="language-plaintext highlighter-rouge">x</code>. You can change this behavior by setting <code class="language-plaintext highlighter-rouge">lower.tail</code> to <code class="language-plaintext highlighter-rouge">FALSE</code>.</p>
+
+<p><br /></p>
+
+<p>For instance, if we would like to calculate the probability of finding a province with infant mortality lower than or equal to 21, then our first argument is 21. The second argument is the mean, and the third is the standard deviation. Below we also plot the density curve that highlights the area under the curve within the interval of interest.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-9')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-10-9">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_density</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">bw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Infant Mortality"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"rect"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="n">xmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">27</span><span class="p">,</span><span class="w"> </span><span class="n">ymin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">ymax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.13</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="m">0.7</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span><span class="w">
+
+</span><span class="n">pnorm</span><span class="p">(</span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="m">19.94</span><span class="p">,</span><span class="w"> </span><span class="m">2.91</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_06.png" alt="Density Curve with a portion of its area highlighted" /></p>
+
+<p><br /></p>
+
+<p>The probability of finding a province with infant mortality lower than or equal to 21 is represented by the unshaded red area and is 64.2%.</p>
+
+<p><br /></p>
+
+<p>To find the probability of a value between 19 and 21, we have to subtract the probability of infant mortality lower than or equal to 19 from the 64.2%, as depicted in the plot below.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-10')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-10-10">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Infant.Mortality</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_density</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">bw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Infant Mortality"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"rect"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="n">xmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">27</span><span class="p">,</span><span class="w"> </span><span class="n">ymin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">ymax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.13</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="m">0.7</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"rect"</span><span class="p">,</span><span class="w"> </span><span class="n">xmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">xmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">19</span><span class="p">,</span><span class="w"> </span><span class="n">ymin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">ymax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.13</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="m">0.7</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span><span class="w">
+
+</span><span class="n">pnorm</span><span class="p">(</span><span class="m">21</span><span class="p">,</span><span class="w"> </span><span class="m">19.94</span><span class="p">,</span><span class="w"> </span><span class="m">2.91</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pnorm</span><span class="p">(</span><span class="m">19</span><span class="p">,</span><span class="w"> </span><span class="m">19.94</span><span class="p">,</span><span class="w"> </span><span class="m">2.91</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_10_07.png" alt="Density Curve with interval of interest highlighted" /></p>
+
+<p><br /></p>
+
+<p>According to <code class="language-plaintext highlighter-rouge">pnorm</code>, the probability of finding a province with infant mortality between 19 and 21 is 26.9%, very close to our rectangle area approximation (26%).</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-z-score-probability-in-r">6. Z-score probability in R</h2>
+
+<p>You can also use <code class="language-plaintext highlighter-rouge">pnorm</code> to calculate probabilities with Z-scores. In this case, you only pass the z-score to the function. For example, let us calculate the probability that a province has infant mortality lower than or equal to 21. First, 21 corresponds to a z-score of (21-19.94)/2.91, or 0.36. Now we can pass this z-score to the function <code class="language-plaintext highlighter-rouge">pnorm(0.36)</code> to obtain the probability of 64.2%, as we had already calculated above!</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="7-testing-normality-with-a-shapiro-wilk-test">7. Testing normality with a Shapiro-Wilk test</h2>
+
+<p>The Shapiro-Wilk test is a statistical test that can be used to test the normality of a sample. The test gives us a p-value. If the p-value is less than 0.05, then the distribution in question is significantly different from a normal distribution. Otherwise, we can consider that the distribution is normal. Below we test the normality of our variable.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-10-11')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-10-11">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">shapiro.test</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Infant.Mortality</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The Shapiro-Wilk test results in a p-value of 0.4978 which is greater than 0.05. Therefore, we can consider that the distribution of infant mortality in the Swiss provinces is normal.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>The normal distribution manifests in numerous natural and social phenomena and is characterized by the following aspects:
+    <ul>
+      <li>approximately 95% of all observations of the data fall within 2 standard deviations from the mean;</li>
+      <li>when visualized with a histogram, it forms a symmetrical bell-shaped curve;</li>
+      <li>three important measures of central tendency coincide: the mean, the mode, and the median;</li>
+    </ul>
+  </li>
+  <li>The <code class="language-plaintext highlighter-rouge">rnorm</code> function generates normally distributed data in R;</li>
+  <li>The area under the density curve gives us the probability that a certain range of values occurs;</li>
+  <li>The <code class="language-plaintext highlighter-rouge">pnorm</code> function calculates the probability of an interval of values occurring in a normal distribution;</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="histogram" /><category term="normal-distribution" /><category term="density-plot" /><summary type="html"><![CDATA[learn to identify normal distributions in R.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_10.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_10.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Z score in R</title><link href="http://localhost:4000/2023/05/15/Z-score-in-R.html" rel="alternate" type="text/html" title="Z score in R" /><published>2023-05-15T00:00:00-03:00</published><updated>2023-05-15T00:00:00-03:00</updated><id>http://localhost:4000/2023/05/15/Z-score-in-R</id><content type="html" xml:base="http://localhost:4000/2023/05/15/Z-score-in-R.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -160,7 +679,7 @@
 
 <p><br /></p>
 
-<p>To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>.</p>
+<p>To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>.</p>
 
 <p><br /></p>
 
@@ -1537,7 +2056,7 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 <h2 id="4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</h2>
 
 <p><br />
-To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.</p>
+To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>. Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.</p>
 
 <p><br /></p>
 
@@ -2089,7 +2608,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 <h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</h2>
 
-<p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
+<p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
 
 <p><br /></p>
 
@@ -2202,7 +2721,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 <h2 id="3-plotting-correlation-in-r">3. Plotting correlation in r</h2>
 
-<p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘How to show historical weather data with ggplot2 customized plots’</a></p>
+<p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a></p>
 
 <p><br /></p>
 
