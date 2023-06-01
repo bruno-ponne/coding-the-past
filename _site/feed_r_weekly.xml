@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_weekly.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 01 Jun 2023 08:43:25 -0300</pubDate>
-        <lastBuildDate>Thu, 01 Jun 2023 08:43:25 -0300</lastBuildDate>
+        <pubDate>Thu, 01 Jun 2023 09:00:21 -0300</pubDate>
+        <lastBuildDate>Thu, 01 Jun 2023 09:00:21 -0300</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -533,9 +533,9 @@
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Mon, 29 May 2023 00:00:00 -0300</pubDate>
-                <link>http://localhost:4000/2023/05/29/Normal-Distribution.html</link>
-                <guid isPermaLink="true">http://localhost:4000/2023/05/29/Normal-Distribution.html</guid>
+                <pubDate>Thu, 01 Jun 2023 00:00:00 -0300</pubDate>
+                <link>http://localhost:4000/2023/06/01/Normal-Distribution.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2023/06/01/Normal-Distribution.html</guid>
                 
                 <category>r</category>
                 
