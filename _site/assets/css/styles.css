@@ -282,6 +282,10 @@ h2 {
   border: 1px solid rgba(206, 202, 202, 0.2);
 }
 
+.policy-box {
+  border-top: 1px solid #979d9f;
+}
+
 #post-main-title {
   font-size: 32px;
   margin-bottom: 2%;
@@ -457,6 +461,10 @@ h2 {
   margin-right: 10px;
 }
 
+.license a {
+  margin-right: 0px;
+}
+
 .footer-content {
   margin-bottom: 3%;
   display: flex;
@@ -469,6 +477,29 @@ h2 {
   text-align: center;
   background-color: white;
   box-shadow: 0 0 5px 5px rgba(59, 59, 59, 0.2);
+}
+
+.policy-body {
+  font-size: 12px;
+  text-align: left;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.policy-body h1 {
+  font-size: 20px;
+}
+
+.policy-body h2 {
+  font-size: 16px;
+}
+
+.policy-body a {
+  color: white;
+}
+
+.policy-body a:hover {
+  color: #C84848;
 }
 
 /*  Subscription form   */

@@ -17,20 +17,20 @@ last_modified_at: 05-Mar-23
         <h1>CODING LESSONS</h1>
         <ul class="lessons-list">
             {% for post in site.posts %}
-            <li class="lesson-style">
-                <div class="lesson-name">
-                    <h2><a class="lesson-link" href="{{ post.url }}">{{ post.title }}</a></h2>
-                    <ul class="meta-info">
-                        {% for item in post.attributes %}
-                        <li>{{item.e}}</li>
-                        {% endfor %}
-                    </ul>
-                    {{ post.abstract }}
-                </div>
-                <div class="lesson-img-box">
-                    <img class="lesson-img" src="/assets/images/{{ post.image }}" alt="image related to the lesson">
-                </div>
-            </li>
+                <li class="lesson-style">
+                    <div class="lesson-name">
+                        <h2><a class="lesson-link" href="{{ post.url }}">{{ post.title }}</a></h2>
+                        <ul class="meta-info">
+                            {% for item in post.attributes %}
+                            <li>{{item.e}}</li>
+                            {% endfor %}
+                        </ul>
+                        {{ post.abstract }}
+                    </div>
+                    <div class="lesson-img-box">
+                        <img class="lesson-img" src="/assets/images/{{ post.image }}" alt="image related to the lesson">
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     <div class="pic_attribution">
