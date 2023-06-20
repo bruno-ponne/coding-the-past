@@ -271,6 +271,32 @@ h2 {
   padding: 1%;
 }
 
+#tag-buttons {
+  margin-right: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tag-button {
+  padding: 1%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  background-color: #C84848;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 0px;
+  border: 1px solid #C84848;
+}
+
+.tag-button:hover {
+  cursor: pointer;
+  background-color: rgb(248, 248, 248);
+  color: #C84848;
+  border: 1px solid #C84848;
+}
+
 .post-body {
   margin-top: 5%;
   margin-left: 5%;

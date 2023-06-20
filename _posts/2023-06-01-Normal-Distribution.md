@@ -6,7 +6,7 @@ attributes:
   - e: Medium
   - e: R
   - e: 10 min
-tags: r statistics histogram normal-distribution density-plot
+tags: r statistics ggplot2
 image: lesson_10.jpeg
 abstract: Learn what is and how to identify data that is normally distributed.
 objectives:

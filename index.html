@@ -7,38 +7,77 @@ last_modified_at: 05-Mar-23
 ---
 <div class="presentation-box">
     <div class="presentation-box-img">
-        <img class="intro-img"  title = "Women programming the Electronic Numerical Integrator and Calculator (Wikimedia Commons)." src="/assets/images/women-programming.png" alt="Women programming the oldest computer.">
+        <img class="intro-img"
+            title="Women programming the Electronic Numerical Integrator and Calculator (Wikimedia Commons)."
+            src="/assets/images/women-programming.png" alt="Women programming the oldest computer.">
     </div>
     <div class="intro-text">
         <h1>Data science for all</h1>
-        <p>For a long time, statistical and digital methods were restricted to hard sciences. Fortunately, historians and humanists can now benefit from data science as well. This webpage provides programming lessons on the use of data science in digital humanities. Learn to conduct efficient statistical analyses and show your insights with beautiful visualizations.</p>
+        <p>For a long time, statistical and digital methods were restricted to hard sciences. Fortunately, historians
+            and humanists can now benefit from data science as well. This webpage provides programming lessons on the
+            use of data science in digital humanities. Learn to conduct efficient statistical analyses and show your
+            insights with beautiful visualizations.</p>
     </div>
     <div class="latest-updates">
         <h1>CODING LESSONS</h1>
-        <ul class="lessons-list">
-            {% for post in site.posts %}
-                <li class="lesson-style">
-                    <div class="lesson-name">
-                        <h2><a class="lesson-link" href="{{ post.url }}">{{ post.title }}</a></h2>
-                        <ul class="meta-info">
-                            {% for item in post.attributes %}
-                            <li>{{item.e}}</li>
-                            {% endfor %}
-                        </ul>
-                        {{ post.abstract }}
-                    </div>
-                    <div class="lesson-img-box">
-                        <img class="lesson-img" src="/assets/images/{{ post.image }}" alt="image related to the lesson">
-                    </div>
-                </li>
+        <br>
+        {% assign all_tags = "" %}
+        {% for post in site.posts %}
+            {% for tag in post.tags %}
+                {% if all_tags contains tag %}
+                {% else %}
+                    {% assign all_tags = all_tags | append: tag | append: "," %}
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        {% assign all_tags = all_tags | split: "," | sort %}
+
+
+        <div id="tag-buttons">
+            <button class="tag-button" data-tag="all">ALL LESSONS ({{ site.posts.size }})</button>
+            {% assign tag_counts = "" | split: ',' %}
+            {% for tag in all_tags %}
+                {% assign tag_count = 0 %}
+                {% for post in site.posts %}
+                    {% if post.tags contains tag %}
+                        {% assign tag_count = tag_count | plus: 1 %}
+                    {% endif %}
+                {% endfor %}
+                {% assign tag_counts = tag_counts | push: tag_count %}
+                <button class="tag-button" data-tag="{{ tag }}">{{ tag | upcase }} ({{ tag_count }})</button>
             {% endfor %}
+        </div>
+        
+        <br>
+        <ul class="lessons-list">
+            <div id="posts">
+                {% for post in site.posts %}
+                <div class="post" data-tags="{{ post.tags | join: ',' }}">
+                    <li class="lesson-style">
+                        <div class="lesson-name">
+                            <h2><a class="lesson-link" href="{{ post.url }}">{{ post.title }}</a></h2>
+                            <ul class="meta-info">
+                                {% for item in post.attributes %}
+                                <li>{{item.e}}</li>
+                                {% endfor %}
+                            </ul>
+                            {{ post.abstract }}
+                        </div>
+                        <div class="lesson-img-box">
+                            <a class="lesson-link" href="{{ post.url }}">
+                                <img class="lesson-img" src="/assets/images/{{ post.image }}" alt="image related to the lesson">
+                            </a>
+                        </div>
+                    </li>
+                </div>
+                {% endfor %}
+            </div>
         </ul>
-    <div class="pic_attribution">
-        <sup>*</sup>Cover images are all in public domain (available at Wikimedia Commons) or AI generated.
-    </div>
+        <div class="pic_attribution">
+            <sup>*</sup>Cover images are all in public domain (available at Wikimedia Commons) or AI generated.
+        </div>
     </div>
     <div class="empty-space">
 
     </div>
 </div>
-

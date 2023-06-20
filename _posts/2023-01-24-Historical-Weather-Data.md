@@ -6,7 +6,7 @@ attributes:
   - e: Medium
   - e: R
   - e: 20 min
-tags: r visualization ggplot2
+tags: r ggplot2
 image: lesson_03.jpeg
 social_media_img: /assets/images/lesson_03_06.png
 abstract: Would you like to contribute to raise awareness about global warming? In this lesson you will learn how to create your own ggplot2 themes to code compelling plots showing historical weather data.

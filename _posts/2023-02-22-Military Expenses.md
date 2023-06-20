@@ -6,7 +6,7 @@ attributes:
   - e: Medium
   - e: R
   - e: 10 min
-tags: r visualization ggplot2
+tags: r ggplot2
 image: lesson_05.jpeg
 abstract: Use RColorBrewer to choose professional color palettes.
 objectives:

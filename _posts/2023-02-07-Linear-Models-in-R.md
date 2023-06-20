@@ -6,7 +6,7 @@ attributes:
   - e: Advanced
   - e: R
   - e: 30 min
-tags: r regression analysis
+tags: r ggplot2 regression
 image: lesson_04.jpeg
 abstract: Learn the basics of linear regression models and how to use them to study the relationship between two variables.
 objectives:

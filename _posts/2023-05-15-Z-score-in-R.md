@@ -6,7 +6,7 @@ attributes:
   - e: Easy
   - e: R
   - e: 7 min
-tags: r statistics z score standard deviation histogram
+tags: r statistics ggplot2
 image: lesson_09.jpeg
 abstract: Learn to calculate and visualize Z scores in R.
 objectives:

@@ -6,7 +6,7 @@ attributes:
   - e: Medium
   - e: Python
   - e: 15 min
-tags: python visualization tf-idf text-mining
+tags: python matplotlib textanalysis
 image: lesson_08.jpg
 abstract: Learn the difference between term frequency and TF-IDF and how to use them in Python.
 objectives:

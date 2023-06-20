@@ -6,7 +6,7 @@ attributes:
   - e: Medium
   - e: Python
   - e: 15 min
-tags: python visualization matplotlib text-analysis
+tags: python matplotlib textanalysis
 image: lesson_07.png
 abstract: Learn to analyze and visualize text data 
 objectives:
