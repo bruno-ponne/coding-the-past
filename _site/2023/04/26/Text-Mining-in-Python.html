@@ -17,7 +17,7 @@
     <meta name="keywords" content="tf-idf, text data, bag of words, text mining, text analysis">
     <meta name="description" content="learn to calculate tf-idf scores and visualize your results.">
     <meta property= og:image content= />
-    <title>Text Mining in Python - TF-IDF</title>
+    <title>Understand TF-IDF in Python</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Text Mining in Python - TF-IDF</h1>
+    <h1 id = "post-main-title">Understand TF-IDF in Python</h1>
     <p id = "author">Bruno Ponne &#9679 26 Apr 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -86,7 +86,7 @@
     <h1>Table of Contents</h1>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-identifying-relevant-words-in-historical-documents">Coding the past: identifying relevant words in historical documents</a><ul><li><a href="#1-tf-idf-formula">1. TF-IDF formula</a></li><li><a href="#2-tf-idf-calculation-example">2. TF-IDF calculation example</a></li><li><a href="#3-preprocessing-text-data-in-python">3. Preprocessing text data in Python</a></li><li><a href="#3-calculating-term-frequencies-for-each-document">3. Calculating term frequencies for each document</a></li><li><a href="#4-calculating-how-many-times-a-word-appears-in-each-document-in-the-corpus">4. Calculating how many times a word appears in each document in the corpus</a></li><li><a href="#5-tf-idf-calculation">5. TF-IDF calculation</a></li><li><a href="#5-comparing-tf-top-10-words-with-tf-idf-top-10-words">5. Comparing TF top 10 words with TF-IDF top 10 words</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-identifying-relevant-words-in-historical-documents">Coding the past: identifying relevant words in historical documents</a><ul><li><a href="#1-tf-idf-formula">1. TF-IDF formula</a></li><li><a href="#2-tf-idf-calculation-example">2. TF-IDF calculation example</a></li><li><a href="#3-preprocessing-text-data-in-python">3. Preprocessing text data in Python</a></li><li><a href="#3-calculating-term-frequencies-for-each-document">3. Calculating term frequencies for each document</a></li><li><a href="#4-calculating-how-many-times-a-word-appears-in-each-document-in-the-corpus">4. Calculating how many times a word appears in each document in the corpus</a></li><li><a href="#5-tf-idf-calculation">5. TF-IDF calculation</a></li><li><a href="#5-tf-idf-visualization">5. TF-IDF Visualization</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -100,7 +100,7 @@
 
 <p><br /></p>
 
-<p>In the <a href="/2023/04/02/Text-Analysis-1.html">Visualizing Text Data</a> lesson we learned how to use term frequency to identify the most frequent words in a document. However, this method only considers the frequency of each term within a single document and doesn’t account for the frequency of the same word in other documents in the corpus. To account for this limitation, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. It is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus. In this lesson, we’ll explore how to calculate TF-IDF scores and visualize the results using Python.</p>
+<p>In the <a href="/2023/04/02/Text-Analysis-1.html">Text Data Visualization</a> lesson we learned how to use term frequency to identify the most frequent words in a document. Nevertheless, this methodology focuses only on the prevalence of individual terms within a single document, neglecting the term’s occurrence across other documents within the corpus. As a countermeasure to this shortcoming, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. This numerical statistic serves to underscore the significance of a word within a document, relative to a broader collection or corpus. In this lesson, we’ll journey through the process of calculating TF-IDF scores and bring those abstract numbers to life through Python-based visualizations.</p>
 
 <p><br /></p>
 
@@ -110,7 +110,7 @@
 
 <h1 id="data-source">Data source</h1>
 
-<p>Data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a> website. To know more about textual data sources, please check out this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
+<p>The data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a>  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
 
 <p><br /></p>
 
@@ -369,7 +369,7 @@
 
 <p><br /></p>
 
-<h2 id="5-comparing-tf-top-10-words-with-tf-idf-top-10-words">5. Comparing TF top 10 words with TF-IDF top 10 words</h2>
+<h2 id="5-tf-idf-visualization">5. TF-IDF Visualization</h2>
 
 <p><br /></p>
 

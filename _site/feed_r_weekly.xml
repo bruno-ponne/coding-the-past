@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_weekly.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 20 Jun 2023 20:17:15 -0300</pubDate>
-        <lastBuildDate>Tue, 20 Jun 2023 20:17:15 -0300</lastBuildDate>
+        <pubDate>Tue, 04 Jul 2023 15:47:02 -0300</pubDate>
+        <lastBuildDate>Tue, 04 Jul 2023 15:47:02 -0300</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -1920,7 +1920,7 @@ Albert Einstein&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data and how to load datasets in Python and R.&lt;/p&gt;
+&lt;p&gt;With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data for your research. Moreover, you will learn how to load data in Python and R.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1930,7 +1930,7 @@ Albert Einstein&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;data-sources&quot;&gt;Data Sources&lt;/h1&gt;
+&lt;h1 id=&quot;historical-data-in-research---where-to-find&quot;&gt;Historical Data in Research - Where to find?&lt;/h1&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2211,7 +2211,7 @@ More posts on how to find reliable data will be published soon!
 &lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
 
 &lt;ul class=&quot;conclusion-list&quot;&gt;
-  &lt;li&gt;These websites offer high quality historical data:
+  &lt;li&gt;Data analysis in historical research is becoming more and more popular. These websites offer high quality historical data for your analysis:
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources&quot; target=&quot;_blank&quot;&gt;Harvard Business School&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;https://www.mortality.org/Home/Index&quot; target=&quot;_blank&quot;&gt;Human Mortality Database&lt;/a&gt;&lt;/li&gt;

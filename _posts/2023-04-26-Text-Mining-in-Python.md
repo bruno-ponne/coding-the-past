@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title: Text Mining in Python - TF-IDF
+title: Understand TF-IDF in Python
 attributes:
   - e: Medium
   - e: Python
@@ -16,7 +16,7 @@ objectives:
   - o: Be comfortable with visualizing your results.
 keywords: tf-idf, text data, bag of words, text mining, text analysis
 description: learn to calculate tf-idf scores and visualize your results.
-last_modified_at: 26-Apr-23
+last_modified_at: 04-Jul-23
 ---
 
 <br>
@@ -31,7 +31,7 @@ Annie Lennox
 
 <br>
 
-In the [Visualizing Text Data]({% post_url 2023-04-02-Text-Analysis-1 %}) lesson we learned how to use term frequency to identify the most frequent words in a document. However, this method only considers the frequency of each term within a single document and doesn't account for the frequency of the same word in other documents in the corpus. To account for this limitation, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. It is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus. In this lesson, we'll explore how to calculate TF-IDF scores and visualize the results using Python.
+In the [Text Data Visualization]({% post_url 2023-04-02-Text-Analysis-1 %}) lesson we learned how to use term frequency to identify the most frequent words in a document. Nevertheless, this methodology focuses only on the prevalence of individual terms within a single document, neglecting the term's occurrence across other documents within the corpus. As a countermeasure to this shortcoming, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. This numerical statistic serves to underscore the significance of a word within a document, relative to a broader collection or corpus. In this lesson, we'll journey through the process of calculating TF-IDF scores and bring those abstract numbers to life through Python-based visualizations.
 
 <br>
 
@@ -41,7 +41,7 @@ In the [Visualizing Text Data]({% post_url 2023-04-02-Text-Analysis-1 %}) lesson
 
 # Data source
 
- Data used in this lesson is available on the [Oxford Text Archive](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021){:target="_blank"} website. To know more about textual data sources, please check out this post: ['Where to find and how to load historical data']({% post_url 2023-01-10-Where-to-find-and-how-to-load-historical-data %})
+ The data used in this lesson is available on the [Oxford Text Archive](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021){:target="_blank"}  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: ['Where to find and how to load historical data']({% post_url 2023-01-10-Where-to-find-and-how-to-load-historical-data %})
 
 <br>
 
@@ -308,7 +308,7 @@ thacher_otis_may["TF-IDF_mayhew"] = thacher_otis_may["TF_mayhew"] * thacher_otis
  
 <br>
 
-## 5. Comparing TF top 10 words with TF-IDF top 10 words
+## 5. TF-IDF Visualization
 
 <br>
 

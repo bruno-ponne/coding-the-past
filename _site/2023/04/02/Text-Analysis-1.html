@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="nltk, tokenizer, text data, matplotlib, word frequency">
+    <meta name="keywords" content="nltk, text data visualization, text data, matplotlib, word frequency">
     <meta name="description" content="learn to tokenize texts with nltk">
     <meta property= og:image content= />
-    <title>Visualizing Text Data</title>
+    <title>Text Data Visualization</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Visualizing Text Data</h1>
+    <h1 id = "post-main-title">Text Data Visualization</h1>
     <p id = "author">Bruno Ponne &#9679 02 Apr 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -86,7 +86,7 @@
     <h1>Table of Contents</h1>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-visualizing-text-data">Coding the past: visualizing text data</a><ul><li><a href="#1-importing-text-data-with-python">1. Importing text data with Python</a></li><li><a href="#2-removing-stop-words-in-python">2. Removing stop words in Python</a></li><li><a href="#3-how-to-count-words-in-a-list-using-python">3. How to count words in a list using python</a></li><li><a href="#4-word-count-visualization">4. Word count visualization</a></li><li><a href="#5-calculate-the-proportion-of-each-word-and-comparing-the-manifests">5. Calculate the proportion of each word and comparing the manifests</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-text-data-visualization">Coding the past: text data visualization</a><ul><li><a href="#1-load-text-file-in-python">1. Load text file in Python</a></li><li><a href="#2-remove-stop-words-in-python">2. Remove stop words in Python</a></li><li><a href="#3-word-counter-in-python">3. Word counter in python</a></li><li><a href="#4-word-count-visualization">4. Word count visualization</a></li><li><a href="#5-calculate-the-proportion-of-each-word-and-comparing-the-manifests">5. Calculate the proportion of each word and comparing the manifests</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -100,7 +100,11 @@
 
 <p><br /></p>
 
-<p>One common way of distinguishing between history and prehistory is by the emergence of writing. In particular, in our modern era, text data has become ubiquitous. The study of either the past or the present often involves the analysis of text. From social media to scientific journals, words are everywhere. In this lesson, we will learn how to analyze and visualize textual data. We will use the <a href="https://www.nltk.org/" target="_blank">Natural Language Toolkit (NLTK)</a> to tokenize the text data, and the <a href="https://matplotlib.org/" target="_blank">Matplotlib</a>  library to visualize our results.</p>
+<p>Have you ever found yourself submerged in text data, your eyes scanning countless words as you try to extract meaningful insights for your research? Text data visualization could be the solution you’re seeking. In our modern world, textual data, be it from historical documents or the latest tweets, has become a deep well of knowledge just waiting to be discovered.</p>
+
+<p><br /></p>
+
+<p>Whether you’re tracing societal trends over time or studying the latest social media topics, analyzing and visualizing text data can be a gold mine. In this lesson, we’ll guide you on how to navigate this rich universe of words. Harnessing the strength of <a href="https://www.nltk.org/" target="_blank">Natural Language Toolkit (NLTK)</a> and the <a href="https://matplotlib.org/" target="_blank">Matplotlib</a> library, we’ll delve into strategies for text data visualization and analysis, illuminating new angles for your research.”</p>
 
 <p><br /></p>
 
@@ -110,7 +114,7 @@
 
 <h1 id="data-source">Data source</h1>
 
-<p>Data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a> website. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
+<p>The data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a>  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
 
 <p><br /></p>
 
@@ -120,16 +124,17 @@
 
 <p><br /></p>
 
-<h1 id="coding-the-past-visualizing-text-data">Coding the past: visualizing text data</h1>
+<h1 id="coding-the-past-text-data-visualization">Coding the past: text data visualization</h1>
 
-<h2 id="1-importing-text-data-with-python">1. Importing text data with Python</h2>
-
-<p><br />
-To load the text files mentioned above, we will build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded.</p>
+<h2 id="1-load-text-file-in-python">1. Load text file in Python</h2>
 
 <p><br /></p>
 
-<p>Using the <code class="language-plaintext highlighter-rouge">with</code> statement will ensure that the file is closed when the block inside it is finished. Note that we use “latin-1” encoding. The function <code class="language-plaintext highlighter-rouge">islice()</code> creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list <code class="language-plaintext highlighter-rouge">my_text</code>.</p>
+<p>To load text files in Python and reuse our code, we can build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded.</p>
+
+<p><br /></p>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">with</code> statement will ensure that the opened file is closed when the block inside it is finished. Note that we use “latin-1” encoding. The function <code class="language-plaintext highlighter-rouge">islice()</code> creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list <code class="language-plaintext highlighter-rouge">my_text</code>.</p>
 
 <p><br /></p>
 
@@ -192,7 +197,7 @@ To load the text files mentioned above, we will build a function. Before we star
 
 <p><br /></p>
 
-<h2 id="2-removing-stop-words-in-python">2. Removing stop words in Python</h2>
+<h2 id="2-remove-stop-words-in-python">2. Remove stop words in Python</h2>
 
 <p><br /></p>
 
@@ -245,7 +250,7 @@ mayhew_prepared = prepare_text(mayhew)</code></pre></figure>
 
 <p><br /></p>
 
-<h2 id="3-how-to-count-words-in-a-list-using-python">3. How to count words in a list using python</h2>
+<h2 id="3-word-counter-in-python">3. Word counter in python</h2>
 
 <p><br /></p>
 
@@ -527,7 +532,7 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 
 <p><br /></p>
 
-<p>Note that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about “colonies”, Mayhew talks a lot about “god”.</p>
+<p>This text data visualization highlights the fact that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about “colonies”, Mayhew talks a lot about “god”.</p>
 
 <p><br /></p>
 
@@ -542,7 +547,7 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 <ul class="conclusion-list">
   <li>You can tokenize text data with the NLTK library method <code class="language-plaintext highlighter-rouge">word_tokenize</code>;</li>
   <li>With list comprehensions, you can treat text to eliminate irrelevant characters and words;</li>
-  <li>You can visualize the frequency of words in a text with matplotlib.</li>
+  <li>Matplotlib is an excellent option for text data visualization</li>
 </ul>
 
 <p><br /></p>

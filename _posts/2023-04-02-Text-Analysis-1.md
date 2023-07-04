@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title: Visualizing Text Data
+title: Text Data Visualization
 attributes:
   - e: Medium
   - e: Python
@@ -14,9 +14,9 @@ objectives:
   - o: Be able to clean your data to retain only the relevant information;
   - o: Learn to count words in a list;
   - o: Be comfortable with visualizing text data;
-keywords: nltk, tokenizer, text data, matplotlib, word frequency
+keywords: nltk, text data visualization, text data, matplotlib, word frequency
 description: learn to tokenize texts with nltk
-last_modified_at: 02-Apr-23
+last_modified_at: 02-Jul-23
 ---
 
 <br>
@@ -31,7 +31,13 @@ Edgar Allan Poe
 
 <br>
 
-One common way of distinguishing between history and prehistory is by the emergence of writing. In particular, in our modern era, text data has become ubiquitous. The study of either the past or the present often involves the analysis of text. From social media to scientific journals, words are everywhere. In this lesson, we will learn how to analyze and visualize textual data. We will use the [Natural Language Toolkit (NLTK)](https://www.nltk.org/){:target="_blank"} to tokenize the text data, and the [Matplotlib](https://matplotlib.org/){:target="_blank"}  library to visualize our results.
+
+Have you ever found yourself submerged in text data, your eyes scanning countless words as you try to extract meaningful insights for your research? Text data visualization could be the solution you're seeking. In our modern world, textual data, be it from historical documents or the latest tweets, has become a deep well of knowledge just waiting to be discovered.
+
+<br>
+
+Whether you're tracing societal trends over time or studying the latest social media topics, analyzing and visualizing text data can be a gold mine. In this lesson, we'll guide you on how to navigate this rich universe of words. Harnessing the strength of [Natural Language Toolkit (NLTK)](https://www.nltk.org/){:target="_blank"} and the [Matplotlib](https://matplotlib.org/){:target="_blank"} library, we'll delve into strategies for text data visualization and analysis, illuminating new angles for your research."
+
 
 <br>
 
@@ -41,7 +47,7 @@ One common way of distinguishing between history and prehistory is by the emerge
 
 # Data source
 
- Data used in this lesson is available on the [Oxford Text Archive](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021){:target="_blank"} website. To know more about textual data sources, check this post: ['Where to find and how to load historical data']({% post_url 2023-01-10-Where-to-find-and-how-to-load-historical-data %})
+ The data used in this lesson is available on the [Oxford Text Archive](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021){:target="_blank"}  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: ['Where to find and how to load historical data']({% post_url 2023-01-10-Where-to-find-and-how-to-load-historical-data %})
 
 <br>
 
@@ -51,17 +57,18 @@ One common way of distinguishing between history and prehistory is by the emerge
  
 <br>
 
-# Coding the past: visualizing text data
+# Coding the past: text data visualization
 
 
-## 1. Importing text data with Python
-
-<br>
-To load the text files mentioned above, we will build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded. 
+## 1. Load text file in Python
 
 <br>
 
-Using the `with` statement will ensure that the file is closed when the block inside it is finished. Note that we use "latin-1" encoding. The function `islice()` creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list `my_text`.  
+To load text files in Python and reuse our code, we can build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded. 
+
+<br>
+
+Using the `with` statement will ensure that the opened file is closed when the block inside it is finished. Note that we use "latin-1" encoding. The function `islice()` creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list `my_text`.  
 
 <br>
 
@@ -120,7 +127,7 @@ If you check the length of the lists, you will see that Oxenbridge Thacher's man
  
 <br>
 
-## 2. Removing stop words in Python
+## 2. Remove stop words in Python
 
 <br>
 
@@ -168,7 +175,7 @@ mayhew_prepared = prepare_text(mayhew)
  
 <br>
 
-## 3. How to count words in a list using python
+## 3. Word counter in python
 
 <br>
 
@@ -448,7 +455,7 @@ ax.spines["right"].set_visible(False)
 
 <br>
 
-Note that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about "colonies", Mayhew talks a lot about "god".
+This text data visualization highlights the fact that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about "colonies", Mayhew talks a lot about "god".
 
 <br>
 
@@ -462,7 +469,7 @@ Note that Thacher and Otis are more similar than Thacher and Mayhew. This is ref
 
 - You can tokenize text data with the NLTK library method `word_tokenize`;
 - With list comprehensions, you can treat text to eliminate irrelevant characters and words;
-- You can visualize the frequency of words in a text with matplotlib.
+- Matplotlib is an excellent option for text data visualization
 {: .conclusion-list }
 
 <br>

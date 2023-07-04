@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-06-20T20:17:15-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Checking normality in R</title><link href="http://localhost:4000/2023/06/01/Normal-Distribution.html" rel="alternate" type="text/html" title="Checking normality in R" /><published>2023-06-01T00:00:00-03:00</published><updated>2023-06-01T00:00:00-03:00</updated><id>http://localhost:4000/2023/06/01/Normal-Distribution</id><content type="html" xml:base="http://localhost:4000/2023/06/01/Normal-Distribution.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-07-04T15:47:02-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Checking normality in R</title><link href="http://localhost:4000/2023/06/01/Normal-Distribution.html" rel="alternate" type="text/html" title="Checking normality in R" /><published>2023-06-01T00:00:00-03:00</published><updated>2023-06-01T00:00:00-03:00</updated><id>http://localhost:4000/2023/06/01/Normal-Distribution</id><content type="html" xml:base="http://localhost:4000/2023/06/01/Normal-Distribution.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -807,7 +807,7 @@
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[learn to calculate and visualize z scores.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_09.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_09.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Text Mining in Python - TF-IDF</title><link href="http://localhost:4000/2023/04/26/Text-Mining-in-Python.html" rel="alternate" type="text/html" title="Text Mining in Python - TF-IDF" /><published>2023-04-26T00:00:00-03:00</published><updated>2023-04-26T00:00:00-03:00</updated><id>http://localhost:4000/2023/04/26/Text-Mining-in-Python</id><content type="html" xml:base="http://localhost:4000/2023/04/26/Text-Mining-in-Python.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[learn to calculate and visualize z scores.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_09.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_09.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Understand TF-IDF in Python</title><link href="http://localhost:4000/2023/04/26/Text-Mining-in-Python.html" rel="alternate" type="text/html" title="Understand TF-IDF in Python" /><published>2023-04-26T00:00:00-03:00</published><updated>2023-07-04T00:00:00-03:00</updated><id>http://localhost:4000/2023/04/26/Text-Mining-in-Python</id><content type="html" xml:base="http://localhost:4000/2023/04/26/Text-Mining-in-Python.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -819,7 +819,7 @@
 
 <p><br /></p>
 
-<p>In the <a href="/2023/04/02/Text-Analysis-1.html">Visualizing Text Data</a> lesson we learned how to use term frequency to identify the most frequent words in a document. However, this method only considers the frequency of each term within a single document and doesn’t account for the frequency of the same word in other documents in the corpus. To account for this limitation, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. It is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus. In this lesson, we’ll explore how to calculate TF-IDF scores and visualize the results using Python.</p>
+<p>In the <a href="/2023/04/02/Text-Analysis-1.html">Text Data Visualization</a> lesson we learned how to use term frequency to identify the most frequent words in a document. Nevertheless, this methodology focuses only on the prevalence of individual terms within a single document, neglecting the term’s occurrence across other documents within the corpus. As a countermeasure to this shortcoming, TF-IDF was introduced. TF-IDF stands for Term Frequency - Inverse Document Frequency. This numerical statistic serves to underscore the significance of a word within a document, relative to a broader collection or corpus. In this lesson, we’ll journey through the process of calculating TF-IDF scores and bring those abstract numbers to life through Python-based visualizations.</p>
 
 <p><br /></p>
 
@@ -829,7 +829,7 @@
 
 <h1 id="data-source">Data source</h1>
 
-<p>Data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a> website. To know more about textual data sources, please check out this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
+<p>The data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a>  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
 
 <p><br /></p>
 
@@ -1088,7 +1088,7 @@
 
 <p><br /></p>
 
-<h2 id="5-comparing-tf-top-10-words-with-tf-idf-top-10-words">5. Comparing TF top 10 words with TF-IDF top 10 words</h2>
+<h2 id="5-tf-idf-visualization">5. TF-IDF Visualization</h2>
 
 <p><br /></p>
 
@@ -1258,7 +1258,7 @@
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><category term="textanalysis" /><summary type="html"><![CDATA[learn to calculate tf-idf scores and visualize your results.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_08.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_08.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Visualizing Text Data</title><link href="http://localhost:4000/2023/04/02/Text-Analysis-1.html" rel="alternate" type="text/html" title="Visualizing Text Data" /><published>2023-04-02T00:00:00-03:00</published><updated>2023-04-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/04/02/Text-Analysis-1</id><content type="html" xml:base="http://localhost:4000/2023/04/02/Text-Analysis-1.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><category term="textanalysis" /><summary type="html"><![CDATA[learn to calculate tf-idf scores and visualize your results.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_08.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_08.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Text Data Visualization</title><link href="http://localhost:4000/2023/04/02/Text-Analysis-1.html" rel="alternate" type="text/html" title="Text Data Visualization" /><published>2023-04-02T00:00:00-03:00</published><updated>2023-07-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/04/02/Text-Analysis-1</id><content type="html" xml:base="http://localhost:4000/2023/04/02/Text-Analysis-1.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -1270,7 +1270,11 @@
 
 <p><br /></p>
 
-<p>One common way of distinguishing between history and prehistory is by the emergence of writing. In particular, in our modern era, text data has become ubiquitous. The study of either the past or the present often involves the analysis of text. From social media to scientific journals, words are everywhere. In this lesson, we will learn how to analyze and visualize textual data. We will use the <a href="https://www.nltk.org/" target="_blank">Natural Language Toolkit (NLTK)</a> to tokenize the text data, and the <a href="https://matplotlib.org/" target="_blank">Matplotlib</a>  library to visualize our results.</p>
+<p>Have you ever found yourself submerged in text data, your eyes scanning countless words as you try to extract meaningful insights for your research? Text data visualization could be the solution you’re seeking. In our modern world, textual data, be it from historical documents or the latest tweets, has become a deep well of knowledge just waiting to be discovered.</p>
+
+<p><br /></p>
+
+<p>Whether you’re tracing societal trends over time or studying the latest social media topics, analyzing and visualizing text data can be a gold mine. In this lesson, we’ll guide you on how to navigate this rich universe of words. Harnessing the strength of <a href="https://www.nltk.org/" target="_blank">Natural Language Toolkit (NLTK)</a> and the <a href="https://matplotlib.org/" target="_blank">Matplotlib</a> library, we’ll delve into strategies for text data visualization and analysis, illuminating new angles for your research.”</p>
 
 <p><br /></p>
 
@@ -1280,7 +1284,7 @@
 
 <h1 id="data-source">Data source</h1>
 
-<p>Data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a> website. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
+<p>The data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a>  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
 
 <p><br /></p>
 
@@ -1290,16 +1294,17 @@
 
 <p><br /></p>
 
-<h1 id="coding-the-past-visualizing-text-data">Coding the past: visualizing text data</h1>
+<h1 id="coding-the-past-text-data-visualization">Coding the past: text data visualization</h1>
 
-<h2 id="1-importing-text-data-with-python">1. Importing text data with Python</h2>
-
-<p><br />
-To load the text files mentioned above, we will build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded.</p>
+<h2 id="1-load-text-file-in-python">1. Load text file in Python</h2>
 
 <p><br /></p>
 
-<p>Using the <code class="language-plaintext highlighter-rouge">with</code> statement will ensure that the file is closed when the block inside it is finished. Note that we use “latin-1” encoding. The function <code class="language-plaintext highlighter-rouge">islice()</code> creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list <code class="language-plaintext highlighter-rouge">my_text</code>.</p>
+<p>To load text files in Python and reuse our code, we can build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded.</p>
+
+<p><br /></p>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">with</code> statement will ensure that the opened file is closed when the block inside it is finished. Note that we use “latin-1” encoding. The function <code class="language-plaintext highlighter-rouge">islice()</code> creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list <code class="language-plaintext highlighter-rouge">my_text</code>.</p>
 
 <p><br /></p>
 
@@ -1362,7 +1367,7 @@ To load the text files mentioned above, we will build a function. Before we star
 
 <p><br /></p>
 
-<h2 id="2-removing-stop-words-in-python">2. Removing stop words in Python</h2>
+<h2 id="2-remove-stop-words-in-python">2. Remove stop words in Python</h2>
 
 <p><br /></p>
 
@@ -1415,7 +1420,7 @@ mayhew_prepared = prepare_text(mayhew)</code></pre></figure>
 
 <p><br /></p>
 
-<h2 id="3-how-to-count-words-in-a-list-using-python">3. How to count words in a list using python</h2>
+<h2 id="3-word-counter-in-python">3. Word counter in python</h2>
 
 <p><br /></p>
 
@@ -1697,7 +1702,7 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 
 <p><br /></p>
 
-<p>Note that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about “colonies”, Mayhew talks a lot about “god”.</p>
+<p>This text data visualization highlights the fact that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about “colonies”, Mayhew talks a lot about “god”.</p>
 
 <p><br /></p>
 
@@ -1712,7 +1717,7 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 <ul class="conclusion-list">
   <li>You can tokenize text data with the NLTK library method <code class="language-plaintext highlighter-rouge">word_tokenize</code>;</li>
   <li>With list comprehensions, you can treat text to eliminate irrelevant characters and words;</li>
-  <li>You can visualize the frequency of words in a text with matplotlib.</li>
+  <li>Matplotlib is an excellent option for text data visualization</li>
 </ul>
 
 <p><br /></p>
@@ -3307,7 +3312,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[Code effective visualizations using ggplot2 dotplot.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_03.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_03.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Where To Find And How To Load Historical Data</title><link href="http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html" rel="alternate" type="text/html" title="Where To Find And How To Load Historical Data" /><published>2023-01-10T00:00:00-03:00</published><updated>2023-03-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data</id><content type="html" xml:base="http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[Code effective visualizations using ggplot2 dotplot.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_03.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_03.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Where To Find And How To Load Historical Data</title><link href="http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html" rel="alternate" type="text/html" title="Where To Find And How To Load Historical Data" /><published>2023-01-10T00:00:00-03:00</published><updated>2023-07-04T00:00:00-03:00</updated><id>http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data</id><content type="html" xml:base="http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -3317,7 +3322,7 @@ Albert Einstein</p>
 
 <p><br /></p>
 
-<p>With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data and how to load datasets in Python and R.</p>
+<p>With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data for your research. Moreover, you will learn how to load data in Python and R.</p>
 
 <p><br /></p>
 
@@ -3327,7 +3332,7 @@ Albert Einstein</p>
 
 <p><br /></p>
 
-<h1 id="data-sources">Data Sources</h1>
+<h1 id="historical-data-in-research---where-to-find">Historical Data in Research - Where to find?</h1>
 
 <p><br /></p>
 
@@ -3608,7 +3613,7 @@ More posts on how to find reliable data will be published soon!
 <h1 id="conclusions">Conclusions</h1>
 
 <ul class="conclusion-list">
-  <li>These websites offer high quality historical data:
+  <li>Data analysis in historical research is becoming more and more popular. These websites offer high quality historical data for your analysis:
     <ul>
       <li><a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources" target="_blank">Harvard Business School</a></li>
       <li><a href="https://www.mortality.org/Home/Index" target="_blank">Human Mortality Database</a></li>

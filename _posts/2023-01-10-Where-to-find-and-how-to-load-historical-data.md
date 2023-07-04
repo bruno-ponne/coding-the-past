@@ -12,9 +12,9 @@ abstract: Learn 5 great websites to find reliable historical data and how to loa
 objectives:
   - o: Get to know good sources of historical data;
   - o: Be able to load data in R and Python;
-keywords: social data science, python and r, historical data, pandas dataframe, read csv in R
+keywords: historical data in research, python and r, historical data, pandas dataframe, read csv in R
 description: Use R and Python to load csv historical data.
-last_modified_at: 05-Mar-23
+last_modified_at: 04-Jul-23
 ---
 
 <br>
@@ -27,7 +27,7 @@ Albert Einstein
 
 <br>
 
-With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data and how to load datasets in Python and R.
+With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data for your research. Moreover, you will learn how to load data in Python and R.
 
 <br>
 
@@ -37,7 +37,7 @@ With so much data available nowadays, I frequently feel overwhelmed when I have 
  
 <br>
 
-# Data Sources
+# Historical Data in Research - Where to find?
 
 <br>
 
@@ -304,7 +304,7 @@ More posts on how to find reliable data will be published soon!
 
 # Conclusions
 
-- These websites offer high quality historical data:
+- Data analysis in historical research is becoming more and more popular. These websites offer high quality historical data for your analysis:
   - [Harvard Business School](https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/data-and-sources){:target="_blank"}
   - [Human Mortality Database](https://www.mortality.org/Home/Index){:target="_blank"}
   - [National Centers for Environmental Information](https://www.ncei.noaa.gov/){:target="_blank"}
