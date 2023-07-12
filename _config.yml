@@ -8,4 +8,6 @@ plugins:
   - jekyll-sitemap
   - jemoji
   - jekyll-feed
-  
+comment-post: https://docs.google.com/forms/d/e/1FAIpQLSdHJGUw54uOd945wKEEhQtbSfWKCR9atiu30u044gaduhSgvw
+comment-read: https://docs.google.com/spreadsheets/d/1RiK_RAn062s6AjFH00JIWGo19h4BnHns-WbLzoK2S0I
+comment-post-fields: [entry.1627158409, entry.1988119021, entry.1039248696]

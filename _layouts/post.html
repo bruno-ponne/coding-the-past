@@ -25,7 +25,11 @@ layout: default
 
     {{ content }}
     
+</div>
 
+
+<div class = "comments-style">
+    {% include comment-section.html url=page.url %}
 </div>
 <div class = "share">
     {% include share-buttons.html %}

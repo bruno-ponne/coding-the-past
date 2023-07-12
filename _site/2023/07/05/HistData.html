@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K2DKTESR2N');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="R, statistics, historicaldata, histdata, ggplot2, data visualization, data analysis, pivot_longer">
+    <meta name="description" content="learn to use the HistData package use it on your studies or research.">
+    <meta property= og:image content= />
+    <title>Uncovering History with R - A Look at the HistData Package</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google Font: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <!-- Google icon: -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Canonical Domain -->
+    <link rel="canonical" href="http://localhost:4000/2023/07/05/HistData.html">
+</head>
+
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body">
+            <div class="post-body">
+    <h1 id = "post-main-title">Uncovering History with R - A Look at the HistData Package</h1>
+    <p id = "author">Bruno Ponne &#9679 05 Jul 2023</p>
+    <hr>
+    <ul class = "meta-info">
+        
+        <li>Easy</li>
+        
+        <li>R</li>
+        
+        <li>7 min</li>
+        
+    </ul>
+    <br>
+    <h1>What you will learn</h1>
+    <ul>
+        
+        <li class = "objectives"> Understand the R HistData package, its various datasets, and how these datasets can enrich your research in the humanities and social sciences;</li>
+        
+        <li class = "objectives"> Be able to load datasets and explore summary statistics;</li>
+        
+        <li class = "objectives"> Be confident in visualizing relations and quantities with HistData and ggplot2;</li>
+        
+        <li class = "objectives"> Explore the Nightingale dataset and replicate a historical visualization using ggplot2.</li>
+        
+    </ul>
+    <br>
+    <h1>Table of Contents</h1>
+
+
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-exploring-histdata">Coding the past: exploring HistData</a><ul><li><a href="#1-how-to-install-the-package-in-r">1. How to install the package in R?</a></li><li><a href="#2-how-to-load-and-rename-a-dataset-from-histdata">2. How to load and rename a dataset from HistData?</a></li><li><a href="#3-explore-the-dataset">3. Explore the dataset</a></li><li><a href="#4-florences-approach-a-coxcomb-chart">4. Florence’s approach: a Coxcomb chart</a></li><li><a href="#5-how-to-use-r-pivot_longer">5. How to use R pivot_longer?</a></li><li><a href="#6-replicate-florences-coxcomb-plot-with-ggplot2">6. Replicate Florence’s Coxcomb plot with ggplot2</a></li><li><a href="#7-a-line-plot-instead-of-a-coxcomb-plot">7. A line plot instead of a Coxcomb plot</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+
+    <p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p>“Historians offer us systems of the past that are too complete, series of causes and effects that are too exact and too clear to have ever been entirely true.”</p>
+
+<p>Marguerite Yourcenar - Mémoires d`Hadrien (1974)</p>
+
+<p><br /></p>
+
+<p>Greetings, humanists, social and data scientists! Are you curious about how data analysis can enrich your research and understanding? Look no further! Today, we explore the world of historical data analysis using R’s powerful package: HistData. This package contains a collection of more than 30 datasets that can be used to explore historical trends and patterns.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p><a href="https://cran.r-project.org/package=HistData">HistData</a> is an R package that provides a collection of 31 small datasets that are part of a program of research known as statistical historiography, that is, “the use of statistical methods to study problems and questions in the history of statistics and graphics” (Friendly, 2021). They can, of course, be used to study other topics in the humanities and social sciences. Thank you to the authors Michael Friendly, Stephane Dray, Hadley Wickham, James Hanley, Dennis Murphy, Peter Li for this wonderful compilation of datasets! Here are some of the data included.</p>
+
+<p><br /></p>
+
+<table class="dataframe-2">
+    <thead>
+        <tr>
+            <th>Dataset</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Arbuthnot</td>
+            <td>Arbuthnot’s data on male and female birth ratios in London from 1629-1710</td>
+        </tr>
+        <tr>
+            <td>Armada</td>
+            <td>The Spanish Armada</td>
+        </tr>
+        <tr>
+            <td>Bowley</td>
+            <td>Bowley’s data on values of British and Irish trade, 1855-1899</td>
+        </tr>
+        <tr>
+            <td>Cavendish</td>
+            <td>Cavendish’s 1798 determinations of the density of the earth</td>
+        </tr>
+        <tr>
+            <td>ChestSizes</td>
+            <td>Quetelet’s data on chest measurements of Scottish militiamen</td>
+        </tr>
+        <tr>
+            <td>Cholera</td>
+            <td>William Farr’s Data on Cholera in London, 1849</td>
+        </tr>
+        <tr>
+            <td>CushnyPeebles</td>
+            <td>Cushny-Peebles data: Soporific effects of scopolamine derivatives</td>
+        </tr>
+        <tr>
+            <td>Dactyl</td>
+            <td>Edgeworth’s counts of dactyls in Virgil’s Aeneid</td>
+        </tr>
+        <tr>
+            <td>DrinksWages</td>
+            <td>Elderton and Pearson’s (1910) data on drinking and wages</td>
+        </tr>
+        <tr>
+            <td>Fingerprints</td>
+            <td>Waite’s data on Patterns in Fingerprints</td>
+        </tr>
+        <tr>
+            <td>Galton</td>
+            <td>Galton’s data on the heights of parents and their children</td>
+        </tr>
+        <tr>
+            <td>GaltonFamilies</td>
+            <td>Galton’s data on the heights of parents and their children, by family</td>
+        </tr>
+        <tr>
+            <td>Guerry</td>
+            <td>Data from A.-M. Guerry, "Essay on the Moral Statistics of France"</td>
+        </tr>
+        <tr>
+            <td>HalleyLifeTable</td>
+            <td>Halley’s Life Table</td>
+        </tr>
+        <tr>
+            <td>Jevons</td>
+            <td>W. Stanley Jevons’ data on numerical discrimination</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-exploring-histdata">Coding the past: exploring HistData</h1>
+
+<p><br /></p>
+
+<h2 id="1-how-to-install-the-package-in-r">1. How to install the package in R?</h2>
+
+<p>To get started with HistData, you will first need to install and load the package into your R environment. We will additionally load other necessary libraries. You can do this using the following commands:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-11-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"HistData"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>You can access descriptions for each dataset using the <code class="language-plaintext highlighter-rouge">help(DataSet)</code> command. Moreover, running <code class="language-plaintext highlighter-rouge">example(DataSet)</code> will, in most cases, demonstrate applications similar to their historical use.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-how-to-load-and-rename-a-dataset-from-histdata">2. How to load and rename a dataset from HistData?</h2>
+
+<p>To demonstrate HistData’s capabilities, we will use the <code class="language-plaintext highlighter-rouge">Nightingale</code> dataset. This dataset contains the monthly number of deaths from various causes in the British Army during the <a href="https://en.wikipedia.org/wiki/Crimean_War">Crimean War (1853-1856)</a>. The data was collected by Florence Nightingale, a British nurse who became famous for her work in the Crimean War. She was also a pioneer in the use of data visualization to communicate information.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_11_01.jpeg" alt="Florence Nightingale" />
+Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domain</p>
+
+<p><br /></p>
+
+<p>To load the <code class="language-plaintext highlighter-rouge">Nightingale</code> dataset, we use the <code class="language-plaintext highlighter-rouge">data()</code> function. It will be automatically named <code class="language-plaintext highlighter-rouge">Nightingale</code> in our environment. However, we can load it into a dataframe with a different name, such as <code class="language-plaintext highlighter-rouge">df</code>, using the following command:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-11-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">data</span><span class="p">(</span><span class="n">Nightingale</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Nightingale</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>To check the structure of the dataset, use the <code class="language-plaintext highlighter-rouge">str(Nightingale)</code>. This will show you the number of observations and variables, as well as the type of data in each column. You  will see that the dataset has 10 variables: <code class="language-plaintext highlighter-rouge">Date</code>, <code class="language-plaintext highlighter-rouge">Month</code>, <code class="language-plaintext highlighter-rouge">Year</code>, <code class="language-plaintext highlighter-rouge">Army</code>, <code class="language-plaintext highlighter-rouge">Disease</code>, <code class="language-plaintext highlighter-rouge">Wounds</code>, <code class="language-plaintext highlighter-rouge">Other</code>, <code class="language-plaintext highlighter-rouge">Disease.rate</code>, <code class="language-plaintext highlighter-rouge">Wounds.rate</code>, and <code class="language-plaintext highlighter-rouge">Other.rate</code>.  There are 24 observations for each variable. We will focus on the following variables:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">Date</code>: the date of the observation;</li>
+  <li><code class="language-plaintext highlighter-rouge">Year</code>: the year of the observation;</li>
+  <li><code class="language-plaintext highlighter-rouge">Disease</code>: the number of deaths from preventable or mitigable zymotic diseases;</li>
+  <li><code class="language-plaintext highlighter-rouge">Wounds</code>: the number of deaths directly from battle wounds;</li>
+  <li><code class="language-plaintext highlighter-rouge">Other</code>: the number of deaths from other causes.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-explore-the-dataset">3. Explore the dataset</h2>
+
+<p>First, let’s create a new variable <code class="language-plaintext highlighter-rouge">Total</code> with the total amount of deaths per period. We can do this by adding the <code class="language-plaintext highlighter-rouge">Disease</code>, <code class="language-plaintext highlighter-rouge">Wounds</code>, and <code class="language-plaintext highlighter-rouge">Other</code> variables. This is done with the <code class="language-plaintext highlighter-rouge">mutate()</code> function available in the <code class="language-plaintext highlighter-rouge">dplyr</code> package.  We can then use the <code class="language-plaintext highlighter-rouge">group_by()</code> and <code class="language-plaintext highlighter-rouge">summarise()</code> functions to calculate the average number of deaths per year.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-11-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mutate</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Disease</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Wounds</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">group_by</span><span class="p">(</span><span class="n">Year</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">average_n_deaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">Total</span><span class="p">))</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>We can see that the average number of deaths was 688 in 1854; reached a peak of 967 deaths in 1855; and decreased in 1856.</p>
+
+<p><br /></p>
+
+<p>To visualize the trend of deaths over time, we can use <code class="language-plaintext highlighter-rouge">geom_line()</code> function from the <code class="language-plaintext highlighter-rouge">ggplot2</code> package. The <code class="language-plaintext highlighter-rouge">Date</code> variable should be mapped to the x-axis and the <code class="language-plaintext highlighter-rouge">Total</code> variable to the y-axis. We can use the <code class="language-plaintext highlighter-rouge">labs()</code> function to add a title and labels to the x and y axes. Note that <code class="language-plaintext highlighter-rouge">theme_coding_the_past()</code> is a custom theme that I created in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a> to make the plot match the blog theme. You can use the default theme or create your own.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-11-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+    </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+      </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+      </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+      </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+      </span><span class="n">legend.key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+      </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
+      </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+      </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="c1"># Eliminates grids:</span><span class="w">
+      </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+      </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+      </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+      </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
+      </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+      </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Total</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths in the British Army during the Crimean War"</span><span class="p">,</span><span class="w">
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Date"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Total Number of Deaths"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_11_02.png" alt="Plot of Total Deaths through time " /></p>
+
+<p><br /></p>
+
+<p>Florence Nightingale hypothesized that deaths in war hospitals were more frequently caused by poor sanitary conditions than by the war injuries themselves. As a result of Nightingale’s reports and persistent advocacy, a Sanitary Commission was dispatched in March 1855 to enhance hygiene standards, improve ventilation, and introduce preventive measures such as handwashing. To evaluate whether the death rates declined following the arrival of the Sanitary Commission, Florence took a progressive approach for her time. She analyzed and visualized data!</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-florences-approach-a-coxcomb-chart">4. Florence’s approach: a Coxcomb chart</h2>
+
+<p>To better understand how the number of deaths evolved during the war period, Florence utilized a Coxcomb plot. This plot is similar to a pie chart, but all sectors have equal angles, differing in how far they extend from the center of the circle.</p>
+
+<p><br /></p>
+
+<p>The figure below presents the Coxcomb plot that Florence created. The plot illustrates the number of deaths per month and cause. The radius of each sector is proportional to the number of deaths. There are 12 sectors, each representing a month of the year, starting from the left (April 1854) and proceeding in a clockwise direction until March 1855, thus completing the circle. Each sector is further divided by color, indicating the cause of death. Florence split the data into two different visualizations: one for before the arrival of the Sanitary Commission (plot on the right), and one for after (plot on the left).</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_11_03.jpeg" alt="Florence Coxcomb Chart " /></p>
+<p class="fig-caption">Florence Nightingale, Public domain, via <a href="https://commons.wikimedia.org/wiki/File:Nightingale-mortality.jpg">Wikimedia Commons</a></p>
+
+<p><br /></p>
+
+<p>In the next sections, we will replicate Nightingale’s Coxcomb plot using the <code class="language-plaintext highlighter-rouge">ggplot2</code> package. Before that, we will use the <code class="language-plaintext highlighter-rouge">pivot_longer()</code> function from the <code class="language-plaintext highlighter-rouge">tidyr</code> package to transform the data from a wide to a long format. This will allow us to visualize the trend of deaths by cause over time.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-how-to-use-r-pivot_longer">5. How to use R pivot_longer?</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">pivot_longer()</code> function, from the <code class="language-plaintext highlighter-rouge">tidyr</code> package, enables us to convert our data from a wide format to a long one. This process will create a new variable named <code class="language-plaintext highlighter-rouge">Cause</code> with the values <code class="language-plaintext highlighter-rouge">Disease</code>, <code class="language-plaintext highlighter-rouge">Wounds</code> and <code class="language-plaintext highlighter-rouge">Other</code>, all of which were previously separate variables. The death counts corresponding to each cause will now be housed in a new variable labeled <code class="language-plaintext highlighter-rouge">Deaths</code>. The <code class="language-plaintext highlighter-rouge">cols</code> argument specifies the variables to be transformed, while the <code class="language-plaintext highlighter-rouge">names_to</code> and <code class="language-plaintext highlighter-rouge">values_to</code> arguments specify the names of the new variables. The figure below illustrates the transformation from wide to long format.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_11_04.png" alt="pivot_longer illustration " /></p>
+
+<p><br /></p>
+
+<p>The following code first selects the relevant variables and then carries out the wide to long transformation. Moreover, we create one dataset for the data before the Commission’s arrival and another one for after the arrival. We will use these datasets to replicate Florence’s Coxcomb plot in the next section.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-11-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span><span class="w"> </span><span class="n">Disease</span><span class="p">,</span><span class="w"> </span><span class="n">Wounds</span><span class="p">,</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Disease</span><span class="o">:</span><span class="n">Other</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Cause"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df_before</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">Date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1855-04-01"</span><span class="p">))</span><span class="w">
+</span><span class="n">df_after</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">Date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1855-04-01"</span><span class="p">))</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-replicate-florences-coxcomb-plot-with-ggplot2">6. Replicate Florence’s Coxcomb plot with ggplot2</h2>
+
+<p>The code below replicates Nightingale’s Coxcomb plot. <code class="language-plaintext highlighter-rouge">Date</code> is mapped to the x-axis and the <code class="language-plaintext highlighter-rouge">Deaths</code> to the y-axis. The <code class="language-plaintext highlighter-rouge">fill</code> parameter is dependent on <code class="language-plaintext highlighter-rouge">Cause</code>. The <code class="language-plaintext highlighter-rouge">geom_bar()</code> layer creates a stacked bar chart. The <code class="language-plaintext highlighter-rouge">scale_y_sqrt()</code> function transforms the y-axis into a square root scale to better visualize the differences between the number of deaths by cause. Note also that the <code class="language-plaintext highlighter-rouge">limits</code> argument guarantees that before and after y-axis will have the same scale: from 0 to 3000 deaths. Thus we can compare the two plots more easily.</p>
+
+<p><br /></p>
+
+<p>Finally, <code class="language-plaintext highlighter-rouge">coord_polar()</code> converts the bar chart into a Coxcomb plot. The ´start´ argument sets the offset of starting point from “12 o’clock” in radians. We set it to 3*pi/2 (270°) to start at “9 o’clock” to replicate Florence’s choice. The <code class="language-plaintext highlighter-rouge">ggtitle()</code> function adds a title to the plot. The <code class="language-plaintext highlighter-rouge">scale_fill_manual()</code> function sets the colors of the sectors. The <code class="language-plaintext highlighter-rouge">theme()</code> adapts the plot to fit the style of this page. The exact same plot is created for the data after the arrival of the Sanitary Commission.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-11-6">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">my_colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#95D758"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#38B6FF"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df_before</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.factor</span><span class="p">(</span><span class="n">Date</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Deaths</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cause</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="c1"># Stacked bar chart</span><span class="w">
+  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span><span class="w"> </span><span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_colors</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="c1"># Fixed scale for before and after</span><span class="w">
+  </span><span class="n">scale_y_sqrt</span><span class="p">(</span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">3000</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="c1"># A coxcomb plot (bar chart + polar coordinates)</span><span class="w">
+  </span><span class="n">coord_polar</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="m">3</span><span class="o">*</span><span class="nb">pi</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Before Commission Arrival"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="c1">#theme changes</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
+    </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+    </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+    </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+    </span><span class="n">legend.key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+    </span><span class="c1"># White plot title</span><span class="w">
+    </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+    </span><span class="c1"># Changes legend position and texts color</span><span class="w">
+    </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+    </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+    </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">,</span><span class="w">
+    </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
+    </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+    </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
+    </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+    </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
+    </span><span class="c1"># Omits axes titles and ticks</span><span class="w">
+    </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+    </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+    </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+    </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">())</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>In the plots below, we can confirm that the number of deaths from preventable diseases, in pink, is a lot larger before the arrival of the Sanitary Commission. On the other hand, the number of deaths from wounds and other causes, in blue and green, respectively, is smaller and relatively stable.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_11_05.png" alt="Florence Coxcomb Chart - before " /></p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_11_06.png" alt="Florence Coxcomb Chart - after" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="7-a-line-plot-instead-of-a-coxcomb-plot">7. A line plot instead of a Coxcomb plot</h2>
+
+<p>And what if we used a line plot to analyze the same data? The code below employs geom_line to achieve that. Note that geom_vline adds a vertical line at the date of the arrival of the Sanitary Commission.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-7')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-11-7">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Deaths</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cause</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.8</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths in the British Army during the Crimean War"</span><span class="p">,</span><span class="w">
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Date"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Number of Deaths"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1855-04-01"</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_colors</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_11_07.png" alt="Florence Chart with a line plot" /></p>
+
+<p><br /></p>
+
+<p>Once again, this plot illustrates that mortality decreased following the arrival of the Sanitary Commission. Notably, deaths from preventable diseases, represented by the pink line, experienced a significant reduction. It’s crucial to bear in mind, however, that before-and-after analyses do not provide definitive proof of causality. Nevertheless, the evidence showcased in both the line plot and the Coxcomb plot strongly indicates that the implemented measures likely drove the observed decrease in fatalities.</p>
+
+<p><br /></p>
+
+<p><strong>What are your thoughts? Do you prefer the Coxcomb plot or the line plot? In your opinion, which visualization is the most effective? I welcome your feedback in the comments below!</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">HistData</code> is a package that provides a collection of 31 small datasets that can be used to explore historical trends and patterns;</li>
+  <li>A Coxcomb chart is similar to a pie chart, but all divisions have equal angles, differing in how far they extend from the center of the circle;</li>
+  <li>Different plots can be used to visualize the same data. The choice of visualization depends on the type of data and the message you want to convey.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+    
+</div>
+
+
+<div class = "comments-style">
+    <script>function setText(elementId, textContent) {
+		document.getElementById(elementId).textContent = textContent;
+	};
+
+	function show(elementId) {
+		document.getElementById(elementId).style.display = 'inline';
+	};
+
+	function hide(elementId) {
+		document.getElementById(elementId).style.display = 'none';
+	};
+
+	function getValue(elementId) {
+		return document.getElementById(elementId).value;
+	};
+
+	function setValue(elementId, value) {
+		return document.getElementById(elementId).value = value;
+	};
+
+	function fadeIn(element) {
+		var duration = 400;
+		element.style.opacity = 0;
+		let opacity = 0;
+		const timer = setInterval(function() {
+		  opacity += 50 / duration;
+		  if (opacity >= 1) {
+		    clearInterval(timer);
+		    opacity = 1;
+		  }
+		  element.style.opacity = opacity;
+		}, 50);
+	};
+
+
+	function disableButtonWithLoader(elementId) {
+		var buttonToDisable = document.getElementById(elementId);
+		if (buttonToDisable == null) {
+			return;
+		}
+		buttonToDisable.disabled = true;
+		setText(elementId, "\xa0");
+	}
+
+	function disablePostCommentButton() {
+		disableButtonWithLoader("comment-submit");
+	};
+
+	function enablePostCommentButton() {
+		var postCommentButton = document.getElementById("comment-submit");
+		postCommentButton.disabled = false;
+		setText("comment-submit", "Post");
+	};async function initialCommentLoad() {
+		disableButtonWithLoader("load-comment-button");var loadJquery = document.createElement("script");
+		loadJquery.type = "text/javascript";
+		loadJquery.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js";
+		document.head.appendChild(loadJquery);var loadValidator = document.createElement("script");
+		loadValidator.src = "https://cdnjs.cloudflare.com/ajax/libs/validator/13.9.0/validator.min.js";
+		document.head.appendChild(loadValidator);await loadValidator.onload;loadJquery.onload = function() {async function checkJQuery() {
+				if (typeof jQuery === "undefined") {
+					return false;
+				} else {
+					clearTimeout(interval);var loadJqueryCsv = document.createElement("script");
+					loadJqueryCsv.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js";
+					document.head.appendChild(loadJqueryCsv);await loadJqueryCsv.onload;reloadComments();
+				}
+			};var interval = setInterval(checkJQuery, 250);
+		};};
+
+	var thisPageUrl = "/2023/07/05/HistData.html";
+	const EXTRA_INFO_START = "chunkedCommentInfoStart";
+	const EXTRA_INFO_END = "chunkedCommentInfoEnd";var visibleComments = [];
+	var hiddenComments = [];
+	var netNewComments = [];function formatDate(stringDate) {
+		var date = new Date(stringDate);
+		var dateOptions = { year: 'numeric', month: 'long', day: 'numeric'};
+		var timeOptions = { hour: 'numeric', minute: 'numeric' };
+		return `${date.toLocaleDateString("en-us", dateOptions)} at ${date.toLocaleTimeString("en-us", timeOptions)}`;
+	};async function displayComments(comments) {
+		show("comments-and-input");
+		hide("load-comments");
+		var hasVisibleComments = visibleComments.length > 0;if (comments == null || comments === "" || comments == []) {
+			if (!hasVisibleComments) {
+				show("no-comments");
+				hide("load-more-comments");
+				hide("num-comments-displayed");
+			}
+			return;
+		}comments = `timestamp,name,comment,isAuthor\n${comments}`;
+		var newHiddenComments = $.csv.toObjects(comments).sort((a, b) => (new Date(a.timestamp).getTime() || 0) - (new Date(b.timestamp).getTime() || 0))
+			.map(item => JSON.stringify(item));if (hasVisibleComments) {
+			netNewComments = newHiddenComments
+				.filter(item => !visibleComments.includes(item))
+				.filter(item => !hiddenComments.includes(item));
+		}
+
+		hiddenComments = newHiddenComments
+			.filter(item => !visibleComments.includes(item))
+			.filter(item => !netNewComments.includes(item));
+
+		loadMoreComments(false || !hasVisibleComments);
+	};function loadMoreComments(isLoadMoreAction) {var newCommentsToDisplay = hiddenComments.slice(-5);if (isLoadMoreAction) {newCommentsToDisplay.reverse().forEach(element => displaySingleComment(element, true));
+			hiddenComments = hiddenComments.filter(item => !newCommentsToDisplay.includes(item) && !visibleComments.includes(item));
+		} else {netNewComments.forEach(element => displaySingleComment(element, false));
+			netNewComments = []
+		}
+
+		setText("num-comments-displayed", `Showing ${visibleComments.length} of ${visibleComments.length + hiddenComments.length} comments`);
+
+		if (hiddenComments.length == 0) {
+			hide("load-more-comments");
+		} else {
+			show("load-more-comments");
+		}
+	};function getCommentInfo(comment) {
+		var extraCommentInfo = comment?.match(EXTRA_INFO_START + ".+" + EXTRA_INFO_END);
+		return {
+			text : comment?.replace(extraCommentInfo, ""),
+			extraCommentInfo : JSON.parse(extraCommentInfo?.toString()?.replace(EXTRA_INFO_START, "")?.replace(EXTRA_INFO_END, "") ?? "{}")
+		};
+	};
+
+	function displaySingleComment(element, isPrepend) {if (visibleComments.includes(element)) {
+			return;
+		}
+
+		var jsonElement = JSON.parse(element);
+		var comment = getCommentInfo(jsonElement.comment?.toString());var verifiedAuthorTag = "";
+		if (jsonElement.isAuthor == true || jsonElement.isAuthor === "TRUE") {
+			verifiedAuthorTag = "&nbsp;<strong>(Author)</strong>";
+		}var newItem = document.createElement("div");
+		newItem.classList.add("comment-item");newItem.innerHTML = `
+			<p class="commenter-name">${validator.escape(jsonElement.name.toString())}${verifiedAuthorTag}
+				<small>${formatDate(jsonElement.timestamp)}</small>
+			</p>
+			<div><p>${validator.escape(comment?.text?.toString()).replace(new RegExp('\r?\n','g'), '<br />')}</p>
+			</div>
+		`.trim();
+		if (isPrepend) {
+			document.getElementById("comment-container").prepend(newItem);
+		} else {
+			document.getElementById("comment-container").append(newItem);
+		}
+		fadeIn(newItem);
+		visibleComments.push(element);hide("no-comments");
+		show("num-comments-displayed");
+	};function reloadComments() {var sqlStatement = encodeURIComponent(`SELECT A, C, D, E WHERE B = '${thisPageUrl}'`);
+		fetch(`https://docs.google.com/spreadsheets/d/1RiK_RAn062s6AjFH00JIWGo19h4BnHns-WbLzoK2S0I/gviz/tq?tqx=out:csv&sheet=comments&tq=${sqlStatement}&headers=0`)
+		.then(response => response.text())
+		.then(response => displayComments(response));
+	};const encodeFormData = (data) => {
+	    return Object.keys(data)
+	        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+	        .join('&');
+	};function getCommentContent() {
+		var comment = getValue("comment-comment")?.toString();
+
+		var extraCommentInfo = {};if (Object.keys(extraCommentInfo).length !== 0) {
+			comment = EXTRA_INFO_START + JSON.stringify(extraCommentInfo) + EXTRA_INFO_END + comment;
+		}
+
+		return comment;
+	};function postComment(recaptchaToken) {
+		disablePostCommentButton();
+		var username = getValue("comment-name");
+		var comment = getCommentContent();
+
+		fetch(`https://docs.google.com/forms/d/e/1FAIpQLSdHJGUw54uOd945wKEEhQtbSfWKCR9atiu30u044gaduhSgvw/formResponse`, {
+		  method: 'POST',
+		  mode: 'no-cors',
+		  headers: {
+		    "Content-Type": "application/x-www-form-urlencoded"
+		  },
+		  body: encodeFormData({
+		  	"entry.1627158409" : thisPageUrl?.toString(),
+		  	"entry.1988119021" : username?.toString(),
+		  	"entry.1039248696" : comment?.toString()
+		  })
+		}).then(response => {
+			setValue("comment-name", '');
+			setValue("comment-comment", '');reloadComments();
+		})
+		.catch(error => {console.log(error);})
+		.finally(() => { enablePostCommentButton(); });
+
+		return false;
+	};initialCommentLoad();</script><h2 class="post-subtitle">Comments</h2>
+<div id="load-comments" class="comments">
+	<button id="load-comment-button" class="comment-button" onclick="initialCommentLoad()">Load Comments</button>
+</div>
+<div id="comments-and-input">
+	<div id="comment-section" class="comments">
+		<p id="num-comments-displayed"></p>
+		<button id="load-more-comments" class="comment-button" onclick="loadMoreComments(true)" type="button">Load Older Comments</button>
+		<div id="no-comments" class="comment-info-text">
+			<p>There are currently no comments on this article, be the first to add one below</p>
+		</div>
+		<div id="comment-container"></div>
+	</div>
+	<h2 class="post-subtitle">Add a Comment</h2>
+	<div class="comments">
+		<div class="comment-info-text">
+			<p>If you are looking for a response to your comment, either leave your email address or check back on this page periodically.</p></div>	
+		<div class="comments-form"><form onsubmit="return postComment()" id="comment-form" autocomplete="off"><ul>
+					<li>
+						<input id="comment-name" name="username" type="text" placeholder="Name" required="" value=""></li>
+					<li><textarea id="comment-comment" name="comment" placeholder="Comment" required=""></textarea></li>
+					<li><button id="comment-submit" type="submit" class="comment-button">Post</button></li>
+				</ul><p>
+			</form>
+		</div>
+	</div>
+</div><style>
+	.comment-item {
+		position: relative;
+		padding: 2%;
+		background: white;
+		width: 95%;
+		margin-bottom: 4%;
+		box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+		color: #2E3031;
+	}
+	
+	.comment-item:after {
+		content: "";
+		position: relative;
+		display: block;
+		clear: both;
+	}
+	
+	.comment-item p {
+		line-height: 1.6;
+	}
+	
+	.comment-item small {
+		padding-left: 0.7em;
+		color: #999;
+		font-size: 0.8em;
+	}
+	
+	.commenter-name {
+		color: #367588;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: 700;
+	}
+	
+	.commenter-name strong {
+		color: #e91e63;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: 700;
+	}#comment-reply-info p {
+		margin: 0;
+	}
+	
+	.comments-form {
+		width: 95%;
+
+
+	}
+	
+	.comments-form ul {
+		list-style: none;
+	}
+	
+	.comments-form ul li {
+		margin-bottom: 15px;
+	}
+	
+	.comments {
+		border-top: 2px solid rgba(206, 202, 202, 0.2);
+		padding-top: 1rem;
+		position: relative;
+	}
+	
+	.comment-button {
+		border: 0;
+		background: #C84848;
+		cursor: pointer;
+		color: #fff;
+		font-weight: bold;
+		font-size: 0.9em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+		outline-style: none;
+		padding: 10px 20px;
+		width: auto;
+		min-width: 25%;
+	}
+	
+	#comment-submit {
+		width: auto;
+		min-width: 25%;
+		position: relative;
+	}
+	
+	.comment-button:disabled::after,
+	.comment-button[disabled]::after {
+		content: "";
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		border: 4px solid transparent;
+		border-top-color: #ffffff;
+		-webkit-animation: button-loading-spinner 1s ease infinite;
+		animation: button-loading-spinner 1s ease infinite;
+	}
+	
+	@keyframes button-loading-spinner {
+		from {
+			transform: rotate(0turn);
+		}
+	
+		to {
+			transform: rotate(1turn);
+		}
+	}
+	
+	@-webkit-keyframes button-loading-spinner {
+		from {
+			transform: rotate(0turn);
+		}
+	
+		to {
+			transform: rotate(1turn);
+		}
+	}
+	
+	#load-more-comments {
+
+	}
+	
+	#load-more-comments,
+	#num-comments-displayed {
+		display: none;
+	}
+	
+	#comment-name,
+	#comment-comment {
+		width: 50%;
+		padding: 10px;
+		border: 0;
+		background: #f7f7f7;
+		color: #2E3031;
+	}
+	
+
+	
+	#comment-name:focus,
+	#comment-comment:focus {
+		background: #fff;
+	}
+	
+	#comment-comment {
+		width: 100%;
+		height: 80px;
+		resize: vertical;
+		min-height: 80px;
+	}.comment-info-text {
+		letter-spacing: 0.5px;
+	}
+	
+	.comment-info-text p {
+		margin: 0 0 1rem;
+		text-align: justify;
+		font-size: .9em;
+	}
+	
+	#comment-container {
+		width: 100%;
+	}
+	
+	#comment-section, #load-comments {
+
+	}
+
+#comment-name::-webkit-input-placeholder,
+#comment-comment::-webkit-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::-moz-placeholder,
+#comment-comment::-moz-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name:-ms-input-placeholder,
+#comment-comment:-ms-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::-ms-input-placeholder,
+#comment-comment::-ms-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::placeholder,
+#comment-comment::placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name:focus,
+#comment-comment:focus {
+	background: #fff;
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}#load-comments {
+		display: none;
+	}</style>
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/07/05/HistData.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/07/05/HistData.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/07/05/HistData.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_11.jpeg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/07/05/HistData.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            <h3><b>Additional resources</b></h3>
+            <a href="https://programminghistorian.org/">Programming Historian</a>
+            <a href="https://rweekly.org/">R Weekly</a>
+            <a href="https://www.r-bloggers.com/">R Bloggers</a>
+            <a href="https://python-bloggers.com/">Python Bloggers</a>
+        </div>
+        <br>
+        <div class = "policy-box">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms-of-use.html">Terms of Use</a>
+            <div class="license">
+                <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+                    <a property="dct:title" rel="cc:attributionURL" href="https://www.codingthepast.com/">Coding the
+                        Past</a>
+                    by
+                    <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                        href="https://brunoponne.com/">Bruno Ponne
+                    </a> is licensed under
+                    <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank"
+                        rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
+                    </a>
+                </p>
+            </div>
+           <br>
+        </div>
+    </div>
+</footer>
+    </div>
+</body>
+<script src="/assets/js/filter.js"></script>
+<script src="/assets/js/copycode.js"></script>
+<script src="/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+</html>

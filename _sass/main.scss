@@ -29,7 +29,7 @@ body{
     min-height: 100vh;
     font-family: 'Montserrat', Helvetica, sans-serif;    
     font-size: 16px;
-    line-height: 24px;
+    line-height: 26px;
 }
 
 h1, h2{
@@ -433,6 +433,38 @@ h2{
     word-break: break-word;
 }
 
+
+.dataframe-2 {
+    border:1px solid white;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+}
+
+.dataframe-2 thead th {
+    font-weight: bold /* Bold text for header */
+  }
+
+  
+.dataframe-2 td:nth-child(1) {
+    width: 20%; /* First column width */
+  }
+  
+.dataframe-2 td:nth-child(2) {
+    width: 80%; /* Second column width */
+  }
+
+.dataframe-2 td, .dataframe-2 th {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: center;
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+  
+
 .dataframe td{
     color: white;
 }
@@ -482,6 +514,14 @@ h2{
     align-items: center;
     justify-content: center;
     margin-bottom: 5%;
+}
+
+/*  Comments  */
+
+.comments-style{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 
