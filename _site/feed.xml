@@ -1,4 +1,336 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-07-12T09:55:17-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Uncovering History with R - A Look at the HistData Package</title><link href="http://localhost:4000/2023/07/12/HistData.html" rel="alternate" type="text/html" title="Uncovering History with R - A Look at the HistData Package" /><published>2023-07-12T00:00:00-03:00</published><updated>2023-07-12T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/12/HistData</id><content type="html" xml:base="http://localhost:4000/2023/07/12/HistData.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-07-21T14:15:05-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">When Numbers Meet Stories - an introduction to the synthetic control method in R</title><link href="http://localhost:4000/2023/07/21/Synthetic-Control.html" rel="alternate" type="text/html" title="When Numbers Meet Stories - an introduction to the synthetic control method in R" /><published>2023-07-21T00:00:00-03:00</published><updated>2023-07-21T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/21/Synthetic-Control</id><content type="html" xml:base="http://localhost:4000/2023/07/21/Synthetic-Control.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p>“Qualitative flesh on quantitative bones.”</p>
+
+<p>Sidney Tarrow</p>
+
+<p><br /></p>
+
+<p>Greetings, humanists, social and data scientists!</p>
+
+<p><br /></p>
+
+<p>As our world grows increasingly data-driven, novel methods emerge that allow us to explore present and past social phenomena using sophisticated algorithms and statistical models. One such method is the synthetic control.</p>
+
+<p><br /></p>
+
+<p>Alberto Abadie, Alexis Diamond, and Jens Hainmueller, in their groundbreaking work, “Comparative Politics and the Synthetic Control Method,” have used the synthetic control method to bridge the often disparate domains of qualitative and quantitative research. Their article presents a systematic framework for selecting comparison units in comparative case studies. As an illustrative example, the authors examine the economic impact of the 1990 German reunification on West Germany.</p>
+
+<p><br /></p>
+
+<p>In this lesson we present the synthetic control method and show how to replicate Abadie et al. (2015)’s study of the impact of German reunification on West German GDP using <code class="language-plaintext highlighter-rouge">Synth</code>, an R package. I also present other applications of the synthetic control method.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_12_01.jpeg" alt="Berlin Wall" /></p>
+<p class="fig-caption">The Berlin Wall. Rieste, CC0, via Wikimedia Commons. Public Domain.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>The data required to replicate Abadie’s study is available in the <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/24714">Harvard Database</a>, which includes both the R script needed for replication and the relevant dataset. This dataset contains information about West Germany and 16 other developed countries. The included variables encompass aspects such as education, income, trade openness, industry share, inflation rate, and investment rate. Note that you do not need to go over the R script provided by the authors since I will simplify and explain it for you in this lesson.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-the-synthetic-control-method">Coding the past: the synthetic control method</h1>
+
+<p><br /></p>
+
+<h2 id="1-the-synthetic-control-method">1. The Synthetic Control Method</h2>
+
+<p>In the article, <a href="https://doi.org/10.1590/1981-3821202300010005">Better Incentives, Better Marks: A Synthetic Control Evaluation of Educational Policies in Ceará, Brazil</a>, I explain that the fundamental issue in evaluating the impact of an event, treatment, or intervention is that, once it occurs in a specific place and time, one can no longer assess how the outcome of interest would have developed in the absence of that event or intervention.</p>
+
+<p><br /></p>
+
+<p>Consider our example of Germany’s reunification; after it happened, it became impossible to determine how its Gross Domestic Product (GDP) would have progressed had reunification not taken place. The synthetic control method is a tool designed to overcome this limitation.</p>
+
+<p><br /></p>
+
+<p>How does the synthetic control method estimate what would have happened to West Germany’s GDP in the absence of reunification?</p>
+
+<p><br /></p>
+
+<p>A straightforward approach would be to select a country similar to West Germany, one that did not experience any significant political events, and examine how its GDP evolved over the same period. Would Denmark, France, New Zealand, or Norway serve as suitable comparison units? Rather than choosing a single country as a comparison reference, the synthetic control method estimates a weighted average of several similar countries. The primary skill of synthetic control lies in its use of optimization to find the best weights for calculating this weighted average, ensuring that this artificial unit — the composite of all the similar countries — most closely resembles West Germany in the period prior to the event. The set of similar countries is called the donor pool.</p>
+
+<p><br /></p>
+
+<p>To calculate these weights, we require data on the characteristics of West Germany and the similar countries over time. Ultimately, the synthetic control method generates a synthetic West Germany that did not undergo reunification, which can be used as a reference to assess the impact of the actual reunification. This concept will become clearer as we proceed with the replication outlined below.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> For more information on the optimization process, please refer to
+        
+        <a href="https://www.aeaweb.org/articles?id=10.1257/jel.20191450" target="_blank"> Abadie (2021)</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-the-synth-package">2. The synth package</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Synth</code> is an R implementation of the synthetic control method. Its most relevant functions are as follows:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">dataprep()</code>: this function prepares the data for the optimization process;</li>
+  <li><code class="language-plaintext highlighter-rouge">synth()</code>:  it calculates the optimal weights for each candidate comparison unit and each characteristic;</li>
+  <li><code class="language-plaintext highlighter-rouge">path.plot()</code> and <code class="language-plaintext highlighter-rouge">gaps.plot()</code>: These functions provide plots of the trend of the affected unit and its synthetic version, along with the gap between them (the effect).</li>
+</ul>
+
+<p><br /></p>
+
+<p>The primary task for computing the synthetic control involves configuring the <code class="language-plaintext highlighter-rouge">dataprep()</code> function. This function provides necessary information to <code class="language-plaintext highlighter-rouge">synth()</code> about which unit was affected by the event, which units will act as comparisons (donor pool), and the characteristics used to estimate the synthetic control. Below are the main arguments <code class="language-plaintext highlighter-rouge">dataprep()</code>:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>foo: a data frame containing the necessary data;</li>
+  <li>predictors: a vector containing the names of the variables with characteristics (predictors);</li>
+  <li>special.predictors: a list object identifying additional numeric predictors, their associated pretreatment years and the measure of central tendency to use (e.g., mean, median);</li>
+  <li>dependent: the name of the variable of interest (e.g., GDP);</li>
+  <li>unit.variable: the name of the variable containing the code of the units. It must be numerical (e.g., codes for each country)</li>
+  <li>time.variable: the name of the variable indicating time (year). It must be numerical.</li>
+  <li>treatment.identifier: the code of the unit that suffered the event or intervention;</li>
+  <li>controls.identifier: the codes of the units that did not undergo the event or intervention (donor pool);</li>
+  <li>time.predictors.prior: time period to calculate the average of characteristics (predictors of the dependent variable);</li>
+  <li>time.optimize.ssr: the period of optimization, during which the mean squared prediction error (MSPE) between treated and synthetic control units is minimized.</li>
+  <li>time.plot: the periods for the plots made by path.plot and gaps.plot ;</li>
+  <li>unit.names.variable: the name of the variable with unit (country) names.  It must be of character type.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Some of these arguments might not be clear for you right now, but they will make sense once we explain them with the example below. After estimating the synthetic control, we can use the <code class="language-plaintext highlighter-rouge">path.plot()</code> and <code class="language-plaintext highlighter-rouge">gaps.plot()</code> functions to visualize the effects.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_12_02.png" alt="synthetic control estimation flow " /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-synthetic-control-in-r">3. Synthetic control in R</h2>
+
+<p>The first step to replicate the study is to load the <code class="language-plaintext highlighter-rouge">Synth</code> package and the dataset. We use the <code class="language-plaintext highlighter-rouge">foreign</code> package to load the file <code class="language-plaintext highlighter-rouge">repgermany.dta</code>. The dataset contains information about West Germany and 16 other developed countries: Australia, Austria, Belgium, Denmark, France, Greece, Italy, Japan, the Netherlands, New Zealand, Norway, Portugal, Spain, Switzerland, the United Kingdom, and the United States. Information on education, income, trade openness, industry share, inflation rate, and investment rate is included. The data spans the period from 1960 to 2001.
+<br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-12-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-12-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">foreign</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">Synth</span><span class="p">)</span><span class="w">
+
+</span><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.dta</span><span class="p">(</span><span class="s2">"repgermany.dta"</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>The next step is to prepare the data for the synth function. We use the <code class="language-plaintext highlighter-rouge">dataprep()</code> function to do that. The code below specifies the following:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">foo = d</code>: the full dataframe containing the data;</li>
+  <li><code class="language-plaintext highlighter-rouge">predictors = c("gdp","trade","infrate")</code>: the predictors of the dependent variable (GDP).</li>
+  <li><code class="language-plaintext highlighter-rouge">special.predictors = list(list("industry" ,1981:1990, c("mean")), list("schooling",c(1980,1985), c("mean")), list("invest80" ,1980, c("mean")))</code>: additional predictors and their associated pretreatment years. This argument allows us to choose the time periods and which measure of central tendency (eg. “mean”, “median”) to use. Note that the <code class="language-plaintext highlighter-rouge">synth</code> function requires a summary statistic of the predictors rather than the complete time series. In this case, we use the mean of the industry share, schooling, and investment rate in the 1980s. The predictors specified in the <code class="language-plaintext highlighter-rouge">predictors</code> argument also use the mean by default;</li>
+  <li><code class="language-plaintext highlighter-rouge">dependent = "gdp"</code>: the dependent variable, which is GDP;</li>
+  <li><code class="language-plaintext highlighter-rouge">unit.variable = "index"</code>: the variable containing country codes;</li>
+  <li><code class="language-plaintext highlighter-rouge">time.variable = "year"</code>: the variable indicating time (year);</li>
+  <li><code class="language-plaintext highlighter-rouge">treatment.identifier = 7</code>: the code of the unit that suffered the event (West Germany);</li>
+  <li><code class="language-plaintext highlighter-rouge">controls.identifier = unique(d$index)[-7]</code>: all country codes, except for West Germany;</li>
+  <li><code class="language-plaintext highlighter-rouge">time.predictors.prior = 1981:1990</code>: the mean of the predictors specified in the <code class="language-plaintext highlighter-rouge">predictors</code> argument will be calculated in the period from 1981 to 1990;</li>
+  <li><code class="language-plaintext highlighter-rouge">time.optimize.ssr = 1960:1989</code>: the optimization will be performed in the period from 1960 to 1989;</li>
+  <li><code class="language-plaintext highlighter-rouge">time.plot = 1960:2003</code>: the plots will be made from 1960 to 2003;</li>
+</ul>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-12-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-12-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dataprep_out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">
+  </span><span class="n">dataprep</span><span class="p">(</span><span class="w">
+    </span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w">
+    </span><span class="n">predictors</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"gdp"</span><span class="p">,</span><span class="s2">"trade"</span><span class="p">,</span><span class="s2">"infrate"</span><span class="p">),</span><span class="w">
+    </span><span class="n">dependent</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"gdp"</span><span class="p">,</span><span class="w">
+    </span><span class="n">unit.variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"index"</span><span class="p">,</span><span class="w">
+    </span><span class="n">time.variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w">
+    </span><span class="n">special.predictors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w">
+      </span><span class="nf">list</span><span class="p">(</span><span class="s2">"industry"</span><span class="w"> </span><span class="p">,</span><span class="m">1981</span><span class="o">:</span><span class="m">1990</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">)),</span><span class="w">
+      </span><span class="nf">list</span><span class="p">(</span><span class="s2">"schooling"</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">1980</span><span class="p">,</span><span class="m">1985</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">)),</span><span class="w">
+      </span><span class="nf">list</span><span class="p">(</span><span class="s2">"invest80"</span><span class="w"> </span><span class="p">,</span><span class="m">1980</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">))</span><span class="w">
+    </span><span class="p">),</span><span class="w">
+    </span><span class="n">treatment.identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w">
+    </span><span class="n">controls.identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">d</span><span class="o">$</span><span class="n">index</span><span class="p">)[</span><span class="m">-7</span><span class="p">],</span><span class="w">
+    </span><span class="n">time.predictors.prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1981</span><span class="o">:</span><span class="m">1990</span><span class="p">,</span><span class="w">
+    </span><span class="n">time.optimize.ssr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1960</span><span class="o">:</span><span class="m">1989</span><span class="p">,</span><span class="w">
+    </span><span class="n">unit.names.variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"country"</span><span class="p">,</span><span class="w">
+    </span><span class="n">time.plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1960</span><span class="o">:</span><span class="m">2003</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+
+</span><span class="n">synth_out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">synth</span><span class="p">(</span><span class="n">dataprep_out</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>The final step is to pass the output of <code class="language-plaintext highlighter-rouge">dataprep()</code> to the <code class="language-plaintext highlighter-rouge">synth()</code>function. This provides the weights for each candidate comparison unit (solution.w) and each characteristic (solution.v) used in the optimization. Note that the optimization algorithm assigned the largest weights to Austria and the United States, which makes sense given the economic and historical similarities of these countries with West Germany.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-visualizing-synthetic-control-models">4. Visualizing synthetic control models</h2>
+
+<p>Now we can use <code class="language-plaintext highlighter-rouge">Synth</code> functions path.plot() and gaps.plot() to visualize the effects. The <code class="language-plaintext highlighter-rouge">path.plot()</code> function plots the trend of the affected unit and its synthetic version. The <code class="language-plaintext highlighter-rouge">gaps.plot()</code> function plots the gap between them (the effect). You can set the labels of the axes and the title of the plot using the arguments <code class="language-plaintext highlighter-rouge">Ylab</code>, <code class="language-plaintext highlighter-rouge">Xlab</code>, and <code class="language-plaintext highlighter-rouge">Main</code>. You can also set the legend text using the argument <code class="language-plaintext highlighter-rouge">Legend</code> and a dashed line to indicate the year of the event using the argument <code class="language-plaintext highlighter-rouge">tr.intake</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-12-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-12-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">path.plot</span><span class="p">(</span><span class="n">synth.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">synth_out</span><span class="p">,</span><span class="w">
+          </span><span class="n">dataprep.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataprep_out</span><span class="p">,</span><span class="w">
+          </span><span class="n">tr.intake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w">
+          </span><span class="n">Ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Per capita GDP"</span><span class="p">,</span><span class="w">
+          </span><span class="n">Xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Year"</span><span class="p">,</span><span class="w">
+          </span><span class="n">Legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"West Germany"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Synthetic West Germany"</span><span class="p">),</span><span class="w">
+          </span><span class="n">Main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"West Germany vs Synthetic West Germany"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">gaps.plot</span><span class="p">(</span><span class="n">synth.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">synth_out</span><span class="p">,</span><span class="w">
+          </span><span class="n">dataprep.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataprep_out</span><span class="p">,</span><span class="w">
+          </span><span class="n">tr.intake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w">
+          </span><span class="n">Ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Effect"</span><span class="p">,</span><span class="w">
+          </span><span class="n">Xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Year"</span><span class="p">,</span><span class="w">
+          </span><span class="n">Main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" Gap between per capita GDP in West Germany and its synthetic version"</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_12_03.png" alt="West Germany GDP vs Synthetic West Germany" /></p>
+
+<p><br /></p>
+
+<p>In this first plot, we can observe that the per capita GDP of synthetic West Germany closely resembles that of actual West Germany during the period prior to reunification. Upon the implementation of reunification, the model suggests that the synthetic West Germany, unaffected by reunification, would have continued following the same trend in its GDP per capita, while the actual West Germany experienced a decrease. The difference between their trajectories represents the effect of reunification on GDP per capita.</p>
+
+<p><br /></p>
+
+<p>It is important to note that during the first two years of German reunification, West Germany actually experienced an increase in GDP per capita. According to Abadie et al. (2015), this increase can be attributed to a demand boom in goods and services. However, starting from 1992 onwards, the effect of reunification on GDP turned negative.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_12_04.png" alt="Effect of Reunification on GDP per capita" /></p>
+
+<p><br /></p>
+
+<p>The plot above clearly illustrates the effect by highlighting the difference between the synthetic West Germany and the actual West Germany. Following the initial demand boom, the gap between the two units widens significantly after 1992, indicating a negative impact of reunification on West Germany’s GDP. For instance, in 2003, the gap amounts to approximately 3,000 dollars. Considering that West Germany’s GDP per capita in 2003 was around 29,000 dollars, the effect of reunification resulted in a decrease of approximately 10% in GDP per capita that year. Over the entire period, the authors estimate that reunification led to an average reduction of about 1,600 USD in GDP per year (Abadie et al., 2015).</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-synthetic-control-for-policy-evaluation">5. Synthetic Control for policy evaluation</h2>
+
+<p>Besides its application to evaluate historical events, like the German reunification, synthetic control is also used to evaluate the impact of policies.</p>
+
+<p><br /></p>
+
+<p>Abadie et al. (2010) evaluate the effect of a tobacco control program in California. The authors use the synthetic control method to estimate the effect of the program on cigarette consumption.</p>
+
+<p><br /></p>
+
+<p>In the article <a href="https://doi.org/10.1590/1981-3821202300010005">Better Incentives, Better Marks: A Synthetic Control Evaluation of Educational Policies in Ceará, Brazil</a>, I employed the synthetic control method to evaluate the impact of the educational policies implemented in Ceará, Brazil. The study revealed that a combination of technical assistance (TA) and tax incentives (TI) resulted in up to a 12 percent increase in student test scores. The figure below illustrates the estimated models, where the green line represents the treated Ceará, and the yellow line represents the synthetic Ceará. The gap between these lines represents the effect of the policies.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_12_05.jpeg" alt="Synthetic control used for policy evaluation" /></p>
+
+<p><br /></p>
+
+<p><strong>If you have any questions about the synthetic control method, please feel free to ask in the comments below.</strong></p>
+
+<p><br /></p>
+
+<p>Moreover, I recommend checking out <a href="https://www.aeaweb.org/articles?id=10.1257/jel.20191450">Using Synthetic Controls: Feasibility, Data Requirements, and Methodological Aspects</a>, a clarifying article by Abadie (2021) that provides a comprehensive overview of the synthetic control method.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<p><strong>Articles cited</strong></p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Abadie, Alberto. 2021. “Using Synthetic Controls: Feasibility, Data Requirements, and Methodological Aspects.” Journal of Economic Literature, 59 (2): 391-425 DOI: 10.1257/jel.20191450</li>
+  <li>Abadie, Alberto, Alexis Diamond, and Jens Hainmueller. 2015. “Comparative Politics and the Synthetic Control Method.” American Journal of Political Science 59 (2): 495-510. doi: 10.1111/ajps.12116</li>
+  <li>Abadie, Alberto, Alexis Diamond &amp; Jens Hainmueller. 2010. “Synthetic Control Methods for Comparative Case Studies: Estimating the Effect of California’s Tobacco Control Program” Journal of the American Statistical Association, 105:490, 493-505, DOI: 10.1198/jasa.2009.ap08746</li>
+  <li>Ponne, Bruno Gasparotto. 2023. “Better Incentives, Better Marks: A Synthetic Control Evaluation of the Educational Policies in Ceará, Brazil”. Braz. political sci. rev., 17(1), e0005. https://doi.org/10.1590/1981-3821202300010005</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Synthetic control is a method that allows us to estimate the effect of an event, treatment, or intervention by creating an artificial comparison unit;</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Synth</code> package is an R implementation that allows us to estimate synthetic control models;</li>
+  <li>Besides being used to evaluate historical events, synthetic control is also used to evaluate the impact of policies.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="historicaldata" /><summary type="html"><![CDATA[Use the synth package to estimate synthetic control models and explore its applications]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_12.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_12.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Uncovering History with R - A Look at the HistData Package</title><link href="http://localhost:4000/2023/07/12/HistData.html" rel="alternate" type="text/html" title="Uncovering History with R - A Look at the HistData Package" /><published>2023-07-12T00:00:00-03:00</published><updated>2023-07-12T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/12/HistData</id><content type="html" xml:base="http://localhost:4000/2023/07/12/HistData.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -125,8 +457,7 @@
 </span><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span></code></pre></figure>
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span></code></pre></figure>
 
 
 </div>
@@ -3399,375 +3730,4 @@ One way of creating your own color palette is with a Python list containing the 
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><category term="regression" /><summary type="html"><![CDATA[lesson about Linear Regression in R]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_04.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_04.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Climate Data Visualization</title><link href="http://localhost:4000/2023/01/24/Historical-Weather-Data.html" rel="alternate" type="text/html" title="Climate Data Visualization" /><published>2023-01-24T00:00:00-03:00</published><updated>2023-03-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/01/24/Historical-Weather-Data</id><content type="html" xml:base="http://localhost:4000/2023/01/24/Historical-Weather-Data.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><strong>‘Global warming isn’t a prediction. It is happening.’</strong></p>
-
-<p>James Hansen</p>
-
-<p><br /></p>
-
-<p>There is indisputable evidence that our planet is warming at an abnormal rate. The effects of global warming already started to affect the Earth. Melting glaciers, sea level rise, and intense heat waves already affect several countries. In this lesson, you will use historical weather data to plot graphs that help to raise awareness about climate change.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data Source</h1>
-<p>Data for this lesson comes from the <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/UK000056225.csv" target="_blank">National Centers for Environmental Information</a>. This institution provides historical weather data by city and country over the last centuries.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-graphical-data-analysis-with-r">Coding the past: graphical data analysis with r</h1>
-
-<h2 id="1-loading-historical-weather-data-with-fread">1. Loading historical weather data with <em>fread</em></h2>
-
-<p>First, we will load the <a href="http://localhost:4000/assets/data/oxford_temp.csv">temperature database</a> with the R function <code class="language-plaintext highlighter-rouge">fread()</code>. Note that there are many variables available (<a href="https://www.ncei.noaa.gov/pub/data/metadata/documents/GSOYReadme.txt" target="_blank">read more about them</a>). However, we are only interested in <em>DATE</em> and <em>TAVG</em> (average annual temperature in Oxford). The <code class="language-plaintext highlighter-rouge">select</code> parameter is used to select which variables to load.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">imputeTS</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-
-</span><span class="n">temperatures</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"oxford_temp.csv"</span><span class="p">,</span><span class="w">
-                      </span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TAVG"</span><span class="p">))</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-imputing-missing-values-in-r">2. Imputing missing values in R</h2>
-
-<p><em>TAVG</em> has missing values and was loaded as character. Let us convert it to numeric and impute missing values with linear interpolation using ` na_interpolation`, available in the <em>imputeTS</em> library.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">imputeTS</span><span class="p">)</span><span class="w">
-
-</span><span class="n">temperatures</span><span class="o">$</span><span class="n">TAVG</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">na_interpolation</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">temperatures</span><span class="o">$</span><span class="n">TAVG</span><span class="p">),</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="s2">"linear"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>If you prefer to skip steps 1 and 2, <a href="http://localhost:4000/assets/data/temperatures.RData">download here</a> the prepared dataset in <em>.RData</em> format. It will be used for the next steps.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-what-is-ggplot2-and-the-grammar-of-graphics">3. What is ggplot2 and the grammar of graphics?</h2>
-
-<p><a href="https://ggplot2.tidyverse.org/" target="_blank">Ggplot2</a> is an R library to create statistical graphics. It is based in the <a href="https://vita.had.co.nz/papers/layered-grammar.html" target="_blank">grammar of graphics</a>, a tool to understand graphics as a set of components which together give you flexibility to create original visualizations.</p>
-
-<p><br /></p>
-
-<p>In the figure bellow, you see the 3 main elements of ggplot2. First, you need a dataset with variables. Each of these variables can be mapped to one particular aesthetic - a visual property of a geom object. Geom objects are the elements you see in your graph (line and dots, for instance). Their characteristics (position on y axis, position on x axis, color, size, etc.) are defined by aesthetics mapping. One graph can contain several layers, each one with a geom object.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_01.png" alt="ggplot geom objects and layers" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-ggplot2-dotplot">4. ggplot2 dotplot</h2>
-
-<p>In this section, we will use ggplot2 to depict the historical temperatures in the city of Oxford from 1815 to 2022. We will use points do identify the temperature over the years. Although we usually use line plots to represent time series, some researchers claim that the lines do not represent observed data. Actually lines only connect the dots. Therefore, in this lesson, you will learn to plot time series both with dots and with lines.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> The author of "Fundamentals of Data Visualization", Claus O. Wilke, clarifies the use of dots and lines to plot time series. To read more about it, see
-        
-        <a href="https://clauswilke.com/dataviz/time-series.html" target="_blank"> the book here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>The <code class="language-plaintext highlighter-rouge">ggplot()</code> function will contain two arguments. The first is the data and the second is <em>aes()</em> (aesthetics), which maps the position on the x axis to the variable <em>DATE</em>, the position on the y axis to <em>TAVG</em> and color to <em>TAVG</em>, meaning the color of the geom objects will depend on average annual temperature. After the mapping, we add the first layer of our plot with <code class="language-plaintext highlighter-rouge">geom_point()</code>. The points represent the observations in the dataset with x and y position as well as color defined by the mapping we set. Two additional layers set x and y axis names.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_02.png" alt="ggplot dot plot with default theme" /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-setting-colors-with-scale_color_gradient">5. Setting colors with scale_color_gradient</h2>
-
-<p>One improvement could be representing lower temperatures with blue colors and higher temperatures with red. Moreover this default behavior is not intuitive, since darker colors are usually associated with larger quantities and not otherwise. Note that <em>TAVG</em> is a numeric variable and when we map it to color, ggplot uses a gradient to color the geom object. Adding the <code class="language-plaintext highlighter-rouge">scale_color_gradient()</code> layer allows us to define the color associated with low and high values. Moreover, it allows us to choose the name of the scale:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_03.png" alt="ggplot dot plot with customized colors" /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="6-create-your-own-ggplot2-theme">6. Create your own ggplot2 theme</h2>
-
-<p>The plot above got a little better, but how to customize it further? There are several R packages providing ggplot2 themes, but if we would like a theme that matches the theme of this page, for example, what could we do? An option is to create our own theme with the <code class="language-plaintext highlighter-rouge">theme()</code> layer. <code class="language-plaintext highlighter-rouge">theme()</code> offers several arguments to create your style. In the figure bellow you can see the arguments necessary to change the background and text color of the elements in our plot. Moreover, there are arguments to eliminate grids.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_04.png" alt="ggplot theme arguments" /></p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To know more <i>theme()</i> arguments available, check
-        
-        <a href="https://ggplot2.tidyverse.org/reference/theme.html" target="_blank"> the ggplot2 reference page.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>A theme can be created by a customized function which executes the ggplot <code class="language-plaintext highlighter-rouge">theme()</code>. In the code bellow you can see that the theme is built starting from the black and white ggplot2 theme.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-5">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
-        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
-        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
-        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Eliminates grids:</span><span class="w">
-        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
-        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
-        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
-  </span><span class="p">)</span><span class="w">
-</span><span class="p">}</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>Let us now try our theme:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-6')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-6">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_05.png" alt="ggplot customized theme " /></p>
-
-<p><br /></p>
-
-<p>The plot fits the page and highlight the data a lot better now. You could still increase the size of your point geom objects to highlight them. When you do not want to map a certain aesthetic to a variable, you can declare it outside of the <code class="language-plaintext highlighter-rouge">aes()</code> argument. Bellow, two changes are made in the point geom objects. First, <code class="language-plaintext highlighter-rouge">alpha</code> adds transparency. Second, <code class="language-plaintext highlighter-rouge">size</code> increases the size of all the points (without mapping).</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-7')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-7">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_06.png" alt="ggplot customized theme with changes in size and alpha " /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="7-adding-a-second-layer-containing-ggplot-line">7. Adding a second layer containing ggplot line</h2>
-
-<p>Now we will make use of the flexibility of the grammar of graphics to add an additional layer to our plot. This time we will add a geom line object:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-3-8')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-3-8">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">DATE</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_line</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_03_07.png" alt="ggplot customized theme with and a second geom layer " /></p>
-
-<p><br /></p>
-
-<p>It is clear that average temperatures are increasing year by year!</p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<ul class="conclusion-list">
-  <li>Ggplot2 creates effective statistical graphics making use of layers to produce flexible and original visualizations;</li>
-  <li>Follow two basic steps to plot in ggplot2:
-    <ul>
-      <li>map your variables to the desired aesthetics (visual aspect of a geom object);</li>
-      <li>create the layers containing the geom objects;</li>
-    </ul>
-  </li>
-  <li>Use <code class="language-plaintext highlighter-rouge">theme()</code> to create your own customized theme;</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[Code effective visualizations using ggplot2 dotplot.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_03.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_03.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><category term="regression" /><summary type="html"><![CDATA[lesson about Linear Regression in R]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_04.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_04.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
