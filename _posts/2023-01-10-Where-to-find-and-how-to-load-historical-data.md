@@ -8,7 +8,7 @@ attributes:
   - e: 10 min
 tags: r python historicaldata
 image: lesson_02.png
-abstract: Learn 5 great websites to find reliable historical data and how to load it in R and Python.
+abstract: Learn about great websites to find reliable historical data and how to load it in R and Python.
 objectives:
   - o: Get to know good sources of historical data;
   - o: Be able to load data in R and Python;
@@ -27,7 +27,7 @@ Albert Einstein
 
 <br>
 
-With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about 5 fascinating and reliable websites to find historical data for your research. Moreover, you will learn how to load data in Python and R.
+With so much data available nowadays, I frequently feel overwhelmed when I have to find data to study a subject. Is this dataset reliable? How was the data treated? Where can I find the codebook with detailed information on the variables? These are only some of my concerns. When it comes to historical data, the task can be even harder. In this lesson, you will learn about fascinating and reliable websites to find historical data for your research. Moreover, you will learn how to load data in Python and R.
 
 <br>
 
@@ -70,6 +70,10 @@ If you wish to work with text data, this is a valuable source of material. It of
 This impressive platform, supported by the Hutchins Center of Harvard University, gathers data regarding the forced relocations of more than 12 million African people between the 16th and 19th century. Files are provided in SPSS or comma separated values format.
 
 <br>
+
+## 6. [HistData Package](https://cran.r-project.org/web/packages/HistData/index.html){:target="_blank"}
+
+This source is not actually a website but an R package. It provides a collection of 31 small datasets relating to several historical events over the last centuries. The package seeks to bridge the realms of history and statistics, offering tools to analyze historical problems and questions with statistical rigor. The `Guerry` dataset, for instance, provides social data from the 1830s French departments. `Nightingale` details the monthly number of deaths from various causes in the British Army during the Crimean War (1853-1856). There is a whole lesson about this package. Check it out: ['Uncovering History with R - A Look at the HistData Package']({% post_url 2023-07-12-HistData %})
 
 <br>
 
