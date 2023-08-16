@@ -1,4 +1,343 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-08-11T15:35:17-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">When Numbers Meet Stories - an introduction to the synthetic control method in R</title><link href="http://localhost:4000/2023/07/21/Synthetic-Control.html" rel="alternate" type="text/html" title="When Numbers Meet Stories - an introduction to the synthetic control method in R" /><published>2023-07-21T00:00:00-03:00</published><updated>2023-07-21T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/21/Synthetic-Control</id><content type="html" xml:base="http://localhost:4000/2023/07/21/Synthetic-Control.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-08-16T10:40:24-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00-03:00</published><updated>2023-08-16T00:00:00-03:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p><strong>‘Happiness in intelligent people is the rarest thing I know’</strong></p>
+
+<p>A character in Ernest Hemingway’s novel “The Garden of Eden”</p>
+
+<p><br /></p>
+
+<p>Greetings, humanists, social and data scientists!</p>
+
+<p><br /></p>
+
+<p>In this lesson, we will learn how to evaluate the relationship between two variables with R. Check out the video below for a short introduction.</p>
+
+<p><br /></p>
+
+<center><iframe width="560" height="315" src="https://www.youtube.com/embed/Fee7FMwAv_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></center>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>The Guerry dataset is provided by the R package <a href="https://cran.r-project.org/web/packages/HistData/index.html">HistData</a>. To know more about this package, please refer to our lesson <a href="/2023/07/12/HistData.html">‘Uncovering History with R - A Look at the HistData Package’</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-the-relationship-between-literacy-and-suicides-in-1830s-france">Coding the past: the relationship between literacy and suicides in 1830s France</h1>
+
+<p><br /></p>
+
+<h2 id="1-exploring-andre-michel-guerrys-pioneering-data-moral-statistics-of-1830s-france">1. Exploring Andre-Michel Guerry’s Pioneering Data: Moral Statistics of 1830s France</h2>
+
+<p>Andre-Michel Guerry was a French lawyer who was passionate about statistics. He is considered to be the founder of moral statistics and had a major influence on the development of modern social science. His work “Essay on the Moral Statistics of France” includes data on several social variables of 86 French departments in the 1830s.</p>
+
+<p><br /></p>
+
+<p>To access this data, we need to load the HistData package. After doing so, we can use the command <code class="language-plaintext highlighter-rouge">help(Guerry)</code> to see the description of the dataset and the details about each of the 23 variables. Variables include information such as population, crime, literacy, suicide, wealth, and location of the 86 French departments.</p>
+
+<p><br /></p>
+
+<p>You can use <code class="language-plaintext highlighter-rouge">df &lt;- Guerry</code> to load the data. Feel free to explore the dataset and check the <strong>str</strong>ucture of the dataframe with <code class="language-plaintext highlighter-rouge">str(df)</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-13-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">help</span><span class="p">(</span><span class="n">Guerry</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Guerry</span><span class="w">
+
+</span><span class="n">str</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-add-a-new-column-to-a-dataframe-in-r">2. Add a new column to a dataframe in R</h2>
+
+<p>In the documentation of the dataset, the author states “Note that most of the variables (e.g., Crime_pers) are scaled so that ‘more is better’ morally.”. Thus, suicide, for example, is expressed as the population divided by the number of suicides. In this way, the fewer the suicides, the larger the value in the <code class="language-plaintext highlighter-rouge">Suicides</code> column.</p>
+
+<p><br /></p>
+
+<p>To make our analysis easier to interpret, we can calculate the inverse of <code class="language-plaintext highlighter-rouge">Suicides</code>, that is, instead of having <strong>population/suicides</strong>, we will consider <strong>suicides/population</strong> (suicides per inhabitants). Moreover, to avoid very small numbers, let us multiply this by 100,000 so that we have suicides per 100,000 population. The code below creates this new variable.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-13-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">df</span><span class="o">$</span><span class="n">Suicides</span><span class="p">)</span><span class="o">*</span><span class="m">100000</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content">  Note that "Pop1831" tells us the population of French departments in the thousands in 1831. "summary(df$Pop1831)" tells us that the least populated department had a population of 129,000 inhabitants and the most populated had around 990,000 inhabitants.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-use-geom_point-to-create-a-scatter-plot">3. Use geom_point to create a scatter plot</h2>
+
+<p>Now, we’ll examine the relationship between <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> and <code class="language-plaintext highlighter-rouge">Literacy</code> using a scatter plot. As per the documentation, <code class="language-plaintext highlighter-rouge">Literacy</code> represents the “percentage of military conscripts who can read and write” in a department. Keep in mind that the relationships studied in this lesson apply only to this subgroup which is not representative of the whole population. The code below leverages <code class="language-plaintext highlighter-rouge">geom_point</code> to visualize this relationship.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-13-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Relationship between Suicides and Literacy"</span><span class="p">,</span><span class="w">
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Percentage of literate conscripts"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Suicides (per 100,000 population)"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>Please note, the code above incorporates the function <code class="language-plaintext highlighter-rouge">theme_coding_the_past</code> to style the plot. You can access this theme in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate Data Visualization’</a></p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_13_01.png" alt="Percentage of literate conscripts vs Suicides per inhabitants" /></p>
+
+<p><br /></p>
+
+<p>The plot suggests that as literacy percentages rise, suicide rates tend to increase. In the distribution of literacy rates below, we also see that the majority of the French departments recorded literacy rates lower than 50% (indicated by the dashed line). If you count the departments to the right of the dashed line, you will find 24 departments, which represents only 24/86 = 28% of the total departments. Notably, the highest suicide rates are in this subgroup.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-13-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w">  </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">25</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Distribution of literacy percentages"</span><span class="p">,</span><span class="w">
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Literacy"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Count"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_13_02.png" alt="Distribution of literacy percentages" /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-corttest-in-r">4. cort.test in R</h2>
+
+<p>Having observed a graphical association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides</code>, let’s use <code class="language-plaintext highlighter-rouge">cor.test</code> to find this association analytically. This function takes two arguments <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> and returns a Pearson correlation coefficient (by default) and its statistical significance. As explained in the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a> “correlation measures how much two variables change together. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation”.</p>
+
+<p><br /></p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">cor.test(x = df$Literacy, df$Suicides_Pop)</code> we obtain a correlation coefficient of 0.4 which means a moderate positive correlation. As literacy increases so does suicide proportion. The p-value is less than 0.01, meaning there is a statistically significant association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>. Framed differently, under the hypothesis that there is no correlation between the two variables, the probability of finding a coefficient of 0.4 or higher would be less than 1%. So we can reject the null hypothesis.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-linear-models-with-r">5. Linear models with R</h2>
+
+<p>To further study the relationship between these two variables let’s model 3 linear regressions. To know more about linear regression, check out the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a>.</p>
+
+<p><br /></p>
+
+<p>The first model will only include <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> as the dependent variable and <code class="language-plaintext highlighter-rouge">Literacy</code> as the independent variable. Use <code class="language-plaintext highlighter-rouge">summary(lm(Suicides_Pop ~ Literacy, data = df))</code> to see the results of this model. The literacy coefficient tells us that if we increase the literacy rate by 1%, then the suicide proportion grows by 0.11. Put differently, a 10% increase in literacy is associated with around 1 suicide more per 100,000 population. This estimate is statistically significant.</p>
+
+<p><br />
+In the code below, we use <code class="language-plaintext highlighter-rouge">geom_smooth</code> to plot the regression line describing the positive link between literacy and suicides. The <code class="language-plaintext highlighter-rouge">method</code> argument tells ggplot to use a linear model (lm) to depict the relationship.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-13-5">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">))</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lm"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Relationship between Suicides and Literacy"</span><span class="p">,</span><span class="w">
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Percentage of literate conscripts"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Suicides (per 100,000 population)"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_13_03.png" alt="geom_smooth" /></p>
+
+<p><br /></p>
+
+<p>Note that we cannot say that higher literacy rates directly cause more suicides, as factors beyond literacy rates might influence suicide rates. In the next section, we will check whether wealth and the distance to Paris influence suicides as well. Moreover, we will determine if the association between literacy and suicides holds even after controlling for these variables. To show the results, we will use <a href="https://cran.r-project.org/web/packages/stargazer/index.html">stargazer</a>, a very handy package designed for displaying linear model results.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-how-to-use-stargazer-in-r">6. How to use stargazer in R</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> package offers a very neat and practical way of presenting the results of several linear models. Users can set it up to produce LaTeX or HTML outputs using the <code class="language-plaintext highlighter-rouge">type</code> argument. In the code that follows, we configure it to generate HTML, making it suitable for this blog post. First, we create three models adding variables indicating the wealth and distance to Paris of each department. Second, we pass these models to stargazer.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-13-6">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">linear_model_01</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">linear_model_02</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Literacy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Wealth</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">linear_model_03</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Literacy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Wealth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Distance</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">stargazer</span><span class="p">)</span><span class="w">
+
+</span><span class="n">stargazer</span><span class="p">(</span><span class="n">linear_model_01</span><span class="p">,</span><span class="w"> </span><span class="n">linear_model_02</span><span class="p">,</span><span class="w"> </span><span class="n">linear_model_03</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"html"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> table can be seen below. Note in model 2 that <code class="language-plaintext highlighter-rouge">Wealth</code> appears to influence <code class="language-plaintext highlighter-rouge">Suicides</code> negatively, meaning that richer areas are associated with fewer suicides. The coefficient regarding <code class="language-plaintext highlighter-rouge">Literacy</code> decreases a bit but remains statistically significant. Finally, model 3 includes the distance to Paris as an additional variable. The coefficient of <code class="language-plaintext highlighter-rouge">Literacy</code> decreases again but remains statistically significant. Moreover, being close to Paris is associated with more suicides.</p>
+
+<p><br /></p>
+
+<table style="text-align:center; width: 100%;"><tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left"></td><td colspan="3"><em>Dependent variable:</em></td></tr>
+<tr><td></td><td colspan="3" style="border-bottom: 1px solid white"></td></tr>
+<tr><td style="text-align:left"></td><td colspan="3">Suicides_Pop</td></tr>
+<tr><td style="text-align:left"></td><td>(1)</td><td>(2)</td><td>(3)</td></tr>
+<tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left">Literacy</td><td>0.112<sup>***</sup></td><td>0.080<sup>***</sup></td><td>0.064<sup>**</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.027)</td><td>(0.026)</td><td>(0.025)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Wealth</td><td></td><td>-0.080<sup>***</sup></td><td>-0.059<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(0.018)</td><td>(0.018)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Distance</td><td></td><td></td><td>-0.014<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td>(0.004)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Constant</td><td>0.645</td><td>5.347<sup>***</sup></td><td>7.901<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(1.168)</td><td>(1.489)</td><td>(1.604)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left">Observations</td><td>86</td><td>86</td><td>86</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.167</td><td>0.329</td><td>0.408</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.157</td><td>0.313</td><td>0.386</td></tr>
+<tr><td style="text-align:left">Residual Std. Error</td><td>4.360 (df = 84)</td><td>3.938 (df = 83)</td><td>3.720 (df = 82)</td></tr>
+<tr><td style="text-align:left">F Statistic</td><td>16.826<sup>***</sup> (df = 1; 84)</td><td>20.321<sup>***</sup> (df = 2; 83)</td><td>18.841<sup>***</sup> (df = 3; 82)</td></tr>
+<tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="3" style="text-align:right"><sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01</td></tr>
+</table>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<p>Like all social phenomena, the incidence of suicide is shaped by a multitude of factors.  While we cannot definitively claim that literacy directly caused suicides in 19th-century France, our analysis above does indicate an association between these variables. Delving deeper into the contextual nuances of France in the 1830s might shed light on whether literacy indeed influenced the decision to commit suicide. For instance, check this article by Lisa Lieberman <a href="https://www.cambridge.org/core/journals/comparative-studies-in-society-and-history/article/abs/romanticism-and-the-culture-of-suicide-in-nineteenthcentury-france/FA6EBEDC86A5F6812B37DCA03D609C67">“Romanticism and the Culture of Suicide in Nineteenth-Century France”</a></p>
+
+<p><br /></p>
+
+<p>If you are interested in this topic, <a href="https://en.wikipedia.org/wiki/The_Sorrows_of_Young_Werther">The Sorrows of Young Werther</a>, by Johann Wolfgang Goethe, is a literary representation of a particular view on suicide that would influence the Romantic movement in 19th-century Europe.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_13.jpeg" alt="The Sorrows of Young Werther" />
+Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on his bed. Public Domain.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><strong>If you have any questions or would like to share your thoughts on this topic, please feel free to ask in the comments below.</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Association between two variables can be identified with a scatter plot;</li>
+  <li>It can also be explored analytically with <code class="language-plaintext highlighter-rouge">cor.test</code>;</li>
+  <li>Linear regression helps us further understand the relationship of two variables, given other relevant variables</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Use R to analyze the relationship between two variables]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">When Numbers Meet Stories - an introduction to the synthetic control method in R</title><link href="http://localhost:4000/2023/07/21/Synthetic-Control.html" rel="alternate" type="text/html" title="When Numbers Meet Stories - an introduction to the synthetic control method in R" /><published>2023-07-21T00:00:00-03:00</published><updated>2023-07-21T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/21/Synthetic-Control</id><content type="html" xml:base="http://localhost:4000/2023/07/21/Synthetic-Control.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -3368,366 +3707,4 @@ One way of creating your own color palette is with a Python list containing the 
 </ul>
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><summary type="html"><![CDATA[Use Matplotlib to code beautiful visualizations]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_01.png" /><media:content medium="image" url="http://localhost:4000/lesson_01.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">R programming for climate data analysis and visualization</title><link href="http://localhost:4000/2023/02/07/Linear-Models-in-R.html" rel="alternate" type="text/html" title="R programming for climate data analysis and visualization" /><published>2023-02-07T00:00:00-03:00</published><updated>2023-03-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/07/Linear-Models-in-R</id><content type="html" xml:base="http://localhost:4000/2023/02/07/Linear-Models-in-R.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><strong>‘Intuition is a very powerful thing, more powerful than intellect’</strong></p>
-
-<p>Steve Jobs</p>
-
-<p><br /></p>
-
-<p>Linear regression is one of the most popular tools in social data science. It has been used over the last decades to study how variables relate to each other. In this lesson, you will learn the intuition behind linear regression and how to use it in R.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data Source</h1>
-
-<p>Data for this lesson comes from two different sources: data of historical temperature in the city of Oxford comes from the <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/UK000056225.csv" target="_blank">National Centers for Environmental Information</a> and historical data regarding total carbon emissions comes from the US <a href="https://cdiac.ess-dive.lbl.gov/ftp/ndp030/CSV-FILES/global.1751_2014.csv" target="_blank">Carbon Dioxide Information Analysis Center</a>. Temperatures are given in degree Celsius and carbon emissions in million metric tons of C.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</h1>
-
-<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</h2>
-
-<p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
-
-<p><br /></p>
-
-<p>Second, the carbon emissions data will be loaded. We will only load the year and the value regarding the total carbon emissions from fossil fuel consumption and cement production (in million metric tons of C).</p>
-
-<p><br /></p>
-
-<p>Data will be loaded with <code class="language-plaintext highlighter-rouge">read.csv</code>. The selection of rows and columns is made by index using the following syntax: <em>df[rows to include, columns to include]</em>. In the code bellow we chose to keep all rows except for the first, because it contains the source of the data. Additionally, only columns 1 and 2 are kept. Column names are changed to be the same as in the temperatures dataframe. Since both variables were loaded as factors, we convert them first to characters and then to integers. Note that converting a factor directly to integer would distort the values.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-4-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">temperatures</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">load</span><span class="p">(</span><span class="s2">"temperatures.RData"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">carbon</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"carbon.csv"</span><span class="p">)[</span><span class="m">2</span><span class="o">:</span><span class="m">265</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">]</span><span class="w">
-
-</span><span class="nf">names</span><span class="p">(</span><span class="n">carbon</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"DATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TOT_EMISSIONS"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">carbon</span><span class="o">$</span><span class="n">DATE</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">carbon</span><span class="o">$</span><span class="n">DATE</span><span class="p">))</span><span class="w">
-
-</span><span class="n">carbon</span><span class="o">$</span><span class="n">TOT_EMISSIONS</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">carbon</span><span class="o">$</span><span class="n">TOT_EMISSIONS</span><span class="w"> </span><span class="p">))</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>The last step of data preparation is to join the two dataframes. Since they cover different periods, R dplyr <code class="language-plaintext highlighter-rouge">inner_join()</code> will be used to keep only observations contained in both dataframes. See how <code class="language-plaintext highlighter-rouge">inner_join()</code> works in the figure below:</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_04_01.png" alt="dplyr inner_join" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-4-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">inner_join</span><span class="p">(</span><span class="n">temperatures</span><span class="p">,</span><span class="w"> </span><span class="n">carbon</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"DATE"</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>If you prefer to skip this step, download the prepared data <a href="http://localhost:4000/assets/data/gw.RData">here</a> (<em>.RData</em> format)</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></h2>
-
-<p><a href="https://www.bbc.co.uk/bitesize/guides/zc7sb82/revision/5" target="_blank">Correlation</a> measures how much two variables change together. In our case, we would like to know if increases in carbon emissions are associated with increases in temperature. One method to assess linear correlation is the Pearson correlation. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation.</p>
-
-<p><br /></p>
-
-<p>In R, we can use the function <code class="language-plaintext highlighter-rouge">cor.test()</code> to estimate correlation with the argument <code class="language-plaintext highlighter-rouge">method</code> set to “pearson”. This function returns the correlation and a p-value. The p-value tells us if we can reject the hypothesis that the correlation between carbon emissions and temperature is zero.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-4-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cor.test</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pearson"</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>If you run the code above, you will see that there is a moderate linear correlation of <strong>0.57</strong> between temperature and carbon emissions in our sample. This means that when emissions increase, so does temperature. Moreover, this value is statistically different from zero, since the p-value is a lot lower than 0.05 (with a 95% confidence interval). So, there is a correlation between the two variables!</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> The <b>p-value</b>, in the context of this example, is the probability that we would find a correlation estimate of at least 0.57 under the hypothesis that there is no correlation between temperatures and carbon emissions (null hypothesis). If this probability is very low, then the null hypothesis is not likely to be true, because it is not compatible with data we observed in reality. In this case we reject the null and accept the hypothesis that the correlation is not zero. Confusing? Try reading a little more about it 
-        
-        <a href="https://online.stat.psu.edu/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach" target="_blank"> here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-plotting-correlation-in-r">3. Plotting correlation in r</h2>
-
-<p>One way to check correlation is with a scatterplot. Because carbon emissions were relatively low before 1900, we will use data from this year on (see how <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr filter()</a> works). Notice that dots are not randomly distributed in the plot. In general, the larger the emissions, the larger the temperatures. To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a></p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-4-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
-        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
-        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
-        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Eliminates grids:</span><span class="w">
-        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
-        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
-        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
-  </span><span class="p">)}</span><span class="w">
-  
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">DATE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1900</span><span class="p">),</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Emissions [million metric tons of C]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_04_02.png" alt="scatterplot of temperatures versus carbon emissions" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-implementing-linear-models-with-r">4. Implementing linear models with R</h2>
-
-<p>Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.</p>
-
-<p><br /></p>
-
-<p>One quick question before we proceed: What is the simplest “model” for describing the temperature in Oxford throughout the last centuries if we did not have any other variable than the temperature itself?</p>
-
-<p><br /></p>
-
-<p>It could be the average of the temperature over the period, right? At any point in time, this simple “model” would predict a 9.9 ºC temperature:</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_04_03.png" alt="scatterplot of temperatures versus carbon emissions with temperatures average line" /></p>
-
-<p><br /></p>
-
-<p>Now imagine that we have access to a second variable, the total carbon emissions, and we know it has a correlation with temperatures. Wouldn’t this variable add information to better predict temperature? Yes!</p>
-
-<p><br /></p>
-
-<p>Linear regression is a method to relate these two variables through a straight line (a linear function) that might fit the data a lot better than the mean (if they are sufficiently associated). In the figure above, imagine that you could rotate this line to better fit the data: this is what the regression line does! (see plot in step 5)</p>
-
-<p><br /></p>
-
-<p>A regression line is described by the equation <strong>Y = a + bX</strong>  where a and b are found by an <a href="https://en.wikipedia.org/wiki/Least_squares">algorithm</a> so that the line best fits the data.</p>
-
-<p><br /></p>
-
-<p>Thankfully, you do not need to worry how to compute a and b. R does it for you with the <code class="language-plaintext highlighter-rouge">lm()</code> function, where you specify your dataframe, and the formula of the relationship you want to study. A formula has the following syntax: <em>independent variable ~ dependent variable</em>. To model temperature as a function of carbon emissions, use the following code:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-4-5">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">linear_model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">TAVG</span><span class="o">~</span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
-
-</span><span class="n">summary</span><span class="p">(</span><span class="n">linear_model</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<table class="dataframe">
- <thead>
-  <tr>
-   <th> Term </th>
-   <th> estimate </th>
-   <th> std.error </th>
-   <th> statistic </th>
-   <th> p.value </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td> Intercept </td>
-   <td> 9.5627927 </td>
-   <td> 0.0546872 </td>
-   <td> 174.863537 </td>
-   <td> 0 </td>
-  </tr>
-  <tr>
-   <td> Emissions </td>
-   <td> 0.0001628 </td>
-   <td> 0.0000166 </td>
-   <td> 9.835066 </td>
-   <td> 0 </td>
-  </tr>
-</tbody>
-</table>
-
-<p><br /></p>
-
-<p>In this table you see the coefficients a (intercept) and b (coefficient of TOT_EMISSIONS) calculated by R. They form the regression line TAVG = 9.57 + 0.00016*TOT_EMISSIONS. The interpretation of them is as follows:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>a or the intercept is the value of y when x is zero. In our case a is the value of the temperature when the emissions are zero. You have to evaluate if x = 0 makes sense for your analysis.</li>
-  <li>b is how much, on average, y increases when x increases by 1 unit. In our example, when total emissions increase by 1 million metric tons of carbon, then the temperature increases by 0.00016 ºC. It does not seem a lot at a first glance, but if you consider that from 1950 to 2022 emissions increased by 8,225 million metric tons of carbon, this would translate, in our model, to an increase of 1.3ºC!</li>
-</ul>
-
-<p><br /></p>
-
-<p>Note that p-values are zero (very close to zero), providing evidence that a and b are statistically significant.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</h2>
-
-<p>To draw the regression line, use geom_smooth() with the argument <code class="language-plaintext highlighter-rouge">method</code> set to ‘lm’ (linear model). The argument <code class="language-plaintext highlighter-rouge">se</code> specifies if you would like to plot the error associated with the regression estimate across the line.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-4-6')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-4-6">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">DATE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1900</span><span class="p">),</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="w"> </span><span class="n">TOT_EMISSIONS</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TAVG</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lm"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ºC"</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#1AA3FF"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Emissions [million metric tons of C]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Annual Mean Temperature in Oxford [ºC]"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_04_04.png" alt="regression line plot" /></p>
-
-<p><br /></p>
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> In the example studied we know that carbon emissions are <b>causing</b> global warming, because scientists have extensively studied this topic with multiple models and approaches. However, only correlation or linear relation identified with a regression model does not imply causation! Read more
-        
-        <a href="https://sitn.hms.harvard.edu/flash/2021/when-correlation-does-not-imply-causation-why-your-gut-microbes-may-not-yet-be-a-silver-bullet-to-all-your-problems/" target="_blank"> about this topic.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<ul class="conclusion-list">
-  <li>An inner join can be used to join two dataframes when you only want to keep observations contained in both dataframes;</li>
-  <li>Correlation measures how much two variables change together, it can be calculated in R with cor.test();</li>
-  <li>A linear regression model relates one dependent variable to an independent or explanatory variable. It provides you with an estimate of how much the dependent variable vary when the independent variable changes by one unit. Regression can be computed in R with lm();</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><category term="regression" /><summary type="html"><![CDATA[lesson about Linear Regression in R]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_04.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_04.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><summary type="html"><![CDATA[Use Matplotlib to code beautiful visualizations]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_01.png" /><media:content medium="image" url="http://localhost:4000/lesson_01.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
