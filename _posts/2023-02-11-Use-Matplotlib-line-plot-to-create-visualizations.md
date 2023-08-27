@@ -1,17 +1,17 @@
 ---
 layout: post
 author: Bruno Ponne
-title:  Use Matplotlib line plot to create clear and compelling visualizations
+title:  Storytelling with Matplotlib - Visualizing historical data
 attributes:
   - e: Medium
   - e: Python
-  - e: 20 min
+  - e: 10 min
 tags: python matplotlib
 image: lesson_01.png
 abstract: Use Matplotlib to plot and highlight elements in historical trends in 8 steps.
 objectives:
-  - o: Get comfortable with using Matplotlib objects;
-  - o: Be able to select only relevant elements for your plot;
+  - o: Dive deep into Matplotlib's functionalities;
+  - o: Customize your plots for a clearer presentation;
   - o: Learn how to identify and highlight important components in your graph.
 keywords: beautiful visualizations, matplotlib line plot, matplotlib legend, matplotlib axes
 description: Use Matplotlib to code beautiful visualizations
@@ -24,16 +24,27 @@ last_modified_at: 05-Mar-23
 
 <br>
 
-**'All that is solid melts into the air'**
+**'Crafting clean and clear plots is akin to writing poetry; every line should convey meaning, every shade should tell a story.'**
 
-Karl Marx and Friedrich Engels
+ChatGPT (adapted)
+
+<br>
+
+Dive into this guide to create effective visualizations using Matplotlib, and journey through the GDP per capita trends of Germany and the USA during the pivotal 1929 crisis. Check out in the figure below how you will transform a basic plot into an informative and compelling visualization. Let's get started!
 
 <br>
 
-As a historian and social scientist I often find it challenging to customize my Python plots and make them clear and compelling. What is a Python class, object or method? &#x1F632; In this lesson, you will learn what those concepts are and how to use them to create effective graphs with Matplotlib. We will plot and highlight elements in the trend of Gross Domestic Product (GDP) per capita of Germany and the USA during the 1929 crisis. If you would like to know more about this event, [check this out](https://www.britannica.com/event/Great-Depression){:target="_blank"}. 
+
+![preview of final plot](/assets/images/lesson_01_01a.png)
+{: .larger } 
 
 
 <br>
+
+If you would like to know more about the 1929 crisis, [check this out](https://www.britannica.com/event/Great-Depression){:target="_blank"}. 
+
+<br>
+
 
 ***
  
@@ -55,19 +66,19 @@ As a historian and social scientist I often find it challenging to customize my 
 
 # Coding the past: beautiful visualizations with Matplotlib
 
-## 1. What is Matplotlib?
+## 1. Matplotlib subplots
 
 <br>
 
 Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.
 
 <br>
+Before diving in, keep in mind these concepts:
 
-Before we dive into Matplotlib, we have to understand the concept of class and object. A Python object could be a plot, a string of text or a dataframe, for example. '<b>Classes</b> are a sort of blueprint for objects, specifying their properties (attributes) and behaviors (methods). For example, an object of the Matplotlib class <i>Axes</i> will store a plot and will always have an x axis label attribute. The class <i>Axes</i> might give origin to several different objects (plots), all with an x axis label property, but the content of this property is particular to each plot. We say we instantiate an object of a certain class when we create it.
-
-<br>
-
-{% include note.html content = 'Learn more about classes in this'  url = 'https://realpython.com/lessons/classes-python/' url_description = 'video.' %}
+- Class: Think of it as a blueprint for creating objects.
+- Object: An instance of a class; for visualization, this could be a specific plot.
+- Method: A function that operates on an object's data.
+{: .conclusion-list } 
 
 <br>
 
@@ -411,7 +422,7 @@ plt.show()
 
 <br>
 
-In the next lessons you will learn how to further improve graphs like this. Thanks for reading! &#x1F60A;
+Found this guide helpful? Have suggestions or questions? Leave a comment below and join the discussion!
 
 <br>
 

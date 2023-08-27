@@ -17,7 +17,7 @@
     <meta name="keywords" content="beautiful visualizations, matplotlib line plot, matplotlib legend, matplotlib axes">
     <meta name="description" content="Use Matplotlib to code beautiful visualizations">
     <meta property= og:image content= />
-    <title>Use Matplotlib line plot to create clear and compelling visualizations</title>
+    <title>Storytelling with Matplotlib - Visualizing historical data</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Use Matplotlib line plot to create clear and compelling visualizations</h1>
+    <h1 id = "post-main-title">Storytelling with Matplotlib - Visualizing historical data</h1>
     <p id = "author">Bruno Ponne &#9679 11 Feb 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -66,16 +66,16 @@
         
         <li>Python</li>
         
-        <li>20 min</li>
+        <li>10 min</li>
         
     </ul>
     <br>
     <h1>What you will learn</h1>
     <ul>
         
-        <li class = "objectives"> Get comfortable with using Matplotlib objects;</li>
+        <li class = "objectives"> Dive deep into Matplotlib's functionalities;</li>
         
-        <li class = "objectives"> Be able to select only relevant elements for your plot;</li>
+        <li class = "objectives"> Customize your plots for a clearer presentation;</li>
         
         <li class = "objectives"> Learn how to identify and highlight important components in your graph.</li>
         
@@ -84,7 +84,7 @@
     <h1>Table of Contents</h1>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</a><ul><li><a href="#1-what-is-matplotlib">1. What is Matplotlib?</a></li><li><a href="#2-loading-the-data-with-read_csv">2. Loading the data with read_csv</a></li><li><a href="#2-matplotlib-basic-plot">2. Matplotlib basic plot</a></li><li><a href="#3-restricting-time-span">3. Restricting time span</a></li><li><a href="#4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</a></li><li><a href="#5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</a></li><li><a href="#6-changing-line-colors">6. Changing line colors</a></li><li><a href="#7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</a></li><li><a href="#8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</a><ul><li><a href="#1-matplotlib-subplots">1. Matplotlib subplots</a></li><li><a href="#2-loading-the-data-with-read_csv">2. Loading the data with read_csv</a></li><li><a href="#2-matplotlib-basic-plot">2. Matplotlib basic plot</a></li><li><a href="#3-restricting-time-span">3. Restricting time span</a></li><li><a href="#4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</a></li><li><a href="#5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</a></li><li><a href="#6-changing-line-colors">6. Changing line colors</a></li><li><a href="#7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</a></li><li><a href="#8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -92,13 +92,21 @@
 
 <p><br /></p>
 
-<p><strong>‘All that is solid melts into the air’</strong></p>
+<p><strong>‘Crafting clean and clear plots is akin to writing poetry; every line should convey meaning, every shade should tell a story.’</strong></p>
 
-<p>Karl Marx and Friedrich Engels</p>
+<p>ChatGPT (adapted)</p>
 
 <p><br /></p>
 
-<p>As a historian and social scientist I often find it challenging to customize my Python plots and make them clear and compelling. What is a Python class, object or method? 😲 In this lesson, you will learn what those concepts are and how to use them to create effective graphs with Matplotlib. We will plot and highlight elements in the trend of Gross Domestic Product (GDP) per capita of Germany and the USA during the 1929 crisis. If you would like to know more about this event, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
+<p>Dive into this guide to create effective visualizations using Matplotlib, and journey through the GDP per capita trends of Germany and the USA during the pivotal 1929 crisis. Check out in the figure below how you will transform a basic plot into an informative and compelling visualization. Let’s get started!</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_01_01a.png" alt="preview of final plot" /></p>
+
+<p><br /></p>
+
+<p>If you would like to know more about the 1929 crisis, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
 
 <p><br /></p>
 
@@ -132,29 +140,20 @@
 
 <h1 id="coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</h1>
 
-<h2 id="1-what-is-matplotlib">1. What is Matplotlib?</h2>
+<h2 id="1-matplotlib-subplots">1. Matplotlib subplots</h2>
 
 <p><br /></p>
 
 <p>Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.</p>
 
-<p><br /></p>
+<p><br />
+Before diving in, keep in mind these concepts:</p>
 
-<p>Before we dive into Matplotlib, we have to understand the concept of class and object. A Python object could be a plot, a string of text or a dataframe, for example. ‘<b>Classes</b> are a sort of blueprint for objects, specifying their properties (attributes) and behaviors (methods). For example, an object of the Matplotlib class <i>Axes</i> will store a plot and will always have an x axis label attribute. The class <i>Axes</i> might give origin to several different objects (plots), all with an x axis label property, but the content of this property is particular to each plot. We say we instantiate an object of a certain class when we create it.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Learn more about classes in this
-        
-        <a href="https://realpython.com/lessons/classes-python/" target="_blank"> video.</a>
-        
-    </div>
-</div>
+<ul class="conclusion-list">
+  <li>Class: Think of it as a blueprint for creating objects.</li>
+  <li>Object: An instance of a class; for visualization, this could be a specific plot.</li>
+  <li>Method: A function that operates on an object’s data.</li>
+</ul>
 
 <p><br /></p>
 
@@ -517,7 +516,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 <p><br /></p>
 
-<p>In the next lessons you will learn how to further improve graphs like this. Thanks for reading! 😊</p>
+<p>Found this guide helpful? Have suggestions or questions? Leave a comment below and join the discussion!</p>
 
 <p><br /></p>
 

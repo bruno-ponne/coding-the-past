@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-08-16T10:40:24-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00-03:00</published><updated>2023-08-16T00:00:00-03:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-08-27T19:00:16-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00-03:00</published><updated>2023-08-16T00:00:00-03:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -3259,19 +3259,27 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 </ul>
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[Use scale_color_brewer to choose different color palettes]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_05.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_05.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Use Matplotlib line plot to create clear and compelling visualizations</title><link href="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html" rel="alternate" type="text/html" title="Use Matplotlib line plot to create clear and compelling visualizations" /><published>2023-02-11T00:00:00-03:00</published><updated>2023-03-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations</id><content type="html" xml:base="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[Use scale_color_brewer to choose different color palettes]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_05.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_05.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Storytelling with Matplotlib - Visualizing historical data</title><link href="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html" rel="alternate" type="text/html" title="Storytelling with Matplotlib - Visualizing historical data" /><published>2023-02-11T00:00:00-03:00</published><updated>2023-03-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations</id><content type="html" xml:base="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
 <p><br /></p>
 
-<p><strong>‘All that is solid melts into the air’</strong></p>
+<p><strong>‘Crafting clean and clear plots is akin to writing poetry; every line should convey meaning, every shade should tell a story.’</strong></p>
 
-<p>Karl Marx and Friedrich Engels</p>
+<p>ChatGPT (adapted)</p>
 
 <p><br /></p>
 
-<p>As a historian and social scientist I often find it challenging to customize my Python plots and make them clear and compelling. What is a Python class, object or method? 😲 In this lesson, you will learn what those concepts are and how to use them to create effective graphs with Matplotlib. We will plot and highlight elements in the trend of Gross Domestic Product (GDP) per capita of Germany and the USA during the 1929 crisis. If you would like to know more about this event, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
+<p>Dive into this guide to create effective visualizations using Matplotlib, and journey through the GDP per capita trends of Germany and the USA during the pivotal 1929 crisis. Check out in the figure below how you will transform a basic plot into an informative and compelling visualization. Let’s get started!</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_01_01a.png" alt="preview of final plot" /></p>
+
+<p><br /></p>
+
+<p>If you would like to know more about the 1929 crisis, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
 
 <p><br /></p>
 
@@ -3305,29 +3313,20 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 
 <h1 id="coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</h1>
 
-<h2 id="1-what-is-matplotlib">1. What is Matplotlib?</h2>
+<h2 id="1-matplotlib-subplots">1. Matplotlib subplots</h2>
 
 <p><br /></p>
 
 <p>Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.</p>
 
-<p><br /></p>
+<p><br />
+Before diving in, keep in mind these concepts:</p>
 
-<p>Before we dive into Matplotlib, we have to understand the concept of class and object. A Python object could be a plot, a string of text or a dataframe, for example. ‘<b>Classes</b> are a sort of blueprint for objects, specifying their properties (attributes) and behaviors (methods). For example, an object of the Matplotlib class <i>Axes</i> will store a plot and will always have an x axis label attribute. The class <i>Axes</i> might give origin to several different objects (plots), all with an x axis label property, but the content of this property is particular to each plot. We say we instantiate an object of a certain class when we create it.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Learn more about classes in this
-        
-        <a href="https://realpython.com/lessons/classes-python/" target="_blank"> video.</a>
-        
-    </div>
-</div>
+<ul class="conclusion-list">
+  <li>Class: Think of it as a blueprint for creating objects.</li>
+  <li>Object: An instance of a class; for visualization, this could be a specific plot.</li>
+  <li>Method: A function that operates on an object’s data.</li>
+</ul>
 
 <p><br /></p>
 
@@ -3690,7 +3689,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 <p><br /></p>
 
-<p>In the next lessons you will learn how to further improve graphs like this. Thanks for reading! 😊</p>
+<p>Found this guide helpful? Have suggestions or questions? Leave a comment below and join the discussion!</p>
 
 <p><br /></p>
 

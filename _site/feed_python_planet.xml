@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_python_planet.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 16 Aug 2023 10:40:24 -0300</pubDate>
-        <lastBuildDate>Wed, 16 Aug 2023 10:40:24 -0300</lastBuildDate>
+        <pubDate>Sun, 27 Aug 2023 19:00:16 -0300</pubDate>
+        <lastBuildDate>Sun, 27 Aug 2023 19:00:16 -0300</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -961,7 +961,7 @@ Finally, we calculate the proportion of each word in each manifest relative to t
             </item>
         
             <item>
-                <title>Use Matplotlib line plot to create clear and compelling visualizations</title>
+                <title>Storytelling with Matplotlib - Visualizing historical data</title>
 				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
                 <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -969,13 +969,21 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;‘All that is solid melts into the air’&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;‘Crafting clean and clear plots is akin to writing poetry; every line should convey meaning, every shade should tell a story.’&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Karl Marx and Friedrich Engels&lt;/p&gt;
+&lt;p&gt;ChatGPT (adapted)&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;As a historian and social scientist I often find it challenging to customize my Python plots and make them clear and compelling. What is a Python class, object or method? 😲 In this lesson, you will learn what those concepts are and how to use them to create effective graphs with Matplotlib. We will plot and highlight elements in the trend of Gross Domestic Product (GDP) per capita of Germany and the USA during the 1929 crisis. If you would like to know more about this event, &lt;a href=&quot;https://www.britannica.com/event/Great-Depression&quot; target=&quot;_blank&quot;&gt;check this out&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Dive into this guide to create effective visualizations using Matplotlib, and journey through the GDP per capita trends of Germany and the USA during the pivotal 1929 crisis. Check out in the figure below how you will transform a basic plot into an informative and compelling visualization. Let’s get started!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_01_01a.png&quot; alt=&quot;preview of final plot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you would like to know more about the 1929 crisis, &lt;a href=&quot;https://www.britannica.com/event/Great-Depression&quot; target=&quot;_blank&quot;&gt;check this out&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1009,29 +1017,20 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 
 &lt;h1 id=&quot;coding-the-past-beautiful-visualizations-with-matplotlib&quot;&gt;Coding the past: beautiful visualizations with Matplotlib&lt;/h1&gt;
 
-&lt;h2 id=&quot;1-what-is-matplotlib&quot;&gt;1. What is Matplotlib?&lt;/h2&gt;
+&lt;h2 id=&quot;1-matplotlib-subplots&quot;&gt;1. Matplotlib subplots&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;
+Before diving in, keep in mind these concepts:&lt;/p&gt;
 
-&lt;p&gt;Before we dive into Matplotlib, we have to understand the concept of class and object. A Python object could be a plot, a string of text or a dataframe, for example. ‘&lt;b&gt;Classes&lt;/b&gt; are a sort of blueprint for objects, specifying their properties (attributes) and behaviors (methods). For example, an object of the Matplotlib class &lt;i&gt;Axes&lt;/i&gt; will store a plot and will always have an x axis label attribute. The class &lt;i&gt;Axes&lt;/i&gt; might give origin to several different objects (plots), all with an x axis label property, but the content of this property is particular to each plot. We say we instantiate an object of a certain class when we create it.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;text-note&quot;&gt;
-    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
-        tips_and_updates
-    &lt;/span&gt;
-    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
-    &lt;div class=&quot;text-note-content&quot;&gt; Learn more about classes in this
-        
-        &lt;a href=&quot;https://realpython.com/lessons/classes-python/&quot; target=&quot;_blank&quot;&gt; video.&lt;/a&gt;
-        
-    &lt;/div&gt;
-&lt;/div&gt;
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;Class: Think of it as a blueprint for creating objects.&lt;/li&gt;
+  &lt;li&gt;Object: An instance of a class; for visualization, this could be a specific plot.&lt;/li&gt;
+  &lt;li&gt;Method: A function that operates on an object’s data.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1394,7 +1393,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;In the next lessons you will learn how to further improve graphs like this. Thanks for reading! 😊&lt;/p&gt;
+&lt;p&gt;Found this guide helpful? Have suggestions or questions? Leave a comment below and join the discussion!&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
