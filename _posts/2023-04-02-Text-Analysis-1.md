@@ -5,7 +5,7 @@ title: Text Data Visualization
 attributes:
   - e: Medium
   - e: Python
-  - e: 15 min
+  - e: 8 min
 tags: python matplotlib textanalysis
 image: lesson_07.png
 abstract: Learn to analyze and visualize text data 
@@ -15,8 +15,8 @@ objectives:
   - o: Learn to count words in a list;
   - o: Be comfortable with visualizing text data;
 keywords: nltk, text data visualization, text data, matplotlib, word frequency
-description: learn to tokenize texts with nltk
-last_modified_at: 02-Jul-23
+description: Learn text data visualization using NLTK and Matplotlib. Uncover word frequency trends in historical documents and draw impactful conclusions.
+last_modified_at: 02-Sep-23
 ---
 
 <br>
@@ -60,7 +60,7 @@ Whether you're tracing societal trends over time or studying the latest social m
 # Coding the past: text data visualization
 
 
-## 1. Load text file in Python
+## 1. Import text file into python
 
 <br>
 
@@ -127,7 +127,7 @@ If you check the length of the lists, you will see that Oxenbridge Thacher's man
  
 <br>
 
-## 2. Remove stop words in Python
+## 2. Understand nltk stopwords
 
 <br>
 

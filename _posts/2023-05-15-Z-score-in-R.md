@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Bruno Ponne
-title: Z score in R
+title: How to calculate and visualize Z scores in R
 attributes:
   - e: Easy
   - e: R
@@ -14,7 +14,7 @@ objectives:
   - o: Be able to calculate and visualize Z scores in R;
   - o: Be confident in interpreting Z scores.
 keywords: z score, standard deviation, histogram, R, statistics
-description: learn to calculate and visualize z scores.
+description: Master statistics by learning how to calculate and visualize Z scores in R. Learn data visualization techniques and enhance your statistical analysis skills!
 last_modified_at: 15-May-23
 ---
 
@@ -82,7 +82,7 @@ Where:
 
 ## 2. Calculating Z score in R
 
-Implementing the Z score formula in R is quite straightforward. To reuse code, we will create a function called `calculate_z` using the `mean` and `sd` base functions to calculate Z.
+Implementing the Z score formula in R is quite straightforward. To reuse code, we will create a function called `calculate_z` using the `mean` and `sd` base functions to calculate Z. `sd` calculates the standard deviation in R.
 
 <br>
 
@@ -255,7 +255,7 @@ ggplot(data = logan, aes(x = education))+
 
 <br>
 
-![Histogram of Schooling Duration](/assets/images/lesson_09_01.png)
+![Histogram to visualize Z scores in R](/assets/images/lesson_09_01.png)
 
 <br>
 

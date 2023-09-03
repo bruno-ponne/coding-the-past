@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_python_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 27 Aug 2023 19:00:16 -0300</pubDate>
-        <lastBuildDate>Sun, 27 Aug 2023 19:00:16 -0300</lastBuildDate>
+        <pubDate>Sun, 03 Sep 2023 16:50:35 -0300</pubDate>
+        <lastBuildDate>Sun, 03 Sep 2023 16:50:35 -0300</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -519,7 +519,7 @@
 
 &lt;h1 id=&quot;coding-the-past-text-data-visualization&quot;&gt;Coding the past: text data visualization&lt;/h1&gt;
 
-&lt;h2 id=&quot;1-load-text-file-in-python&quot;&gt;1. Load text file in Python&lt;/h2&gt;
+&lt;h2 id=&quot;1-import-text-file-into-python&quot;&gt;1. Import text file into python&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -590,7 +590,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;2-remove-stop-words-in-python&quot;&gt;2. Remove stop words in Python&lt;/h2&gt;
+&lt;h2 id=&quot;2-understand-nltk-stopwords&quot;&gt;2. Understand nltk stopwords&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1424,7 +1424,7 @@ One way of creating your own color palette is with a Python list containing the 
             </item>
         
             <item>
-                <title>Where To Find And How To Load Historical Data</title>
+                <title>Discovering historical datasets for your research</title>
 				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
                 <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 

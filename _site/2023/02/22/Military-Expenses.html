@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="r color palette, rcolorbrewer, scale_color_brewer, ggplot, how to use pivot_longer">
-    <meta name="description" content="Use scale_color_brewer to choose different color palettes">
+    <meta name="description" content="A step-by-step guide on how to use RColorBrewer and scale_color_brewer in ggplot2 demonstrated with historical military expense data.">
     <meta property= og:image content= />
     <title>Changing ggplot colors with scale_color_brewer</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -66,7 +66,7 @@
         
         <li>R</li>
         
-        <li>10 min</li>
+        <li>5 min</li>
         
     </ul>
     <br>
@@ -82,7 +82,7 @@
     <h1>Table of Contents</h1>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</a><ul><li><a href="#1-importing-data-into-r">1. Importing data into R</a></li><li><a href="#2-how-to-use-pivot_longer">2. How to use pivot_longer?</a></li><li><a href="#3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</a></li><li><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-change-colors-in-ggplot-with-rcolorbrewer">Coding the past: change colors in ggplot with RColorBrewer</a><ul><li><a href="#1-importing-data-into-r">1. Importing data into R</a></li><li><a href="#2-how-to-use-pivot_longer">2. How to use pivot_longer?</a></li><li><a href="#3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</a></li><li><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -94,9 +94,12 @@
 
 <p>John Lennon</p>
 
+<p><br />
+Ever visited a webpage with clashing colors or poor text contrast? You’re not alone! Choosing the perfect color palette for data visualizations can be complex.</p>
+
 <p><br /></p>
 
-<p>Have you ever seen a webpage where text and visualizations do not have the right contrast or where colors do not match? I have had this experience and I have to admit that I myself have difficulty choosing adequate colors for my plots. There are so many technical details to pay attention to! Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer. We will use data on military expenses of the main capitalist countries during the Cold War.</p>
+<p>Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer package.  To make things more interesting, we’ll use data from the military expenses of leading capitalist countries during the Cold War era. Let’s paint your data story!</p>
 
 <p><br /></p>
 
@@ -116,7 +119,7 @@
 
 <p><br /></p>
 
-<h1 id="coding-the-past-improve-your-plots-colors-with-scale_color_brewer">Coding the past: improve your plot’s colors with scale_color_brewer</h1>
+<h1 id="coding-the-past-change-colors-in-ggplot-with-rcolorbrewer">Coding the past: change colors in ggplot with RColorBrewer</h1>
 
 <h2 id="1-importing-data-into-r">1. Importing data into R</h2>
 
@@ -180,7 +183,7 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 <p><br /></p>
 
-<p><img src="/assets/images/lesson_05_01.png" alt="Conversion of dataframe from wide to long format" title="Image" /></p>
+<p><img src="/assets/images/lesson_05_01.png" alt="Conversion of an R dataframe from wide to long format with pivot_longer" title="Image" /></p>
 <p class="fig-caption">Illustration created by the Author</p>
 
 <p><br /></p>
@@ -334,7 +337,7 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 
 <p><br /></p>
 
-<p><img src="/assets/images/lesson_05_04.png" alt="Plot with new theme" /></p>
+<p class="larger"><img src="/assets/images/lesson_05_04.png" alt="Plot with new theme and color selected with scale_color_brewer" /></p>
 
 <p><br /></p>
 

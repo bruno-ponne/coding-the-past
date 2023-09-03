@@ -5,7 +5,7 @@ title: Checking normality in R
 attributes:
   - e: Medium
   - e: R
-  - e: 10 min
+  - e: 8 min
 tags: r statistics ggplot2
 image: lesson_10.jpeg
 abstract: Learn what is and how to identify data that is normally distributed.
@@ -15,8 +15,8 @@ objectives:
   - o: Be confident in visualizing and interpreting the normal distribution in R;
   - o: Learn how to calculate probabilities of normally distributed data.
 keywords: histogram, density-plot, R, statistics, normality, normal-distribution, probability
-description: learn to identify normal distributions in R.
-last_modified_at: 01-June-23
+description: Discover the essence of the normal distribution in R. Dive deep into histograms, density plots, and the Swiss dataset to understand Gaussian distributions.
+last_modified_at: 02-Sep-23
 ---
 
 <br>

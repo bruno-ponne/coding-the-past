@@ -5,7 +5,7 @@ title: Understand TF-IDF in Python
 attributes:
   - e: Medium
   - e: Python
-  - e: 15 min
+  - e: 7 min
 tags: python matplotlib textanalysis
 image: lesson_08.jpg
 abstract: Learn the difference between term frequency and TF-IDF and how to use them in Python.
@@ -15,7 +15,7 @@ objectives:
   - o: Learn to interpret TF-IDF scores;
   - o: Be comfortable with visualizing your results.
 keywords: tf-idf, text data, bag of words, text mining, text analysis
-description: learn to calculate tf-idf scores and visualize your results.
+description: Learn TF-IDF formula and how to calculate it in Python. Plot the results to better understand the differences between TF and TF-IDF.
 last_modified_at: 04-Jul-23
 ---
 

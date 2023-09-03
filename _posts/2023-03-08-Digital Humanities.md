@@ -14,13 +14,13 @@ objectives:
   - o: Learn about digital humanities applications and education programs;
 keywords: humanities in a sentence, what are the digital humanities, research on humanities and social science, social data science minor ucla
 description: Learn what are the digital humanities and their application in research on humanities and social science.
-last_modified_at: 08-Mar-23
+last_modified_at: 02-Sep-23
 ---
 <br>
 
-**'The internet could be a very positive step towards education, organization and participation in a meaningful society'**
+**Digital Humanities are 'the study and practice of using technology for humanities-based research, teaching and collaboration'**
 
-Noam Chomsky
+Jana Remy
 
 <br>
 

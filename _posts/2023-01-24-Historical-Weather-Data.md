@@ -1,22 +1,22 @@
 ---
 layout: post
 author: Bruno Ponne
-title:  Climate Data Visualization
+title:  Climate data visualization with ggplot2
 attributes:
   - e: Medium
   - e: R
-  - e: 20 min
+  - e: 8 min
 tags: r ggplot2
 image: lesson_03.jpeg
 social_media_img: /assets/images/lesson_03_06.png
 abstract: Would you like to contribute to raise awareness about global warming? In this lesson you will learn how to create your own ggplot2 themes to code compelling plots showing historical weather data.
 objectives:
-  - o: Get comfortable with using ggplot2;
+  - o: Learn where to find reliable climate data;
   - o: Be able create your own ggplot2 theme;
   - o: Learn how to code ggplot dot and line plots
-keywords: effective data visualization, graphical data analysis with r, using ggplot in r, ggplot2 dotplot
-description: Code effective visualizations using ggplot2 dotplot.
-last_modified_at: 05-Mar-23
+keywords: wether data visualization, climate data, using ggplot in r, ggplot2 dotplot
+description: Discover how to use ggplot2 in R to visualize historical climate data. Plot weather trends and gain insights into global warming.
+last_modified_at: 02-Sep-23
 ---
 
 <br>
@@ -32,6 +32,8 @@ James Hansen
 There is indisputable evidence that our planet is warming at an abnormal rate. The effects of global warming already started to affect the Earth. Melting glaciers, sea level rise, and intense heat waves already affect several countries. In this lesson, you will use historical weather data to plot graphs that help to raise awareness about climate change.
 
 <br>
+
+If you like this topic, please, check ['R programming for climate data analysis and visualization']({% post_url 2023-02-07-Linear-Models-in-R %}) where we present how to use linear models to analyze the link between global warming and the increase in CO2 emissions.
 
 <br>
 
@@ -126,7 +128,7 @@ In the figure bellow, you see the 3 main elements of ggplot2. First, you need a 
 
 <br>
 
-![ggplot geom objects and layers](/assets/images/lesson_03_01.png)
+![ggplot2 geom objects and layers](/assets/images/lesson_03_01.png)
 
 <br>
 
@@ -167,7 +169,7 @@ ggplot(data = temperatures, aes(x= DATE, y = TAVG, color = TAVG))+
 
 <br>
 
-![ggplot dot plot with default theme](/assets/images/lesson_03_02.png)
+![ggplot2 climate data visualization with default theme](/assets/images/lesson_03_02.png)
 
 <br>
 
@@ -196,7 +198,7 @@ ggplot(data = temperatures, aes(x= DATE, y = TAVG, color = TAVG))+
 
 <br>
 
-![ggplot dot plot with customized colors](/assets/images/lesson_03_03.png)
+![ggplot2 weather data represented by dot plot with Rcolorbrewer](/assets/images/lesson_03_03.png)
 
 <br>
 
@@ -210,7 +212,7 @@ The plot above got a little better, but how to customize it further? There are s
 
 <br>
 
-![ggplot theme arguments](/assets/images/lesson_03_04.png)
+![ggplot2 theme arguments](/assets/images/lesson_03_04.png)
 
 <br>
 
@@ -276,7 +278,7 @@ ggplot(data = temperatures, aes(x= DATE, y = TAVG, color = TAVG))+
 
 <br>
 
-![ggplot customized theme ](/assets/images/lesson_03_05.png)
+![ggplot2 climate visualization with customized theme ](/assets/images/lesson_03_05.png)
 
 <br>
 
@@ -300,7 +302,7 @@ ggplot(data = temperatures, aes(x= DATE, y = TAVG, color = TAVG))+
 
 <br>
 
-![ggplot customized theme with changes in size and alpha ](/assets/images/lesson_03_06.png)
+![climate data plot with ggplot2 and changes in size and alpha ](/assets/images/lesson_03_06.png)
 
 
 <br>
@@ -333,11 +335,11 @@ ggplot(data = temperatures, aes(x= DATE, y = TAVG, color = TAVG))+
 
 <br>
 
-![ggplot customized theme with and a second geom layer ](/assets/images/lesson_03_07.png)
+![Climate data plot with the addition of a second geom layer in ggplot2 ](/assets/images/lesson_03_07.png)
 
 <br>
 
-It is clear that average temperatures are increasing year by year!
+Weather data visualization makes it clear that average temperatures are increasing year by year!
 
 ***
  

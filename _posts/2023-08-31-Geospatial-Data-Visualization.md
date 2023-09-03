@@ -1,21 +1,21 @@
 ---
 layout: post
 author: Bruno Ponne
-title: Use R to explore the link between literacy and suicide in 1830s France
+title: Plotting Maps in R for Historical Data Analysis
 attributes:
-  - e: Medium
+  - e: Easy
   - e: R
-  - e: 7 min
-tags: r statistics regression ggplot2
-image: lesson_13.jpeg
-abstract: Learn to evaluate the relationship between two variables in R
+  - e: 5 min
+tags: r statistics visualization maps
+image: 
+abstract: Explore France's past through geospatial techniques in R
 objectives:
-  - o: Become comfortable with analyzing the relationship between two variables using a scatter plot.
-  - o: Develop confidence in interpreting correlations.
-  - o: Learn how to interpret linear models in R.
-keywords: R, statistics, data analysis, linear models, geom_point, stargazer
-description: Use R to analyze the relationship between two variables. Learn how to create linear models with R.
-last_modified_at: 16-August-23
+  - o: Develop the skills to visualize complex datasets using maps in R.
+  - o: Dive into the gfrance dataset to uncover and interpret historical statistics.
+  - o: Progress from basic map outlines to creating detailed geospatial data visualization.
+keywords: R, historical data analysis, geospatial data visualization, ggplot2, maps
+description: Use R to code gesopatial data visualization.
+last_modified_at: 31-August-23
 ---
 
 <br>
@@ -24,9 +24,11 @@ last_modified_at: 16-August-23
 
 <br>
 
-**'Happiness in intelligent people is the rarest thing I know'**
+**'Space is to place as eternity is to time.'**
 
-A character in Ernest Hemingway’s novel "The Garden of Eden"
+Joseph Joubert
+
+
 
 <br>
 
@@ -34,11 +36,11 @@ Greetings, humanists, social and data scientists!
 
 <br>
 
-In this lesson, we will learn how to evaluate the relationship between two variables with R. Check out the video below for a short introduction.
+In the realm of data science, the ability to visualize geospatial data is paramount. This is particularly true when working with historical data analysis. Maps provide a visual representation of spatial data that allows viewers to discern patterns and relationships that might not be immediately apparent in tabular data. R, with its rich ecosystem of packages and libraries, offers versatile tools for geospatial data visualization. 
 
 <br>
 
-<center><iframe width="560" height="315" src="https://www.youtube.com/embed/Fee7FMwAv_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center>
+In this lesson, we will continue our journey exploring 19th century France. Using the `Guerry` package we'll be exploring how to plot maps in R. Please, check out the lesson [Use R to explore the link between literacy and suicide in 1830s France]({% post_url 2023-08-16-Study-of-Relationships %}) to learn how to use regression analysis to study the relationship between literacy and suicides in 19th century France.
 
 
 <br>
@@ -49,7 +51,7 @@ In this lesson, we will learn how to evaluate the relationship between two varia
 
 # Data source
 
-The Guerry dataset is provided by the R package [HistData](https://cran.r-project.org/web/packages/HistData/index.html). To know more about this package, please refer to our lesson ['Uncovering History with R - A Look at the HistData Package']({% post_url 2023-07-12-HistData %}).
+After I wrote the lesson [Use R to explore the link between literacy and suicide in 1830s France]({% post_url 2023-08-16-Study-of-Relationships %}), the author of the `HistData` package, Michael Friendly, kindly let me know that the `Guerry` dataset has its own package that includes not only the data provided in `HistData` but also additional historical maps of France. Please, check the documentation of the packege [here](https://cran.r-project.org/web/packages/Guerry/Guerry.pdf).
 
 <br>
 
@@ -57,73 +59,54 @@ The Guerry dataset is provided by the R package [HistData](https://cran.r-projec
  
 <br>
 
-# Coding the past: the relationship between literacy and suicides in 1830s France
+# Coding the past: historical data analysis with maps
 
 <br>
 
-## 1. Exploring Andre-Michel Guerry's Pioneering Data: Moral Statistics of 1830s France
+## 1. Getting Started with Maps in R
 
-Andre-Michel Guerry was a French lawyer who was passionate about statistics. He is considered to be the founder of moral statistics and had a major influence on the development of modern social science. His work "Essay on the Moral Statistics of France" includes data on several social variables of 86 French departments in the 1830s.
-
+Before immersing in our geospatial journey, ensure you've equipped your R environment with the Guerry package and that you load it.
 <br>
 
-To access this data, we need to load the HistData package. After doing so, we can use the command `help(Guerry)` to see the description of the dataset and the details about each of the 23 variables. Variables include information such as population, crime, literacy, suicide, wealth, and location of the 86 French departments.
-
-<br>
-
-
-You can use `df <- Guerry` to load the data. Feel free to explore the dataset and check the **str**ucture of the dataframe with `str(df)`. 
-
-
-<br>
-
-
-{% include copy.html content = "code-13-1" %}
-<div id = "code-13-1">
+{% include copy.html content = "code-14-1" %}
+<div id = "code-14-1">
 {% highlight r %}
 
-library(HistData)
-library(ggplot2)
-
-help(Guerry)
-
-df <- Guerry
-
-str(df)
+install.packages("Guerry")
+library(Guerry)
 
 {% endhighlight %}
 </div>
 
+
 <br>
+
+
+Once you have loaded the package, the `gfrance` object will be available in your environment. If you check the class of this object with `class(gfrance)`, you will get "SpatialPolygonsDataFrame". But what is a spatial polygons dataframe? For a detailed explanation, check [Michael T. Hallworth](https://mhallwor.github.io/_pages/basics_SpatialPolygons), otherwise, check a brief explanation below.
+
+<br>
+
+{% include note.html content = '"SpatialPolygonsDataFrames" join a simple dataframe with spatial data in a list' %}
+
+<br>
+
+Simply put, `gfrance` combines the Guerry dataframe that we explored in the [last lesson]({% post_url 2023-08-16-Study-of-Relationships %}) with spatial information of France and its departments in 1830.
+
+<br>
+
 
 ***
  
 <br>
 
 
-## 2. Add a new column to a dataframe in R
+## 2. Drawing the Lines of Geospatial Data Visualization
 
-In the documentation of the dataset, the author states "Note that most of the variables (e.g., Crime_pers) are scaled so that 'more is better' morally.". Thus, suicide, for example, is expressed as the population divided by the number of suicides. In this way, the fewer the suicides, the larger the value in the `Suicides` column. 
-
-<br>
-
-To make our analysis easier to interpret, we can calculate the inverse of `Suicides`, that is, instead of having **population/suicides**, we will consider **suicides/population** (suicides per inhabitants). Moreover, to avoid very small numbers, let us multiply this by 100,000 so that we have suicides per 100,000 population. The code below creates this new variable.
+For a simple initiation into maps in R, trace the contours of France by plotting the `gfrance` data. This is as simple as using `plot(gfrance)`. You can see what emerges below. It is a clear delineation of the diverse departments in 1830 France, a perfect canvas for deeper geospatial data visualization.
 
 <br>
 
-{% include copy.html content = "code-13-2" %}
-<div id = "code-13-2">
-{% highlight r %}
-
-df$Suicides_Pop <- (1/df$Suicides)*100000
-
-
-{% endhighlight %}
-</div>
-
-<br>
-
-{% include note.html content = ' Note that "Pop1831" tells us the population of French departments in the thousands in 1831. "summary(df$Pop1831)" tells us that the least populated department had a population of 129,000 inhabitants and the most populated had around 990,000 inhabitants.'  %}
+![Map of France in 1830](/assets/images/lesson_14_01.png)
 
 
 <br>
@@ -132,7 +115,7 @@ df$Suicides_Pop <- (1/df$Suicides)*100000
 
 <br>
 
-## 3. Use geom_point to create a scatter plot
+## 3. Geospatial Data Visualization: giving color and meaning to our map
 
 Now, we'll examine the relationship between `Suicides_Pop` and `Literacy` using a scatter plot. As per the documentation, `Literacy` represents the “percentage of military conscripts who can read and write” in a department. Keep in mind that the relationships studied in this lesson apply only to this subgroup which is not representative of the whole population. The code below leverages `geom_point` to visualize this relationship.
 

@@ -14,7 +14,7 @@ objectives:
   - o: Be confident in using the Synth package;
   - o: Explore applications of the synthetic control method;
 keywords: R, statistics, historicaldata, synth,  data analysis
-description: Use the synth package to estimate synthetic control models and explore its applications
+description: Use the synth package to estimate synthetic control models, a powerful causal inference tool. Explore its strengths, limitations and main applications.
 last_modified_at: 21-July-23
 ---
 

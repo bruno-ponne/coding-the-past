@@ -1,11 +1,12 @@
 ---
 layout: post
 author: Bruno Ponne
+title: Discovering historical datasets for your research
 attributes:
   - e: Easy
   - e: Python
   - e: R
-  - e: 10 min
+  - e: 6 min
 tags: r python historicaldata
 image: lesson_02.png
 abstract: Learn about great websites to find reliable historical data and how to load it in R and Python.
@@ -13,8 +14,8 @@ objectives:
   - o: Get to know good sources of historical data;
   - o: Be able to load data in R and Python;
 keywords: historical data in research, python and r, historical data, pandas dataframe, read csv in R
-description: Use R and Python to load csv historical data.
-last_modified_at: 04-Jul-23
+description: Discover reliable historical data sources for your research. Get step-by-step guides on data handling in both Python and R environments."
+last_modified_at: 02-Sep-23
 ---
 
 <br>

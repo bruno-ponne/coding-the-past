@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="R, statistics, data analysis, linear models, geom_point, stargazer">
-    <meta name="description" content="Use R to analyze the relationship between two variables. Learn how to create linear models with R.">
+    <meta name="keywords" content="R, historical data analysis, geospatial data visualization, ggplot2, maps">
+    <meta name="description" content="Use R to code gesopatial data visualization.">
     <meta property= og:image content= />
-    <title>Use R to explore the link between literacy and suicide in 1830s France</title>
+    <title>Plotting Maps in R for Historical Data Analysis</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google Font: -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Canonical Domain -->
-    <link rel="canonical" href="http://localhost:4000/2023/08/16/Study-of-Relationships.html">
+    <link rel="canonical" href="http://localhost:4000/2023/08/31/Geospatial-Data-Visualization.html">
 </head>
 
 <body>
@@ -57,34 +57,34 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Use R to explore the link between literacy and suicide in 1830s France</h1>
-    <p id = "author">Bruno Ponne &#9679 16 Aug 2023</p>
+    <h1 id = "post-main-title">Plotting Maps in R for Historical Data Analysis</h1>
+    <p id = "author">Bruno Ponne &#9679 31 Aug 2023</p>
     <hr>
     <ul class = "meta-info">
         
-        <li>Medium</li>
+        <li>Easy</li>
         
         <li>R</li>
         
-        <li>7 min</li>
+        <li>5 min</li>
         
     </ul>
     <br>
     <h1>What you will learn</h1>
     <ul>
         
-        <li class = "objectives"> Become comfortable with analyzing the relationship between two variables using a scatter plot.</li>
+        <li class = "objectives"> Develop the skills to visualize complex datasets using maps in R.</li>
         
-        <li class = "objectives"> Develop confidence in interpreting correlations.</li>
+        <li class = "objectives"> Dive into the gfrance dataset to uncover and interpret historical statistics.</li>
         
-        <li class = "objectives"> Learn how to interpret linear models in R.</li>
+        <li class = "objectives"> Progress from basic map outlines to creating detailed geospatial data visualization.</li>
         
     </ul>
     <br>
     <h1>Table of Contents</h1>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-the-relationship-between-literacy-and-suicides-in-1830s-france">Coding the past: the relationship between literacy and suicides in 1830s France</a><ul><li><a href="#1-exploring-andre-michel-guerrys-pioneering-data-moral-statistics-of-1830s-france">1. Exploring Andre-Michel Guerry’s Pioneering Data: Moral Statistics of 1830s France</a></li><li><a href="#2-add-a-new-column-to-a-dataframe-in-r">2. Add a new column to a dataframe in R</a></li><li><a href="#3-use-geom_point-to-create-a-scatter-plot">3. Use geom_point to create a scatter plot</a></li><li><a href="#4-corttest-in-r">4. cort.test in R</a></li><li><a href="#5-linear-models-with-r">5. Linear models with R</a></li><li><a href="#6-how-to-use-stargazer-in-r">6. How to use stargazer in R</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-historical-data-analysis-with-maps">Coding the past: historical data analysis with maps</a><ul><li><a href="#1-getting-started-with-maps-in-r">1. Getting Started with Maps in R</a></li><li><a href="#2-drawing-the-lines-of-geospatial-data-visualization">2. Drawing the Lines of Geospatial Data Visualization</a></li><li><a href="#3-geospatial-data-visualization-giving-color-and-meaning-to-our-map">3. Geospatial Data Visualization: giving color and meaning to our map</a></li><li><a href="#4-corttest-in-r">4. cort.test in R</a></li><li><a href="#5-linear-models-with-r">5. Linear models with R</a></li><li><a href="#6-how-to-use-stargazer-in-r">6. How to use stargazer in R</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -92,9 +92,9 @@
 
 <p><br /></p>
 
-<p><strong>‘Happiness in intelligent people is the rarest thing I know’</strong></p>
+<p><strong>‘Space is to place as eternity is to time.’</strong></p>
 
-<p>A character in Ernest Hemingway’s novel “The Garden of Eden”</p>
+<p>Joseph Joubert</p>
 
 <p><br /></p>
 
@@ -102,11 +102,11 @@
 
 <p><br /></p>
 
-<p>In this lesson, we will learn how to evaluate the relationship between two variables with R. Check out the video below for a short introduction.</p>
+<p>In the realm of data science, the ability to visualize geospatial data is paramount. This is particularly true when working with historical data analysis. Maps provide a visual representation of spatial data that allows viewers to discern patterns and relationships that might not be immediately apparent in tabular data. R, with its rich ecosystem of packages and libraries, offers versatile tools for geospatial data visualization.</p>
 
 <p><br /></p>
 
-<center><iframe width="560" height="315" src="https://www.youtube.com/embed/Fee7FMwAv_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></center>
+<p>In this lesson, we will continue our journey exploring 19th century France. Using the <code class="language-plaintext highlighter-rouge">Guerry</code> package we’ll be exploring how to plot maps in R. Please, check out the lesson <a href="/2023/08/16/Study-of-Relationships.html">Use R to explore the link between literacy and suicide in 1830s France</a> to learn how to use regression analysis to study the relationship between literacy and suicides in 19th century France.</p>
 
 <p><br /></p>
 
@@ -116,7 +116,7 @@
 
 <h1 id="data-source">Data source</h1>
 
-<p>The Guerry dataset is provided by the R package <a href="https://cran.r-project.org/web/packages/HistData/index.html">HistData</a>. To know more about this package, please refer to our lesson <a href="/2023/07/12/HistData.html">‘Uncovering History with R - A Look at the HistData Package’</a>.</p>
+<p>After I wrote the lesson <a href="/2023/08/16/Study-of-Relationships.html">Use R to explore the link between literacy and suicide in 1830s France</a>, the author of the <code class="language-plaintext highlighter-rouge">HistData</code> package, Michael Friendly, kindly let me know that the <code class="language-plaintext highlighter-rouge">Guerry</code> dataset has its own package that includes not only the data provided in <code class="language-plaintext highlighter-rouge">HistData</code> but also additional historical maps of France. Please, check the documentation of the packege <a href="https://cran.r-project.org/web/packages/Guerry/Guerry.pdf">here</a>.</p>
 
 <p><br /></p>
 
@@ -124,66 +124,29 @@
 
 <p><br /></p>
 
-<h1 id="coding-the-past-the-relationship-between-literacy-and-suicides-in-1830s-france">Coding the past: the relationship between literacy and suicides in 1830s France</h1>
+<h1 id="coding-the-past-historical-data-analysis-with-maps">Coding the past: historical data analysis with maps</h1>
 
 <p><br /></p>
 
-<h2 id="1-exploring-andre-michel-guerrys-pioneering-data-moral-statistics-of-1830s-france">1. Exploring Andre-Michel Guerry’s Pioneering Data: Moral Statistics of 1830s France</h2>
+<h2 id="1-getting-started-with-maps-in-r">1. Getting Started with Maps in R</h2>
 
-<p>Andre-Michel Guerry was a French lawyer who was passionate about statistics. He is considered to be the founder of moral statistics and had a major influence on the development of modern social science. His work “Essay on the Moral Statistics of France” includes data on several social variables of 86 French departments in the 1830s.</p>
+<p>Before immersing in our geospatial journey, ensure you’ve equipped your R environment with the Guerry package and that you load it.
+<br /></p>
 
-<p><br /></p>
-
-<p>To access this data, we need to load the HistData package. After doing so, we can use the command <code class="language-plaintext highlighter-rouge">help(Guerry)</code> to see the description of the dataset and the details about each of the 23 variables. Variables include information such as population, crime, literacy, suicide, wealth, and location of the 86 French departments.</p>
-
-<p><br /></p>
-
-<p>You can use <code class="language-plaintext highlighter-rouge">df &lt;- Guerry</code> to load the data. Feel free to explore the dataset and check the <strong>str</strong>ucture of the dataframe with <code class="language-plaintext highlighter-rouge">str(df)</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-1')">
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-1')">
   content_copy
   <span class="tooltiptext">Copy</span>
 </span></p>
-<div id="code-13-1">
+<div id="code-14-1">
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-
-</span><span class="n">help</span><span class="p">(</span><span class="n">Guerry</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Guerry</span><span class="w">
-
-</span><span class="n">str</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"Guerry"</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">Guerry</span><span class="p">)</span></code></pre></figure>
 
 </div>
 
 <p><br /></p>
 
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-add-a-new-column-to-a-dataframe-in-r">2. Add a new column to a dataframe in R</h2>
-
-<p>In the documentation of the dataset, the author states “Note that most of the variables (e.g., Crime_pers) are scaled so that ‘more is better’ morally.”. Thus, suicide, for example, is expressed as the population divided by the number of suicides. In this way, the fewer the suicides, the larger the value in the <code class="language-plaintext highlighter-rouge">Suicides</code> column.</p>
-
-<p><br /></p>
-
-<p>To make our analysis easier to interpret, we can calculate the inverse of <code class="language-plaintext highlighter-rouge">Suicides</code>, that is, instead of having <strong>population/suicides</strong>, we will consider <strong>suicides/population</strong> (suicides per inhabitants). Moreover, to avoid very small numbers, let us multiply this by 100,000 so that we have suicides per 100,000 population. The code below creates this new variable.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-13-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">df</span><span class="o">$</span><span class="n">Suicides</span><span class="p">)</span><span class="o">*</span><span class="m">100000</span></code></pre></figure>
-
-</div>
+<p>Once you have loaded the package, the <code class="language-plaintext highlighter-rouge">gfrance</code> object will be available in your environment. If you check the class of this object with <code class="language-plaintext highlighter-rouge">class(gfrance)</code>, you will get “SpatialPolygonsDataFrame”. But what is a spatial polygons dataframe? For a detailed explanation, check <a href="https://mhallwor.github.io/_pages/basics_SpatialPolygons">Michael T. Hallworth</a>, otherwise, check a brief explanation below.</p>
 
 <p><br /></p>
 
@@ -192,10 +155,14 @@
         tips_and_updates
     </span>
     <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content">  Note that "Pop1831" tells us the population of French departments in the thousands in 1831. "summary(df$Pop1831)" tells us that the least populated department had a population of 129,000 inhabitants and the most populated had around 990,000 inhabitants.
+    <div class="text-note-content"> "SpatialPolygonsDataFrames" join a simple dataframe with spatial data in a list
         
     </div>
 </div>
+
+<p><br /></p>
+
+<p>Simply put, <code class="language-plaintext highlighter-rouge">gfrance</code> combines the Guerry dataframe that we explored in the <a href="/2023/08/16/Study-of-Relationships.html">last lesson</a> with spatial information of France and its departments in 1830.</p>
 
 <p><br /></p>
 
@@ -203,7 +170,21 @@
 
 <p><br /></p>
 
-<h2 id="3-use-geom_point-to-create-a-scatter-plot">3. Use geom_point to create a scatter plot</h2>
+<h2 id="2-drawing-the-lines-of-geospatial-data-visualization">2. Drawing the Lines of Geospatial Data Visualization</h2>
+
+<p>For a simple initiation into maps in R, trace the contours of France by plotting the <code class="language-plaintext highlighter-rouge">gfrance</code> data. This is as simple as using <code class="language-plaintext highlighter-rouge">plot(gfrance)</code>. You can see what emerges below. It is a clear delineation of the diverse departments in 1830 France, a perfect canvas for deeper geospatial data visualization.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_14_01.png" alt="Map of France in 1830" /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-geospatial-data-visualization-giving-color-and-meaning-to-our-map">3. Geospatial Data Visualization: giving color and meaning to our map</h2>
 
 <p>Now, we’ll examine the relationship between <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> and <code class="language-plaintext highlighter-rouge">Literacy</code> using a scatter plot. As per the documentation, <code class="language-plaintext highlighter-rouge">Literacy</code> represents the “percentage of military conscripts who can read and write” in a department. Keep in mind that the relationships studied in this lesson apply only to this subgroup which is not representative of the whole population. The code below leverages <code class="language-plaintext highlighter-rouge">geom_point</code> to visualize this relationship.</p>
 
@@ -501,7 +482,7 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 			};var interval = setInterval(checkJQuery, 250);
 		};};
 
-	var thisPageUrl = "/2023/08/16/Study-of-Relationships.html";
+	var thisPageUrl = "/2023/08/31/Geospatial-Data-Visualization.html";
 	const EXTRA_INFO_START = "chunkedCommentInfoStart";
 	const EXTRA_INFO_END = "chunkedCommentInfoEnd";var visibleComments = [];
 	var hiddenComments = [];
@@ -879,11 +860,11 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 </style>
 
 <span style="color: white;"> Share on </span><div id="share-buttons">
-    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/08/16/Study-of-Relationships.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
-    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/08/16/Study-of-Relationships.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
-    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/08/16/Study-of-Relationships.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
-    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_13.jpeg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
-    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/08/16/Study-of-Relationships.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/08/31/Geospatial-Data-Visualization.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/08/31/Geospatial-Data-Visualization.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/08/31/Geospatial-Data-Visualization.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/08/31/Geospatial-Data-Visualization.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
 </div>
 </div>
 

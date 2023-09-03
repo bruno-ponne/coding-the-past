@@ -5,7 +5,7 @@ title:  R programming for climate data analysis and visualization
 attributes:
   - e: Advanced
   - e: R
-  - e: 30 min
+  - e: 8 min
 tags: r ggplot2 regression
 image: lesson_04.jpeg
 abstract: Learn the basics of linear regression models and how to use them to study the relationship between two variables.
@@ -13,8 +13,8 @@ objectives:
   - o: Learn what is linear regression and the intuition behind it;
   - o: Be able to fit a model with the R lm() function using real world data;
   - o: Learn how to interpret linear regression results.
-keywords: historical weather data, using lm in r, inner_join in R, Plotting correlation in r
-description: lesson about Linear Regression in R
+keywords: historical weather data, using lm in r, inner_join in R, Plotting correlation in r, climate data visualization
+description: Unlock the power of R for climate data study. Explore the connection between temperature and carbon emissions using linear regression models and visualizations.
 last_modified_at: 05-Mar-23
 ---
 
@@ -50,7 +50,7 @@ Data for this lesson comes from two different sources: data of historical temper
 
 # Coding the Past: Linear Regression in R
 
-## 1. Preparing the data and performing an inner_join in R
+## 1. Join climate data and CO2 records using inner_join in R
 
 First, we will use the data prepared for the lesson ['Climate data visualization']({% post_url 2023-01-24-Historical-Weather-Data %}). Please, download it [here][1]
 
@@ -211,7 +211,7 @@ ggplot(data = filter(df, DATE > 1900), aes(x= TOT_EMISSIONS, y = TAVG, color = T
  
 <br>
 
-## 4. Implementing linear models with R
+## 4. Linear relation between weather data and carbon emissions
 
 Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.
 
@@ -308,7 +308,7 @@ Note that p-values are zero (very close to zero), providing evidence that a and 
  
 <br>
 
-## 5. Plotting the regression line with geom_smooth
+## 5. Use geom_smooth to visualize the regression line
 
 To draw the regression line, use geom_smooth() with the argument `method` set to 'lm' (linear model). The argument `se` specifies if you would like to plot the error associated with the regression estimate across the line.
 

@@ -14,8 +14,8 @@ objectives:
   - o: Customize your plots for a clearer presentation;
   - o: Learn how to identify and highlight important components in your graph.
 keywords: beautiful visualizations, matplotlib line plot, matplotlib legend, matplotlib axes
-description: Use Matplotlib to code beautiful visualizations
-last_modified_at: 05-Mar-23
+description: Master data visualization using Matplotlib - Use historical GDP data, spotlight the 1929 crisis with axvspan, and craft compelling visuals with Matplotlib subplots.
+last_modified_at: 02-Sep-23
 ---
 
 <br>

@@ -5,7 +5,7 @@ title:  Changing ggplot colors with scale_color_brewer
 attributes:
   - e: Medium
   - e: R
-  - e: 10 min
+  - e: 5 min
 tags: r ggplot2
 image: lesson_05.jpeg
 abstract: Use RColorBrewer to choose professional color palettes.
@@ -13,8 +13,8 @@ objectives:
   - o: Learn to transform data from wide to long format with tidyr;
   - o: Be able to choose a different color palette with RColorBrewer;
 keywords: r color palette, rcolorbrewer, scale_color_brewer, ggplot, how to use pivot_longer
-description: Use scale_color_brewer to choose different color palettes
-last_modified_at: 05-Mar-23
+description: A step-by-step guide on how to use RColorBrewer and scale_color_brewer in ggplot2 demonstrated with historical military expense data.
+last_modified_at: 02-Sep-23
 ---
 
 <br>
@@ -28,8 +28,11 @@ last_modified_at: 05-Mar-23
 John Lennon
 
 <br>
+Ever visited a webpage with clashing colors or poor text contrast? You're not alone! Choosing the perfect color palette for data visualizations can be complex.
 
-Have you ever seen a webpage where text and visualizations do not have the right contrast or where colors do not match? I have had this experience and I have to admit that I myself have difficulty choosing adequate colors for my plots. There are so many technical details to pay attention to! Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer. We will use data on military expenses of the main capitalist countries during the Cold War.
+<br>
+
+Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer package.  To make things more interesting, we'll use data from the military expenses of leading capitalist countries during the Cold War era. Let's paint your data story!
 
 <br>
 
@@ -49,7 +52,7 @@ Have you ever seen a webpage where text and visualizations do not have the right
  
 <br>
 
-# Coding the past: improve your plot’s colors with scale_color_brewer
+# Coding the past: change colors in ggplot with RColorBrewer
 
 
 ## 1. Importing data into R
@@ -103,7 +106,7 @@ To make our data tidy, we will transform all the year columns in one variable ca
 
 <br>
 
-![Conversion of dataframe from wide to long format](/assets/images/lesson_05_01.png "Image")
+![Conversion of an R dataframe from wide to long format with pivot_longer](/assets/images/lesson_05_01.png "Image")
 <p class = "fig-caption">Illustration created by the Author</p>
 
 <br>
@@ -251,7 +254,8 @@ scale_color_brewer(palette = 'Set1')+
 
 <br>
 
-![Plot with new theme](/assets/images/lesson_05_04.png)
+![Plot with new theme and color selected with scale_color_brewer](/assets/images/lesson_05_04.png)
+{: .larger}
 
 <br>
 

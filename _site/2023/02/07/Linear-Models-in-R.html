@@ -14,8 +14,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="historical weather data, using lm in r, inner_join in R, Plotting correlation in r">
-    <meta name="description" content="lesson about Linear Regression in R">
+    <meta name="keywords" content="historical weather data, using lm in r, inner_join in R, Plotting correlation in r, climate data visualization">
+    <meta name="description" content="Unlock the power of R for climate data study. Explore the connection between temperature and carbon emissions using linear regression models and visualizations.">
     <meta property= og:image content= />
     <title>R programming for climate data analysis and visualization</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -66,7 +66,7 @@
         
         <li>R</li>
         
-        <li>30 min</li>
+        <li>8 min</li>
         
     </ul>
     <br>
@@ -84,7 +84,7 @@
     <h1>Table of Contents</h1>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data Source</a></li><li><a href="#coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</a><ul><li><a href="#1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</a></li><li><a href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></a></li><li><a href="#3-plotting-correlation-in-r">3. Plotting correlation in r</a></li><li><a href="#4-implementing-linear-models-with-r">4. Implementing linear models with R</a></li><li><a href="#5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data Source</a></li><li><a href="#coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</a><ul><li><a href="#1-join-climate-data-and-co2-records-using-inner_join-in-r">1. Join climate data and CO2 records using inner_join in R</a></li><li><a href="#2-correlation-between-carbon-emissions-and-temperatures-with-r-cortest">2. Correlation between carbon emissions and temperatures with R <em>cortest</em></a></li><li><a href="#3-plotting-correlation-in-r">3. Plotting correlation in r</a></li><li><a href="#4-linear-relation-between-weather-data-and-carbon-emissions">4. Linear relation between weather data and carbon emissions</a></li><li><a href="#5-use-geom_smooth-to-visualize-the-regression-line">5. Use geom_smooth to visualize the regression line</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -118,7 +118,7 @@
 
 <h1 id="coding-the-past-linear-regression-in-r">Coding the Past: Linear Regression in R</h1>
 
-<h2 id="1-preparing-the-data-and-performing-an-inner_join-in-r">1. Preparing the data and performing an inner_join in R</h2>
+<h2 id="1-join-climate-data-and-co2-records-using-inner_join-in-r">1. Join climate data and CO2 records using inner_join in R</h2>
 
 <p>First, we will use the data prepared for the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>. Please, download it <a href="http://localhost:4000/assets/data/temperatures.RData">here</a></p>
 
@@ -290,7 +290,7 @@
 
 <p><br /></p>
 
-<h2 id="4-implementing-linear-models-with-r">4. Implementing linear models with R</h2>
+<h2 id="4-linear-relation-between-weather-data-and-carbon-emissions">4. Linear relation between weather data and carbon emissions</h2>
 
 <p>Linear Regression studies the relationship between a dependent and an explanatory variable. It predicts the mean value of the dependent variable given certain values of the explanatory variable. In our case, we would like to describe how temperatures vary according to total carbon emissions, that is, the dependent variable is temperatures and the explanatory (independent) variable is carbon emissions. Clearly more variables other than carbon emission are capable of explaining temperature variation, but for this example we will use a simplified model with only one explanatory variable.</p>
 
@@ -389,7 +389,7 @@
 
 <p><br /></p>
 
-<h2 id="5-plotting-the-regression-line-with-geom_smooth">5. Plotting the regression line with geom_smooth</h2>
+<h2 id="5-use-geom_smooth-to-visualize-the-regression-line">5. Use geom_smooth to visualize the regression line</h2>
 
 <p>To draw the regression line, use geom_smooth() with the argument <code class="language-plaintext highlighter-rouge">method</code> set to ‘lm’ (linear model). The argument <code class="language-plaintext highlighter-rouge">se</code> specifies if you would like to plot the error associated with the regression estimate across the line.</p>
 
