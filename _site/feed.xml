@@ -1,4 +1,270 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-03T16:54:44-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00-03:00</published><updated>2023-08-16T00:00:00-03:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-06T09:32:16-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Mapping the Past - Geospatial Visualization in R</title><link href="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html" rel="alternate" type="text/html" title="Mapping the Past - Geospatial Visualization in R" /><published>2023-09-06T00:00:00-03:00</published><updated>2023-09-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization</id><content type="html" xml:base="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p><strong>‘Space is to place as eternity is to time.’</strong></p>
+
+<p>Joseph Joubert</p>
+
+<p><br /></p>
+
+<p>Greetings, humanists, social and data scientists!</p>
+
+<p><br /></p>
+
+<p>In the realm of data science, the ability to visualize geospatial data is paramount. This is particularly true when working with historical data analysis. Maps provide a visual representation of spatial data that allows viewers to discern patterns and relationships that might not be immediately apparent in tabular data. R, with its rich ecosystem of packages and libraries, offers versatile tools for geospatial data visualization.</p>
+
+<p><br /></p>
+
+<p>In this lesson, we will continue our journey exploring 19th century France. Using the <code class="language-plaintext highlighter-rouge">Guerry</code> package we’ll be exploring how to plot maps in R. Please, check out the lesson <a href="/2023/08/16/Study-of-Relationships.html">Use R to explore the link between literacy and suicide in 1830s France</a> to learn how to use regression analysis to study the relationship between literacy and suicides in 19th century France.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>After I wrote the lesson <a href="/2023/08/16/Study-of-Relationships.html">Use R to explore the link between literacy and suicide in 1830s France</a>, the author of the <code class="language-plaintext highlighter-rouge">HistData</code> package, Michael Friendly, kindly let me know that the <code class="language-plaintext highlighter-rouge">Guerry</code> dataset has its own package that includes not only the data provided in <code class="language-plaintext highlighter-rouge">HistData</code> but also additional historical maps of France. Please, check the documentation of the package <a href="https://cran.r-project.org/web/packages/Guerry/Guerry.pdf">here</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-historical-data-analysis-with-maps">Coding the past: historical data analysis with maps</h1>
+
+<p><br /></p>
+
+<h2 id="1-getting-started-with-maps-in-r">1. Getting Started with Maps in R</h2>
+
+<p>Before immersing in our geospatial journey, ensure you’ve equipped your R environment with the <code class="language-plaintext highlighter-rouge">Guerry</code> package and that you load it.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-14-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"Guerry"</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">Guerry</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>Once you have loaded the package, the <code class="language-plaintext highlighter-rouge">gfrance</code> object will be available in your environment. If you check the class of this object with <code class="language-plaintext highlighter-rouge">class(gfrance)</code>, you will get <code class="language-plaintext highlighter-rouge">SpatialPolygonsDataFrame</code>.</p>
+
+<p><br /></p>
+
+<p>But what is a <code class="language-plaintext highlighter-rouge">SpatialPolygonsDataFrame</code>? For a detailed explanation, check <a href="https://mhallwor.github.io/_pages/basics_SpatialPolygons">Michael T. Hallworth</a>. Alternatively, a succinct explanation is provided below.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> A SpatialPolygonsDataFrame integrates a simple dataframe with spatial data, utilizing a list structure.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>Simply put, <code class="language-plaintext highlighter-rouge">gfrance</code> combines the Guerry dataframe that we explored in the <a href="/2023/08/16/Study-of-Relationships.html">last lesson</a> with spatial information of France and its departments in 1830.</p>
+
+<p><br /></p>
+
+<p>For a simple initiation into maps in R, trace the contours of France by plotting the <code class="language-plaintext highlighter-rouge">gfrance</code> data. This is as simple as using <code class="language-plaintext highlighter-rouge">plot(gfrance)</code>. The result, as you’ll see below, is a distinct outline of the various departments of France as they existed in 1830. It is a perfect canvas for deeper geospatial data visualization.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_14_01.png" alt="Map of France in 1830" /></p>
+
+<p><br /></p>
+
+<h2 id="2-st_as_sf">2. st_as_sf</h2>
+
+<p>We could work directly with the <code class="language-plaintext highlighter-rouge">gfrance</code> object, but in order to use <code class="language-plaintext highlighter-rouge">ggplot2</code>, we will first convert it to <code class="language-plaintext highlighter-rouge">sf</code>, which stands for <em>simple feature</em>. Simple feature is a standard for representing real world objects in computers. To learn more about it, check this article about the <a href="https://r-spatial.github.io/sf/articles/sf1.html">sf package</a>, written by its author, Edzer Prebesma. To make the conversion, we will use the <code class="language-plaintext highlighter-rouge">st_as_sf</code> function from the <code class="language-plaintext highlighter-rouge">sf</code> package.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-14-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="w">
+</span><span class="n">gfrance_sf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_as_sf</span><span class="p">(</span><span class="n">gfrance</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Note that the conversion to sf added a variable in the data frame called <code class="language-plaintext highlighter-rouge">geometry</code>. This variable contains the spatial information of each department.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-geom_sf---give-color-and-meaning-to-your-maps">3. geom_sf - give color and meaning to your maps</h2>
+
+<p>In the lesson <a href="/2023/08/16/Study-of-Relationships.html">‘Use R to explore the link between literacy and suicide in 1830s France’</a> we used regression to study the relationship between literacy and the incidence of suicides. Furthermore, we also included in our model variables regarding the wealth of the department and its distance to Paris. We found that the distance to Paris is negatively associated with the incidence of suicides, that is, the farther from Paris, the lower the incidence of suicides.</p>
+
+<p><br /></p>
+
+<p><strong>Do you think this relationship can be seen in a map?</strong></p>
+
+<p><br /></p>
+
+<p>To find out, we will plot a map of France and color the departments according to their suicide rate. The first step is to create a new variable expressing suicides per 100,000 inhabitants. Remember that, in the Guerry dataset, suicide is expressed as the population divided by the number of suicides. We can calculate the inverse of Suicides and multiply it by 100,000 to obtain suicides per 100,000 inhabitants.</p>
+
+<p><br /></p>
+
+<p>In the code below, we load <code class="language-plaintext highlighter-rouge">ggplot2</code> and create the variable <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>, as described above. To plot the map of France colored according to the suicides per inhabitants, we use a layer called <code class="language-plaintext highlighter-rouge">geom_sf</code>. This function takes the data and maps the filling color of the map to the variable <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>. It also sets two constant attributes: the color and size of the department border lines. With scale_fill_gradient we tell ggplot that we would like the fill to be a gradient in which high numbers are associated with a darker red and low numbers with a lighter red. Finally, we set some theme configurations.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-14-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">gfrance_sf</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">gfrance_sf</span><span class="o">$</span><span class="n">Suicides</span><span class="p">)</span><span class="o">*</span><span class="m">100000</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">()</span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_sf</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gfrance_sf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#FF6885'</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="s1">'#67001f'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="w">
+    </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+    </span><span class="n">axis.ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+  </span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_14_02.png" alt="map plot with geom_sf and colored with scale_fil_gradient" /></p>
+
+<p><br /></p>
+
+<p>Indeed, as the regression analysis indicated, the departments closer to Paris have a higher incidence of suicides.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-adding-a-second-geom_sf-to-highlight-paris">4. Adding a second geom_sf to highlight Paris</h2>
+
+<p>In the previous map, we can see that the departments closer to Paris have a higher incidence of suicides. However, it is not clear where Paris is located. To highlight Paris, we will add a second layer of <code class="language-plaintext highlighter-rouge">geom_sf</code> to the map. This time, we will use the <code class="language-plaintext highlighter-rouge">filter</code> function to select only the department of Paris (Seine, code 75). We will also set the fill color to white. Finally we will add the following items to make the plot more informative:</p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">ggtitle</code> is used to add a title and a subtitle to the plot;</li>
+  <li><code class="language-plaintext highlighter-rouge">theme</code> and <code class="language-plaintext highlighter-rouge">theme_bw</code> are used to customize the appearance of the plot:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">text = element_text(color = 'white')</code> sets the color of the text to white;</li>
+      <li><code class="language-plaintext highlighter-rouge">axis.text</code>and <code class="language-plaintext highlighter-rouge">axis.tick</code> remove axis ticks and text;</li>
+      <li><code class="language-plaintext highlighter-rouge">panel.grid.major</code> and <code class="language-plaintext highlighter-rouge">panel.grid.minor</code> remove grid lines;</li>
+      <li><code class="language-plaintext highlighter-rouge">panel.background</code> and <code class="language-plaintext highlighter-rouge">plot.background</code> and <code class="language-plaintext highlighter-rouge">legend.background</code> set the background color to match the color of this blog;</li>
+      <li><code class="language-plaintext highlighter-rouge">legend.text</code> sets the color of the legend text to white.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-14-4">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+
+</span><span class="n">seine</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">gfrance_sf</span><span class="p">,</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">75</span><span class="p">)</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">()</span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_sf</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gfrance_sf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_sf</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seine</span><span class="p">,</span><span class="w">  </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#FF6885'</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="s1">'#67001f'</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Suicide incidence per 100,000 people"</span><span class="p">,</span><span class="w"> </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Seine (Paris) highlighted in white"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
+        </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">axis.ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> 
+        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
+        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_14_03.png" alt="map with a second geom_sf layer" /></p>
+
+<p><br /></p>
+
+<p>Apart from some outliers, the surroundings of Paris present indeed higher rates of suicides compared to the rest of the country.</p>
+
+<p><br /></p>
+
+<p><strong>Do you think that indeed the geographical location has an impact on suicides? Or maybe a third variable is confounding this relationship? In the <a href="/2023/08/16/Study-of-Relationships.html">last lesson</a>, we saw that even when we controlled for wealth and literacy rates, the associates persisted. There are other variables that might play a role in this relationship. Feel free to further investigate and share your thoughts in the comments below.</strong></p>
+
+<p><br /></p>
+
+<p>For more information on maps, please check these materials:</p>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Eric Weinberg, “<a href="https://programminghistorian.org/en/lessons/geospatial-data-analysis">Using Geospatial Data to Inform Historical Research in R</a>” Programming Historian 7 (2018), https://doi.org/10.46430/phen0075.</li>
+  <li>Moraga, Paula. (2023). <a href="https://www.paulamoraga.com/book-spatial/index.html">Spatial Statistics for Data Science: Theory and Practice with R</a>. Chapman &amp; Hall/CRC.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>st_as_sf is used to convert a SpatialPolygonsDataFrame to sf;</li>
+  <li>geom_sf is used to plot sf objects in ggplot2;</li>
+  <li>maps can be a powerful tool to visualize relationships that involve space;</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00-03:00</published><updated>2023-08-16T00:00:00-03:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -3262,451 +3528,4 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 </ul>
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[A step-by-step guide on how to use RColorBrewer and scale_color_brewer in ggplot2 demonstrated with historical military expense data.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_05.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_05.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Storytelling with Matplotlib - Visualizing historical data</title><link href="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html" rel="alternate" type="text/html" title="Storytelling with Matplotlib - Visualizing historical data" /><published>2023-02-11T00:00:00-03:00</published><updated>2023-09-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations</id><content type="html" xml:base="http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p><strong>‘Crafting clean and clear plots is akin to writing poetry; every line should convey meaning, every shade should tell a story.’</strong></p>
-
-<p>ChatGPT (adapted)</p>
-
-<p><br /></p>
-
-<p>Dive into this guide to create effective visualizations using Matplotlib, and journey through the GDP per capita trends of Germany and the USA during the pivotal 1929 crisis. Check out in the figure below how you will transform a basic plot into an informative and compelling visualization. Let’s get started!</p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_01_01a.png" alt="preview of final plot" /></p>
-
-<p><br /></p>
-
-<p>If you would like to know more about the 1929 crisis, <a href="https://www.britannica.com/event/Great-Depression" target="_blank">check this out</a>.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>Data used in this lesson is available at <a href="https://www.hbs.edu/businesshistory/courses/teaching-resources/historical-data-visualization/details?data_id=27" target="_blank">Harvard Business School</a></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> GDP is given in 1990 International Geary-Khamis dollars. To learn more about this unit, see this
-        
-        <a href="https://en.wikipedia.org/wiki/International_dollar" target="_blank"> link.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-beautiful-visualizations-with-matplotlib">Coding the past: beautiful visualizations with Matplotlib</h1>
-
-<h2 id="1-matplotlib-subplots">1. Matplotlib subplots</h2>
-
-<p><br /></p>
-
-<p>Matplotlib is a Python library aimed at creating visualizations. It has a good interface with pandas dataframes, which makes it very practical to use. Matplotlib is the base library for other visualization libraries, like Seaborn.</p>
-
-<p><br />
-Before diving in, keep in mind these concepts:</p>
-
-<ul class="conclusion-list">
-  <li>Class: Think of it as a blueprint for creating objects.</li>
-  <li>Object: An instance of a class; for visualization, this could be a specific plot.</li>
-  <li>Method: A function that operates on an object’s data.</li>
-</ul>
-
-<p><br /></p>
-
-<p>There are many ways you can use Matplotlib, but in order to be able to customize your plot, it is recommended to use the Matplotlib <code class="language-plaintext highlighter-rouge">subplots()</code> method. It creates two objects: one object of the class <em>Figure</em>, usually called <em>fig</em> and one object of the class <em>Axes</em>, usually called <em>ax</em>. The former is a sort of container where your plot will be created. The latter is the plot itself. Note that the <em>Axes</em> object is contained in the <em>Figure</em> object. Refer to the <a href="https://matplotlib.org/stable/tutorials/introductory/quick_start.html" target="_blank">Matplotlib documentation</a> for further details.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_01.png" alt="Matplotlib objects" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-loading-the-data-with-read_csv">2. Loading the data with read_csv</h2>
-
-<p><br />
-Download the <a href="http://localhost:4000/assets/data/gdp_prepared.csv">data file here</a>. To read the data, use the pandas method <code class="language-plaintext highlighter-rouge">pd.read_csv()</code>, which takes 3 parameters. The first is the file path. The second is <code class="language-plaintext highlighter-rouge">index_col</code> and it tells pandas which column should be the index of the data frame. Finally, <code class="language-plaintext highlighter-rouge">parse_dates</code> set to True converts the index into date format. In the code below, data is loaded and one dataframe is created for each country with the pandas method <code class="language-plaintext highlighter-rouge">loc</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-1">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-
-<span class="n">data_path</span> <span class="o">=</span> <span class="s">"/content/drive/MyDrive/historical_data/gdp_prepared.csv"</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span>   
-                 <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  
-                 <span class="n">parse_dates</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>  
-
-<span class="n">ger</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"country"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"Germany"</span><span class="p">]</span>
-<span class="n">usa</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"country"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"United States of America"</span><span class="p">]</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-matplotlib-basic-plot">2. Matplotlib basic plot</h2>
-
-<p><br />
-Although in this lesson our fig object will have only one plot, it might have more. Most of the customization will be made through <em>ax</em> methods. To start we will call the ax method <code class="language-plaintext highlighter-rouge">plot()</code> twice to create our plots. Note that <code class="language-plaintext highlighter-rouge">plot()</code>’s first argument contains the dates and is plotted on the x axis while the second, containing the GDP, is plotted on the y axis. Finally, we show the plot.</p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-2">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_02.png" alt="First version of the plot" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-restricting-time-span">3. Restricting time span</h2>
-
-<p><br /></p>
-
-<p>One important aspect to consider when you tell a story with a plot is what you would like to highlight. In this plot, we want to highlight the effect of the 1929 crisis on GDP per capita rather than the effect of the Second or First World War. Thus, let us restrict our time span to the period 1920/1938. Note that when your index is a date you can use pandas <code class="language-plaintext highlighter-rouge">loc</code> to specify a certain period of the data:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-3">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">ger</span> <span class="o">=</span> <span class="n">ger</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">"1920-01-01"</span><span class="p">:</span><span class="s">"1938-01-01"</span><span class="p">]</span>
-<span class="n">usa</span> <span class="o">=</span> <span class="n">usa</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">"1920-01-01"</span><span class="p">:</span><span class="s">"1938-01-01"</span><span class="p">]</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">])</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_03.png" alt="Second version of the plot" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-adding-a-matplotlib-legend">4. Adding a Matplotlib legend</h2>
-
-<p><br /></p>
-
-<p>To add a legend, first you have to label each of the line plots and then call the <code class="language-plaintext highlighter-rouge">legend()</code> method of <em>ax</em>. Quite intuitive, right?</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-4">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-<span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_04.png" alt="Third version of the plot" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-adding-a-title-and-and-labels-to-matplotlib-axes">5. Adding a title and and labels to matplotlib axes</h2>
-
-<p><br /></p>
-
-<p>There are three methods of <em>ax</em> to set title and labels. They start with <em>set</em> followed by the title or label they set: <code class="language-plaintext highlighter-rouge">set_xlabel</code>, <code class="language-plaintext highlighter-rouge">set_ylabel</code>, <code class="language-plaintext highlighter-rouge">set_title</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-5">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
-        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
-        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_05.png" alt="Fourth version of the plot" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="6-changing-line-colors">6. Changing line colors</h2>
-
-<p><br />
-One way of creating your own color palette is with a Python list containing the colors you would like to use. <a href="https://colorbrewer2.org/" target="_blank">This page</a> has smart recommendations on the use of colors. In this case, a diverging color was chosen to distinguish between the two countries. Color is an argument of <code class="language-plaintext highlighter-rouge">plot()</code> and colors are selected by the list index.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-6')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-6">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_palette</span> <span class="o">=</span> <span class="p">[</span><span class="s">"#C84848"</span><span class="p">,</span> <span class="s">"#2E3031"</span><span class="p">,</span> <span class="s">"#FEE090"</span><span class="p">,</span> <span class="s">"#d3d3d3"</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
-        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
-        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_06.png" alt="Fifth version of the plot" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="7-highligthing-areas-and-elements-with-axvspan">7. Highligthing areas and elements with axvspan</h2>
-
-<p><br /></p>
-
-<p>In this step, we start by increasing the line width of both trends to 3. After that, we would like to highlight the period of crisis. For that we use the method <code class="language-plaintext highlighter-rouge">axvspan(xmin, xmax, ymin=0, ymax=1, ...)</code> in which we specify the start and end date of the desired period. The y axis is not specified because, by default, the highlighted area goes from zero to the maximum value of y. <code class="language-plaintext highlighter-rouge">alpha</code> adds a degree of transparency to the region highlighted.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-7')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-7">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_palette</span> <span class="o">=</span> <span class="p">[</span><span class="s">"#C84848"</span><span class="p">,</span> <span class="s">"#2E3031"</span><span class="p">,</span> <span class="s">"#FEE090"</span><span class="p">,</span> <span class="s">"#d3d3d3"</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
-        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
-        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span>
-        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
-        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1929-01-01"</span><span class="p">),</span> 
-           <span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1932-10-01"</span><span class="p">),</span> 
-           <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> 
-           <span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_07.png" alt="Sixth version of the plot" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="8-eliminating-the-frame-of-matplotlib-legend">8. Eliminating the frame of matplotlib legend</h2>
-
-<p><br /></p>
-
-<p>Edward Tufte, an expert in the field of data visualization, introduced the concept of data-ink ratio in the book <em>The Visual Display of Quantitative Information</em>. Data-ink ratio is the proportion of ink in a plot used to display non-redundant data. The author recommends maximizing this ratio as much as possible to make your plot clearer and to avoid distracting your reader.</p>
-
-<p><br /></p>
-
-\[data \: ink \: ratio = {data \: ink  \over total \:ink}\]
-
-<p><br /></p>
-
-<p>In order to improve our data-ink ratio, we will eliminate the legend frame. This can be done by setting <code class="language-plaintext highlighter-rouge">framon</code> parameter to false inside the <code class="language-plaintext highlighter-rouge">legend()</code> method.</p>
-
-<p><br /></p>
-
-<p>The frame around the plot is made by objects of the class <em>Spine</em>. Print <code class="language-plaintext highlighter-rouge">ax.spines</code> and note that you have 4 spines (left, right, bottom, top). It would be nice to have this frame in a lighter color so that it does not call so much attention. This can be done by the <code class="language-plaintext highlighter-rouge">set_edgecolor()</code> method . To set all of them to the same color, we can iterate them in <code class="language-plaintext highlighter-rouge">ax.spines.values()</code> and set one by one to light gray:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-8')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-1-8">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_palette</span> <span class="o">=</span> <span class="p">[</span><span class="s">"#C84848"</span><span class="p">,</span> <span class="s">"#2E3031"</span><span class="p">,</span> <span class="s">"#FEE090"</span><span class="p">,</span> <span class="s">"#d3d3d3"</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ger</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> 
-        <span class="n">ger</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span> 
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"Germany"</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
-        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">usa</span><span class="p">.</span><span class="n">index</span><span class="p">,</span>
-        <span class="n">usa</span><span class="p">[</span><span class="s">"gdp_pc"</span><span class="p">],</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="s">"USA"</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
-        <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Year"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"GDP per capita"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"GDP per capita during the Wall Street Crash of 1929"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1929-01-01"</span><span class="p">),</span> 
-           <span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">"1932-10-01"</span><span class="p">),</span> 
-           <span class="n">color</span> <span class="o">=</span> <span class="n">my_palette</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> 
-           <span class="n">alpha</span><span class="o">=</span><span class="p">.</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="n">spine</span><span class="p">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="n">my_palette</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_01_09.png" alt="Seventh version of the plot" /></p>
-
-<p><br /></p>
-
-<p>Found this guide helpful? Have suggestions or questions? Leave a comment below and join the discussion!</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<ul class="conclusion-list">
-  <li>To customize your plot, use Matplotlib method <code class="language-plaintext highlighter-rouge">subplots()</code>;</li>
-  <li><code class="language-plaintext highlighter-rouge">Subplots()</code> creates two objects: one of the class <em>Figure</em>, usually called fig and one of the class <em>Axes</em>, usually called ax;</li>
-  <li>Use <em>Axes</em> methods to shape your plot according to your needs.</li>
-</ul>
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><summary type="html"><![CDATA[Master data visualization using Matplotlib - Use historical GDP data, spotlight the 1929 crisis with axvspan, and craft compelling visuals with Matplotlib subplots.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_01.png" /><media:content medium="image" url="http://localhost:4000/lesson_01.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[A step-by-step guide on how to use RColorBrewer and scale_color_brewer in ggplot2 demonstrated with historical military expense data.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_05.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_05.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
