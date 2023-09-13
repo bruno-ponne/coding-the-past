@@ -1,6 +1,8 @@
 ---
 layout: policy
 title: Terms of Use
+keywords: terms of use, coding the past, history, data science, digital humanities
+description: Explore the Terms of Use for Coding the Past, a website dedicated to data science and digital humanities lessons. Learn about user guidelines, intellectual property, and our affiliations with third-party services.
 last_modified_at: 11-Jun-23
 ---
 

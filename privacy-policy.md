@@ -1,6 +1,8 @@
 ---
 layout: policy
 title: Privacy Policy
+description: Explore the Privacy Policy of Coding the Past. Learn how we collect, use, and protect your personal and browser data. Your privacy is paramount to us. Updated on June 11, 2023
+keywords: privacy policy, data, coding the past
 last_modified_at: 11-Jun-23
 ---
 
