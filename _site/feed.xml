@@ -1,4 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-13T09:34:17-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Mapping the Past - Geospatial Visualization in R</title><link href="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html" rel="alternate" type="text/html" title="Mapping the Past - Geospatial Visualization in R" /><published>2023-09-06T00:00:00-03:00</published><updated>2023-09-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization</id><content type="html" xml:base="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-10-03T10:29:05-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to use R in Google Colab?</title><link href="http://localhost:4000/2023/10/03/R-in-GoogleColab.html" rel="alternate" type="text/html" title="How to use R in Google Colab?" /><published>2023-10-03T00:00:00-03:00</published><updated>2023-10-03T00:00:00-03:00</updated><id>http://localhost:4000/2023/10/03/R-in-GoogleColab</id><content type="html" xml:base="http://localhost:4000/2023/10/03/R-in-GoogleColab.html"><![CDATA[<p><br /></p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><br /></p>
+
+<p><strong>Greetings, humanists, social and data scientists!</strong></p>
+
+<p><br /></p>
+
+<p>Ever imagined a world where any computer with an internet browser could be your playground for programming in R? Believe it, because this is your reality! Google Colab enables you to execute R code with remarkable ease, eliminating the need for installations and providing a seamless setup process. The cherry on top? It’s free and allows easy sharing and collaboration on your projects.</p>
+
+<p><br /></p>
+
+<p>In this lesson, I will show you how to use R in Google Colab and suggest a code example to explore the popularity of baby names over the last century. Don’t forget to check out the step-by-step tutorial in the video below! Additionally, feel free to copy the example code from the sections that follow.</p>
+
+<p><br /></p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WKtcrvd_2-0?si=BGqZJ7ekj47PCTYP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>The data used in this tutorial comes from the <code class="language-plaintext highlighter-rouge">babynames</code> package. It contains a dataset with baby names registered between 1880 and 2017 in the United States. For further details, please explore the documentation of the package <a href="https://cran.r-project.org/web/packages/babynames/index.html">here</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="coding-the-past-how-to-use-r-in-google-colab">Coding the past: How to use R in Google Colab?</h1>
+
+<p><br /></p>
+
+<h2 id="1-set-the-right-runtime">1. Set the right runtime</h2>
+
+<p>It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from <code class="language-plaintext highlighter-rouge">Python 3</code> to <code class="language-plaintext highlighter-rouge">R</code>. Check the figure below.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_15_01.png" alt="Figure explaining how to use R in Google Colab" /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> You can also set which type of hardware accelerator you would like to use to process your code. Usually graphics processing units (GPU) are better for machine learning applications.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-example-using-r-in-google-colab">2. Example: using R in Google Colab</h2>
+
+<p>Below you find the code used in the video tutorial. Feel free to copy, test and change it!</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-15-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-15-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"babynames"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">babynames</span><span class="p">)</span><span class="w">
+
+</span><span class="n">str</span><span class="p">(</span><span class="n">babynames</span><span class="p">)</span><span class="w">
+
+</span><span class="n">bruno_df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">babynames</span><span class="p">[</span><span class="n">babynames</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Bruno"</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
+
+</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bruno_df</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bruno_df</span><span class="o">$</span><span class="n">n</span><span class="p">,</span><span class="w">
+    </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w">
+    </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Popularity of the name Bruno"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Note that each time you reopen a Colab notebook, you will need to reinstall the libraries required to run your code. While this might seem like a disadvantage, it also encourages you to code without relying heavily on numerous libraries, potentially leading to more robust code.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><strong>Leave any questions or concerns you might have in the comments below.</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Google Colab provides a hassle-free journey into the world of R programming and data exploration;</li>
+  <li>with a small change in Google Colab runtime type, it can proccess R code</li>
+  <li>mastering the use of R within Google Colab not only enriches our data analysis skills but also paves the way for enhanced collaborative computing in the cloud.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_15.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_15.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mapping the Past - Geospatial Visualization in R</title><link href="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html" rel="alternate" type="text/html" title="Mapping the Past - Geospatial Visualization in R" /><published>2023-09-06T00:00:00-03:00</published><updated>2023-09-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization</id><content type="html" xml:base="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -3255,277 +3383,4 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 
 <hr />
 
-<p><br /></p>]]></content><author><name>Bruno Ponne</name></author><category term="socialdatascience" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Learn what are the digital humanities and their application in research on humanities and social science.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_06.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_06.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Changing ggplot colors with scale_color_brewer</title><link href="http://localhost:4000/2023/02/22/Military-Expenses.html" rel="alternate" type="text/html" title="Changing ggplot colors with scale_color_brewer" /><published>2023-02-22T00:00:00-03:00</published><updated>2023-09-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/02/22/Military%20Expenses</id><content type="html" xml:base="http://localhost:4000/2023/02/22/Military-Expenses.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p><strong>‘War is over, if you want it, war is over, now’</strong></p>
-
-<p>John Lennon</p>
-
-<p><br />
-Ever visited a webpage with clashing colors or poor text contrast? You’re not alone! Choosing the perfect color palette for data visualizations can be complex.</p>
-
-<p><br /></p>
-
-<p>Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer package.  To make things more interesting, we’ll use data from the military expenses of leading capitalist countries during the Cold War era. Let’s paint your data story!</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>Data used in this lesson is available on the <a href="https://databank.worldbank.org/home" target="_blank">World Bank</a> website.</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-change-colors-in-ggplot-with-rcolorbrewer">Coding the past: change colors in ggplot with RColorBrewer</h1>
-
-<h2 id="1-importing-data-into-r">1. Importing data into R</h2>
-
-<p><br />
-Download the <a href="http://localhost:4000/assets/data/military.csv">data file here</a> and load the libraries we will need, according to the code below. To read the data, use the R function <code class="language-plaintext highlighter-rouge">read_csv()</code>. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with <code class="language-plaintext highlighter-rouge">[1:5, c(3, 5:36)]</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-5-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
-
-</span><span class="n">military</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'military.csv'</span><span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">36</span><span class="p">)]</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-how-to-use-pivot_longer">2. How to use pivot_longer?</h2>
-
-<p><br /></p>
-
-<p>If you take a look at the dataframe you just loaded, you will see that it has one column for each year. To use ggplot your data has to be tidy. According to Hadley Wickham, in a tidy dataframe:</p>
-
-<p><br /></p>
-
-<ol class="conclusion-list">
-  <li>Each variable must have its own column;</li>
-  <li>Each observation must have its own row;</li>
-  <li>Each value must have its own cell;</li>
-</ol>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Learn more about tidy data and how to transform a dataframe from wide to long format 
-        
-        <a href="https://r4ds.had.co.nz/tidy-data.html" target="_blank"> here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>To make our data tidy, we will transform all the year columns in one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the <code class="language-plaintext highlighter-rouge">pivot_longer</code> function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, <code class="language-plaintext highlighter-rouge">names_to</code> indicates the name of the new column that will receive the years and <code class="language-plaintext highlighter-rouge">values_to</code> indicates the name of the new column that will receive the values of the year columns.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_05_01.png" alt="Conversion of an R dataframe from wide to long format with pivot_longer" title="Image" /></p>
-<p class="fig-caption">Illustration created by the Author</p>
-
-<p><br /></p>
-
-<p>The <code class="language-plaintext highlighter-rouge">mutate</code> function makes two adjustments in the new long dataset. First, it eliminates the second part of the year names, e.g., <code class="language-plaintext highlighter-rouge">[YR1960]</code>. Second, it rounds the expenses values to two decimal places.</p>
-
-<p><br /></p>
-
-<p>Finally, we change the names of the columns (variables) in our dataset.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-5-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">military_long</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">military</span><span class="p">,</span><span class="w"> 
-                              </span><span class="s1">'1960 [YR1960]'</span><span class="o">:</span><span class="s1">'1991 [YR1991]'</span><span class="p">,</span><span class="w"> 
-                              </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'year'</span><span class="p">,</span><span class="w"> 
-                              </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'expense'</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
-  </span><span class="n">mutate</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="n">expense</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span><span class="w">
-
-</span><span class="nf">names</span><span class="p">(</span><span class="n">military_long</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'country'</span><span class="p">,</span><span class="w"> </span><span class="s1">'year'</span><span class="p">,</span><span class="w"> </span><span class="s1">'expense'</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</h2>
-
-<p><br /></p>
-
-<p>To see all the colors palettes the RColorBrewer offers, use the following code:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-5-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
-</span><span class="n">display.brewer.all</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_05_02.png" alt="RColorBrewer available palettes" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p>We will be using palette <code class="language-plaintext highlighter-rouge">Set1</code> in our line plot. To set it, add the layer <code class="language-plaintext highlighter-rouge">scale_color_brewer(palette = 'Set1')</code>. <strong>Note</strong> that we also set the x-axis to have labels every 4 years with <code class="language-plaintext highlighter-rouge">scale_x_discrete(breaks = seq(1960, 1990, by=4))</code>. Color  and group aesthetics were mapped to countries so that each country has a different color.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-5-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">military_long</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_x_discrete</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1960</span><span class="p">,</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="m">4</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_brewer</span><span class="p">(</span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Set1'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Military expenditure (% of GDP)'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s1">'Military Expenses of the Main Capitalist Economies'</span><span class="p">,</span><span class="w">
-          </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1960 - 1991'</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_05_03.png" alt="plot using RColorBrewer palette" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</h2>
-
-<p><br />
-To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>. Small adjustments were made to adapt the theme to this plot. For instance, the legend position was set to be at the bottom of the plot and its title was deleted.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-5-5">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">military_long</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">))</span><span class="o">+</span><span class="w">
-</span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
-</span><span class="n">scale_x_discrete</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1960</span><span class="p">,</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="m">4</span><span class="p">))</span><span class="o">+</span><span class="w">
-</span><span class="n">scale_color_brewer</span><span class="p">(</span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Set1'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Military expenditure (% of GDP)'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s1">'Military Expenses of the Main Capitalist Economies'</span><span class="p">,</span><span class="w">
-          </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1960 - 1991'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">guides</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guide_legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
-            </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-            </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-            </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-            </span><span class="n">legend.key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-            </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
-            </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
-            </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="c1"># Eliminates grids:</span><span class="w">
-            </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-            </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-            </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
-            </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
-            </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-            </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_05_04.png" alt="Plot with new theme and color selected with scale_color_brewer" /></p>
-
-<p><br /></p>
-
-<p>Feel free to test other color palettes and check the one you like the most!</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<ul class="conclusion-list">
-  <li>You can transform your dataframe from wide to long format using <code class="language-plaintext highlighter-rouge">pivot_longer</code>;</li>
-  <li>RColorBrewer offers color palettes to make your plots more effective and beautiful.</li>
-</ul>
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[A step-by-step guide on how to use RColorBrewer and scale_color_brewer in ggplot2 demonstrated with historical military expense data.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_05.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_05.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p><br /></p>]]></content><author><name>Bruno Ponne</name></author><category term="socialdatascience" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Learn what are the digital humanities and their application in research on humanities and social science.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_06.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_06.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
