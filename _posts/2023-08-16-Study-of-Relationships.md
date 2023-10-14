@@ -38,7 +38,11 @@ In this lesson, we will learn how to evaluate the relationship between two varia
 
 <br>
 
-<center><iframe width="560" height="315" src="https://www.youtube.com/embed/Fee7FMwAv_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center>
+<div class="videoWrapper">
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Fee7FMwAv_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+</div>
 
 
 <br>
