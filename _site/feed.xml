@@ -1,4 +1,297 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-11-03T13:19:27-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Harnessing AI in R and Python - Gather data with ChatGPT</title><link href="http://localhost:4000/2023/11/01/AI-in-R.html" rel="alternate" type="text/html" title="Harnessing AI in R and Python - Gather data with ChatGPT" /><published>2023-11-01T00:00:00-03:00</published><updated>2023-11-01T00:00:00-03:00</updated><id>http://localhost:4000/2023/11/01/AI-in-R</id><content type="html" xml:base="http://localhost:4000/2023/11/01/AI-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-11-15T12:56:49-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to Change Fonts in ggplot2 with Google Fonts</title><link href="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html" rel="alternate" type="text/html" title="How to Change Fonts in ggplot2 with Google Fonts" /><published>2023-11-15T00:00:00-03:00</published><updated>2023-11-15T00:00:00-03:00</updated><id>http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot</id><content type="html" xml:base="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html"><![CDATA[<p><br /></p>
+
+<h1 id="discovering-18th-century-london-with-new-fonts">Discovering 18th century London with new fonts</h1>
+
+<p><br /></p>
+
+<p><strong>Greetings, humanists, social and data scientists!</strong></p>
+
+<p><br /></p>
+
+<p>In this lesson, we delve into the world of data visualization with a focus on the use of different fonts in ggplot2. We are going to learn how to take advantage of Google Fonts to enrich our plots. Our journey takes us back in time, exploring a dataset derived from the “London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis” project. This dataset provides a window into the socio-economic and health conditions of 18th-century.</p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Google fonts are open source and without cost.
+        
+        <a href="https://developers.google.com/fonts/faq?hl=en" target="_blank"> Read more here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>The data used in this tutorial consists of a catalogue of historical documents organized by <a href="https://sharonhoward.org/index.html">Sharon Howard</a>. These documents detail an extensive range of Westminster inquests conducted between 1760 and 1799. They document investigations into deaths under circumstances that were sudden, unexplained, or suspicious.</p>
+
+<p><br /></p>
+
+<p>The data is derived from a larger project, <a href="https://www.londonlives.org/">London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis</a>, a rich resource shedding light on the lives of ordinary Londoners during this era. <a href="https://github.com/sharonhoward/ll-coroners">The dataset</a> we explore comprises 2,894 inquest records, each containing detailed information such as the dates of the inquests, names of the deceased, the verdicts rendered, and the causes of death. Sharon Howard’s contribution in organizing these records offers an invaluable opportunity to study the social and legal intricacies of historic London.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="1-how-to-load-a-tsv-file-in-r">1. How to load a tsv file in R?</h2>
+
+<p>TSV stands for ‘Tab-Separated Values,’ a textual format used to store tabular data. In this lesson, <a href="https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv">our data</a> is stored in TSV format. To load it, we use the <code class="language-plaintext highlighter-rouge">read_tsv</code> function from the <code class="language-plaintext highlighter-rouge">readr</code> package. After loading the data, we need to eliminate observations where the verdict is undefined.</p>
+
+<p><br /></p>
+
+<p>Furthermore, the original data categorizes three types of suicide: ‘suicide (delirious)’, ‘suicide (felo de se)’, and ‘suicide (insane)’. However, for our purposes, we will classify all these as simply ‘suicide’. The code below execute these steps. Note that we use <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">mutate</code> and <code class="language-plaintext highlighter-rouge">recode</code> from the <code class="language-plaintext highlighter-rouge">dplyr</code> package. The <code class="language-plaintext highlighter-rouge">recode</code> function takes as argument the column to be recoded and each value associated with its new content. The packages needed for this lesson are called at the beginning of the code. Please install them with <code class="language-plaintext highlighter-rouge">install.packages()</code> in case you don’t have them.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-17-1">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">showtext</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="s2">"wa_coroners_inquests_v1-1.tsv"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df_prep</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recode</span><span class="p">(</span><span class="n">verdict</span><span class="p">,</span><span class="w"> </span><span class="s2">"suicide (delirious)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
+                          </span><span class="s2">"suicide (felo de se)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
+                          </span><span class="s2">"suicide (insane)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-using-the-table-function-to-summarize-a-categorical-variable">2. Using the table function to summarize a categorical variable</h2>
+
+<p>An efficient method for counting the number of each type of verdict in the <code class="language-plaintext highlighter-rouge">verdict</code> variable is to use the <code class="language-plaintext highlighter-rouge">table</code> function. While this function is typically used to construct a contingency table for two variables, in this instance, it is utilized to tally the frequency of each category within the <code class="language-plaintext highlighter-rouge">verdict</code> variable. We then transform this table into a data frame to facilitate its use in <code class="language-plaintext highlighter-rouge">ggplot2</code>.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> A contingency table, or crosstab, presents the counts for the combination of two categorical variables.
+        
+        <a href="https://statisticsbyjim.com/basics/contingency-table/" target="_blank"> Read more here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-17-2">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">table_ver</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">df_prep</span><span class="o">$</span><span class="n">verdict</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-change-fonts-in-ggplot2-with-showtext">3. Change fonts in ggplot2 with showtext</h2>
+
+<p>The <a href="https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html">showtext package</a>, developed by Yixuan Qiu, greatly simplifies the use of various font types in R plots. In this lesson, we’ll focus on using <code class="language-plaintext highlighter-rouge">showtext</code> to access Google Fonts, though the package offers more than just that capability.</p>
+
+<p><br /></p>
+
+<p>After loading the library, you can select your desired Google Font using the <code class="language-plaintext highlighter-rouge">font_add_google</code> function. The <code class="language-plaintext highlighter-rouge">showtext_auto</code> command then instructs R to employ <code class="language-plaintext highlighter-rouge">showtext</code> for text rendering. That’s it — next, simply specify your chosen font in the ggplot2 theme, as demonstrated in the code below. Since our <code class="language-plaintext highlighter-rouge">table_ver</code> data is already aggregated, we need to set stat = “identity” in the geom_bar layer. It’s important to note the use of <code class="language-plaintext highlighter-rouge">reorder</code> to arrange the bars from largest to smallest frequency. The figures illustrate the resulting plots, first with the ‘Montserrat’ font followed by the ‘Dancing Script’ font.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-17-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">font_add_google</span><span class="p">(</span><span class="s2">"Montserrat"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">showtext_auto</span><span class="p">()</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">table_ver</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">Var1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">Freq</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Freq</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Jury's Veredicts"</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Verdict"</span><span class="p">,</span><span class="w">
+       </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Westminster Coroners' Inquests 1760-1799"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="o">=</span><span class="s2">"Montserrat"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_17_01.png" alt="Bar plot showing verdicts using the Montserrat font" /></p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Even though I use "Dancing Script" (handwriting) in the plot below, it is generally recommended to use sans-serif fonts to plot your data. It makes your text more readable. In this tutorial I used "Dancing Script" to show you the options offered by Google Fonts. Lisa Charlotte Muth gives relevant advice on the use of fonts in plots in
+        
+        <a href="https://blog.datawrapper.de/fonts-for-data-visualization/" target="_blank"> this article.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_17_02.png" alt="Bar plot showing verdicts using the Dancing Script font" /></p>
+
+<p><br /></p>
+
+<p>The plot above suggests a relatively low number of homicides in these inquests. One could investigate, if indeed the number is so low or if maybe the inquest’s documentation suggest the possibility of homicides being wrongly classified as accidental.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-a-shiny-app-to-choose-your-google-font">4. A shiny app to choose your Google Font</h2>
+
+<p>To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.</p>
+
+<p><br /></p>
+
+<iframe height="700px" width="100%" frameborder="no" scrolling="no" src="https://ggfontpicker-a2d2cb056f0a.herokuapp.com/"> </iframe>
+
+<p><br /></p>
+
+<p>In a future lesson I will explain how to code a Shiny App applied to digital humanities. Meanwhile, feel free to consult my <a href="https://github.com/bruno-ponne/ggFontPicker">code here</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-checking-the-causes-of-death">5. Checking the causes of death</h2>
+
+<p>In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?</p>
+
+<p><br /></p>
+
+<p>The variable <code class="language-plaintext highlighter-rouge">cause_of_death</code> tells us more details of the circumstances in which the person in each inquest died. To visualize the most frequent causes of death, we will start by elimintating <code class="language-plaintext highlighter-rouge">NA</code> observations in this variable. We can do that with <code class="language-plaintext highlighter-rouge">filter(!is.na())</code>, which filters only values that are not <code class="language-plaintext highlighter-rouge">NA</code>. Following that command, we group observations by <code class="language-plaintext highlighter-rouge">cause_of_death</code> and count the frequency of each cause with <code class="language-plaintext highlighter-rouge">tally</code>.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> tally() is equivalent to dplyr summarise(n = n()).
+        
+        <a href="https://dplyr.tidyverse.org/reference/count.html" target="_blank"> Read more here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>The last step is to filter only causes of death that occurred more than 15 times in our dataset. Please, decrease this number if you would like to see more causes. Finally, we can use the same ggplot2 code to plot the causes of death. Since the texts representing the causes of death are longer than the verdicts, we will plot the them in the y axis and the frequency in the x axis. The remaining code remains very similar.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-17-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cause</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df_prep</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">tally</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="m">15</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">font_add_google</span><span class="p">(</span><span class="s2">"Montserrat"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">showtext_auto</span><span class="p">()</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">cause</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">),</span><span class="w"> 
+           </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Causes of death"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">10</span><span class="p">,</span><span class="w"> 
+                          </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Montserrat"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_17_03.png" alt="Bar plot showing causes of death" /></p>
+
+<p><br /></p>
+
+<p>It’s noteworthy that a significant number of the inquests pertained to cases of drowning or suicide. An intriguing avenue for further research would be to delve into the complete reports of these inquests. Such an investigation could shed light on the reasons behind the high incidence of drownings.</p>
+
+<p><br /></p>
+
+<p><strong>Please, feel free to leave any questions or concerns you might have in the comments below.</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Using Google Fonts within ggplot2 not only transforms but significantly elevates the aesthetic appeal of our data visualizations;</li>
+  <li>Leveraging the showtext package simplifies incorporating diverse Google Fonts into R, enhancing our data representation capabilities;</li>
+  <li>Employing simple plots with historical data effectively generates insightful hypotheses, offering a deeper understanding of our past.;</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ggplot2" /><summary type="html"><![CDATA[Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_17.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_17.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Harnessing AI in R and Python - Gather data with ChatGPT</title><link href="http://localhost:4000/2023/11/01/AI-in-R.html" rel="alternate" type="text/html" title="Harnessing AI in R and Python - Gather data with ChatGPT" /><published>2023-11-01T00:00:00-03:00</published><updated>2023-11-01T00:00:00-03:00</updated><id>http://localhost:4000/2023/11/01/AI-in-R</id><content type="html" xml:base="http://localhost:4000/2023/11/01/AI-in-R.html"><![CDATA[<p><br /></p>
 
 <h1 id="ai-in-r-and-python">AI in R and Python</h1>
 
@@ -3048,468 +3341,4 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><category term="textanalysis" /><summary type="html"><![CDATA[Learn TF-IDF formula and how to calculate it in Python. Plot the results to better understand the differences between TF and TF-IDF.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_08.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_08.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Text Data Visualization</title><link href="http://localhost:4000/2023/04/02/Text-Analysis-1.html" rel="alternate" type="text/html" title="Text Data Visualization" /><published>2023-04-02T00:00:00-03:00</published><updated>2023-09-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/04/02/Text-Analysis-1</id><content type="html" xml:base="http://localhost:4000/2023/04/02/Text-Analysis-1.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p>“Words have no power to impress the mind without the exquisite horror of their reality.”</p>
-
-<p>Edgar Allan Poe</p>
-
-<p><br /></p>
-
-<p>Have you ever found yourself submerged in text data, your eyes scanning countless words as you try to extract meaningful insights for your research? Text data visualization could be the solution you’re seeking. In our modern world, textual data, be it from historical documents or the latest tweets, has become a deep well of knowledge just waiting to be discovered.</p>
-
-<p><br /></p>
-
-<p>Whether you’re tracing societal trends over time or studying the latest social media topics, analyzing and visualizing text data can be a gold mine. In this lesson, we’ll guide you on how to navigate this rich universe of words. Harnessing the strength of <a href="https://www.nltk.org/" target="_blank">Natural Language Toolkit (NLTK)</a> and the <a href="https://matplotlib.org/" target="_blank">Matplotlib</a> library, we’ll delve into strategies for text data visualization and analysis, illuminating new angles for your research.”</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>The data used in this lesson is available on the <a href="https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2021" target="_blank">Oxford Text Archive</a>  website. It consists of a collection of pamphlets published between 1750 and 1776 by influential authors in the British colonies. These pieces depict the debate with England over constitutional rights, showing the colonists’ understanding of their contemporary events and the conditions that precipitated the American Revolution. In this lesson, we will focus on the pamphlets of Oxenbridge Thacher, James Otis, and James Mayhew. To know more about textual data sources, check this post: <a href="/2023/01/10/Where-to-find-and-how-to-load-historical-data.html">‘Where to find and how to load historical data’</a></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-text-data-visualization">Coding the past: text data visualization</h1>
-
-<h2 id="1-import-text-file-into-python">1. Import text file into python</h2>
-
-<p><br /></p>
-
-<p>To load text files in Python and reuse our code, we can build a function. Before we start to write the function, all libraries necessary for this lesson will be loaded.</p>
-
-<p><br /></p>
-
-<p>Using the <code class="language-plaintext highlighter-rouge">with</code> statement will ensure that the opened file is closed when the block inside it is finished. Note that we use “latin-1” encoding. The function <code class="language-plaintext highlighter-rouge">islice()</code> creates an iterable object and a for loop is used to slice the file into chunks (lines). Each line is appended to the list <code class="language-plaintext highlighter-rouge">my_text</code>.</p>
-
-<p><br /></p>
-
-<p><code class="language-plaintext highlighter-rouge">word_tokenize</code> is a function from the NLTK library that splits a sentence into words. All the sentences are then split into words and stored in a list. Note that the list needs to be flattened into a single list, since the tokenizer returns a list of lists. This is done with a list comprehension.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-7-1">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">islice</span>
-<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
-<span class="n">nltk</span><span class="p">.</span><span class="n">download</span><span class="p">(</span><span class="s">'stopwords'</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="k">def</span> <span class="nf">load_text</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="n">my_text</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span> <span class="s">"latin-1"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">islice</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
-            <span class="n">my_text</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-    <span class="n">my_text</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">my_text</span><span class="p">]</span>
-    <span class="n">flat_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">my_text</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">flat_list</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>Now we load the manifests of three authors: Oxenbridge Thacher, James Otis, and James Mayhew. The results are stored in three lists called <code class="language-plaintext highlighter-rouge">thacher</code>, <code class="language-plaintext highlighter-rouge">otis</code>, and <code class="language-plaintext highlighter-rouge">mayhew</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-7-2">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">thacher</span> <span class="o">=</span> <span class="n">load_text</span><span class="p">(</span><span class="s">'thacher-2021.txt'</span><span class="p">)</span>
-<span class="n">otis</span> <span class="o">=</span> <span class="n">load_text</span><span class="p">(</span><span class="s">'otis-2021.txt'</span><span class="p">)</span>
-<span class="n">mayhew</span> <span class="o">=</span> <span class="n">load_text</span><span class="p">(</span><span class="s">'mayhew2-2021.txt'</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>If you check the length of the lists, you will see that Oxenbridge Thacher’s manifest has approximately 4,156 words; James Mayhew, 18,969 words; and James Otis, 34,031 words.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-understand-nltk-stopwords">2. Understand nltk stopwords</h2>
-
-<p><br /></p>
-
-<p>In this function, we will use NLTK stopwords to remove all words that do not add any meaning to our analysis. Moreover, we transform all characters to lowercase and remove all words containing two or fewer characters.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-7-3">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">prepare_text</span><span class="p">(</span><span class="n">list_of_words</span><span class="p">):</span>
-  <span class="c1">#load stopwords:
-</span>  <span class="n">stops</span> <span class="o">=</span> <span class="n">stopwords</span><span class="p">.</span><span class="n">words</span><span class="p">(</span><span class="s">'english'</span><span class="p">)</span>
-  <span class="c1">#transform all word characters to lower case:
-</span>  <span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">list_of_words</span><span class="p">]</span>
-  <span class="c1">#remove all words containing up to two characters:
-</span>  <span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">list_of_words</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
-  <span class="c1">#remove stopwords:
-</span>  <span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">list_of_words</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stops</span><span class="p">]</span>
-  <span class="k">return</span> <span class="n">list_of_words</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>We apply the function to the three lists of words. After the cleaning process, the number of words is reduced to less than 50% of the original size.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-7-4">
-
-<figure class="highlight"><pre><code class="language-pyhton" data-lang="pyhton">thacher_prepared = prepare_text(thacher)
-otis_prepared = prepare_text(otis)
-mayhew_prepared = prepare_text(mayhew)</code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-word-counter-in-python">3. Word counter in python</h2>
-
-<p><br /></p>
-
-<p>The function below counts the frequency of each word and returns a dataframe with the words and their frequencies, sorted by the frequency.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-7-5">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">count_freq</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
-    <span class="n">unique_words</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">counts</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># create a list of unique words:
-</span>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span> 
-        <span class="n">unique_words</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-    <span class="c1"># count the frequency of each word:
-</span>    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span>
-      <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">word</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
-          <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="n">counts</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-    <span class="c1"># create a dataframe with the words and their frequencies:
-</span>    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"word"</span><span class="p">:</span> <span class="n">unique_words</span><span class="p">,</span> <span class="s">"count"</span><span class="p">:</span> <span class="n">counts</span><span class="p">})</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s">"count"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span>
-
-<span class="n">thacher_df</span> <span class="o">=</span> <span class="n">count_freq</span><span class="p">(</span><span class="n">thacher_prepared</span><span class="p">)</span>
-<span class="n">otis_df</span> <span class="o">=</span> <span class="n">count_freq</span><span class="p">(</span><span class="n">otis_prepared</span><span class="p">)</span>
-<span class="n">mayhew_df</span> <span class="o">=</span> <span class="n">count_freq</span><span class="p">(</span><span class="n">mayhew_prepared</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-word-count-visualization">4. Word count visualization</h2>
-
-<p><br /></p>
-
-<p>We will use the <code class="language-plaintext highlighter-rouge">matplotlib</code> library to create a bar plot with the 10 most frequent words in each manifest. We use <code class="language-plaintext highlighter-rouge">iloc</code> to select the first 10 rows of each dataframe. <code class="language-plaintext highlighter-rouge">barh</code> creates a horizontal bar plot where the words are on the y-axis and the frequency on the x-axis. After that, we set the title of each plot and perform a series of adjustments to the plot, including the elimination of the grid, the removal of part of the frame, and the change in font and background colors. Finally we also use the tight layout function to adjust the spacing between the plots.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-6')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-7-6">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">thacher_10</span> <span class="o">=</span><span class="n">thacher_df</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-<span class="n">otis_10</span> <span class="o">=</span> <span class="n">otis_df</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-<span class="n">mayhew_10</span> <span class="o">=</span> <span class="n">mayhew_df</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-
-<span class="c1"># horizontal barplot:
-</span>
-<span class="n">ax1</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">thacher_10</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">thacher_10</span><span class="p">[</span><span class="s">"count"</span><span class="p">],</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> 
-        <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">otis_10</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">otis_10</span><span class="p">[</span><span class="s">"count"</span><span class="p">],</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">,</span> 
-        <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#386cb0"</span><span class="p">)</span>
-
-<span class="n">ax3</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">mayhew_10</span><span class="p">[</span><span class="s">"word"</span><span class="p">],</span> <span class="n">mayhew_10</span><span class="p">[</span><span class="s">"count"</span><span class="p">],</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="s">"#fdb462"</span><span class="p">,</span> 
-        <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#fdb462"</span><span class="p">)</span>
-
-<span class="c1"># title:
-</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Thacher"</span><span class="p">)</span>
-<span class="n">ax2</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Otis"</span><span class="p">)</span>
-<span class="n">ax3</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Mayhew"</span><span class="p">)</span>
-
-<span class="c1"># iterate over ax1, ax2, ax3 to: 
-# invert the y axis;
-# eliminate grid;
-# set fonts and background colors;
-# eliminate spines;
-</span><span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">fig</span><span class="p">.</span><span class="n">axes</span><span class="p">:</span>                             
-    <span class="n">ax</span><span class="p">.</span><span class="n">invert_yaxis</span><span class="p">()</span>                           
-    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>                              
-    <span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>                 
-    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    
-    <span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    
-    <span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>                 
-    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         
-    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-
-<span class="c1"># fig background color:
-</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
-<span class="c1"># layout:
-</span><span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_07_01.png" alt="plot of the most frequent words in each manifest" /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-calculate-the-proportion-of-each-word-and-comparing-the-manifests">5. Calculate the proportion of each word and comparing the manifests</h2>
-
-<p><br />
-Finally, we calculate the proportion of each word in each manifest relative to the total number of words in that document and store them in a new column called “proportion”. We also create two new data frames, one for each pair of manifests: one to compare Thacher and Otis, and the other to compare Thacher and Mayhew. This is done by an outer join, using the <code class="language-plaintext highlighter-rouge">word</code> column as the key. This operation keeps all the words, even the ones that are not included in both datasets, and fills the missing values with 0.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-7')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-7-7">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">thacher_df</span><span class="p">[</span><span class="s">"proportion"</span><span class="p">]</span> <span class="o">=</span> <span class="n">thacher_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">thacher_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">])</span>
-<span class="n">otis_df</span><span class="p">[</span><span class="s">"proportion"</span><span class="p">]</span> <span class="o">=</span> <span class="n">otis_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">otis_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">])</span>
-<span class="n">mayhew_df</span><span class="p">[</span><span class="s">"proportion"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mayhew_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">mayhew_df</span><span class="p">[</span><span class="s">"count"</span><span class="p">])</span>
-
-<span class="n">thacher_otis</span> <span class="o">=</span> <span class="n">thacher_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"proportion"</span><span class="p">]].</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">otis_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"proportion"</span><span class="p">]],</span> 
-    <span class="n">on</span> <span class="o">=</span> <span class="s">"word"</span><span class="p">,</span> 
-    <span class="n">how</span> <span class="o">=</span> <span class="s">"outer"</span><span class="p">,</span> 
-    <span class="n">suffixes</span> <span class="o">=</span> <span class="p">(</span><span class="s">"_thacher"</span><span class="p">,</span> <span class="s">"_otis"</span><span class="p">)).</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">thacher_mayhew</span> <span class="o">=</span> <span class="n">thacher_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"proportion"</span><span class="p">]].</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">mayhew_df</span><span class="p">[[</span><span class="s">"word"</span><span class="p">,</span> <span class="s">"proportion"</span><span class="p">]],</span>
-    <span class="n">on</span> <span class="o">=</span> <span class="s">"word"</span><span class="p">,</span>
-    <span class="n">how</span> <span class="o">=</span> <span class="s">"outer"</span><span class="p">,</span>
-    <span class="n">suffixes</span> <span class="o">=</span> <span class="p">(</span><span class="s">"_thacher"</span><span class="p">,</span> <span class="s">"_mayhew"</span><span class="p">)).</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>Now we will compare the three manifests by plotting the proportion of each word in Thacher on the x-axis and the proportion of the same word in Otis on the y-axis. We will use the <code class="language-plaintext highlighter-rouge">scatter</code> function to create a scatter plot in which the coordinates are the frequencies of a given word in Thacher and Otis. We will also use the <code class="language-plaintext highlighter-rouge">annotate</code> function to label each point with the word. The same procedure will be used to compare Thacher and Mayhew. Note that the more similar the manifests, the more points will be concentrated in the diagonal line (same frequency in both manifests).</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-8')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-7-8">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="c1"># scatterplot:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thacher_otis</span><span class="p">[</span><span class="s">"proportion_thacher"</span><span class="p">],</span> <span class="n">thacher_otis</span><span class="p">[</span><span class="s">"proportion_otis"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
-
-<span class="c1"># annotate words:
-</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">txt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">thacher_otis</span><span class="p">[</span><span class="s">"word"</span><span class="p">]):</span>
-    <span class="n">ax</span><span class="p">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> 
-                <span class="p">(</span><span class="n">thacher_otis</span><span class="p">[</span><span class="s">"proportion_thacher"</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> 
-                 <span class="n">thacher_otis</span><span class="p">[</span><span class="s">"proportion_otis"</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span> 
-                 <span class="n">color</span> <span class="o">=</span> <span class="s">"white"</span><span class="p">,</span> 
-                 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span>
-    
-<span class="c1"># eliminate grid:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-
-<span class="c1"># x axis label:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Thacher"</span><span class="p">)</span>
-
-<span class="c1"># y axis label:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Otis"</span><span class="p">)</span>
-
-<span class="c1"># diagonal dashed line:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"gray"</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">"--"</span><span class="p">)</span>
-
-<span class="c1"># fig background color:
-</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
-
-<span class="c1"># ax background color:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
-
-<span class="c1"># x and y axes labels font color to white:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">xaxis</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">yaxis</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
-
-
-<span class="c1"># ax font colors set to white:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>
-
-<span class="c1"># set spines to false:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_07_02.png" alt="Word frequency scatterplot: Thacher vs Otis" /></p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-7-9')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-7-9">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># plot scatterplot with words:
-</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thacher_mayhew</span><span class="p">[</span><span class="s">"proportion_thacher"</span><span class="p">],</span> 
-           <span class="n">thacher_mayhew</span><span class="p">[</span><span class="s">"proportion_mayhew"</span><span class="p">],</span> 
-           <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> 
-           <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">txt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">thacher_mayhew</span><span class="p">[</span><span class="s">"word"</span><span class="p">]):</span>
-    <span class="n">ax</span><span class="p">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="p">(</span><span class="n">thacher_mayhew</span><span class="p">[</span><span class="s">"proportion_thacher"</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> 
-                      <span class="n">thacher_mayhew</span><span class="p">[</span><span class="s">"proportion_mayhew"</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span> 
-                      <span class="n">color</span> <span class="o">=</span> <span class="s">"white"</span><span class="p">,</span> 
-                      <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span>
-<span class="c1"># eliminate grid:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-<span class="c1"># x axis label:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Thacher"</span><span class="p">)</span>
-<span class="c1"># y axis label:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Mayhew"</span><span class="p">)</span>
-<span class="c1"># diagonal dashed line:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">],</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="s">"gray"</span><span class="p">,</span> 
-        <span class="n">linestyle</span> <span class="o">=</span> <span class="s">"--"</span><span class="p">)</span>
-
-<span class="c1"># fig background color:
-</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
-
-<span class="c1"># ax background color:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
-
-<span class="c1"># x and y axes labels font color to white:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">xaxis</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">yaxis</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>
-
-
-<span class="c1"># ax font colors set to white:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>
-
-<span class="c1"># set spines to false:
-</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_07_03.png" alt="Word frequency scatterplot: Thacher vs Mayhew" /></p>
-
-<p><br /></p>
-
-<p>This text data visualization highlights the fact that Thacher and Otis are more similar than Thacher and Mayhew. This is reflected in the scatterplot, where the points are more concentrated in the diagonal line in the plot relating Thacher and Otis compared to the one relating Thacher and Mayhew. This is a simple way to compare the similarity of two texts. We know, for example, that, while Thacher talks a lot about “colonies”, Mayhew talks a lot about “god”.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>You can tokenize text data with the NLTK library method <code class="language-plaintext highlighter-rouge">word_tokenize</code>;</li>
-  <li>With list comprehensions, you can treat text to eliminate irrelevant characters and words;</li>
-  <li>Matplotlib is an excellent option for text data visualization</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><category term="textanalysis" /><summary type="html"><![CDATA[Learn text data visualization using NLTK and Matplotlib. Uncover word frequency trends in historical documents and draw impactful conclusions.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_07.png" /><media:content medium="image" url="http://localhost:4000/lesson_07.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="matplotlib" /><category term="textanalysis" /><summary type="html"><![CDATA[Learn TF-IDF formula and how to calculate it in Python. Plot the results to better understand the differences between TF and TF-IDF.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_08.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_08.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

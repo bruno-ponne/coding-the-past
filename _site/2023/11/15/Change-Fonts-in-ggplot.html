@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K2DKTESR2N');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="R, fonts, Google Fonts, ggplot2">
+    <meta name="description" content="Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.">
+    <meta property= og:image content= />
+    <title>How to Change Fonts in ggplot2 with Google Fonts</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google Font: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <!-- Google icon: -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Canonical Domain -->
+    <link rel="canonical" href="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html">
+</head>
+
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body">
+            <div class="post-body">
+    <h1 id = "post-main-title">How to Change Fonts in ggplot2 with Google Fonts</h1>
+    <p id = "author">Bruno Ponne &#9679 15 Nov 2023</p>
+    <hr>
+    <ul class = "meta-info">
+        
+        <li>Easy</li>
+        
+        <li>R</li>
+        
+        <li>5 min</li>
+        
+    </ul>
+    <br>
+    <h1>What you will learn</h1>
+    <ul>
+        
+        <li class = "objectives"> Be able to enhance your visualizations in R by integrating Google Fonts into ggplot2 graphs;</li>
+        
+        <li class = "objectives"> Be comfortable with loading and manipulating historical data in R;</li>
+        
+        <li class = "objectives"> Raise historical hypotheses taking into consideration the plots developed.</li>
+        
+    </ul>
+    <br>
+    <h1>Table of Contents</h1>
+
+
+    <ul class="toc-entry"><li><a href="#discovering-18th-century-london-with-new-fonts">Discovering 18th century London with new fonts</a></li><li><a href="#data-source">Data source</a><ul><li><a href="#1-how-to-load-a-tsv-file-in-r">1. How to load a tsv file in R?</a></li><li><a href="#2-using-the-table-function-to-summarize-a-categorical-variable">2. Using the table function to summarize a categorical variable</a></li><li><a href="#3-change-fonts-in-ggplot2-with-showtext">3. Change fonts in ggplot2 with showtext</a></li><li><a href="#4-a-shiny-app-to-choose-your-google-font">4. A shiny app to choose your Google Font</a></li><li><a href="#5-checking-the-causes-of-death">5. Checking the causes of death</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+
+    <p><br /></p>
+
+<h1 id="discovering-18th-century-london-with-new-fonts">Discovering 18th century London with new fonts</h1>
+
+<p><br /></p>
+
+<p><strong>Greetings, humanists, social and data scientists!</strong></p>
+
+<p><br /></p>
+
+<p>In this lesson, we delve into the world of data visualization with a focus on the use of different fonts in ggplot2. We are going to learn how to take advantage of Google Fonts to enrich our plots. Our journey takes us back in time, exploring a dataset derived from the “London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis” project. This dataset provides a window into the socio-economic and health conditions of 18th-century.</p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Google fonts are open source and without cost.
+        
+        <a href="https://developers.google.com/fonts/faq?hl=en" target="_blank"> Read more here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="data-source">Data source</h1>
+
+<p>The data used in this tutorial consists of a catalogue of historical documents organized by <a href="https://sharonhoward.org/index.html">Sharon Howard</a>. These documents detail an extensive range of Westminster inquests conducted between 1760 and 1799. They document investigations into deaths under circumstances that were sudden, unexplained, or suspicious.</p>
+
+<p><br /></p>
+
+<p>The data is derived from a larger project, <a href="https://www.londonlives.org/">London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis</a>, a rich resource shedding light on the lives of ordinary Londoners during this era. <a href="https://github.com/sharonhoward/ll-coroners">The dataset</a> we explore comprises 2,894 inquest records, each containing detailed information such as the dates of the inquests, names of the deceased, the verdicts rendered, and the causes of death. Sharon Howard’s contribution in organizing these records offers an invaluable opportunity to study the social and legal intricacies of historic London.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="1-how-to-load-a-tsv-file-in-r">1. How to load a tsv file in R?</h2>
+
+<p>TSV stands for ‘Tab-Separated Values,’ a textual format used to store tabular data. In this lesson, <a href="https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv">our data</a> is stored in TSV format. To load it, we use the <code class="language-plaintext highlighter-rouge">read_tsv</code> function from the <code class="language-plaintext highlighter-rouge">readr</code> package. After loading the data, we need to eliminate observations where the verdict is undefined.</p>
+
+<p><br /></p>
+
+<p>Furthermore, the original data categorizes three types of suicide: ‘suicide (delirious)’, ‘suicide (felo de se)’, and ‘suicide (insane)’. However, for our purposes, we will classify all these as simply ‘suicide’. The code below execute these steps. Note that we use <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">mutate</code> and <code class="language-plaintext highlighter-rouge">recode</code> from the <code class="language-plaintext highlighter-rouge">dplyr</code> package. The <code class="language-plaintext highlighter-rouge">recode</code> function takes as argument the column to be recoded and each value associated with its new content. The packages needed for this lesson are called at the beginning of the code. Please install them with <code class="language-plaintext highlighter-rouge">install.packages()</code> in case you don’t have them.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-17-1">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">showtext</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="s2">"wa_coroners_inquests_v1-1.tsv"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df_prep</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recode</span><span class="p">(</span><span class="n">verdict</span><span class="p">,</span><span class="w"> </span><span class="s2">"suicide (delirious)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
+                          </span><span class="s2">"suicide (felo de se)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
+                          </span><span class="s2">"suicide (insane)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-using-the-table-function-to-summarize-a-categorical-variable">2. Using the table function to summarize a categorical variable</h2>
+
+<p>An efficient method for counting the number of each type of verdict in the <code class="language-plaintext highlighter-rouge">verdict</code> variable is to use the <code class="language-plaintext highlighter-rouge">table</code> function. While this function is typically used to construct a contingency table for two variables, in this instance, it is utilized to tally the frequency of each category within the <code class="language-plaintext highlighter-rouge">verdict</code> variable. We then transform this table into a data frame to facilitate its use in <code class="language-plaintext highlighter-rouge">ggplot2</code>.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> A contingency table, or crosstab, presents the counts for the combination of two categorical variables.
+        
+        <a href="https://statisticsbyjim.com/basics/contingency-table/" target="_blank"> Read more here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-17-2">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">table_ver</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">df_prep</span><span class="o">$</span><span class="n">verdict</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-change-fonts-in-ggplot2-with-showtext">3. Change fonts in ggplot2 with showtext</h2>
+
+<p>The <a href="https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html">showtext package</a>, developed by Yixuan Qiu, greatly simplifies the use of various font types in R plots. In this lesson, we’ll focus on using <code class="language-plaintext highlighter-rouge">showtext</code> to access Google Fonts, though the package offers more than just that capability.</p>
+
+<p><br /></p>
+
+<p>After loading the library, you can select your desired Google Font using the <code class="language-plaintext highlighter-rouge">font_add_google</code> function. The <code class="language-plaintext highlighter-rouge">showtext_auto</code> command then instructs R to employ <code class="language-plaintext highlighter-rouge">showtext</code> for text rendering. That’s it — next, simply specify your chosen font in the ggplot2 theme, as demonstrated in the code below. Since our <code class="language-plaintext highlighter-rouge">table_ver</code> data is already aggregated, we need to set stat = “identity” in the geom_bar layer. It’s important to note the use of <code class="language-plaintext highlighter-rouge">reorder</code> to arrange the bars from largest to smallest frequency. The figures illustrate the resulting plots, first with the ‘Montserrat’ font followed by the ‘Dancing Script’ font.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-17-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">font_add_google</span><span class="p">(</span><span class="s2">"Montserrat"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">showtext_auto</span><span class="p">()</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">table_ver</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">Var1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">Freq</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Freq</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Jury's Veredicts"</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Verdict"</span><span class="p">,</span><span class="w">
+       </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Westminster Coroners' Inquests 1760-1799"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="o">=</span><span class="s2">"Montserrat"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_17_01.png" alt="Bar plot showing verdicts using the Montserrat font" /></p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Even though I use "Dancing Script" (handwriting) in the plot below, it is generally recommended to use sans-serif fonts to plot your data. It makes your text more readable. In this tutorial I used "Dancing Script" to show you the options offered by Google Fonts. Lisa Charlotte Muth gives relevant advice on the use of fonts in plots in
+        
+        <a href="https://blog.datawrapper.de/fonts-for-data-visualization/" target="_blank"> this article.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_17_02.png" alt="Bar plot showing verdicts using the Dancing Script font" /></p>
+
+<p><br /></p>
+
+<p>The plot above suggests a relatively low number of homicides in these inquests. One could investigate, if indeed the number is so low or if maybe the inquest’s documentation suggest the possibility of homicides being wrongly classified as accidental.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-a-shiny-app-to-choose-your-google-font">4. A shiny app to choose your Google Font</h2>
+
+<p>To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.</p>
+
+<p><br /></p>
+
+<iframe height="700px" width="100%" frameborder="no" scrolling="no" src="https://ggfontpicker-a2d2cb056f0a.herokuapp.com/"> </iframe>
+
+<p><br /></p>
+
+<p>In a future lesson I will explain how to code a Shiny App applied to digital humanities. Meanwhile, feel free to consult my <a href="https://github.com/bruno-ponne/ggFontPicker">code here</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-checking-the-causes-of-death">5. Checking the causes of death</h2>
+
+<p>In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?</p>
+
+<p><br /></p>
+
+<p>The variable <code class="language-plaintext highlighter-rouge">cause_of_death</code> tells us more details of the circumstances in which the person in each inquest died. To visualize the most frequent causes of death, we will start by elimintating <code class="language-plaintext highlighter-rouge">NA</code> observations in this variable. We can do that with <code class="language-plaintext highlighter-rouge">filter(!is.na())</code>, which filters only values that are not <code class="language-plaintext highlighter-rouge">NA</code>. Following that command, we group observations by <code class="language-plaintext highlighter-rouge">cause_of_death</code> and count the frequency of each cause with <code class="language-plaintext highlighter-rouge">tally</code>.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> tally() is equivalent to dplyr summarise(n = n()).
+        
+        <a href="https://dplyr.tidyverse.org/reference/count.html" target="_blank"> Read more here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>The last step is to filter only causes of death that occurred more than 15 times in our dataset. Please, decrease this number if you would like to see more causes. Finally, we can use the same ggplot2 code to plot the causes of death. Since the texts representing the causes of death are longer than the verdicts, we will plot the them in the y axis and the frequency in the x axis. The remaining code remains very similar.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-17-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cause</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df_prep</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">tally</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="m">15</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">font_add_google</span><span class="p">(</span><span class="s2">"Montserrat"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">showtext_auto</span><span class="p">()</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">cause</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">),</span><span class="w"> 
+           </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Causes of death"</span><span class="p">,</span><span class="w">
+       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">10</span><span class="p">,</span><span class="w"> 
+                          </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Montserrat"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_17_03.png" alt="Bar plot showing causes of death" /></p>
+
+<p><br /></p>
+
+<p>It’s noteworthy that a significant number of the inquests pertained to cases of drowning or suicide. An intriguing avenue for further research would be to delve into the complete reports of these inquests. Such an investigation could shed light on the reasons behind the high incidence of drownings.</p>
+
+<p><br /></p>
+
+<p><strong>Please, feel free to leave any questions or concerns you might have in the comments below.</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Using Google Fonts within ggplot2 not only transforms but significantly elevates the aesthetic appeal of our data visualizations;</li>
+  <li>Leveraging the showtext package simplifies incorporating diverse Google Fonts into R, enhancing our data representation capabilities;</li>
+  <li>Employing simple plots with historical data effectively generates insightful hypotheses, offering a deeper understanding of our past.;</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+
+    
+</div>
+
+
+<div class = "comments-style">
+    <script>function setText(elementId, textContent) {
+		document.getElementById(elementId).textContent = textContent;
+	};
+
+	function show(elementId) {
+		document.getElementById(elementId).style.display = 'inline';
+	};
+
+	function hide(elementId) {
+		document.getElementById(elementId).style.display = 'none';
+	};
+
+	function getValue(elementId) {
+		return document.getElementById(elementId).value;
+	};
+
+	function setValue(elementId, value) {
+		return document.getElementById(elementId).value = value;
+	};
+
+	function fadeIn(element) {
+		var duration = 400;
+		element.style.opacity = 0;
+		let opacity = 0;
+		const timer = setInterval(function() {
+		  opacity += 50 / duration;
+		  if (opacity >= 1) {
+		    clearInterval(timer);
+		    opacity = 1;
+		  }
+		  element.style.opacity = opacity;
+		}, 50);
+	};
+
+
+	function disableButtonWithLoader(elementId) {
+		var buttonToDisable = document.getElementById(elementId);
+		if (buttonToDisable == null) {
+			return;
+		}
+		buttonToDisable.disabled = true;
+		setText(elementId, "\xa0");
+	}
+
+	function disablePostCommentButton() {
+		disableButtonWithLoader("comment-submit");
+	};
+
+	function enablePostCommentButton() {
+		var postCommentButton = document.getElementById("comment-submit");
+		postCommentButton.disabled = false;
+		setText("comment-submit", "Post");
+	};async function initialCommentLoad() {
+		disableButtonWithLoader("load-comment-button");var loadJquery = document.createElement("script");
+		loadJquery.type = "text/javascript";
+		loadJquery.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js";
+		document.head.appendChild(loadJquery);var loadValidator = document.createElement("script");
+		loadValidator.src = "https://cdnjs.cloudflare.com/ajax/libs/validator/13.9.0/validator.min.js";
+		document.head.appendChild(loadValidator);await loadValidator.onload;loadJquery.onload = function() {async function checkJQuery() {
+				if (typeof jQuery === "undefined") {
+					return false;
+				} else {
+					clearTimeout(interval);var loadJqueryCsv = document.createElement("script");
+					loadJqueryCsv.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js";
+					document.head.appendChild(loadJqueryCsv);await loadJqueryCsv.onload;reloadComments();
+				}
+			};var interval = setInterval(checkJQuery, 250);
+		};};
+
+	var thisPageUrl = "/2023/11/15/Change-Fonts-in-ggplot.html";
+	const EXTRA_INFO_START = "chunkedCommentInfoStart";
+	const EXTRA_INFO_END = "chunkedCommentInfoEnd";var visibleComments = [];
+	var hiddenComments = [];
+	var netNewComments = [];function formatDate(stringDate) {
+		var date = new Date(stringDate);
+		var dateOptions = { year: 'numeric', month: 'long', day: 'numeric'};
+		var timeOptions = { hour: 'numeric', minute: 'numeric' };
+		return `${date.toLocaleDateString("en-us", dateOptions)} at ${date.toLocaleTimeString("en-us", timeOptions)}`;
+	};async function displayComments(comments) {
+		show("comments-and-input");
+		hide("load-comments");
+		var hasVisibleComments = visibleComments.length > 0;if (comments == null || comments === "" || comments == []) {
+			if (!hasVisibleComments) {
+				show("no-comments");
+				hide("load-more-comments");
+				hide("num-comments-displayed");
+			}
+			return;
+		}comments = `timestamp,name,comment,isAuthor\n${comments}`;
+		var newHiddenComments = $.csv.toObjects(comments).sort((a, b) => (new Date(a.timestamp).getTime() || 0) - (new Date(b.timestamp).getTime() || 0))
+			.map(item => JSON.stringify(item));if (hasVisibleComments) {
+			netNewComments = newHiddenComments
+				.filter(item => !visibleComments.includes(item))
+				.filter(item => !hiddenComments.includes(item));
+		}
+
+		hiddenComments = newHiddenComments
+			.filter(item => !visibleComments.includes(item))
+			.filter(item => !netNewComments.includes(item));
+
+		loadMoreComments(false || !hasVisibleComments);
+	};function loadMoreComments(isLoadMoreAction) {var newCommentsToDisplay = hiddenComments.slice(-5);if (isLoadMoreAction) {newCommentsToDisplay.reverse().forEach(element => displaySingleComment(element, true));
+			hiddenComments = hiddenComments.filter(item => !newCommentsToDisplay.includes(item) && !visibleComments.includes(item));
+		} else {netNewComments.forEach(element => displaySingleComment(element, false));
+			netNewComments = []
+		}
+
+		setText("num-comments-displayed", `Showing ${visibleComments.length} of ${visibleComments.length + hiddenComments.length} comments`);
+
+		if (hiddenComments.length == 0) {
+			hide("load-more-comments");
+		} else {
+			show("load-more-comments");
+		}
+	};function getCommentInfo(comment) {
+		var extraCommentInfo = comment?.match(EXTRA_INFO_START + ".+" + EXTRA_INFO_END);
+		return {
+			text : comment?.replace(extraCommentInfo, ""),
+			extraCommentInfo : JSON.parse(extraCommentInfo?.toString()?.replace(EXTRA_INFO_START, "")?.replace(EXTRA_INFO_END, "") ?? "{}")
+		};
+	};
+
+	function displaySingleComment(element, isPrepend) {if (visibleComments.includes(element)) {
+			return;
+		}
+
+		var jsonElement = JSON.parse(element);
+		var comment = getCommentInfo(jsonElement.comment?.toString());var verifiedAuthorTag = "";
+		if (jsonElement.isAuthor == true || jsonElement.isAuthor === "TRUE") {
+			verifiedAuthorTag = "&nbsp;<strong>(Author)</strong>";
+		}var newItem = document.createElement("div");
+		newItem.classList.add("comment-item");newItem.innerHTML = `
+			<p class="commenter-name">${validator.escape(jsonElement.name.toString())}${verifiedAuthorTag}
+				<small>${formatDate(jsonElement.timestamp)}</small>
+			</p>
+			<div><p>${validator.escape(comment?.text?.toString()).replace(new RegExp('\r?\n','g'), '<br />')}</p>
+			</div>
+		`.trim();
+		if (isPrepend) {
+			document.getElementById("comment-container").prepend(newItem);
+		} else {
+			document.getElementById("comment-container").append(newItem);
+		}
+		fadeIn(newItem);
+		visibleComments.push(element);hide("no-comments");
+		show("num-comments-displayed");
+	};function reloadComments() {var sqlStatement = encodeURIComponent(`SELECT A, C, D, E WHERE B = '${thisPageUrl}'`);
+		fetch(`https://docs.google.com/spreadsheets/d/1RiK_RAn062s6AjFH00JIWGo19h4BnHns-WbLzoK2S0I/gviz/tq?tqx=out:csv&sheet=comments&tq=${sqlStatement}&headers=0`)
+		.then(response => response.text())
+		.then(response => displayComments(response));
+	};const encodeFormData = (data) => {
+	    return Object.keys(data)
+	        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+	        .join('&');
+	};function getCommentContent() {
+		var comment = getValue("comment-comment")?.toString();
+
+		var extraCommentInfo = {};if (Object.keys(extraCommentInfo).length !== 0) {
+			comment = EXTRA_INFO_START + JSON.stringify(extraCommentInfo) + EXTRA_INFO_END + comment;
+		}
+
+		return comment;
+	};function postComment(recaptchaToken) {
+		disablePostCommentButton();
+		var username = getValue("comment-name");
+		var comment = getCommentContent();
+
+		fetch(`https://docs.google.com/forms/d/e/1FAIpQLSdHJGUw54uOd945wKEEhQtbSfWKCR9atiu30u044gaduhSgvw/formResponse`, {
+		  method: 'POST',
+		  mode: 'no-cors',
+		  headers: {
+		    "Content-Type": "application/x-www-form-urlencoded"
+		  },
+		  body: encodeFormData({
+		  	"entry.1627158409" : thisPageUrl?.toString(),
+		  	"entry.1988119021" : username?.toString(),
+		  	"entry.1039248696" : comment?.toString()
+		  })
+		}).then(response => {
+			setValue("comment-name", '');
+			setValue("comment-comment", '');reloadComments();
+		})
+		.catch(error => {console.log(error);})
+		.finally(() => { enablePostCommentButton(); });
+
+		return false;
+	};initialCommentLoad();</script><h2 class="post-subtitle">Comments</h2>
+<div id="load-comments" class="comments">
+	<button id="load-comment-button" class="comment-button" onclick="initialCommentLoad()">Load Comments</button>
+</div>
+<div id="comments-and-input">
+	<div id="comment-section" class="comments">
+		<p id="num-comments-displayed"></p>
+		<button id="load-more-comments" class="comment-button" onclick="loadMoreComments(true)" type="button">Load Older Comments</button>
+		<div id="no-comments" class="comment-info-text">
+			<p>There are currently no comments on this article, be the first to add one below</p>
+		</div>
+		<div id="comment-container"></div>
+	</div>
+	<h2 class="post-subtitle">Add a Comment</h2>
+	<div class="comments">
+		<div class="comment-info-text">
+			<p>If you are looking for a response to your comment, either leave your email address or check back on this page periodically.</p></div>	
+		<div class="comments-form"><form onsubmit="return postComment()" id="comment-form" autocomplete="off"><ul>
+					<li>
+						<input id="comment-name" name="username" type="text" placeholder="Name" required="" value=""></li>
+					<li><textarea id="comment-comment" name="comment" placeholder="Comment" required=""></textarea></li>
+					<li><button id="comment-submit" type="submit" class="comment-button">Post</button></li>
+				</ul><p>
+			</form>
+		</div>
+	</div>
+</div><style>
+	.comment-item {
+		position: relative;
+		padding: 2%;
+		background: white;
+		width: 95%;
+		margin-bottom: 4%;
+		box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+		color: #2E3031;
+	}
+	
+	.comment-item:after {
+		content: "";
+		position: relative;
+		display: block;
+		clear: both;
+	}
+	
+	.comment-item p {
+		line-height: 1.6;
+	}
+	
+	.comment-item small {
+		padding-left: 0.7em;
+		color: #999;
+		font-size: 0.8em;
+	}
+	
+	.commenter-name {
+		color: #367588;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: 700;
+	}
+	
+	.commenter-name strong {
+		color: #e91e63;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: 700;
+	}#comment-reply-info p {
+		margin: 0;
+	}
+	
+	.comments-form {
+		width: 95%;
+
+
+	}
+	
+	.comments-form ul {
+		list-style: none;
+	}
+	
+	.comments-form ul li {
+		margin-bottom: 15px;
+	}
+	
+	.comments {
+		border-top: 2px solid rgba(206, 202, 202, 0.2);
+		padding-top: 1rem;
+		position: relative;
+	}
+	
+	.comment-button {
+		border: 0;
+		background: #C84848;
+		cursor: pointer;
+		color: #fff;
+		font-weight: bold;
+		font-size: 0.9em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+		outline-style: none;
+		padding: 10px 20px;
+		width: auto;
+		min-width: 25%;
+	}
+	
+	#comment-submit {
+		width: auto;
+		min-width: 25%;
+		position: relative;
+	}
+	
+	.comment-button:disabled::after,
+	.comment-button[disabled]::after {
+		content: "";
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		border: 4px solid transparent;
+		border-top-color: #ffffff;
+		-webkit-animation: button-loading-spinner 1s ease infinite;
+		animation: button-loading-spinner 1s ease infinite;
+	}
+	
+	@keyframes button-loading-spinner {
+		from {
+			transform: rotate(0turn);
+		}
+	
+		to {
+			transform: rotate(1turn);
+		}
+	}
+	
+	@-webkit-keyframes button-loading-spinner {
+		from {
+			transform: rotate(0turn);
+		}
+	
+		to {
+			transform: rotate(1turn);
+		}
+	}
+	
+	#load-more-comments {
+
+	}
+	
+	#load-more-comments,
+	#num-comments-displayed {
+		display: none;
+	}
+	
+	#comment-name,
+	#comment-comment {
+		width: 50%;
+		padding: 10px;
+		border: 0;
+		background: #f7f7f7;
+		color: #2E3031;
+	}
+	
+
+	
+	#comment-name:focus,
+	#comment-comment:focus {
+		background: #fff;
+	}
+	
+	#comment-comment {
+		width: 100%;
+		height: 80px;
+		resize: vertical;
+		min-height: 80px;
+	}.comment-info-text {
+		letter-spacing: 0.5px;
+	}
+	
+	.comment-info-text p {
+		margin: 0 0 1rem;
+		text-align: justify;
+		font-size: .9em;
+	}
+	
+	#comment-container {
+		width: 100%;
+	}
+	
+	#comment-section, #load-comments {
+
+	}
+
+#comment-name::-webkit-input-placeholder,
+#comment-comment::-webkit-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::-moz-placeholder,
+#comment-comment::-moz-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name:-ms-input-placeholder,
+#comment-comment:-ms-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::-ms-input-placeholder,
+#comment-comment::-ms-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::placeholder,
+#comment-comment::placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name:focus,
+#comment-comment:focus {
+	background: #fff;
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}#load-comments {
+		display: none;
+	}</style>
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_17.jpeg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            <h3><b>Additional resources</b></h3>
+            <a href="https://programminghistorian.org/">Programming Historian</a>
+            <a href="https://rweekly.org/">R Weekly</a>
+            <a href="https://www.r-bloggers.com/">R Bloggers</a>
+            <a href="https://python-bloggers.com/">Python Bloggers</a>
+        </div>
+        <br>
+        <div class = "policy-box">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms-of-use.html">Terms of Use</a>
+            <div class="license">
+                <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+                    <a property="dct:title" rel="cc:attributionURL" href="https://www.codingthepast.com/">Coding the
+                        Past</a>
+                    by
+                    <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                        href="https://brunoponne.com/">Bruno Ponne
+                    </a> is licensed under
+                    <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank"
+                        rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
+                    </a>
+                </p>
+            </div>
+           <br>
+        </div>
+    </div>
+</footer>
+    </div>
+</body>
+<script src="/assets/js/filter.js"></script>
+<script src="/assets/js/copycode.js"></script>
+<script src="/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+</html>

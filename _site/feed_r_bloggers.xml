@@ -5,9 +5,321 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 03 Nov 2023 13:19:27 -0300</pubDate>
-        <lastBuildDate>Fri, 03 Nov 2023 13:19:27 -0300</lastBuildDate>
+        <pubDate>Wed, 15 Nov 2023 12:56:49 -0300</pubDate>
+        <lastBuildDate>Wed, 15 Nov 2023 12:56:49 -0300</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>How to Change Fonts in ggplot2 with Google Fonts</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;discovering-18th-century-london-with-new-fonts&quot;&gt;Discovering 18th century London with new fonts&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Greetings, humanists, social and data scientists!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this lesson, we delve into the world of data visualization with a focus on the use of different fonts in ggplot2. We are going to learn how to take advantage of Google Fonts to enrich our plots. Our journey takes us back in time, exploring a dataset derived from the “London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis” project. This dataset provides a window into the socio-economic and health conditions of 18th-century.&lt;/p&gt;
+
+&lt;div class=&quot;text-note&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; Google fonts are open source and without cost.
+        
+        &lt;a href=&quot;https://developers.google.com/fonts/faq?hl=en&quot; target=&quot;_blank&quot;&gt; Read more here.&lt;/a&gt;
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;data-source&quot;&gt;Data source&lt;/h1&gt;
+
+&lt;p&gt;The data used in this tutorial consists of a catalogue of historical documents organized by &lt;a href=&quot;https://sharonhoward.org/index.html&quot;&gt;Sharon Howard&lt;/a&gt;. These documents detail an extensive range of Westminster inquests conducted between 1760 and 1799. They document investigations into deaths under circumstances that were sudden, unexplained, or suspicious.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The data is derived from a larger project, &lt;a href=&quot;https://www.londonlives.org/&quot;&gt;London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis&lt;/a&gt;, a rich resource shedding light on the lives of ordinary Londoners during this era. &lt;a href=&quot;https://github.com/sharonhoward/ll-coroners&quot;&gt;The dataset&lt;/a&gt; we explore comprises 2,894 inquest records, each containing detailed information such as the dates of the inquests, names of the deceased, the verdicts rendered, and the causes of death. Sharon Howard’s contribution in organizing these records offers an invaluable opportunity to study the social and legal intricacies of historic London.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-how-to-load-a-tsv-file-in-r&quot;&gt;1. How to load a tsv file in R?&lt;/h2&gt;
+
+&lt;p&gt;TSV stands for ‘Tab-Separated Values,’ a textual format used to store tabular data. In this lesson, &lt;a href=&quot;https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv&quot;&gt;our data&lt;/a&gt; is stored in TSV format. To load it, we use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_tsv&lt;/code&gt; function from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readr&lt;/code&gt; package. After loading the data, we need to eliminate observations where the verdict is undefined.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Furthermore, the original data categorizes three types of suicide: ‘suicide (delirious)’, ‘suicide (felo de se)’, and ‘suicide (insane)’. However, for our purposes, we will classify all these as simply ‘suicide’. The code below execute these steps. Note that we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;filter&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutate&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recode&lt;/code&gt; from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dplyr&lt;/code&gt; package. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recode&lt;/code&gt; function takes as argument the column to be recoded and each value associated with its new content. The packages needed for this lesson are called at the beginning of the code. Please install them with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;install.packages()&lt;/code&gt; in case you don’t have them.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-17-1&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-17-1&quot;&gt;
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;showtext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_tsv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;wa_coroners_inquests_v1-1.tsv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_prep&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verdict&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mutate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verdict&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;suicide (delirious)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;suicide&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;suicide (felo de se)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;suicide&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;suicide (insane)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;suicide&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-using-the-table-function-to-summarize-a-categorical-variable&quot;&gt;2. Using the table function to summarize a categorical variable&lt;/h2&gt;
+
+&lt;p&gt;An efficient method for counting the number of each type of verdict in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verdict&lt;/code&gt; variable is to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table&lt;/code&gt; function. While this function is typically used to construct a contingency table for two variables, in this instance, it is utilized to tally the frequency of each category within the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verdict&lt;/code&gt; variable. We then transform this table into a data frame to facilitate its use in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;text-note&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; A contingency table, or crosstab, presents the counts for the combination of two categorical variables.
+        
+        &lt;a href=&quot;https://statisticsbyjim.com/basics/contingency-table/&quot; target=&quot;_blank&quot;&gt; Read more here.&lt;/a&gt;
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-17-2&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-17-2&quot;&gt;
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;table_ver&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_prep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-change-fonts-in-ggplot2-with-showtext&quot;&gt;3. Change fonts in ggplot2 with showtext&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html&quot;&gt;showtext package&lt;/a&gt;, developed by Yixuan Qiu, greatly simplifies the use of various font types in R plots. In this lesson, we’ll focus on using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;showtext&lt;/code&gt; to access Google Fonts, though the package offers more than just that capability.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;After loading the library, you can select your desired Google Font using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;font_add_google&lt;/code&gt; function. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;showtext_auto&lt;/code&gt; command then instructs R to employ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;showtext&lt;/code&gt; for text rendering. That’s it — next, simply specify your chosen font in the ggplot2 theme, as demonstrated in the code below. Since our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table_ver&lt;/code&gt; data is already aggregated, we need to set stat = “identity” in the geom_bar layer. It’s important to note the use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reorder&lt;/code&gt; to arrange the bars from largest to smallest frequency. The figures illustrate the resulting plots, first with the ‘Montserrat’ font followed by the ‘Dancing Script’ font.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-17-3&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-17-3&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;font_add_google&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Montserrat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;showtext_auto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table_ver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reorder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stat&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;identity&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;black&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;black&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Jury&apos;s Veredicts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+       &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Frequency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+       &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Verdict&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subtitle&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Westminster Coroners&apos; Inquests 1760-1799&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme_bw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;family&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Montserrat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_17_01.png&quot; alt=&quot;Bar plot showing verdicts using the Montserrat font&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;text-note&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; Even though I use &quot;Dancing Script&quot; (handwriting) in the plot below, it is generally recommended to use sans-serif fonts to plot your data. It makes your text more readable. In this tutorial I used &quot;Dancing Script&quot; to show you the options offered by Google Fonts. Lisa Charlotte Muth gives relevant advice on the use of fonts in plots in
+        
+        &lt;a href=&quot;https://blog.datawrapper.de/fonts-for-data-visualization/&quot; target=&quot;_blank&quot;&gt; this article.&lt;/a&gt;
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_17_02.png&quot; alt=&quot;Bar plot showing verdicts using the Dancing Script font&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The plot above suggests a relatively low number of homicides in these inquests. One could investigate, if indeed the number is so low or if maybe the inquest’s documentation suggest the possibility of homicides being wrongly classified as accidental.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-a-shiny-app-to-choose-your-google-font&quot;&gt;4. A shiny app to choose your Google Font&lt;/h2&gt;
+
+&lt;p&gt;To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;iframe height=&quot;700px&quot; width=&quot;100%&quot; frameborder=&quot;no&quot; scrolling=&quot;no&quot; src=&quot;https://ggfontpicker-a2d2cb056f0a.herokuapp.com/&quot;&gt; &lt;/iframe&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In a future lesson I will explain how to code a Shiny App applied to digital humanities. Meanwhile, feel free to consult my &lt;a href=&quot;https://github.com/bruno-ponne/ggFontPicker&quot;&gt;code here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-checking-the-causes-of-death&quot;&gt;5. Checking the causes of death&lt;/h2&gt;
+
+&lt;p&gt;In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cause_of_death&lt;/code&gt; tells us more details of the circumstances in which the person in each inquest died. To visualize the most frequent causes of death, we will start by elimintating &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NA&lt;/code&gt; observations in this variable. We can do that with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;filter(!is.na())&lt;/code&gt;, which filters only values that are not &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NA&lt;/code&gt;. Following that command, we group observations by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cause_of_death&lt;/code&gt; and count the frequency of each cause with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tally&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;text-note&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; tally() is equivalent to dplyr summarise(n = n()).
+        
+        &lt;a href=&quot;https://dplyr.tidyverse.org/reference/count.html&quot; target=&quot;_blank&quot;&gt; Read more here.&lt;/a&gt;
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The last step is to filter only causes of death that occurred more than 15 times in our dataset. Please, decrease this number if you would like to see more causes. Finally, we can use the same ggplot2 code to plot the causes of death. Since the texts representing the causes of death are longer than the verdicts, we will plot the them in the y axis and the frequency in the x axis. The remaining code remains very similar.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-17-4&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-17-4&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;cause&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_prep&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;is.na&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cause_of_death&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cause_of_death&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tally&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;font_add_google&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Montserrat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;showtext_auto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cause&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reorder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cause_of_death&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+           &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stat&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;identity&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;black&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;black&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;labs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Causes of death&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+       &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Frequency&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme_bw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+                          &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;family&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Montserrat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_17_03.png&quot; alt=&quot;Bar plot showing causes of death&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s noteworthy that a significant number of the inquests pertained to cases of drowning or suicide. An intriguing avenue for further research would be to delve into the complete reports of these inquests. Such an investigation could shed light on the reasons behind the high incidence of drownings.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please, feel free to leave any questions or concerns you might have in the comments below.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;Using Google Fonts within ggplot2 not only transforms but significantly elevates the aesthetic appeal of our data visualizations;&lt;/li&gt;
+  &lt;li&gt;Leveraging the showtext package simplifies incorporating diverse Google Fonts into R, enhancing our data representation capabilities;&lt;/li&gt;
+  &lt;li&gt;Employing simple plots with historical data effectively generates insightful hypotheses, offering a deeper understanding of our past.;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+                <pubDate>Wed, 15 Nov 2023 00:00:00 -0300</pubDate>
+                <link>http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html</guid>
+                
+                <category>r</category>
+                
+                <category>historicaldata</category>
+                
+                <category>ggplot2</category>
+                
+                
+            </item>
         
             <item>
                 <title>Harnessing AI in R and Python - Gather data with ChatGPT</title>
