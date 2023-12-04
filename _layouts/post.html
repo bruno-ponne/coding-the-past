@@ -11,14 +11,14 @@ layout: default
         {% endfor %}
     </ul>
     <br>
-    <h1>What you will learn</h1>
+    <p class = "pre-lesson">What you will learn</p>
     <ul>
         {% for item in page.objectives %}
         <li class = "objectives"> {{item.o}}</li>
         {% endfor %}
     </ul>
     <br>
-    <h1>Table of Contents</h1>
+    <p class = "pre-lesson">Table of Contents</p>
 
 
     {% include toc.html html=content class = "toc-entry" %}

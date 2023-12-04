@@ -70,7 +70,7 @@
         
     </ul>
     <br>
-    <h1>What you will learn</h1>
+    <p class = "pre-lesson">What you will learn</p>
     <ul>
         
         <li class = "objectives"> Be able to enhance your visualizations in R by integrating Google Fonts into ggplot2 graphs;</li>
@@ -81,16 +81,12 @@
         
     </ul>
     <br>
-    <h1>Table of Contents</h1>
+    <p class = "pre-lesson">Table of Contents</p>
 
 
-    <ul class="toc-entry"><li><a href="#discovering-18th-century-london-with-new-fonts">Discovering 18th century London with new fonts</a></li><li><a href="#data-source">Data source</a><ul><li><a href="#1-how-to-load-a-tsv-file-in-r">1. How to load a tsv file in R?</a></li><li><a href="#2-using-the-table-function-to-summarize-a-categorical-variable">2. Using the table function to summarize a categorical variable</a></li><li><a href="#3-change-fonts-in-ggplot2-with-showtext">3. Change fonts in ggplot2 with showtext</a></li><li><a href="#4-a-shiny-app-to-choose-your-google-font">4. A shiny app to choose your Google Font</a></li><li><a href="#5-checking-the-causes-of-death">5. Checking the causes of death</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#1-data-source">1. Data source</a></li><li><a href="#2-how-to-load-a-tsv-file-in-r">2. How to load a tsv file in R?</a></li><li><a href="#3-using-the-table-function-to-summarize-a-categorical-variable">3. Using the table function to summarize a categorical variable</a></li><li><a href="#4-change-fonts-in-ggplot2-with-showtext">4. Change fonts in ggplot2 with showtext</a></li><li><a href="#5-a-shiny-app-to-choose-your-google-font">5. A shiny app to choose your Google Font</a></li><li><a href="#6-checking-the-causes-of-death">6. Checking the causes of death</a></li><li><a href="#7-conclusions">7. Conclusions</a></li></ul>
 
     <p><br /></p>
-
-<h1 id="discovering-18th-century-london-with-new-fonts">Discovering 18th century London with new fonts</h1>
-
-<p><br /></p>
 
 <p><strong>Greetings, humanists, social and data scientists!</strong></p>
 
@@ -116,7 +112,7 @@
 
 <p><br /></p>
 
-<h1 id="data-source">Data source</h1>
+<h2 id="1-data-source">1. Data source</h2>
 
 <p>The data used in this tutorial consists of a catalogue of historical documents organized by <a href="https://sharonhoward.org/index.html">Sharon Howard</a>. These documents detail an extensive range of Westminster inquests conducted between 1760 and 1799. They document investigations into deaths under circumstances that were sudden, unexplained, or suspicious.</p>
 
@@ -130,7 +126,7 @@
 
 <p><br /></p>
 
-<h2 id="1-how-to-load-a-tsv-file-in-r">1. How to load a tsv file in R?</h2>
+<h2 id="2-how-to-load-a-tsv-file-in-r">2. How to load a tsv file in R?</h2>
 
 <p>TSV stands for ‘Tab-Separated Values,’ a textual format used to store tabular data. In this lesson, <a href="https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv">our data</a> is stored in TSV format. To load it, we use the <code class="language-plaintext highlighter-rouge">read_tsv</code> function from the <code class="language-plaintext highlighter-rouge">readr</code> package. After loading the data, we need to eliminate observations where the verdict is undefined.</p>
 
@@ -170,7 +166,7 @@
 
 <p><br /></p>
 
-<h2 id="2-using-the-table-function-to-summarize-a-categorical-variable">2. Using the table function to summarize a categorical variable</h2>
+<h2 id="3-using-the-table-function-to-summarize-a-categorical-variable">3. Using the table function to summarize a categorical variable</h2>
 
 <p>An efficient method for counting the number of each type of verdict in the <code class="language-plaintext highlighter-rouge">verdict</code> variable is to use the <code class="language-plaintext highlighter-rouge">table</code> function. While this function is typically used to construct a contingency table for two variables, in this instance, it is utilized to tally the frequency of each category within the <code class="language-plaintext highlighter-rouge">verdict</code> variable. We then transform this table into a data frame to facilitate its use in <code class="language-plaintext highlighter-rouge">ggplot2</code>.</p>
 
@@ -209,7 +205,7 @@
 
 <p><br /></p>
 
-<h2 id="3-change-fonts-in-ggplot2-with-showtext">3. Change fonts in ggplot2 with showtext</h2>
+<h2 id="4-change-fonts-in-ggplot2-with-showtext">4. Change fonts in ggplot2 with showtext</h2>
 
 <p>The <a href="https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html">showtext package</a>, developed by Yixuan Qiu, greatly simplifies the use of various font types in R plots. In this lesson, we’ll focus on using <code class="language-plaintext highlighter-rouge">showtext</code> to access Google Fonts, though the package offers more than just that capability.</p>
 
@@ -273,7 +269,7 @@
 
 <p><br /></p>
 
-<h2 id="4-a-shiny-app-to-choose-your-google-font">4. A shiny app to choose your Google Font</h2>
+<h2 id="5-a-shiny-app-to-choose-your-google-font">5. A shiny app to choose your Google Font</h2>
 
 <p>To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.</p>
 
@@ -291,7 +287,7 @@
 
 <p><br /></p>
 
-<h2 id="5-checking-the-causes-of-death">5. Checking the causes of death</h2>
+<h2 id="6-checking-the-causes-of-death">6. Checking the causes of death</h2>
 
 <p>In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?</p>
 
@@ -367,7 +363,7 @@
 
 <p><br /></p>
 
-<h1 id="conclusions">Conclusions</h1>
+<h2 id="7-conclusions">7. Conclusions</h2>
 
 <p><br /></p>
 

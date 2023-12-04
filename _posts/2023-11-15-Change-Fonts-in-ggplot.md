@@ -15,12 +15,8 @@ objectives:
   - o: Raise historical hypotheses taking into consideration the plots developed.
 keywords: R, fonts, Google Fonts, ggplot2
 description: Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.
-last_modified_at: 15-Nov-23
+last_modified_at: 04-Dec-23
 ---
-
-<br>
-
-# Discovering 18th century London with new fonts
 
 <br>
 
@@ -41,7 +37,7 @@ In this lesson, we delve into the world of data visualization with a focus on th
  
 <br>
 
-# Data source
+## 1. Data source
 
 The data used in this tutorial consists of a catalogue of historical documents organized by [Sharon Howard](https://sharonhoward.org/index.html). These documents detail an extensive range of Westminster inquests conducted between 1760 and 1799. They document investigations into deaths under circumstances that were sudden, unexplained, or suspicious. 
 
@@ -57,7 +53,7 @@ The data is derived from a larger project, [London Lives 1690-1800: Crime, Pover
 
 <br>
 
-## 1. How to load a tsv file in R?
+## 2. How to load a tsv file in R?
 
 TSV stands for 'Tab-Separated Values,' a textual format used to store tabular data. In this lesson, [our data](https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv) is stored in TSV format. To load it, we use the `read_tsv` function from the `readr` package. After loading the data, we need to eliminate observations where the verdict is undefined.
 
@@ -99,7 +95,7 @@ df_prep <- df %>%
 
 <br>
 
-## 2. Using the table function to summarize a categorical variable
+## 3. Using the table function to summarize a categorical variable
 
 An efficient method for counting the number of each type of verdict in the `verdict` variable is to use the `table` function. While this function is typically used to construct a contingency table for two variables, in this instance, it is utilized to tally the frequency of each category within the `verdict` variable. We then transform this table into a data frame to facilitate its use in `ggplot2`.
 
@@ -131,7 +127,7 @@ table_ver <- data.frame(table(df_prep$verdict))
 <br>
 
 
-## 3. Change fonts in ggplot2 with showtext
+## 4. Change fonts in ggplot2 with showtext
 
 The [showtext package](https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html), developed by Yixuan Qiu, greatly simplifies the use of various font types in R plots. In this lesson, we'll focus on using `showtext` to access Google Fonts, though the package offers more than just that capability.
 
@@ -189,7 +185,7 @@ The plot above suggests a relatively low number of homicides in these inquests. 
 
 
 
-## 4. A shiny app to choose your Google Font
+## 5. A shiny app to choose your Google Font
 
 To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.
 
@@ -207,7 +203,7 @@ In a future lesson I will explain how to code a Shiny App applied to digital hum
 
 <br>
 
-## 5. Checking the causes of death
+## 6. Checking the causes of death
 
 In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?
 
@@ -275,7 +271,7 @@ It's noteworthy that a significant number of the inquests pertained to cases of 
 
 <br>
 
-# Conclusions
+## 7. Conclusions
 
 <br>
 
