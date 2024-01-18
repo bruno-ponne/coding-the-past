@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-12-04T12:32:06-03:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Chi-square distribution and test in R</title><link href="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html" rel="alternate" type="text/html" title="Chi-square distribution and test in R" /><published>2023-12-04T00:00:00-03:00</published><updated>2023-12-04T00:00:00-03:00</updated><id>http://localhost:4000/2023/12/04/Chi-square-distribution-in-R</id><content type="html" xml:base="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-01-18T15:44:50+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Chi-square distribution and test in R</title><link href="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html" rel="alternate" type="text/html" title="Chi-square distribution and test in R" /><published>2023-12-04T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><id>http://localhost:4000/2023/12/04/Chi-square-distribution-in-R</id><content type="html" xml:base="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html"><![CDATA[<p><br /></p>
 
 <p><strong>Greetings, humanists, social and data scientists!</strong></p>
 
@@ -326,7 +326,7 @@
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn about the chi-square distribution in R, understand degrees of freedom through practical examples, and master hypothesis testing in historical contexts. Perfect for enthusiasts at the intersection of data science and history. Dive into statistical analysis and uncover patterns from 18th-century London inquests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_18.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_18.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Change Fonts in ggplot2 with Google Fonts</title><link href="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html" rel="alternate" type="text/html" title="How to Change Fonts in ggplot2 with Google Fonts" /><published>2023-11-15T00:00:00-03:00</published><updated>2023-12-04T00:00:00-03:00</updated><id>http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot</id><content type="html" xml:base="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn about the chi-square distribution in R, understand degrees of freedom through practical examples, and master hypothesis testing in historical contexts. Perfect for enthusiasts at the intersection of data science and history. Dive into statistical analysis and uncover patterns from 18th-century London inquests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_18.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_18.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Change Fonts in ggplot2 with Google Fonts</title><link href="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html" rel="alternate" type="text/html" title="How to Change Fonts in ggplot2 with Google Fonts" /><published>2023-11-15T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><id>http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot</id><content type="html" xml:base="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html"><![CDATA[<p><br /></p>
 
 <p><strong>Greetings, humanists, social and data scientists!</strong></p>
 
@@ -615,7 +615,7 @@
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ggplot2" /><summary type="html"><![CDATA[Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_17.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_17.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Harnessing AI in R and Python - Gather data with ChatGPT</title><link href="http://localhost:4000/2023/11/01/AI-in-R.html" rel="alternate" type="text/html" title="Harnessing AI in R and Python - Gather data with ChatGPT" /><published>2023-11-01T00:00:00-03:00</published><updated>2023-11-01T00:00:00-03:00</updated><id>http://localhost:4000/2023/11/01/AI-in-R</id><content type="html" xml:base="http://localhost:4000/2023/11/01/AI-in-R.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ggplot2" /><summary type="html"><![CDATA[Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_17.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_17.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Harnessing AI in R and Python - Gather data with ChatGPT</title><link href="http://localhost:4000/2023/11/01/AI-in-R.html" rel="alternate" type="text/html" title="Harnessing AI in R and Python - Gather data with ChatGPT" /><published>2023-11-01T00:00:00+01:00</published><updated>2023-11-01T00:00:00+01:00</updated><id>http://localhost:4000/2023/11/01/AI-in-R</id><content type="html" xml:base="http://localhost:4000/2023/11/01/AI-in-R.html"><![CDATA[<p><br /></p>
 
 <h1 id="ai-in-r-and-python">AI in R and Python</h1>
 
@@ -875,11 +875,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ai" /><category term="python" /><summary type="html"><![CDATA[Unlock the potential of AI in R and Python with this comprehensive tutorial on using ChatGPT for data analysis. Learn how to extract historical data from Wikipedia and transform it into organized R and Pandas dataframes. Plus, discover best practices for crafting ChatGPT prompts!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_16.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_16.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to use R in Google Colab?</title><link href="http://localhost:4000/2023/10/03/R-in-GoogleColab.html" rel="alternate" type="text/html" title="How to use R in Google Colab?" /><published>2023-10-03T00:00:00-03:00</published><updated>2023-12-03T00:00:00-03:00</updated><id>http://localhost:4000/2023/10/03/R-in-GoogleColab</id><content type="html" xml:base="http://localhost:4000/2023/10/03/R-in-GoogleColab.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ai" /><category term="python" /><summary type="html"><![CDATA[Unlock the potential of AI in R and Python with this comprehensive tutorial on using ChatGPT for data analysis. Learn how to extract historical data from Wikipedia and transform it into organized R and Pandas dataframes. Plus, discover best practices for crafting ChatGPT prompts!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_16.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_16.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to use R in Google Colab?</title><link href="http://localhost:4000/2023/10/03/R-in-GoogleColab.html" rel="alternate" type="text/html" title="How to use R in Google Colab?" /><published>2023-10-03T00:00:00+02:00</published><updated>2024-01-18T00:00:00+01:00</updated><id>http://localhost:4000/2023/10/03/R-in-GoogleColab</id><content type="html" xml:base="http://localhost:4000/2023/10/03/R-in-GoogleColab.html"><![CDATA[<p><br /></p>
 
 <p><strong>Greetings, humanists, social and data scientists!</strong></p>
 
@@ -905,7 +901,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<h1 id="data-source">Data source</h1>
+<h2 id="1-data-source">1. Data source</h2>
 
 <p>The data used in this tutorial comes from the <code class="language-plaintext highlighter-rouge">babynames</code> package. It contains a dataset with baby names registered between 1880 and 2017 in the United States. For further details, please explore the documentation of the package <a href="https://cran.r-project.org/web/packages/babynames/index.html">here</a>.</p>
 
@@ -915,13 +911,9 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<h1 id="coding-the-past-how-to-use-r-in-google-colab">Coding the past: How to use R in Google Colab?</h1>
+<h2 id="2-set-the-right-runtime">2. Set the right runtime</h2>
 
-<p><br /></p>
-
-<h2 id="1-set-the-right-runtime">1. Set the right runtime</h2>
-
-<p>It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from <code class="language-plaintext highlighter-rouge">Python 3</code> to <code class="language-plaintext highlighter-rouge">R</code>. Check the figure below.</p>
+<p>It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from <code class="language-plaintext highlighter-rouge">Python 3</code> to <code class="language-plaintext highlighter-rouge">R</code>. In the menu <em>Runtime</em>, choose the option <em>Change Runtime Type</em>, as shown in the figure below. That’s all!</p>
 
 <p><br /></p>
 
@@ -943,7 +935,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<h2 id="2-example-using-r-in-google-colab">2. Example: using R in Google Colab</h2>
+<h2 id="3-example-using-r-in-google-colab">3. Example: using R in Google Colab</h2>
 
 <p>Below you find the code used in the video tutorial. Feel free to copy, test and change it!</p>
 
@@ -995,7 +987,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<h1 id="conclusions">Conclusions</h1>
+<h2 id="4-conclusions">4. Conclusions</h2>
 
 <p><br /></p>
 
@@ -1007,7 +999,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_15.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_15.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mapping the Past - Geospatial Visualization in R</title><link href="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html" rel="alternate" type="text/html" title="Mapping the Past - Geospatial Visualization in R" /><published>2023-09-06T00:00:00-03:00</published><updated>2023-09-05T00:00:00-03:00</updated><id>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization</id><content type="html" xml:base="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_15.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_15.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mapping the Past - Geospatial Visualization in R</title><link href="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html" rel="alternate" type="text/html" title="Mapping the Past - Geospatial Visualization in R" /><published>2023-09-06T00:00:00+02:00</published><updated>2023-09-05T00:00:00+02:00</updated><id>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization</id><content type="html" xml:base="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -1273,7 +1265,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00-03:00</published><updated>2023-08-16T00:00:00-03:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00+02:00</published><updated>2023-08-16T00:00:00+02:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -1616,7 +1608,7 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Use R to analyze the relationship between two variables. Learn how to create linear models with R.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">When Numbers Meet Stories - an introduction to the synthetic control method in R</title><link href="http://localhost:4000/2023/07/21/Synthetic-Control.html" rel="alternate" type="text/html" title="When Numbers Meet Stories - an introduction to the synthetic control method in R" /><published>2023-07-21T00:00:00-03:00</published><updated>2023-07-21T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/21/Synthetic-Control</id><content type="html" xml:base="http://localhost:4000/2023/07/21/Synthetic-Control.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Use R to analyze the relationship between two variables. Learn how to create linear models with R.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">When Numbers Meet Stories - an introduction to the synthetic control method in R</title><link href="http://localhost:4000/2023/07/21/Synthetic-Control.html" rel="alternate" type="text/html" title="When Numbers Meet Stories - an introduction to the synthetic control method in R" /><published>2023-07-21T00:00:00+02:00</published><updated>2023-07-21T00:00:00+02:00</updated><id>http://localhost:4000/2023/07/21/Synthetic-Control</id><content type="html" xml:base="http://localhost:4000/2023/07/21/Synthetic-Control.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -1948,7 +1940,7 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="historicaldata" /><summary type="html"><![CDATA[Use the synth package to estimate synthetic control models, a powerful causal inference tool. Explore its strengths, limitations and main applications.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_12.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_12.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Uncovering History with R - A Look at the HistData Package</title><link href="http://localhost:4000/2023/07/12/HistData.html" rel="alternate" type="text/html" title="Uncovering History with R - A Look at the HistData Package" /><published>2023-07-12T00:00:00-03:00</published><updated>2023-09-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/07/12/HistData</id><content type="html" xml:base="http://localhost:4000/2023/07/12/HistData.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="historicaldata" /><summary type="html"><![CDATA[Use the synth package to estimate synthetic control models, a powerful causal inference tool. Explore its strengths, limitations and main applications.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_12.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_12.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Uncovering History with R - A Look at the HistData Package</title><link href="http://localhost:4000/2023/07/12/HistData.html" rel="alternate" type="text/html" title="Uncovering History with R - A Look at the HistData Package" /><published>2023-07-12T00:00:00+02:00</published><updated>2023-09-02T00:00:00+02:00</updated><id>http://localhost:4000/2023/07/12/HistData</id><content type="html" xml:base="http://localhost:4000/2023/07/12/HistData.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -2405,7 +2397,7 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Explore the world of historical data analysis using R's powerful package - HistData. This package contains a collection of more than 30 datasets for your research.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_11.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_11.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Checking normality in R</title><link href="http://localhost:4000/2023/06/01/Normal-Distribution.html" rel="alternate" type="text/html" title="Checking normality in R" /><published>2023-06-01T00:00:00-03:00</published><updated>2023-09-02T00:00:00-03:00</updated><id>http://localhost:4000/2023/06/01/Normal-Distribution</id><content type="html" xml:base="http://localhost:4000/2023/06/01/Normal-Distribution.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Explore the world of historical data analysis using R's powerful package - HistData. This package contains a collection of more than 30 datasets for your research.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_11.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_11.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Checking normality in R</title><link href="http://localhost:4000/2023/06/01/Normal-Distribution.html" rel="alternate" type="text/html" title="Checking normality in R" /><published>2023-06-01T00:00:00+02:00</published><updated>2023-09-02T00:00:00+02:00</updated><id>http://localhost:4000/2023/06/01/Normal-Distribution</id><content type="html" xml:base="http://localhost:4000/2023/06/01/Normal-Distribution.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -2924,7 +2916,7 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Discover the essence of the normal distribution in R. Dive deep into histograms, density plots, and the Swiss dataset to understand Gaussian distributions.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_10.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_10.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to calculate and visualize Z scores in R</title><link href="http://localhost:4000/2023/05/15/Z-score-in-R.html" rel="alternate" type="text/html" title="How to calculate and visualize Z scores in R" /><published>2023-05-15T00:00:00-03:00</published><updated>2023-05-15T00:00:00-03:00</updated><id>http://localhost:4000/2023/05/15/Z-score-in-R</id><content type="html" xml:base="http://localhost:4000/2023/05/15/Z-score-in-R.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Discover the essence of the normal distribution in R. Dive deep into histograms, density plots, and the Swiss dataset to understand Gaussian distributions.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_10.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_10.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to calculate and visualize Z scores in R</title><link href="http://localhost:4000/2023/05/15/Z-score-in-R.html" rel="alternate" type="text/html" title="How to calculate and visualize Z scores in R" /><published>2023-05-15T00:00:00+02:00</published><updated>2023-05-15T00:00:00+02:00</updated><id>http://localhost:4000/2023/05/15/Z-score-in-R</id><content type="html" xml:base="http://localhost:4000/2023/05/15/Z-score-in-R.html"><![CDATA[<p><br /></p>
 
 <h1 id="introduction">Introduction</h1>
 

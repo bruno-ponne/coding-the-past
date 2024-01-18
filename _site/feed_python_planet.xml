@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_python_planet.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 04 Dec 2023 12:32:06 -0300</pubDate>
-        <lastBuildDate>Mon, 04 Dec 2023 12:32:06 -0300</lastBuildDate>
+        <pubDate>Thu, 18 Jan 2024 15:44:50 +0100</pubDate>
+        <lastBuildDate>Thu, 18 Jan 2024 15:44:50 +0100</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -275,7 +275,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 &lt;hr /&gt;
 
 </description>
-                <pubDate>Wed, 01 Nov 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 01 Nov 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/11/01/AI-in-R.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/11/01/AI-in-R.html</guid>
                 
@@ -746,7 +746,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Wed, 26 Apr 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 26 Apr 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/04/26/Text-Mining-in-Python.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/04/26/Text-Mining-in-Python.html</guid>
                 
@@ -1228,7 +1228,7 @@ Finally, we calculate the proportion of each word in each manifest relative to t
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Sun, 02 Apr 2023 00:00:00 -0300</pubDate>
+                <pubDate>Sun, 02 Apr 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/04/02/Text-Analysis-1.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/04/02/Text-Analysis-1.html</guid>
                 
@@ -1693,7 +1693,7 @@ One way of creating your own color palette is with a Python list containing the 
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Sat, 11 Feb 2023 00:00:00 -0300</pubDate>
+                <pubDate>Sat, 11 Feb 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html</guid>
                 
@@ -2028,7 +2028,7 @@ More posts on how to find reliable data will be published soon!
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Tue, 10 Jan 2023 00:00:00 -0300</pubDate>
+                <pubDate>Tue, 10 Jan 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html</guid>
                 

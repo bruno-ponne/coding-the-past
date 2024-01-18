@@ -15,12 +15,8 @@ objectives:
   - o: Follow a hands-on example of online coding using the 'babynames' R package,
 keywords: google colab, R, babynames
 description: Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!
-last_modified_at: 03-Out-23
+last_modified_at: 18-Jan-24
 ---
-
-<br>
-
-# Introduction
 
 <br>
 
@@ -51,7 +47,7 @@ In this lesson, I will show you how to use R in Google Colab and suggest a code 
  
 <br>
 
-# Data source
+## 1. Data source
 
 
 The data used in this tutorial comes from the `babynames` package. It contains a dataset with baby names registered between 1880 and 2017 in the United States. For further details, please explore the documentation of the package [here](https://cran.r-project.org/web/packages/babynames/index.html).
@@ -59,16 +55,12 @@ The data used in this tutorial comes from the `babynames` package. It contains a
 <br>
 
 ***
- 
-<br>
-
-# Coding the past: How to use R in Google Colab?
 
 <br>
 
-## 1. Set the right runtime
+## 2. Set the right runtime
 
-It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from `Python 3` to `R`. Check the figure below.
+It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from `Python 3` to `R`. In the menu *Runtime*, choose the option *Change Runtime Type*, as shown in the figure below. That's all!
 
 <br>
 
@@ -84,7 +76,7 @@ It is actually quite straightforward to configure Google Colab to accept R code.
 <br>
 
 
-## 2. Example: using R in Google Colab
+## 3. Example: using R in Google Colab
 
 Below you find the code used in the video tutorial. Feel free to copy, test and change it!
 
@@ -131,7 +123,7 @@ plot(x = bruno_df$year,
 
 <br>
 
-# Conclusions
+## 4. Conclusions
 
 <br>
 

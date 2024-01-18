@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 04 Dec 2023 12:32:06 -0300</pubDate>
-        <lastBuildDate>Mon, 04 Dec 2023 12:32:06 -0300</lastBuildDate>
+        <pubDate>Thu, 18 Jan 2024 15:44:50 +0100</pubDate>
+        <lastBuildDate>Thu, 18 Jan 2024 15:44:50 +0100</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -343,7 +343,7 @@
 &lt;hr /&gt;
 
 </description>
-                <pubDate>Mon, 04 Dec 2023 00:00:00 -0300</pubDate>
+                <pubDate>Mon, 04 Dec 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html</guid>
                 
@@ -651,7 +651,7 @@
 &lt;hr /&gt;
 
 </description>
-                <pubDate>Wed, 15 Nov 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 15 Nov 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html</guid>
                 
@@ -930,7 +930,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 &lt;hr /&gt;
 
 </description>
-                <pubDate>Wed, 01 Nov 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 01 Nov 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/11/01/AI-in-R.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/11/01/AI-in-R.html</guid>
                 
@@ -949,10 +949,6 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
                 <title>How to use R in Google Colab?</title>
 				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
                 <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Greetings, humanists, social and data scientists!&lt;/strong&gt;&lt;/p&gt;
 
@@ -978,7 +974,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;data-source&quot;&gt;Data source&lt;/h1&gt;
+&lt;h2 id=&quot;1-data-source&quot;&gt;1. Data source&lt;/h2&gt;
 
 &lt;p&gt;The data used in this tutorial comes from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;babynames&lt;/code&gt; package. It contains a dataset with baby names registered between 1880 and 2017 in the United States. For further details, please explore the documentation of the package &lt;a href=&quot;https://cran.r-project.org/web/packages/babynames/index.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
@@ -988,13 +984,9 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;coding-the-past-how-to-use-r-in-google-colab&quot;&gt;Coding the past: How to use R in Google Colab?&lt;/h1&gt;
+&lt;h2 id=&quot;2-set-the-right-runtime&quot;&gt;2. Set the right runtime&lt;/h2&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;1-set-the-right-runtime&quot;&gt;1. Set the right runtime&lt;/h2&gt;
-
-&lt;p&gt;It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Python 3&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;R&lt;/code&gt;. Check the figure below.&lt;/p&gt;
+&lt;p&gt;It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Python 3&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;R&lt;/code&gt;. In the menu &lt;em&gt;Runtime&lt;/em&gt;, choose the option &lt;em&gt;Change Runtime Type&lt;/em&gt;, as shown in the figure below. That’s all!&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1016,7 +1008,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;2-example-using-r-in-google-colab&quot;&gt;2. Example: using R in Google Colab&lt;/h2&gt;
+&lt;h2 id=&quot;3-example-using-r-in-google-colab&quot;&gt;3. Example: using R in Google Colab&lt;/h2&gt;
 
 &lt;p&gt;Below you find the code used in the video tutorial. Feel free to copy, test and change it!&lt;/p&gt;
 
@@ -1068,7 +1060,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
+&lt;h2 id=&quot;4-conclusions&quot;&gt;4. Conclusions&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -1083,7 +1075,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 &lt;hr /&gt;
 
 </description>
-                <pubDate>Tue, 03 Oct 2023 00:00:00 -0300</pubDate>
+                <pubDate>Tue, 03 Oct 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/10/03/R-in-GoogleColab.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/10/03/R-in-GoogleColab.html</guid>
                 
@@ -1365,7 +1357,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Wed, 06 Sep 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 06 Sep 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html</guid>
                 
@@ -1728,7 +1720,7 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Wed, 16 Aug 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 16 Aug 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/08/16/Study-of-Relationships.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/08/16/Study-of-Relationships.html</guid>
                 
@@ -2080,7 +2072,7 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Fri, 21 Jul 2023 00:00:00 -0300</pubDate>
+                <pubDate>Fri, 21 Jul 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/07/21/Synthetic-Control.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/07/21/Synthetic-Control.html</guid>
                 
@@ -2555,7 +2547,7 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Wed, 12 Jul 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 12 Jul 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/07/12/HistData.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/07/12/HistData.html</guid>
                 
@@ -3094,7 +3086,7 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Thu, 01 Jun 2023 00:00:00 -0300</pubDate>
+                <pubDate>Thu, 01 Jun 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/06/01/Normal-Distribution.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/06/01/Normal-Distribution.html</guid>
                 
@@ -3402,7 +3394,7 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Mon, 15 May 2023 00:00:00 -0300</pubDate>
+                <pubDate>Mon, 15 May 2023 00:00:00 +0200</pubDate>
                 <link>http://localhost:4000/2023/05/15/Z-score-in-R.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/05/15/Z-score-in-R.html</guid>
                 
@@ -3693,7 +3685,7 @@ To customize our plot, we will use the ggplot theme developed in the lesson &lt;
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Wed, 22 Feb 2023 00:00:00 -0300</pubDate>
+                <pubDate>Wed, 22 Feb 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/02/22/Military-Expenses.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/02/22/Military-Expenses.html</guid>
                 
@@ -4071,7 +4063,7 @@ To customize our plot, we will use the ggplot theme developed in the lesson &lt;
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Tue, 07 Feb 2023 00:00:00 -0300</pubDate>
+                <pubDate>Tue, 07 Feb 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/02/07/Linear-Models-in-R.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/02/07/Linear-Models-in-R.html</guid>
                 
@@ -4462,7 +4454,7 @@ To customize our plot, we will use the ggplot theme developed in the lesson &lt;
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Tue, 24 Jan 2023 00:00:00 -0300</pubDate>
+                <pubDate>Tue, 24 Jan 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/01/24/Historical-Weather-Data.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/01/24/Historical-Weather-Data.html</guid>
                 
@@ -4797,7 +4789,7 @@ More posts on how to find reliable data will be published soon!
 
 &lt;hr /&gt;
 </description>
-                <pubDate>Tue, 10 Jan 2023 00:00:00 -0300</pubDate>
+                <pubDate>Tue, 10 Jan 2023 00:00:00 +0100</pubDate>
                 <link>http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html</link>
                 <guid isPermaLink="true">http://localhost:4000/2023/01/10/Where-to-find-and-how-to-load-historical-data.html</guid>
                 
