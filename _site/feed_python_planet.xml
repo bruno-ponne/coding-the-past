@@ -5,9 +5,459 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_python_planet.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 24 Jan 2024 16:09:28 +0100</pubDate>
-        <lastBuildDate>Wed, 24 Jan 2024 16:09:28 +0100</lastBuildDate>
+        <pubDate>Thu, 25 Jan 2024 16:04:26 +0100</pubDate>
+        <lastBuildDate>Thu, 25 Jan 2024 16:04:26 +0100</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>Explore art with SQL and pd.read_sql_query</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Greetings, humanists, social and data scientists!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Have you ever tried to load a large file in Python or R? Sometimes, when we have file sizes in the order of gigabytes, you may experience problems of performance with your program taking an unusually long time to load the data. &lt;a href=&quot;https://en.wikipedia.org/wiki/SQL&quot;&gt;SQL&lt;/a&gt;, or Structured Query Language, is used to deal with larger data files stored in relational databases and is widely used in the industry and even in research. Apart from being more efficient to prepare data, in your journey, you might encounter data sources whose main form of access is through SQL.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this lesson you will learn how to use SQL in Python to retrieve data from a relational data base of the &lt;a href=&quot;https://www.nga.gov/&quot;&gt;National Gallery of Art (US)&lt;/a&gt;. You will also learn how to use a relational database management system (RDBMS) and pd.read_sql_query to extract data from it in Python.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-data-source&quot;&gt;1. Data source&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/NationalGalleryOfArt/opendata&quot;&gt;database&lt;/a&gt; used in this lesson is made available by &lt;a href=&quot;https://www.nga.gov/&quot;&gt;National Gallery of Art (US)&lt;/a&gt; under a Creative Commons Zero license. The dataset contains data about more than 130,000 artworks and their artists since the Middle Ages until the present day.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;It is a wonderful resource to study history and art. Variables available include the title of the artwork, dimensions, author, description, location, country where it was produced, the year the artist started the work and the year he or she finished it. These variables are only some examples, but there is much more to explore.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-download-and-install-postgresql-and-pgadmin&quot;&gt;2. Download and install PostgreSQL and pgAdmin&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.postgresql.org/&quot;&gt;PostgreSQL&lt;/a&gt; is a free and very popular relational database management system. It stores and manages the tables contained in a database. Please, consult this &lt;a href=&quot;https://www.postgresqltutorial.com/postgresql-getting-started/&quot;&gt;guide&lt;/a&gt; to install it in your computer.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;After you install PostgreSQL, you will need to connect to the Postgre database server. In this tutorial, we will be using the &lt;a href=&quot;https://www.pgadmin.org/download/&quot;&gt;pgAdmin&lt;/a&gt; application to establish this connection. It is a visual and intuitive interface and makes many operations easier to execute. The &lt;a href=&quot;https://www.postgresqltutorial.com/postgresql-getting-started/&quot;&gt;guide above&lt;/a&gt; will also guide you through the process of connecting to your local database. In the next steps, after being connected to your local database server, we will learn how to create a database that will store the National Gallery Dataset.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-creating-the-database-and-its-tables&quot;&gt;3. Creating the database and its tables&lt;/h2&gt;
+
+&lt;p&gt;After you are connected to the server, click “Databases” with the right mouse button and choose “Create” and “Database…” as shown in the image below.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_19_01.png&quot; alt=&quot;How to create a database with pgAdmin&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, give a title to your database as shown in the figure below. In our case, it will be called “art_db”. Click “Save” and it is all set!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_19_02.png&quot; alt=&quot;Naming your database in pgAdmin&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the database ‘art_bd’ selected, click the ‘Query Tool’ as shown below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_19_03.png&quot; alt=&quot;Where to find the query tool in pgAdmin&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will open a field where you can type SQL code. Our objective is to create the first table of our database, which will contain the content of ‘objects.csv’ available in the GitHub account of the National Gallery of Art, provided in the Data section above.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;To create a table, we must specify the name and the variable type for each variable in the table. The SQL command to create a table is quite intuitive: CREATE TABLE name_of_your_table. Copy the code below and paste it in the window opened by the ‘Query Tool’. The code specify each variable of the objects table. This table contains information on each artwork available in the collection.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-1&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-1&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;objectID&lt;/span&gt;                    &lt;span class=&quot;nb&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;accessioned&lt;/span&gt;                   &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;accessionnum&lt;/span&gt;                  &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;locationid&lt;/span&gt;                    &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;                         &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;displaydate&lt;/span&gt;                   &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;beginyear&lt;/span&gt;                     &lt;span class=&quot;nb&quot;&gt;integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;endyear&lt;/span&gt;                       &lt;span class=&quot;nb&quot;&gt;integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;visualbrowsertimespan&lt;/span&gt;         &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;medium&lt;/span&gt;                        &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dimensions&lt;/span&gt;                    &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;inscription&lt;/span&gt;                   &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;markings&lt;/span&gt;                      &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;attributioninverted&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;attribution&lt;/span&gt;                   &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;provenancetext&lt;/span&gt;                &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;creditline&lt;/span&gt;                    &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;classification&lt;/span&gt;                &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subclassification&lt;/span&gt;             &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;visualbrowserclassification&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;parentid&lt;/span&gt;                      &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;isvirtual&lt;/span&gt;                     &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;departmentabbr&lt;/span&gt;                &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;portfolio&lt;/span&gt;                     &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;series&lt;/span&gt;                        &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;850&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;volume&lt;/span&gt;                        &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;850&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;watermarks&lt;/span&gt;                    &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;lastdetectedmodification&lt;/span&gt;      &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;wikidataid&lt;/span&gt;                    &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;customprinturl&lt;/span&gt;                &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARYING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The last step is to load the data from the &lt;em&gt;csv file&lt;/em&gt; into this table. This can be done through the ‘COPY’ command as shown below.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-2&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-2&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;objectid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accessioned&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accessionnum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;locationid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;displaydate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;beginyear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endyear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visualbrowsertimespan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;medium&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dimensions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inscription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;markings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attributioninverted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attribution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;provenancetext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;creditline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subclassification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visualbrowserclassification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parentid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isvirtual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;departmentabbr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;portfolio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;volume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watermarks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastdetectedmodification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wikidataid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customprinturl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;C:/temp/objects.csv&apos;&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;,&apos;&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;CSV&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEADER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;text-note&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; Download the &quot;objects.csv&quot; file and save it in the desired folder. Note however, that sometimes your system might block access to this file via pgAdmin. Therefore I saved it in the &quot;temp&quot; folder. In any case, change the path in the code above to match where you saved the &quot;objects.csv&quot; file.
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Great! Now you should have your first table loaded to your database. The complete database includes more than 15 tables. However, we will only use two of them for this example, as shown in the scheme below. Note that the two tables relate to each other through the key variable &lt;em&gt;objectid&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_19_04.png&quot; alt=&quot;Database scheme and relations&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;To load the “objects_terms” table, please repeat the same procedure with the code below.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-3&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-3&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects_terms&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;termid&lt;/span&gt;             &lt;span class=&quot;nb&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;objectid&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;termtype&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;               &lt;span class=&quot;nb&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;visualbrowsertheme&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;visualbrowserstyle&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects_terms&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;termid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;termtype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visualbrowsertheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visualbrowserstyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;C:/temp/objects_terms.csv&apos;&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;DELIMITER&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;,&apos;&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;CSV&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HEADER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-exploring-the-data-with-sql-commands&quot;&gt;4. Exploring the data with SQL commands&lt;/h2&gt;
+
+&lt;p&gt;Click the ‘Query Tool’ to start exploring the data. First, select which variables you would like to include in your analysis. Second, you tell SQL in which table this variables are. The code below selects the variables &lt;em&gt;title&lt;/em&gt; and &lt;em&gt;attribution&lt;/em&gt; from the &lt;em&gt;objects&lt;/em&gt; table. It also limits the result to 5 observations.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-4&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-4&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attribution&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, we would like to know what are the different kinds of classification in this dataset. To achieve that, we have to select the &lt;em&gt;classification&lt;/em&gt; variable, but including only distinct values.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-5&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-5&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;classification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The result tells us that there are 11 classifications: “Decorative Art”, “Drawing”, “Index of American Design”, “Painting”, “Photograph”, “Portfolio”, “Print”, “Sculpture”, “Technical Material”, “Time-Based Media Art” and “Volume”.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, let us group the artworks by classification and count the number of objects in each category. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COUNT(*)&lt;/code&gt; will count the total of items in the groups defined by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GROUP BY&lt;/code&gt;. When you select a variable you can give it a new name with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AS&lt;/code&gt;. Finally, the command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt; orders the classification by number of items in a descending order (DESC).&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-6&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-6&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_items&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objects&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;classification&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_items&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that prints is the largest classification, followed by photographs.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-using-pdread_sql_query-to-access-data&quot;&gt;5. Using pd.read_sql_query to access data&lt;/h2&gt;
+
+&lt;p&gt;Now that you have your SQL database working, it is time to access it with Python. Before using Pandas, we have to connect Python to our SQL database. We will do that with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psycopg2&lt;/code&gt;, a very popular PostgreSQL adapter for Python. Please, install it with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install psycopg2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;We use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;connect&lt;/code&gt; method of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psycopg2&lt;/code&gt; to establish the connection. It takes 4 main arguments:&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;host: in our case, the database is hosted locally, so we will pass &lt;em&gt;localhost&lt;/em&gt; to this parameter. Note, however, that we could specify an IP if the server was external;&lt;/li&gt;
+  &lt;li&gt;database: the name given to your SQL database, &lt;em&gt;art_db&lt;/em&gt;;&lt;/li&gt;
+  &lt;li&gt;user: user name required to authenticate;&lt;/li&gt;
+  &lt;li&gt;password: your database password.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-7&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-7&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;psycopg2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;psycopg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;localhost&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;art_db&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;postgres&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;*******&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The next step is to store our SQL query in a string Python variable. The query below performs a &lt;a href=&quot;https://www.geeksforgeeks.org/sql-left-join/&quot;&gt;LEFT JOIN&lt;/a&gt; with the two tables in our database. The operation uses the variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;objectid&lt;/code&gt; to join the two tables. In practice we are selecting the titles, authors (attribution), classification - we keep only “Painting” with a &lt;a href=&quot;https://www.w3schools.com/sql/sql_where.asp&quot;&gt;WHERE&lt;/a&gt; command -, and term - we filter only terms that specify the “Style” of the painting.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-8&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-8&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;&apos;&apos; SELECT o.title, o.attribution, o.classification, ot.term
+                FROM objects as o
+                LEFT JOIN objects_terms as ot ON o.objectid = ot.objectid
+                WHERE classification = &apos;Painting&apos; AND termtype = &apos;Style&apos; &apos;&apos;&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, we can extract the data. Use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cursor()&lt;/code&gt; method of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conn&lt;/code&gt; to be able to “type” your SQL query. Pass the command variable and connection object to 
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.read_sql_query&lt;/code&gt; and it will return a Pandas dataframe with the data we selected. Next, commit and close cursor and connections.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-9&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-9&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# open cursor to insert our query
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# use pd.read_sql_query to query our database and get the result in a pandas dataframe
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paintings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_sql_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# save any changes to the database
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# close cursor and connection
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;6-visualizing-the-most-popular-styles&quot;&gt;6. Visualizing the most popular styles&lt;/h2&gt;
+
+&lt;p&gt;From the data we gathered from our database, we would like to check which are the 10 most popular art styles in our data, by number of paintings. We can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value_counts()&lt;/code&gt; method of the column &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;term&lt;/code&gt; to count how many paintings are classified in each style.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The result is a Pandas Series where the index contains the styles and the values contain the quantities of paintings of the respective style. The remaining code produces an horizontal bar plot showing the top 10 styles by number of paintings. If you would like to learn more about data visualization with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matplotlib&lt;/code&gt;, please consult the lesson &lt;a href=&quot;/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html&quot;&gt;Storytelling with Matplotlib - Visualizing historical data&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-19-10&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-19-10&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;top_10_styles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paintings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;term&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value_counts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top_10_styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top_10_styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;#f0027f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;edgecolor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;#f0027f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The Most Popular Styles&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# inverts y axis
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invert_yaxis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# eliminates grids
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# set ticks&apos; colors to white    
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tick_params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;x&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;white&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tick_params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;y&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;white&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# set font colors
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_facecolor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;#2E3031&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;white&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   
+
+&lt;span class=&quot;c1&quot;&gt;# eliminates top, left and right borders and sets the bottom border color to white
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;top&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_visible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;         
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;right&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_visible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;left&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_visible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bottom&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;white&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# fig background color:
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;patch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_facecolor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;#2E3031&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that Realist, Baroque and Renaissance are the most popular art styles in our dataset.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_19_05.png&quot; alt=&quot;The Top 10 Art Styles&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please feel free to share your thoughts and questions below!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;6-conclusions&quot;&gt;6. Conclusions&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;It is possible to create a SQL database from csv files and access it with Python;&lt;/li&gt;
+  &lt;li&gt;psycopg2 enables connection between Python and your SQL database;&lt;/li&gt;
+  &lt;li&gt;pd.read_sql_query can be used to extract data into a Pandas dataframe.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+                <pubDate>Thu, 25 Jan 2024 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/2024/01/25/SQL-with-Python.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2024/01/25/SQL-with-Python.html</guid>
+                
+                <category>python</category>
+                
+                <category>statistics</category>
+                
+                <category>sql</category>
+                
+                
+            </item>
         
             <item>
                 <title>Harnessing AI in R and Python - Gather data with ChatGPT</title>

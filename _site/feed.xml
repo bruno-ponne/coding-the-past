@@ -1,4 +1,435 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-01-24T16:09:28+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Chi-square distribution and test in R</title><link href="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html" rel="alternate" type="text/html" title="Chi-square distribution and test in R" /><published>2023-12-04T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><id>http://localhost:4000/2023/12/04/Chi-square-distribution-in-R</id><content type="html" xml:base="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-01-25T16:04:26+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Explore art with SQL and pd.read_sql_query</title><link href="http://localhost:4000/2024/01/25/SQL-with-Python.html" rel="alternate" type="text/html" title="Explore art with SQL and pd.read_sql_query" /><published>2024-01-25T00:00:00+01:00</published><updated>2024-01-25T00:00:00+01:00</updated><id>http://localhost:4000/2024/01/25/SQL-with-Python</id><content type="html" xml:base="http://localhost:4000/2024/01/25/SQL-with-Python.html"><![CDATA[<p><br /></p>
+
+<p><strong>Greetings, humanists, social and data scientists!</strong></p>
+
+<p><br /></p>
+
+<p>Have you ever tried to load a large file in Python or R? Sometimes, when we have file sizes in the order of gigabytes, you may experience problems of performance with your program taking an unusually long time to load the data. <a href="https://en.wikipedia.org/wiki/SQL">SQL</a>, or Structured Query Language, is used to deal with larger data files stored in relational databases and is widely used in the industry and even in research. Apart from being more efficient to prepare data, in your journey, you might encounter data sources whose main form of access is through SQL.</p>
+
+<p><br /></p>
+
+<p>In this lesson you will learn how to use SQL in Python to retrieve data from a relational data base of the <a href="https://www.nga.gov/">National Gallery of Art (US)</a>. You will also learn how to use a relational database management system (RDBMS) and pd.read_sql_query to extract data from it in Python.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="1-data-source">1. Data source</h2>
+
+<p>The <a href="https://github.com/NationalGalleryOfArt/opendata">database</a> used in this lesson is made available by <a href="https://www.nga.gov/">National Gallery of Art (US)</a> under a Creative Commons Zero license. The dataset contains data about more than 130,000 artworks and their artists since the Middle Ages until the present day.</p>
+
+<p><br /></p>
+
+<p>It is a wonderful resource to study history and art. Variables available include the title of the artwork, dimensions, author, description, location, country where it was produced, the year the artist started the work and the year he or she finished it. These variables are only some examples, but there is much more to explore.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-download-and-install-postgresql-and-pgadmin">2. Download and install PostgreSQL and pgAdmin</h2>
+
+<p><a href="https://www.postgresql.org/">PostgreSQL</a> is a free and very popular relational database management system. It stores and manages the tables contained in a database. Please, consult this <a href="https://www.postgresqltutorial.com/postgresql-getting-started/">guide</a> to install it in your computer.</p>
+
+<p><br /></p>
+
+<p>After you install PostgreSQL, you will need to connect to the Postgre database server. In this tutorial, we will be using the <a href="https://www.pgadmin.org/download/">pgAdmin</a> application to establish this connection. It is a visual and intuitive interface and makes many operations easier to execute. The <a href="https://www.postgresqltutorial.com/postgresql-getting-started/">guide above</a> will also guide you through the process of connecting to your local database. In the next steps, after being connected to your local database server, we will learn how to create a database that will store the National Gallery Dataset.</p>
+
+<p><br /></p>
+
+<h2 id="3-creating-the-database-and-its-tables">3. Creating the database and its tables</h2>
+
+<p>After you are connected to the server, click “Databases” with the right mouse button and choose “Create” and “Database…” as shown in the image below.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_19_01.png" alt="How to create a database with pgAdmin" /></p>
+
+<p><br /></p>
+
+<p>Next, give a title to your database as shown in the figure below. In our case, it will be called “art_db”. Click “Save” and it is all set!</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_19_02.png" alt="Naming your database in pgAdmin" /></p>
+
+<p><br /></p>
+
+<p>With the database ‘art_bd’ selected, click the ‘Query Tool’ as shown below.</p>
+
+<p><img src="/assets/images/lesson_19_03.png" alt="Where to find the query tool in pgAdmin" /></p>
+
+<p><br /></p>
+
+<p>This will open a field where you can type SQL code. Our objective is to create the first table of our database, which will contain the content of ‘objects.csv’ available in the GitHub account of the National Gallery of Art, provided in the Data section above.</p>
+
+<p><br /></p>
+
+<p>To create a table, we must specify the name and the variable type for each variable in the table. The SQL command to create a table is quite intuitive: CREATE TABLE name_of_your_table. Copy the code below and paste it in the window opened by the ‘Query Tool’. The code specify each variable of the objects table. This table contains information on each artwork available in the collection.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-1">
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">objects</span> <span class="p">(</span>
+    <span class="n">objectID</span>                    <span class="nb">integer</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">accessioned</span>                   <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">accessionnum</span>                  <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">locationid</span>                    <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">title</span>                         <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">2048</span><span class="p">),</span>
+    <span class="n">displaydate</span>                   <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+    <span class="n">beginyear</span>                     <span class="nb">integer</span><span class="p">,</span>
+    <span class="n">endyear</span>                       <span class="nb">integer</span><span class="p">,</span>
+    <span class="n">visualbrowsertimespan</span>         <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">medium</span>                        <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">2048</span><span class="p">),</span>
+    <span class="n">dimensions</span>                    <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">2048</span><span class="p">),</span>
+    <span class="n">inscription</span>                   <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">,</span>
+    <span class="n">markings</span>                      <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">,</span>
+    <span class="n">attributioninverted</span>           <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">1024</span><span class="p">),</span>
+    <span class="n">attribution</span>                   <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">1024</span><span class="p">),</span>
+    <span class="n">provenancetext</span>                <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">,</span>
+    <span class="n">creditline</span>                    <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">2048</span><span class="p">),</span>
+    <span class="n">classification</span>                <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+    <span class="n">subclassification</span>             <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+    <span class="n">visualbrowserclassification</span>   <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">parentid</span>                      <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">isvirtual</span>                     <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">departmentabbr</span>                <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">portfolio</span>                     <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">2048</span><span class="p">),</span>
+    <span class="n">series</span>                        <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">850</span><span class="p">),</span>
+    <span class="n">volume</span>                        <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">850</span><span class="p">),</span>
+    <span class="n">watermarks</span>                    <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">512</span><span class="p">),</span>
+    <span class="n">lastdetectedmodification</span>      <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+    <span class="n">wikidataid</span>                    <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+    <span class="n">customprinturl</span>                <span class="nb">CHARACTER</span> <span class="nb">VARYING</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+<span class="p">);</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The last step is to load the data from the <em>csv file</em> into this table. This can be done through the ‘COPY’ command as shown below.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-2">
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">COPY</span> <span class="n">objects</span> <span class="p">(</span><span class="n">objectid</span><span class="p">,</span> <span class="n">accessioned</span><span class="p">,</span> <span class="n">accessionnum</span><span class="p">,</span> <span class="n">locationid</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">displaydate</span><span class="p">,</span> <span class="n">beginyear</span><span class="p">,</span> <span class="n">endyear</span><span class="p">,</span> <span class="n">visualbrowsertimespan</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">inscription</span><span class="p">,</span> <span class="n">markings</span><span class="p">,</span> <span class="n">attributioninverted</span><span class="p">,</span> <span class="n">attribution</span><span class="p">,</span> <span class="n">provenancetext</span><span class="p">,</span> <span class="n">creditline</span><span class="p">,</span> <span class="n">classification</span><span class="p">,</span> <span class="n">subclassification</span><span class="p">,</span> <span class="n">visualbrowserclassification</span><span class="p">,</span> <span class="n">parentid</span><span class="p">,</span> <span class="n">isvirtual</span><span class="p">,</span> <span class="n">departmentabbr</span><span class="p">,</span> <span class="n">portfolio</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">volume</span><span class="p">,</span> <span class="n">watermarks</span><span class="p">,</span> <span class="n">lastdetectedmodification</span><span class="p">,</span> <span class="n">wikidataid</span><span class="p">,</span> <span class="n">customprinturl</span><span class="p">)</span> 
+<span class="k">FROM</span> <span class="s1">'C:/temp/objects.csv'</span> 
+<span class="k">DELIMITER</span> <span class="s1">','</span> 
+<span class="n">CSV</span> <span class="n">HEADER</span><span class="p">;</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Download the "objects.csv" file and save it in the desired folder. Note however, that sometimes your system might block access to this file via pgAdmin. Therefore I saved it in the "temp" folder. In any case, change the path in the code above to match where you saved the "objects.csv" file.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>Great! Now you should have your first table loaded to your database. The complete database includes more than 15 tables. However, we will only use two of them for this example, as shown in the scheme below. Note that the two tables relate to each other through the key variable <em>objectid</em>.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_19_04.png" alt="Database scheme and relations" /></p>
+
+<p><br /></p>
+
+<p>To load the “objects_terms” table, please repeat the same procedure with the code below.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-3">
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">objects_terms</span> <span class="p">(</span>
+    <span class="n">termid</span>             <span class="nb">INTEGER</span><span class="p">,</span>
+    <span class="n">objectid</span>           <span class="nb">INTEGER</span><span class="p">,</span>
+    <span class="n">termtype</span>           <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span>
+    <span class="n">term</span>               <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+    <span class="n">visualbrowsertheme</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">visualbrowserstyle</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+<span class="p">);</span>
+
+
+<span class="k">COPY</span> <span class="n">objects_terms</span> <span class="p">(</span><span class="n">termid</span><span class="p">,</span> <span class="n">objectid</span><span class="p">,</span> <span class="n">termtype</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">visualbrowsertheme</span><span class="p">,</span> <span class="n">visualbrowserstyle</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="s1">'C:/temp/objects_terms.csv'</span> 
+<span class="k">DELIMITER</span> <span class="s1">','</span> 
+<span class="n">CSV</span> <span class="n">HEADER</span><span class="p">;</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-exploring-the-data-with-sql-commands">4. Exploring the data with SQL commands</h2>
+
+<p>Click the ‘Query Tool’ to start exploring the data. First, select which variables you would like to include in your analysis. Second, you tell SQL in which table this variables are. The code below selects the variables <em>title</em> and <em>attribution</em> from the <em>objects</em> table. It also limits the result to 5 observations.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-4">
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">title</span><span class="p">,</span> <span class="n">attribution</span>
+<span class="k">FROM</span> <span class="n">objects</span>
+<span class="k">LIMIT</span> <span class="mi">5</span></code></pre></figure>
+
+
+</div>
+<p><br /></p>
+
+<p>Now, we would like to know what are the different kinds of classification in this dataset. To achieve that, we have to select the <em>classification</em> variable, but including only distinct values.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-5">
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="k">DISTINCT</span><span class="p">(</span><span class="n">classification</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">objects</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The result tells us that there are 11 classifications: “Decorative Art”, “Drawing”, “Index of American Design”, “Painting”, “Photograph”, “Portfolio”, “Print”, “Sculpture”, “Technical Material”, “Time-Based Media Art” and “Volume”.</p>
+
+<p><br /></p>
+
+<p>Finally, let us group the artworks by classification and count the number of objects in each category. <code class="language-plaintext highlighter-rouge">COUNT(*)</code> will count the total of items in the groups defined by <code class="language-plaintext highlighter-rouge">GROUP BY</code>. When you select a variable you can give it a new name with <code class="language-plaintext highlighter-rouge">AS</code>. Finally, the command <code class="language-plaintext highlighter-rouge">ORDER BY</code> orders the classification by number of items in a descending order (DESC).</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-6">
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">classification</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">n_items</span>
+<span class="k">FROM</span> <span class="n">objects</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">classification</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">n_items</span> <span class="k">DESC</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Note that prints is the largest classification, followed by photographs.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-using-pdread_sql_query-to-access-data">5. Using pd.read_sql_query to access data</h2>
+
+<p>Now that you have your SQL database working, it is time to access it with Python. Before using Pandas, we have to connect Python to our SQL database. We will do that with <code class="language-plaintext highlighter-rouge">psycopg2</code>, a very popular PostgreSQL adapter for Python. Please, install it with <code class="language-plaintext highlighter-rouge">pip install psycopg2</code>.</p>
+
+<p><br /></p>
+
+<p>We use the <code class="language-plaintext highlighter-rouge">connect</code> method of <code class="language-plaintext highlighter-rouge">psycopg2</code> to establish the connection. It takes 4 main arguments:</p>
+
+<ul class="conclusion-list">
+  <li>host: in our case, the database is hosted locally, so we will pass <em>localhost</em> to this parameter. Note, however, that we could specify an IP if the server was external;</li>
+  <li>database: the name given to your SQL database, <em>art_db</em>;</li>
+  <li>user: user name required to authenticate;</li>
+  <li>password: your database password.</li>
+</ul>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-7')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-7">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">psycopg2</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s">"localhost"</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s">"art_db"</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s">"postgres"</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s">"*******"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The next step is to store our SQL query in a string Python variable. The query below performs a <a href="https://www.geeksforgeeks.org/sql-left-join/">LEFT JOIN</a> with the two tables in our database. The operation uses the variable <code class="language-plaintext highlighter-rouge">objectid</code> to join the two tables. In practice we are selecting the titles, authors (attribution), classification - we keep only “Painting” with a <a href="https://www.w3schools.com/sql/sql_where.asp">WHERE</a> command -, and term - we filter only terms that specify the “Style” of the painting.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-8')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-8">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">command</span> <span class="o">=</span> <span class="s">''' SELECT o.title, o.attribution, o.classification, ot.term
+                FROM objects as o
+                LEFT JOIN objects_terms as ot ON o.objectid = ot.objectid
+                WHERE classification = 'Painting' AND termtype = 'Style' '''</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Finally, we can extract the data. Use the <code class="language-plaintext highlighter-rouge">cursor()</code> method of <code class="language-plaintext highlighter-rouge">conn</code> to be able to “type” your SQL query. Pass the command variable and connection object to 
+<code class="language-plaintext highlighter-rouge">pd.read_sql_query</code> and it will return a Pandas dataframe with the data we selected. Next, commit and close cursor and connections.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-9')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-9">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># open cursor to insert our query
+</span><span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># use pd.read_sql_query to query our database and get the result in a pandas dataframe
+</span><span class="n">paintings</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+
+<span class="c1"># save any changes to the database
+</span><span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="c1"># close cursor and connection
+</span><span class="n">cur</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">conn</span><span class="p">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<h2 id="6-visualizing-the-most-popular-styles">6. Visualizing the most popular styles</h2>
+
+<p>From the data we gathered from our database, we would like to check which are the 10 most popular art styles in our data, by number of paintings. We can use the <code class="language-plaintext highlighter-rouge">value_counts()</code> method of the column <code class="language-plaintext highlighter-rouge">term</code> to count how many paintings are classified in each style.</p>
+
+<p><br /></p>
+
+<p>The result is a Pandas Series where the index contains the styles and the values contain the quantities of paintings of the respective style. The remaining code produces an horizontal bar plot showing the top 10 styles by number of paintings. If you would like to learn more about data visualization with <code class="language-plaintext highlighter-rouge">matplotlib</code>, please consult the lesson <a href="/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html">Storytelling with Matplotlib - Visualizing historical data</a>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-19-10')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-19-10">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">top_10_styles</span> <span class="o">=</span> <span class="n">paintings</span><span class="p">[</span><span class="s">'term'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">().</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">top_10_styles</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">top_10_styles</span><span class="p">.</span><span class="n">values</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> 
+        <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"The Most Popular Styles"</span><span class="p">)</span>
+
+<span class="c1"># inverts y axis
+</span><span class="n">ax</span><span class="p">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+<span class="c1"># eliminates grids
+</span><span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># set ticks' colors to white    
+</span><span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    
+<span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>
+
+<span class="c1"># set font colors
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>   
+
+<span class="c1"># eliminates top, left and right borders and sets the bottom border color to white
+</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"bottom"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"white"</span><span class="p">)</span>
+
+<span class="c1"># fig background color:
+</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Note that Realist, Baroque and Renaissance are the most popular art styles in our dataset.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_19_05.png" alt="The Top 10 Art Styles" /></p>
+
+<p><br /></p>
+
+<p><strong>Please feel free to share your thoughts and questions below!</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-conclusions">6. Conclusions</h2>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>It is possible to create a SQL database from csv files and access it with Python;</li>
+  <li>psycopg2 enables connection between Python and your SQL database;</li>
+  <li>pd.read_sql_query can be used to extract data into a Pandas dataframe.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="statistics" /><category term="sql" /><summary type="html"><![CDATA[Learn to integrate Python with SQL for art data analysis using pd.read_sql_query in this insightful lesson on managing large datasets efficiently.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_19.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_19.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Chi-square distribution and test in R</title><link href="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html" rel="alternate" type="text/html" title="Chi-square distribution and test in R" /><published>2023-12-04T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><id>http://localhost:4000/2023/12/04/Chi-square-distribution-in-R</id><content type="html" xml:base="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html"><![CDATA[<p><br /></p>
 
 <p><strong>Greetings, humanists, social and data scientists!</strong></p>
 
@@ -2916,294 +3347,4 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Discover the essence of the normal distribution in R. Dive deep into histograms, density plots, and the Swiss dataset to understand Gaussian distributions.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_10.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_10.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to calculate and visualize Z scores in R</title><link href="http://localhost:4000/2023/05/15/Z-score-in-R.html" rel="alternate" type="text/html" title="How to calculate and visualize Z scores in R" /><published>2023-05-15T00:00:00+02:00</published><updated>2023-05-15T00:00:00+02:00</updated><id>http://localhost:4000/2023/05/15/Z-score-in-R</id><content type="html" xml:base="http://localhost:4000/2023/05/15/Z-score-in-R.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p>“We don’t need no education.”</p>
-
-<p>Pink Floyd</p>
-
-<p><br /></p>
-
-<p>In this lesson we will use data of the General Social Survey (1972-1978) to study American society in the seventies. In particular, we would like to study schooling duration for individuals in our sample and how specific observations compare to the rest of the sample. To do so, we will use the Z score - a measure of how many standard deviations below or above the population mean an observation is.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>Data used in this lesson is included in the <a href="https://cran.r-project.org/web/packages/survival/index.html">R Survival Package</a> and was originally used in Logan (1983) - <em>A Multivariate Model for Mobility Tables</em>. The data is part of the <a href="https://gss.norc.org/">General Social Survey</a> (1972-1978).</p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-z-score-in-r">Coding the past: Z score in R</h1>
-
-<p><br /></p>
-
-<h2 id="1-what-is-the-z-score">1. What is the Z score?</h2>
-
-<p>The Z score is a measure of how many standard deviations a data point in a set is away from the mean of that set of values. Below you find the expression to calculate the Z score of a given point in a sample.</p>
-
-\[Z_{X} = \frac{X - \overline{X}}{S}\]
-
-<p>Where:</p>
-
-<ul class="conclusion-list">
-  <li>\(Z_{X}\) is the Z score of the point \(X\);</li>
-  <li>\(X\) is the value for which we want to calculate the Z score;</li>
-  <li>\(\overline{X}\) is the mean of the sample;</li>
-  <li>\(S\) is the standard deviation of the sample.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-calculating-z-score-in-r">2. Calculating Z score in R</h2>
-
-<p>Implementing the Z score formula in R is quite straightforward. To reuse code, we will create a function called <code class="language-plaintext highlighter-rouge">calculate_z</code> using the <code class="language-plaintext highlighter-rouge">mean</code> and <code class="language-plaintext highlighter-rouge">sd</code> base functions to calculate Z. <code class="language-plaintext highlighter-rouge">sd</code> calculates the standard deviation in R.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-9-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">calculate_z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">X_mean</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">){</span><span class="w">
-  </span><span class="nf">return</span><span class="p">((</span><span class="n">X</span><span class="o">-</span><span class="n">X_mean</span><span class="p">)</span><span class="o">/</span><span class="n">S</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>To load the data, we will use the <code class="language-plaintext highlighter-rouge">data</code> function and specify the <code class="language-plaintext highlighter-rouge">survival</code> package. The dataset we are interested in is called <code class="language-plaintext highlighter-rouge">logan</code> and contains information about the duration of education for 838 individuals. The variable <code class="language-plaintext highlighter-rouge">education</code> contains the number of years of schooling for each individual.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-9-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span><span class="w">
-
-</span><span class="n">data</span><span class="p">(</span><span class="n">logan</span><span class="p">,</span><span class="w"> </span><span class="n">package</span><span class="o">=</span><span class="s2">"survival"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">mean</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">)</span><span class="w">
-
-</span><span class="n">sd</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>The average education duration in our sample is 13.58 years, with a standard deviation of 2.73 years. With this information, we can proceed to calculate the Z score for each observation in the dataset.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-9-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">logan</span><span class="o">$</span><span class="n">z_score</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">calculate_z</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> 
-                             </span><span class="n">mean</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">),</span><span class="w">
-                             </span><span class="n">sd</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span><span class="w">
-
-</span><span class="n">head</span><span class="p">(</span><span class="n">logan</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<table class="dataframe">
-<tr> <th>occupation</th> <th>focc</th> <th> education </th> <th> race </th> <th> z_score </th>  </tr>
-  <tr>  <td> sales </td> <td>professional</td> <td>4</td> <td> non-black </td> <td> 0.15 </td> </tr>
-  <tr>  <td> craftsmen </td> <td>sales</td> <td>13</td> <td> non-black </td> <td> -0.21 </td> </tr>
-  <tr>  <td> sales </td> <td>professional</td> <td>16</td> <td> non-black </td> <td> 0.89 </td> </tr>
-  <tr>  <td> craftsmen </td> <td>sales</td> <td>16</td> <td> non-black </td> <td> 0.89 </td> </tr>
-  <tr>  <td> operatives </td> <td>professional</td> <td>14</td> <td> non-black </td> <td> 0.15 </td> </tr>
-</table>
-
-<p><br /></p>
-
-<p>As you can see in the dataframe, the first individual spent 0.15 standard deviations more time in school compared to the average. A negative Z score indicates that the observation is below the average, while a positive Z score indicates that it is above the average.</p>
-
-<p><br /></p>
-
-<p>Use <code class="language-plaintext highlighter-rouge">summary(logan$z_score)</code> to check the Z score summary statistics. You will observe that the individual with the shortest education duration in our dataset has a schooling period that is 4.23 standard deviations below the mean. Conversely, the individual with the longest schooling duration is 2.35 standard deviations above the average.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-visualizing-z-scores-in-a-histogram">3. Visualizing Z scores in a histogram</h2>
-
-<p>One way to visually represent our data is by using a histogram. It shows how often each different value occurs. The x-axis represents the variable values, while the y-axis represents the count of occurrences for each value in our sample.</p>
-
-<p><br /></p>
-
-<p>You can plot a histogram in ggplot2 with the geom layer called <code class="language-plaintext highlighter-rouge">geom_histogram()</code>. It has the argument bins where you can pass the number of intervals you would like to divide your data, that is, how many bars you will have.</p>
-
-<p><br /></p>
-
-<p>In the plot below, the white dashed lines indicate the interval of two standard deviations (Z=+/-2) around the mean. Similarly, the yellow dashed lines represent the interval of three standard deviations (Z=+/-3) around the mean. These lines are added with the <code class="language-plaintext highlighter-rouge">geom_vline()</code> function.</p>
-
-<p><br /></p>
-
-<p>To customize our plot, we will use the ggplot theme developed in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-9-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-9-4">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
-        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
-        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
-        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Eliminates grids:</span><span class="w">
-        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
-        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
-        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
-  </span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="n">mean_edu</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span><span class="n">sd_edu</span><span class="w">   </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">logan</span><span class="o">$</span><span class="n">education</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logan</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">education</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> 
-                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> 
-                </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> 
-                </span><span class="n">bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Years of education"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
-             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">   
-             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
-             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">   
-             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
-             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">,</span><span class="w"> 
-             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_edu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="o">*</span><span class="n">sd_edu</span><span class="p">,</span><span class="w"> 
-             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">,</span><span class="w"> 
-             </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
-            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=-3"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21</span><span class="p">,</span><span class="w">   </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
-            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=3"</span><span class="p">,</span><span class="w">  </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#feb24c"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7.3</span><span class="p">,</span><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
-            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=-2"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">18.3</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> 
-            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Z=2"</span><span class="p">,</span><span class="w">  </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_09_01.png" alt="Histogram to visualize Z scores in R" /></p>
-
-<p><br /></p>
-
-<p>One remarkable conclusion we draw from the plot above is that the majority of data points fall within a range of up to two standard deviations from the mean. In fact, only 4.4% of our observations exceed this threshold of two standard deviations. Note as well that there are 15 bars in the histogram, which is the number of bins we specified in the <code class="language-plaintext highlighter-rouge">geom_histogram()</code> function.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-skewness-of-the-distribution">4. Skewness of the distribution</h2>
-
-<p>Skewness refers to the asymmetry of a distribution. The distribution of education duration is skewed to the left. This means there are more individuals with a very low education duration compared to those with a very large duration. This can also be seen by the minimum and maximum Z score. While the minimum is -4.23, the maximum is only 2.35. Extreme Z-scores are also indicators of outliers, that is, values unusually high or low compared to most of the observations.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To know more about z scores and distributions , check
-        
-        <a href="https://soc.utah.edu/sociology3112/normal-distribution.php" target="_blank"> this page of the University of Utah.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>In the next lesson, we will explore a specific type of distribution known as the normal distribution. This distribution is symmetric and has certain properties that make it easier to analyze.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>The Z score is a measure of how many standard deviations a data point is away from the mean. It can be easily calculated in R;</li>
-  <li>ggplot2 can be used to visualize the different Z scores in a distribution;</li>
-  <li>Extreme Z-scores might indicate outliers or skewed distributions;</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Master statistics by learning how to calculate and visualize Z scores in R. Learn data visualization techniques and enhance your statistical analysis skills!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_09.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_09.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Discover the essence of the normal distribution in R. Dive deep into histograms, density plots, and the Swiss dataset to understand Gaussian distributions.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_10.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_10.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
