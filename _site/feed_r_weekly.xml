@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_weekly.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 09 Feb 2024 12:04:18 +0100</pubDate>
-        <lastBuildDate>Fri, 09 Feb 2024 12:04:18 +0100</lastBuildDate>
+        <pubDate>Tue, 26 Mar 2024 16:15:04 +0100</pubDate>
+        <lastBuildDate>Tue, 26 Mar 2024 16:15:04 +0100</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -738,25 +738,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;5-a-shiny-app-to-choose-your-google-font&quot;&gt;5. A shiny app to choose your Google Font&lt;/h2&gt;
-
-&lt;p&gt;To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;iframe height=&quot;700px&quot; width=&quot;100%&quot; frameborder=&quot;no&quot; scrolling=&quot;no&quot; src=&quot;https://ggfontpicker-a2d2cb056f0a.herokuapp.com/&quot;&gt; &lt;/iframe&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;In a future lesson I will explain how to code a Shiny App applied to digital humanities. Meanwhile, feel free to consult my &lt;a href=&quot;https://github.com/bruno-ponne/ggFontPicker&quot;&gt;code here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;6-checking-the-causes-of-death&quot;&gt;6. Checking the causes of death&lt;/h2&gt;
+&lt;h2 id=&quot;5-checking-the-causes-of-death&quot;&gt;5. Checking the causes of death&lt;/h2&gt;
 
 &lt;p&gt;In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?&lt;/p&gt;
 
@@ -832,7 +814,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;7-conclusions&quot;&gt;7. Conclusions&lt;/h2&gt;
+&lt;h2 id=&quot;6-conclusions&quot;&gt;6. Conclusions&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 

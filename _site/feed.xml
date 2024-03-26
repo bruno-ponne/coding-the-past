@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-09T12:04:18+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Unveiling Roman Amphitheaters with a ggplot2 violin plot</title><link href="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html" rel="alternate" type="text/html" title="Unveiling Roman Amphitheaters with a ggplot2 violin plot" /><published>2024-02-09T00:00:00+01:00</published><updated>2024-02-09T00:00:00+01:00</updated><id>http://localhost:4000/2024/02/09/ggplot2-violin-plot</id><content type="html" xml:base="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-26T16:15:04+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Unveiling Roman Amphitheaters with a ggplot2 violin plot</title><link href="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html" rel="alternate" type="text/html" title="Unveiling Roman Amphitheaters with a ggplot2 violin plot" /><published>2024-02-09T00:00:00+01:00</published><updated>2024-02-09T00:00:00+01:00</updated><id>http://localhost:4000/2024/02/09/ggplot2-violin-plot</id><content type="html" xml:base="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-what-is-a-violin-plot">1. What is a violin plot?</h2>
 
@@ -1119,25 +1119,7 @@
 
 <p><br /></p>
 
-<h2 id="5-a-shiny-app-to-choose-your-google-font">5. A shiny app to choose your Google Font</h2>
-
-<p>To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.</p>
-
-<p><br /></p>
-
-<iframe height="700px" width="100%" frameborder="no" scrolling="no" src="https://ggfontpicker-a2d2cb056f0a.herokuapp.com/"> </iframe>
-
-<p><br /></p>
-
-<p>In a future lesson I will explain how to code a Shiny App applied to digital humanities. Meanwhile, feel free to consult my <a href="https://github.com/bruno-ponne/ggFontPicker">code here</a>.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="6-checking-the-causes-of-death">6. Checking the causes of death</h2>
+<h2 id="5-checking-the-causes-of-death">5. Checking the causes of death</h2>
 
 <p>In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?</p>
 
@@ -1213,7 +1195,7 @@
 
 <p><br /></p>
 
-<h2 id="7-conclusions">7. Conclusions</h2>
+<h2 id="6-conclusions">6. Conclusions</h2>
 
 <p><br /></p>
 

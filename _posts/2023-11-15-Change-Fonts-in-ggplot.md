@@ -184,26 +184,7 @@ The plot above suggests a relatively low number of homicides in these inquests. 
 <br>
 
 
-
-## 5. A shiny app to choose your Google Font
-
-To streamline the process of selecting the perfect font for your visualizations, I have created a user-friendly Shiny App. This tool allows you to experiment with a variety of Google Fonts on the plots discussed in this lesson, enabling you to discover the font that best enhances your data visualizations. You are welcome to explore this app and find the font that best suits your needs.
-
-<br>
-
-<iframe height="700px" width="100%" frameborder="no" scrolling="no" src="https://ggfontpicker-a2d2cb056f0a.herokuapp.com/"> </iframe>
-
-<br>
-
-In a future lesson I will explain how to code a Shiny App applied to digital humanities. Meanwhile, feel free to consult my [code here](https://github.com/bruno-ponne/ggFontPicker).
-
-<br>
-
-***
-
-<br>
-
-## 6. Checking the causes of death
+## 5. Checking the causes of death
 
 In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?
 
@@ -271,7 +252,7 @@ It's noteworthy that a significant number of the inquests pertained to cases of 
 
 <br>
 
-## 7. Conclusions
+## 6. Conclusions
 
 <br>
 
