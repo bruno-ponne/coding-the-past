@@ -1,4 +1,161 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-26T16:15:04+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Unveiling Roman Amphitheaters with a ggplot2 violin plot</title><link href="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html" rel="alternate" type="text/html" title="Unveiling Roman Amphitheaters with a ggplot2 violin plot" /><published>2024-02-09T00:00:00+01:00</published><updated>2024-02-09T00:00:00+01:00</updated><id>http://localhost:4000/2024/02/09/ggplot2-violin-plot</id><content type="html" xml:base="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-09T19:38:27+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Treemaps In R</title><link href="http://localhost:4000/2024/05/09/Treemaps-in-R.html" rel="alternate" type="text/html" title="Treemaps In R" /><published>2024-05-09T00:00:00+02:00</published><updated>2024-05-09T00:00:00+02:00</updated><id>http://localhost:4000/2024/05/09/Treemaps-in-R</id><content type="html" xml:base="http://localhost:4000/2024/05/09/Treemaps-in-R.html"><![CDATA[<p><br /></p>
+
+<h2 id="1-what-is-a-treemap">1. What is a treemap?</h2>
+
+<p>A treemap consists of a set of rectangles which represent different categories in your data and whose size is defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. In our example, within each continent rectangle, new rectangles could represent countries and their populations.</p>
+
+<p><img src="/assets/images/lesson_21_01.png" alt="Visual representation of a treemap." /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-when-should-you-use-a-treemap">2. When should you use a treemap?</h2>
+
+<p>One of the main advantages of a treemap is that it allows for the interpretation of a large amount of data at a single glance. It is well-suited to show part-to-whole relationships and to highlight the hierarchies in your data. Do not use treemaps when the variable defining the size of rectangles presents little variation.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-how-to-plot-a-treemap-in-r">3. How to plot a treemap in R?</h2>
+
+<p>To exemplify a treemap in R, we will use the <code class="language-plaintext highlighter-rouge">Cholera</code> dataset, which contains that on the mortality caused by cholera in England in the years 1848-1849. This data comes from the <code class="language-plaintext highlighter-rouge">histdata</code> R package. Moreover, you will need to install the <code class="language-plaintext highlighter-rouge">treemap</code> package, one of the alternatives to plot a treemap in R. We will also use <code class="language-plaintext highlighter-rouge">RColorBrewer</code> package for a color palette and <code class="language-plaintext highlighter-rouge">dplyr</code> to transform the data.</p>
+
+<p><br /></p>
+
+<p>After you install the packages, load them and explore the structure of the <code class="language-plaintext highlighter-rouge">Cholera</code> data frame.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-21-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">treemap</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Load the data to your R environment</span><span class="w">
+</span><span class="n">data</span><span class="p">(</span><span class="s2">"Cholera"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Check the dataframe structure</span><span class="w">
+</span><span class="n">str</span><span class="p">(</span><span class="n">Cholera</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:</p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);</li>
+  <li><code class="language-plaintext highlighter-rouge">district</code> will define our inner rectangles (lower hierarchy), representing the districts of London;</li>
+  <li><code class="language-plaintext highlighter-rouge">cholera_drate</code> represents deaths caused by cholera per 10,000 inhabitants in 1849 and will define the size of rectangles</li>
+</ul>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> To learn more about the data, please see the
+        
+        <a href="https://cran.r-project.org/web/packages/HistData/HistData.pdf" target="_blank"> package documentation here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">treemap</code> function is used to plot the treemap in R. The main arguments necessary are:</p>
+
+<ul class="conclusion-list">
+  <li>the first argument is the dataframe;</li>
+  <li><code class="language-plaintext highlighter-rouge">index</code> defines the two levels of hierarchy in our plot: region and district;</li>
+  <li><code class="language-plaintext highlighter-rouge">vSize</code> specifies the death rate to define the size of our rectangles;</li>
+  <li><code class="language-plaintext highlighter-rouge">vColor</code> specifies the region to define the color of our higher hierarchy rectangles;</li>
+  <li><code class="language-plaintext highlighter-rouge">type</code> informs the function that <code class="language-plaintext highlighter-rouge">vColor</code> is a categorical variable;</li>
+  <li>the remaining parameters are used to adjust format options like color palette and position of elements.</li>
+</ul>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> To further format your treemap, check more options in the
+        
+        <a href="https://cran.r-project.org/web/packages/treemap/treemap.pdf" target="_blank"> package documentation.</a>
+        
+    </div>
+</div>
+
+<p><br />
+<span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-21-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">treemap</span><span class="p">(</span><span class="n">Cholera</span><span class="p">,</span><span class="w">
+        </span><span class="n">index</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"region"</span><span class="p">,</span><span class="s2">"district"</span><span class="p">),</span><span class="w">
+        </span><span class="n">vSize</span><span class="o">=</span><span class="s2">"cholera_deaths"</span><span class="p">,</span><span class="w">
+        </span><span class="n">vColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"region"</span><span class="p">,</span><span class="w">
+        </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"categorical"</span><span class="p">,</span><span class="w">
+        </span><span class="c1"># formatting options:</span><span class="w">
+        </span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brewer.pal</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Accent"</span><span class="p">),</span><span class="w">
+        </span><span class="n">align.labels</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="w">
+          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">),</span><span class="w"> 
+          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"right"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">)</span><span class="w">
+        </span><span class="p">),</span><span class="w">     
+        </span><span class="n">border.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">
+        </span><span class="n">bg.labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">,</span><span class="w">
+        </span><span class="n">position.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_21_02.png" alt="Treemap plotted in R" /></p>
+
+<p><br /></p>
+
+<p><strong>Note that Kent is the region with the largest death rate, followed by Southern London. Moreover, districts like Lambeth and Bethnal Green were especially affected by the disease. This treemap is a powerful tool to give you a general picture of the data at first glance.</strong></p>
+
+<p><br /></p>
+
+<p><strong>If you have any questions, please feel free to comment below!</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-conclusions">4. Conclusions</h2>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>A treemap is very useful to represent hierarchical relations in your data and provide a quick overall picture of your data;</li>
+  <li>Plotting a treemap in R can be easily accomplished with the <code class="language-plaintext highlighter-rouge">treemap</code> package.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Explore how to effectively use a treemap in R to visualize hierarchical data and analyze part-to-whole relationships. This guide covers what a treemap is, when to use it, and a step-by-step tutorial on plotting with the treemap package.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_21.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_21.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Unveiling Roman Amphitheaters with a ggplot2 violin plot</title><link href="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html" rel="alternate" type="text/html" title="Unveiling Roman Amphitheaters with a ggplot2 violin plot" /><published>2024-02-09T00:00:00+01:00</published><updated>2024-02-09T00:00:00+01:00</updated><id>http://localhost:4000/2024/02/09/ggplot2-violin-plot</id><content type="html" xml:base="http://localhost:4000/2024/02/09/ggplot2-violin-plot.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-what-is-a-violin-plot">1. What is a violin plot?</h2>
 
@@ -2532,461 +2689,4 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="historicaldata" /><summary type="html"><![CDATA[Use the synth package to estimate synthetic control models, a powerful causal inference tool. Explore its strengths, limitations and main applications.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_12.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_12.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Uncovering History with R - A Look at the HistData Package</title><link href="http://localhost:4000/2023/07/12/HistData.html" rel="alternate" type="text/html" title="Uncovering History with R - A Look at the HistData Package" /><published>2023-07-12T00:00:00+02:00</published><updated>2023-09-02T00:00:00+02:00</updated><id>http://localhost:4000/2023/07/12/HistData</id><content type="html" xml:base="http://localhost:4000/2023/07/12/HistData.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p>“Historians offer us systems of the past that are too complete, series of causes and effects that are too exact and too clear to have ever been entirely true.”</p>
-
-<p>Marguerite Yourcenar - Mémoires d`Hadrien (1974)</p>
-
-<p><br /></p>
-
-<p>Greetings, humanists, social and data scientists! Are you curious about how data analysis can enrich your research and understanding? Look no further! Today, we explore the world of historical data analysis using R’s powerful package: HistData. This package contains a collection of more than 30 datasets that can be used to explore historical trends and patterns.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p><a href="https://cran.r-project.org/package=HistData">HistData</a> is an R package that provides a collection of 31 small datasets that are part of a program of research known as statistical historiography, that is, “the use of statistical methods to study problems and questions in the history of statistics and graphics” (Friendly, 2021). They can, of course, be used to study other topics in the humanities and social sciences. Thank you to the authors Michael Friendly, Stephane Dray, Hadley Wickham, James Hanley, Dennis Murphy, Peter Li for this wonderful compilation of datasets! Here are some of the data included.</p>
-
-<p><br /></p>
-
-<table class="dataframe-2">
-    <thead>
-        <tr>
-            <th>Dataset</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Arbuthnot</td>
-            <td>Arbuthnot’s data on male and female birth ratios in London from 1629-1710</td>
-        </tr>
-        <tr>
-            <td>Armada</td>
-            <td>The Spanish Armada</td>
-        </tr>
-        <tr>
-            <td>Bowley</td>
-            <td>Bowley’s data on values of British and Irish trade, 1855-1899</td>
-        </tr>
-        <tr>
-            <td>Cavendish</td>
-            <td>Cavendish’s 1798 determinations of the density of the earth</td>
-        </tr>
-        <tr>
-            <td>ChestSizes</td>
-            <td>Quetelet’s data on chest measurements of Scottish militiamen</td>
-        </tr>
-        <tr>
-            <td>Cholera</td>
-            <td>William Farr’s Data on Cholera in London, 1849</td>
-        </tr>
-        <tr>
-            <td>CushnyPeebles</td>
-            <td>Cushny-Peebles data: Soporific effects of scopolamine derivatives</td>
-        </tr>
-        <tr>
-            <td>Dactyl</td>
-            <td>Edgeworth’s counts of dactyls in Virgil’s Aeneid</td>
-        </tr>
-        <tr>
-            <td>DrinksWages</td>
-            <td>Elderton and Pearson’s (1910) data on drinking and wages</td>
-        </tr>
-        <tr>
-            <td>Fingerprints</td>
-            <td>Waite’s data on Patterns in Fingerprints</td>
-        </tr>
-        <tr>
-            <td>Galton</td>
-            <td>Galton’s data on the heights of parents and their children</td>
-        </tr>
-        <tr>
-            <td>GaltonFamilies</td>
-            <td>Galton’s data on the heights of parents and their children, by family</td>
-        </tr>
-        <tr>
-            <td>Guerry</td>
-            <td>Data from A.-M. Guerry, "Essay on the Moral Statistics of France"</td>
-        </tr>
-        <tr>
-            <td>HalleyLifeTable</td>
-            <td>Halley’s Life Table</td>
-        </tr>
-        <tr>
-            <td>Jevons</td>
-            <td>W. Stanley Jevons’ data on numerical discrimination</td>
-        </tr>
-    </tbody>
-</table>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-exploring-histdata">Coding the past: exploring HistData</h1>
-
-<p><br /></p>
-
-<h2 id="1-how-to-install-the-package-in-r">1. How to install the package in R?</h2>
-
-<p>To get started with HistData, you will first need to install and load the package into your R environment. We will additionally load other necessary libraries. You can do this using the following commands:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-11-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"HistData"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>You can access descriptions for each dataset using the <code class="language-plaintext highlighter-rouge">help(DataSet)</code> command. Moreover, running <code class="language-plaintext highlighter-rouge">example(DataSet)</code> will, in most cases, demonstrate applications similar to their historical use.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-how-to-load-and-rename-a-dataset-from-histdata">2. How to load and rename a dataset from HistData?</h2>
-
-<p>To demonstrate HistData’s capabilities, we will use the <code class="language-plaintext highlighter-rouge">Nightingale</code> dataset. This dataset contains the monthly number of deaths from various causes in the British Army during the <a href="https://en.wikipedia.org/wiki/Crimean_War">Crimean War (1853-1856)</a>. The data was collected by Florence Nightingale, a British nurse who became famous for her work in the Crimean War. She was also a pioneer in the use of data visualization to communicate information.</p>
-
-<p><br /></p>
-
-<p class="fig-caption"><img src="/assets/images/lesson_11_01.jpeg" alt="Florence Nightingale" />
-Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domain</p>
-
-<p><br /></p>
-
-<p>To load the <code class="language-plaintext highlighter-rouge">Nightingale</code> dataset, we use the <code class="language-plaintext highlighter-rouge">data()</code> function. It will be automatically named <code class="language-plaintext highlighter-rouge">Nightingale</code> in our environment. However, we can load it into a dataframe with a different name, such as <code class="language-plaintext highlighter-rouge">df</code>, using the following command:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-11-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">data</span><span class="p">(</span><span class="n">Nightingale</span><span class="p">)</span><span class="w">
-</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Nightingale</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>To check the structure of the dataset, use the <code class="language-plaintext highlighter-rouge">str(Nightingale)</code>. This will show you the number of observations and variables, as well as the type of data in each column. You  will see that the dataset has 10 variables: <code class="language-plaintext highlighter-rouge">Date</code>, <code class="language-plaintext highlighter-rouge">Month</code>, <code class="language-plaintext highlighter-rouge">Year</code>, <code class="language-plaintext highlighter-rouge">Army</code>, <code class="language-plaintext highlighter-rouge">Disease</code>, <code class="language-plaintext highlighter-rouge">Wounds</code>, <code class="language-plaintext highlighter-rouge">Other</code>, <code class="language-plaintext highlighter-rouge">Disease.rate</code>, <code class="language-plaintext highlighter-rouge">Wounds.rate</code>, and <code class="language-plaintext highlighter-rouge">Other.rate</code>.  There are 24 observations for each variable. We will focus on the following variables:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">Date</code>: the date of the observation;</li>
-  <li><code class="language-plaintext highlighter-rouge">Year</code>: the year of the observation;</li>
-  <li><code class="language-plaintext highlighter-rouge">Disease</code>: the number of deaths from preventable or mitigable zymotic diseases;</li>
-  <li><code class="language-plaintext highlighter-rouge">Wounds</code>: the number of deaths directly from battle wounds;</li>
-  <li><code class="language-plaintext highlighter-rouge">Other</code>: the number of deaths from other causes.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-explore-the-dataset">3. Explore the dataset</h2>
-
-<p>First, let’s create a new variable <code class="language-plaintext highlighter-rouge">Total</code> with the total amount of deaths per period. We can do this by adding the <code class="language-plaintext highlighter-rouge">Disease</code>, <code class="language-plaintext highlighter-rouge">Wounds</code>, and <code class="language-plaintext highlighter-rouge">Other</code> variables. This is done with the <code class="language-plaintext highlighter-rouge">mutate()</code> function available in the <code class="language-plaintext highlighter-rouge">dplyr</code> package.  We can then use the <code class="language-plaintext highlighter-rouge">group_by()</code> and <code class="language-plaintext highlighter-rouge">summarise()</code> functions to calculate the average number of deaths per year.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-11-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mutate</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Disease</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Wounds</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">group_by</span><span class="p">(</span><span class="n">Year</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">summarise</span><span class="p">(</span><span class="n">average_n_deaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">Total</span><span class="p">))</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>We can see that the average number of deaths was 688 in 1854; reached a peak of 967 deaths in 1855; and decreased in 1856.</p>
-
-<p><br /></p>
-
-<p>To visualize the trend of deaths over time, we can use <code class="language-plaintext highlighter-rouge">geom_line()</code> function from the <code class="language-plaintext highlighter-rouge">ggplot2</code> package. The <code class="language-plaintext highlighter-rouge">Date</code> variable should be mapped to the x-axis and the <code class="language-plaintext highlighter-rouge">Total</code> variable to the y-axis. We can use the <code class="language-plaintext highlighter-rouge">labs()</code> function to add a title and labels to the x and y axes. Note that <code class="language-plaintext highlighter-rouge">theme_coding_the_past()</code> is a custom theme that I created in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization’</a> to make the plot match the blog theme. You can use the default theme or create your own.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-11-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_coding_the_past</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-    </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
-      </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-      </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-      </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
-      </span><span class="n">legend.key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-      </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="c1"># Changes legend texts color to white:</span><span class="w">
-      </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
-      </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="c1"># Eliminates grids:</span><span class="w">
-      </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-      </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-      </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
-      </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="c1"># Changes axis ticks color to white</span><span class="w">
-      </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-      </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
-    </span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Total</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths in the British Army during the Crimean War"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Date"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Total Number of Deaths"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_11_02.png" alt="Plot of Total Deaths through time " /></p>
-
-<p><br /></p>
-
-<p>Florence Nightingale hypothesized that deaths in war hospitals were more frequently caused by poor sanitary conditions than by the war injuries themselves. As a result of Nightingale’s reports and persistent advocacy, a Sanitary Commission was dispatched in March 1855 to enhance hygiene standards, improve ventilation, and introduce preventive measures such as handwashing. To evaluate whether the death rates declined following the arrival of the Sanitary Commission, Florence took a progressive approach for her time. She analyzed and visualized data!</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-florences-approach-a-coxcomb-chart">4. Florence’s approach: a Coxcomb chart</h2>
-
-<p>To better understand how the number of deaths evolved during the war period, Florence utilized a Coxcomb plot. This plot is similar to a pie chart, but all sectors have equal angles, differing in how far they extend from the center of the circle.</p>
-
-<p><br /></p>
-
-<p>The figure below presents the Coxcomb plot that Florence created. The plot illustrates the number of deaths per month and cause. The radius of each sector is proportional to the number of deaths. There are 12 sectors, each representing a month of the year, starting from the left (April 1854) and proceeding in a clockwise direction until March 1855, thus completing the circle. Each sector is further divided by color, indicating the cause of death. Florence split the data into two different visualizations: one for before the arrival of the Sanitary Commission (plot on the right), and one for after (plot on the left).</p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_11_03.jpeg" alt="Florence Coxcomb Chart " /></p>
-<p class="fig-caption">Florence Nightingale, Public domain, via <a href="https://commons.wikimedia.org/wiki/File:Nightingale-mortality.jpg">Wikimedia Commons</a></p>
-
-<p><br /></p>
-
-<p>In the next sections, we will replicate Nightingale’s Coxcomb plot using the <code class="language-plaintext highlighter-rouge">ggplot2</code> package. Before that, we will use the <code class="language-plaintext highlighter-rouge">pivot_longer()</code> function from the <code class="language-plaintext highlighter-rouge">tidyr</code> package to transform the data from a wide to a long format. This will allow us to visualize the trend of deaths by cause over time.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-how-to-use-r-pivot_longer">5. How to use R pivot_longer?</h2>
-
-<p>The <code class="language-plaintext highlighter-rouge">pivot_longer()</code> function, from the <code class="language-plaintext highlighter-rouge">tidyr</code> package, enables us to convert our data from a wide format to a long one. This process will create a new variable named <code class="language-plaintext highlighter-rouge">Cause</code> with the values <code class="language-plaintext highlighter-rouge">Disease</code>, <code class="language-plaintext highlighter-rouge">Wounds</code> and <code class="language-plaintext highlighter-rouge">Other</code>, all of which were previously separate variables. The death counts corresponding to each cause will now be housed in a new variable labeled <code class="language-plaintext highlighter-rouge">Deaths</code>. The <code class="language-plaintext highlighter-rouge">cols</code> argument specifies the variables to be transformed, while the <code class="language-plaintext highlighter-rouge">names_to</code> and <code class="language-plaintext highlighter-rouge">values_to</code> arguments specify the names of the new variables. The figure below illustrates the transformation from wide to long format.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_11_04.png" alt="pivot_longer illustration " /></p>
-
-<p><br /></p>
-
-<p>The following code first selects the relevant variables and then carries out the wide to long transformation. Moreover, we create one dataset for the data before the Commission’s arrival and another one for after the arrival. We will use these datasets to replicate Florence’s Coxcomb plot in the next section.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-11-5">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
-  </span><span class="n">select</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span><span class="w"> </span><span class="n">Disease</span><span class="p">,</span><span class="w"> </span><span class="n">Wounds</span><span class="p">,</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
-  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Disease</span><span class="o">:</span><span class="n">Other</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Cause"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df_before</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">Date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1855-04-01"</span><span class="p">))</span><span class="w">
-</span><span class="n">df_after</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">Date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1855-04-01"</span><span class="p">))</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="6-replicate-florences-coxcomb-plot-with-ggplot2">6. Replicate Florence’s Coxcomb plot with ggplot2</h2>
-
-<p>The code below replicates Nightingale’s Coxcomb plot. <code class="language-plaintext highlighter-rouge">Date</code> is mapped to the x-axis and the <code class="language-plaintext highlighter-rouge">Deaths</code> to the y-axis. The <code class="language-plaintext highlighter-rouge">fill</code> parameter is dependent on <code class="language-plaintext highlighter-rouge">Cause</code>. The <code class="language-plaintext highlighter-rouge">geom_bar()</code> layer creates a stacked bar chart. The <code class="language-plaintext highlighter-rouge">scale_y_sqrt()</code> function transforms the y-axis into a square root scale to better visualize the differences between the number of deaths by cause. Note also that the <code class="language-plaintext highlighter-rouge">limits</code> argument guarantees that before and after y-axis will have the same scale: from 0 to 3000 deaths. Thus we can compare the two plots more easily.</p>
-
-<p><br /></p>
-
-<p>Finally, <code class="language-plaintext highlighter-rouge">coord_polar()</code> converts the bar chart into a Coxcomb plot. The ´start´ argument sets the offset of starting point from “12 o’clock” in radians. We set it to 3*pi/2 (270°) to start at “9 o’clock” to replicate Florence’s choice. The <code class="language-plaintext highlighter-rouge">ggtitle()</code> function adds a title to the plot. The <code class="language-plaintext highlighter-rouge">scale_fill_manual()</code> function sets the colors of the sectors. The <code class="language-plaintext highlighter-rouge">theme()</code> adapts the plot to fit the style of this page. The exact same plot is created for the data after the arrival of the Sanitary Commission.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-6')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-11-6">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">my_colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#95D758"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#38B6FF"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df_before</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.factor</span><span class="p">(</span><span class="n">Date</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Deaths</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cause</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="c1"># Stacked bar chart</span><span class="w">
-  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span><span class="w"> </span><span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_colors</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="c1"># Fixed scale for before and after</span><span class="w">
-  </span><span class="n">scale_y_sqrt</span><span class="p">(</span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">3000</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="c1"># A coxcomb plot (bar chart + polar coordinates)</span><span class="w">
-  </span><span class="n">coord_polar</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="m">3</span><span class="o">*</span><span class="nb">pi</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Before Commission Arrival"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="c1">#theme changes</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="c1"># Changes panel, plot and legend background to dark gray:</span><span class="w">
-    </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-    </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-    </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
-    </span><span class="n">legend.key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-    </span><span class="c1"># White plot title</span><span class="w">
-    </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-    </span><span class="c1"># Changes legend position and texts color</span><span class="w">
-    </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-    </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-    </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">,</span><span class="w">
-    </span><span class="c1"># Changes color of plot border to white:</span><span class="w">
-    </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-    </span><span class="c1"># Changes color of axis texts to white</span><span class="w">
-    </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-    </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">),</span><span class="w">
-    </span><span class="c1"># Omits axes titles and ticks</span><span class="w">
-    </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-    </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-    </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-    </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">())</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>In the plots below, we can confirm that the number of deaths from preventable diseases, in pink, is a lot larger before the arrival of the Sanitary Commission. On the other hand, the number of deaths from wounds and other causes, in blue and green, respectively, is smaller and relatively stable.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_11_05.png" alt="Florence Coxcomb Chart - before " /></p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_11_06.png" alt="Florence Coxcomb Chart - after" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="7-a-line-plot-instead-of-a-coxcomb-plot">7. A line plot instead of a Coxcomb plot</h2>
-
-<p>And what if we used a line plot to analyze the same data? The code below employs geom_line to achieve that. Note that geom_vline adds a vertical line at the date of the arrival of the Sanitary Commission.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-11-7')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-11-7">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Deaths</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cause</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.8</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths in the British Army during the Crimean War"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Date"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Number of Deaths"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1855-04-01"</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_colors</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_11_07.png" alt="Florence Chart with a line plot" /></p>
-
-<p><br /></p>
-
-<p>Once again, this plot illustrates that mortality decreased following the arrival of the Sanitary Commission. Notably, deaths from preventable diseases, represented by the pink line, experienced a significant reduction. It’s crucial to bear in mind, however, that before-and-after analyses do not provide definitive proof of causality. Nevertheless, the evidence showcased in both the line plot and the Coxcomb plot strongly indicates that the implemented measures likely drove the observed decrease in fatalities.</p>
-
-<p><br /></p>
-
-<p><strong>What are your thoughts? Do you prefer the Coxcomb plot or the line plot? In your opinion, which visualization is the most effective? I welcome your feedback in the comments below!</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">HistData</code> is a package that provides a collection of 31 small datasets that can be used to explore historical trends and patterns;</li>
-  <li>A Coxcomb chart is similar to a pie chart, but all divisions have equal angles, differing in how far they extend from the center of the circle;</li>
-  <li>Different plots can be used to visualize the same data. The choice of visualization depends on the type of data and the message you want to convey.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Explore the world of historical data analysis using R's powerful package - HistData. This package contains a collection of more than 30 datasets for your research.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_11.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_11.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="historicaldata" /><summary type="html"><![CDATA[Use the synth package to estimate synthetic control models, a powerful causal inference tool. Explore its strengths, limitations and main applications.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_12.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_12.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
