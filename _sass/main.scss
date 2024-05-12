@@ -263,7 +263,8 @@ h2{
 }
 
 .lesson-img{
-    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 .lesson-name{
@@ -390,14 +391,16 @@ h2{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    max-width: 70%;
+    height: auto;
 }
 
 .post-body .larger img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 .conclusion-list{
@@ -806,7 +809,8 @@ h2{
     }
 
     .post-body img{
-        width: 80%;
+        max-width: 80%;
+        height: auto;
     }
 
     .post-body h1{
@@ -870,7 +874,8 @@ h2{
     }
 
     .post-body img{
-        width: 100%;
+        max-width: 100%;
+        height: auto;
     }
 
     .header-nav{
@@ -908,6 +913,6 @@ h2{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    height:100%;
 }

@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 09 May 2024 19:38:27 +0200</pubDate>
-        <lastBuildDate>Thu, 09 May 2024 19:38:27 +0200</lastBuildDate>
+        <pubDate>Sun, 12 May 2024 13:42:55 +0200</pubDate>
+        <lastBuildDate>Sun, 12 May 2024 13:42:55 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -1342,7 +1342,7 @@ Location not Given	17,051	2,687	19,738	- &quot;&quot;&quot;&lt;/code&gt;&lt;/pre
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_15_01.png&quot; alt=&quot;Figure explaining how to use R in Google Colab&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_15_01.png&quot; alt=&quot;Figure explaining how to use R in Google Colab&quot; width=&quot;650&quot; height=&quot;650&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;text-note&quot;&gt;
     &lt;span class=&quot;material-symbols-outlined&quot;&gt;

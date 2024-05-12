@@ -64,7 +64,9 @@ It is actually quite straightforward to configure Google Colab to accept R code.
 
 <br>
 
-![Figure explaining how to use R in Google Colab](/assets/images/lesson_15_01.png)
+
+<img src="/assets/images/lesson_15_01.png" alt="Figure explaining how to use R in Google Colab" width="650" height="650"/>
+
 
 
 {% include note.html content = 'You can also set which type of hardware accelerator you would like to use to process your code. Usually graphics processing units (GPU) are better for machine learning applications.'  %}

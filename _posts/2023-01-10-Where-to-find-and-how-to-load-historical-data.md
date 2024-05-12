@@ -8,7 +8,7 @@ attributes:
   - e: R
   - e: 6 min
 tags: r python historicaldata
-image: lesson_02.png
+image: lesson_02.jpg
 abstract: Learn about great websites to find reliable historical data and how to load it in R and Python.
 objectives:
   - o: Get to know good sources of historical data;

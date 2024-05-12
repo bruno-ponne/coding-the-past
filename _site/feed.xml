@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-09T19:38:27+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Treemaps In R</title><link href="http://localhost:4000/2024/05/09/Treemaps-in-R.html" rel="alternate" type="text/html" title="Treemaps In R" /><published>2024-05-09T00:00:00+02:00</published><updated>2024-05-09T00:00:00+02:00</updated><id>http://localhost:4000/2024/05/09/Treemaps-in-R</id><content type="html" xml:base="http://localhost:4000/2024/05/09/Treemaps-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-12T13:42:55+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Treemaps In R</title><link href="http://localhost:4000/2024/05/09/Treemaps-in-R.html" rel="alternate" type="text/html" title="Treemaps In R" /><published>2024-05-09T00:00:00+02:00</published><updated>2024-05-09T00:00:00+02:00</updated><id>http://localhost:4000/2024/05/09/Treemaps-in-R</id><content type="html" xml:base="http://localhost:4000/2024/05/09/Treemaps-in-R.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-what-is-a-treemap">1. What is a treemap?</h2>
 
@@ -1666,7 +1666,7 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<p><img src="/assets/images/lesson_15_01.png" alt="Figure explaining how to use R in Google Colab" /></p>
+<p><img src="/assets/images/lesson_15_01.png" alt="Figure explaining how to use R in Google Colab" width="650" height="650" /></p>
 
 <div class="text-note">
     <span class="material-symbols-outlined">

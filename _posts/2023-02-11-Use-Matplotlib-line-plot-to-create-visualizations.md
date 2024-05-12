@@ -7,7 +7,7 @@ attributes:
   - e: Python
   - e: 10 min
 tags: python matplotlib
-image: lesson_01.png
+image: lesson_01.jpg
 abstract: Use Matplotlib to plot and highlight elements in historical trends in 8 steps.
 objectives:
   - o: Dive deep into Matplotlib's functionalities;
