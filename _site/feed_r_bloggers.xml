@@ -5,9 +5,170 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 12 May 2024 15:24:02 +0200</pubDate>
-        <lastBuildDate>Sun, 12 May 2024 15:24:02 +0200</lastBuildDate>
+        <pubDate>Sun, 23 Jun 2024 14:43:38 +0200</pubDate>
+        <lastBuildDate>Sun, 23 Jun 2024 14:43:38 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>R vs Power BI</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-what-is-r&quot;&gt;1. What is R?&lt;/h2&gt;
+&lt;p&gt;R is a programming language and an environment for statistical computing and visualization. R is not a  general-purpose programming language, like Python or Java, because its focus is on statistical computing. The language is very popular in the academic environment and allows for complex calculations and algorithms.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-what-is-power-bi&quot;&gt;2. What is Power BI?&lt;/h2&gt;
+&lt;p&gt;Power BI is a set of softwares and applications focused on data analysis and visualization for Business Intelligence. For this article, when we talk about Power BI, we refer to Power BI Desktop, a drag and drop application used to transform, analyse and visualize data.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-r-vs-power-bi&quot;&gt;3. R vs Power BI&lt;/h2&gt;
+
+&lt;p&gt;Below, a list of the main differences and similarities of R and Power BI is presented for several aspects:&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;&lt;strong&gt;Scope&lt;/strong&gt;: While R is more suitable for academic and complex statistical data analysis, Power BI is more adequate for quick visual analyses. While R is common in the academic context, it can also be used in companies and industries that leverage data science for decision making. In this case, R would be used to prepare the data, train models and the Power BI to visualize the findings;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Learning Curve&lt;/strong&gt;: Power BI is user-friendly and allows the creation of beautiful visualizations with a few clicks. R, on the other hand, has a steep learning curve. It requires a lot more training and reading more complex documentation before you can produce effective visualizations;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Interface&lt;/strong&gt;: R is a written programming language, while most of tasks in Power BI are achieved with drag and drop actions;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Data Visualization&lt;/strong&gt;: Power BI is limited in its visuals and customization options of reports and graphs, while R is flexible and versatile. There are many more chart types that can be plotted in R compared to Power BI. On the other hand, it is much easier and faster to plot appealing visualizations in Power BI compared to R;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Data Analysis&lt;/strong&gt;: R provides libraries for advanced statistical operations that allow statistical inference, causal inference, machine learning and more complex analysis. Power BI is more suitable for answering simple Business Intelligence questions.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Price&lt;/strong&gt;: Both platforms are free, but companies offer paid tools to enrich their functionalities.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-r-vs-power-bi-for-digital-humanities&quot;&gt;4. R vs Power BI for digital humanities&lt;/h2&gt;
+
+&lt;p&gt;R as well as Power BI might be used for digital humanities. R is perfect for analyses and visualizations for a scientific article. It is also the right option if you would like to implement complex algorithms. Power BI is a great fit if you would like to easily produce beautiful plots and enable user interactivity for a broader audience.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In education, for example, Power BI could be used to produce an interactive dashboard exploring the casualties of World War II. This could be used to teach history or bring insights to researchers on possible research questions.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Regarding R, this blog has plenty of examples of how to apply it to the humanities. I recommend this article where you learn about the use of synthetic control to investigate hypothesis in History: &lt;a href=&quot;/2023/07/21/Synthetic-Control.html&quot;&gt;‘When Numbers Meet Stories - an introduction to the synthetic control method in R’&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-r-vs-power-bi---examples&quot;&gt;5. R vs Power BI - Examples&lt;/h2&gt;
+
+&lt;p&gt;To exemplify the differences and similarities of R and Power BI, we will replicate in Power BI the treemap plotted in R in the lesson &lt;a href=&quot;/2024/05/09/Treemaps-in-R.html&quot;&gt;Treemaps in R&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_22_01.png&quot; alt=&quot;Visual representation of a treemap.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The data used in R is also available in a &lt;em&gt;CSV&lt;/em&gt; file at &lt;a href=&quot;https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Cholera.csv&quot;&gt;this link&lt;/a&gt;. It is part of a great initiative by Professor Vincent Arel-Bundock to gather many interesting R datasets and make them available in &lt;em&gt;CSV&lt;/em&gt; format on this page: &lt;a href=&quot;https://vincentarelbundock.github.io/Rdatasets/articles/data.html&quot;&gt;R Datasets&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Power BI Desktop is free and you can download it from the Power BI Microsoft official page. To learn more about it and how to get started, please consult &lt;a href=&quot;https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-what-is-desktop&quot;&gt;this resource&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the lesson &lt;a href=&quot;/2024/05/09/Treemaps-in-R.html&quot;&gt;Treemaps in R&lt;/a&gt; we learnt how to plot a treemap in R. In this lesson we will plot the same treemap in Power BI. To do that, download the data above and save it in the desired folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you open Power BI, you will see the option to load data from an Excel File. You can choose this option and a window will open to select the file with your data. You can then select &lt;em&gt;all files&lt;/em&gt; to see also &lt;em&gt;csv&lt;/em&gt; files. Select the &lt;em&gt;cholera.csv&lt;/em&gt; file and confirm. You will be offered the option to transform your data in Power Query, a tool aimed at preparing your data before visualization. For this lesson, you can skip this step and load the data without transforming its structure.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the bar to the right, you will see the variables of your dataset. We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. These are the relevant variables for us:&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;region&lt;/code&gt; will define our outer rectangles (categories) and will represent regions of London (West, North, Central, South, Kent);&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;district&lt;/code&gt; will define our inner rectangles (details), representing the districts of London;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cholera_drate&lt;/code&gt; represents deaths caused by cholera per 10,000 inhabitants in 1849 and will define the size of rectangles&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The first step is to select the &lt;em&gt;cholera_drate&lt;/em&gt; field, as shown in the image below. You will realise that Power BI automatically creates a bar chart with the sum of all death rates.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_22_02.png&quot; alt=&quot;Showing death rates in a bar plot in Power BI&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, click on the bar plot and select the option Treemap in the Visualization tab, as shown in the image below.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_22_03.png&quot; alt=&quot;Creating a treemap in Power BI&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The next step is to define which variable will determine the branches of our treemap, that is, the more general category. In our case, it is region. Finally, we define the field determining the leaves of our treemap. In this example, the leaves are the districts inside each region of London. Drag these two fields to &lt;em&gt;category&lt;/em&gt; and &lt;em&gt;details&lt;/em&gt; as shown below.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_22_04.png&quot; alt=&quot;Adding a category to the Power BI treemap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_22_05.png&quot; alt=&quot;Adding details to the Power BI treemap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;That’s it! Without any line of code, you created a treemap that offers a great visual of London cholera death rates by region and district. You have even automatically generated tooltips that provide additional information about each leaf in your tree. You can further format your plot to have your desired colors, fonts and sizes. Read more about how to format a visualization on &lt;a href=&quot;https://learn.microsoft.com/en-us/power-bi/visuals/service-getting-started-with-color-formatting-and-axis-properties&quot;&gt;this page&lt;/a&gt;. Below you see the formatted version of the treemap.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_22_06.png&quot; alt=&quot;Final Version of treemap in Power BI&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you have seen, compared to R, it is easier to plot a treemap in Power BI. On the other hand, Power BI customization options are limited compared to R. Please, if you have any question or comments, feel free to write below and I wish you a great learning journey!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-conclusions&quot;&gt;4. Conclusions&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;Both R and Power BI are great tools for data analysis. While R is more suitable for complex and academic applications, Power BI is user-friendly and produces beautiful visualizations with drag-and-drop actions;&lt;/li&gt;
+  &lt;li&gt;Deciding whether to use R or Power BI depends on your goals and requirements, and the two tools can complement each other to produce effective results.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+                <pubDate>Sun, 23 Jun 2024 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/2024/06/23/r-vs-powerbi.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2024/06/23/r-vs-powerbi.html</guid>
+                
+                <category>r</category>
+                
+                <category>digitalhumanities</category>
+                
+                
+            </item>
         
             <item>
                 <title>Treemaps In R</title>
@@ -16,9 +177,13 @@
 
 &lt;h2 id=&quot;1-what-is-a-treemap&quot;&gt;1. What is a treemap?&lt;/h2&gt;
 
-&lt;p&gt;A treemap consists of a set of rectangles which represent different categories in your data and whose size is defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. In our example, within each continent rectangle, new rectangles could represent countries and their populations.&lt;/p&gt;
+&lt;p&gt;A treemap consists of a set of rectangles that represent different categories in your data and whose sizes are defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. Going back to our example of the continents, within each continent rectangle, new rectangles could represent countries and their populations.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_21_01.png&quot; alt=&quot;Visual representation of a treemap.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You might also think of the more general category — in our example, the continents — as branches of a tree and each branch has its own leaves — in our example, the countries. Below you see a visual representation of the concept behind a treemap.&lt;/p&gt;
+
+&lt;p class=&quot;larger&quot;&gt;&lt;img src=&quot;/assets/images/lesson_21_01.png&quot; alt=&quot;Visual representation of a treemap.&quot; /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -66,7 +231,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:&lt;/p&gt;
+&lt;p&gt;We would like to create a treemap in which we have bigger rectangles representing the regions of London (branches) and smaller rectangles representing the districts (leaves) within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:&lt;/p&gt;
 
 &lt;ul class=&quot;conclusion-list&quot;&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;region&lt;/code&gt; will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);&lt;/li&gt;
@@ -94,7 +259,7 @@
 
 &lt;ul class=&quot;conclusion-list&quot;&gt;
   &lt;li&gt;the first argument is the dataframe;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index&lt;/code&gt; defines the two levels of hierarchy in our plot: region and district;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index&lt;/code&gt; defines the two levels of hierarchy in our plot: region (our branches) and district (our leaves);&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vSize&lt;/code&gt; specifies the death rate to define the size of our rectangles;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vColor&lt;/code&gt; specifies the region to define the color of our higher hierarchy rectangles;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; informs the function that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vColor&lt;/code&gt; is a categorical variable;&lt;/li&gt;

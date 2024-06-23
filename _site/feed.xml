@@ -1,10 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-12T15:24:02+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Treemaps In R</title><link href="http://localhost:4000/2024/05/09/Treemaps-in-R.html" rel="alternate" type="text/html" title="Treemaps In R" /><published>2024-05-09T00:00:00+02:00</published><updated>2024-05-09T00:00:00+02:00</updated><id>http://localhost:4000/2024/05/09/Treemaps-in-R</id><content type="html" xml:base="http://localhost:4000/2024/05/09/Treemaps-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-23T14:43:38+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">R vs Power BI</title><link href="http://localhost:4000/2024/06/23/r-vs-powerbi.html" rel="alternate" type="text/html" title="R vs Power BI" /><published>2024-06-23T00:00:00+02:00</published><updated>2024-06-23T00:00:00+02:00</updated><id>http://localhost:4000/2024/06/23/r-vs-powerbi</id><content type="html" xml:base="http://localhost:4000/2024/06/23/r-vs-powerbi.html"><![CDATA[<p><br /></p>
+
+<h2 id="1-what-is-r">1. What is R?</h2>
+<p>R is a programming language and an environment for statistical computing and visualization. R is not a  general-purpose programming language, like Python or Java, because its focus is on statistical computing. The language is very popular in the academic environment and allows for complex calculations and algorithms.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-what-is-power-bi">2. What is Power BI?</h2>
+<p>Power BI is a set of softwares and applications focused on data analysis and visualization for Business Intelligence. For this article, when we talk about Power BI, we refer to Power BI Desktop, a drag and drop application used to transform, analyse and visualize data.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-r-vs-power-bi">3. R vs Power BI</h2>
+
+<p>Below, a list of the main differences and similarities of R and Power BI is presented for several aspects:</p>
+
+<ul class="conclusion-list">
+  <li><strong>Scope</strong>: While R is more suitable for academic and complex statistical data analysis, Power BI is more adequate for quick visual analyses. While R is common in the academic context, it can also be used in companies and industries that leverage data science for decision making. In this case, R would be used to prepare the data, train models and the Power BI to visualize the findings;</li>
+  <li><strong>Learning Curve</strong>: Power BI is user-friendly and allows the creation of beautiful visualizations with a few clicks. R, on the other hand, has a steep learning curve. It requires a lot more training and reading more complex documentation before you can produce effective visualizations;</li>
+  <li><strong>Interface</strong>: R is a written programming language, while most of tasks in Power BI are achieved with drag and drop actions;</li>
+  <li><strong>Data Visualization</strong>: Power BI is limited in its visuals and customization options of reports and graphs, while R is flexible and versatile. There are many more chart types that can be plotted in R compared to Power BI. On the other hand, it is much easier and faster to plot appealing visualizations in Power BI compared to R;</li>
+  <li><strong>Data Analysis</strong>: R provides libraries for advanced statistical operations that allow statistical inference, causal inference, machine learning and more complex analysis. Power BI is more suitable for answering simple Business Intelligence questions.</li>
+  <li><strong>Price</strong>: Both platforms are free, but companies offer paid tools to enrich their functionalities.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-r-vs-power-bi-for-digital-humanities">4. R vs Power BI for digital humanities</h2>
+
+<p>R as well as Power BI might be used for digital humanities. R is perfect for analyses and visualizations for a scientific article. It is also the right option if you would like to implement complex algorithms. Power BI is a great fit if you would like to easily produce beautiful plots and enable user interactivity for a broader audience.</p>
+
+<p><br /></p>
+
+<p>In education, for example, Power BI could be used to produce an interactive dashboard exploring the casualties of World War II. This could be used to teach history or bring insights to researchers on possible research questions.</p>
+
+<p><br /></p>
+
+<p>Regarding R, this blog has plenty of examples of how to apply it to the humanities. I recommend this article where you learn about the use of synthetic control to investigate hypothesis in History: <a href="/2023/07/21/Synthetic-Control.html">‘When Numbers Meet Stories - an introduction to the synthetic control method in R’</a></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-r-vs-power-bi---examples">5. R vs Power BI - Examples</h2>
+
+<p>To exemplify the differences and similarities of R and Power BI, we will replicate in Power BI the treemap plotted in R in the lesson <a href="/2024/05/09/Treemaps-in-R.html">Treemaps in R</a>.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_01.png" alt="Visual representation of a treemap." /></p>
+
+<p><br /></p>
+
+<p>The data used in R is also available in a <em>CSV</em> file at <a href="https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Cholera.csv">this link</a>. It is part of a great initiative by Professor Vincent Arel-Bundock to gather many interesting R datasets and make them available in <em>CSV</em> format on this page: <a href="https://vincentarelbundock.github.io/Rdatasets/articles/data.html">R Datasets</a>.</p>
+
+<p><br /></p>
+
+<p>Power BI Desktop is free and you can download it from the Power BI Microsoft official page. To learn more about it and how to get started, please consult <a href="https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-what-is-desktop">this resource</a>.</p>
+
+<p><br /></p>
+
+<p>In the lesson <a href="/2024/05/09/Treemaps-in-R.html">Treemaps in R</a> we learnt how to plot a treemap in R. In this lesson we will plot the same treemap in Power BI. To do that, download the data above and save it in the desired folder.</p>
+
+<p><br /></p>
+
+<p>When you open Power BI, you will see the option to load data from an Excel File. You can choose this option and a window will open to select the file with your data. You can then select <em>all files</em> to see also <em>csv</em> files. Select the <em>cholera.csv</em> file and confirm. You will be offered the option to transform your data in Power Query, a tool aimed at preparing your data before visualization. For this lesson, you can skip this step and load the data without transforming its structure.</p>
+
+<p><br /></p>
+
+<p>On the bar to the right, you will see the variables of your dataset. We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. These are the relevant variables for us:</p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (categories) and will represent regions of London (West, North, Central, South, Kent);</li>
+  <li><code class="language-plaintext highlighter-rouge">district</code> will define our inner rectangles (details), representing the districts of London;</li>
+  <li><code class="language-plaintext highlighter-rouge">cholera_drate</code> represents deaths caused by cholera per 10,000 inhabitants in 1849 and will define the size of rectangles</li>
+</ul>
+
+<p><br /></p>
+
+<p>The first step is to select the <em>cholera_drate</em> field, as shown in the image below. You will realise that Power BI automatically creates a bar chart with the sum of all death rates.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_02.png" alt="Showing death rates in a bar plot in Power BI" /></p>
+
+<p><br /></p>
+
+<p>Now, click on the bar plot and select the option Treemap in the Visualization tab, as shown in the image below.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_03.png" alt="Creating a treemap in Power BI" /></p>
+
+<p><br /></p>
+
+<p>The next step is to define which variable will determine the branches of our treemap, that is, the more general category. In our case, it is region. Finally, we define the field determining the leaves of our treemap. In this example, the leaves are the districts inside each region of London. Drag these two fields to <em>category</em> and <em>details</em> as shown below.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_04.png" alt="Adding a category to the Power BI treemap" /></p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_05.png" alt="Adding details to the Power BI treemap" /></p>
+
+<p><br /></p>
+
+<p>That’s it! Without any line of code, you created a treemap that offers a great visual of London cholera death rates by region and district. You have even automatically generated tooltips that provide additional information about each leaf in your tree. You can further format your plot to have your desired colors, fonts and sizes. Read more about how to format a visualization on <a href="https://learn.microsoft.com/en-us/power-bi/visuals/service-getting-started-with-color-formatting-and-axis-properties">this page</a>. Below you see the formatted version of the treemap.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_06.png" alt="Final Version of treemap in Power BI" /></p>
+
+<p><br /></p>
+
+<p>As you have seen, compared to R, it is easier to plot a treemap in Power BI. On the other hand, Power BI customization options are limited compared to R. Please, if you have any question or comments, feel free to write below and I wish you a great learning journey!</p>
+
+<p><br /></p>
+
+<h2 id="4-conclusions">4. Conclusions</h2>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>Both R and Power BI are great tools for data analysis. While R is more suitable for complex and academic applications, Power BI is user-friendly and produces beautiful visualizations with drag-and-drop actions;</li>
+  <li>Deciding whether to use R or Power BI depends on your goals and requirements, and the two tools can complement each other to produce effective results.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Understand R and Power BI differences and applications, from academic research to business intelligence, and discover how they can enrich your data analysis.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_22.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_22.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Treemaps In R</title><link href="http://localhost:4000/2024/05/09/Treemaps-in-R.html" rel="alternate" type="text/html" title="Treemaps In R" /><published>2024-05-09T00:00:00+02:00</published><updated>2024-05-09T00:00:00+02:00</updated><id>http://localhost:4000/2024/05/09/Treemaps-in-R</id><content type="html" xml:base="http://localhost:4000/2024/05/09/Treemaps-in-R.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-what-is-a-treemap">1. What is a treemap?</h2>
 
-<p>A treemap consists of a set of rectangles which represent different categories in your data and whose size is defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. In our example, within each continent rectangle, new rectangles could represent countries and their populations.</p>
+<p>A treemap consists of a set of rectangles that represent different categories in your data and whose sizes are defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. Going back to our example of the continents, within each continent rectangle, new rectangles could represent countries and their populations.</p>
 
-<p><img src="/assets/images/lesson_21_01.png" alt="Visual representation of a treemap." /></p>
+<p><br /></p>
+
+<p>You might also think of the more general category — in our example, the continents — as branches of a tree and each branch has its own leaves — in our example, the countries. Below you see a visual representation of the concept behind a treemap.</p>
+
+<p class="larger"><img src="/assets/images/lesson_21_01.png" alt="Visual representation of a treemap." /></p>
 
 <hr />
 
@@ -52,7 +200,7 @@
 
 <p><br /></p>
 
-<p>We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:</p>
+<p>We would like to create a treemap in which we have bigger rectangles representing the regions of London (branches) and smaller rectangles representing the districts (leaves) within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:</p>
 
 <ul class="conclusion-list">
   <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);</li>
@@ -80,7 +228,7 @@
 
 <ul class="conclusion-list">
   <li>the first argument is the dataframe;</li>
-  <li><code class="language-plaintext highlighter-rouge">index</code> defines the two levels of hierarchy in our plot: region and district;</li>
+  <li><code class="language-plaintext highlighter-rouge">index</code> defines the two levels of hierarchy in our plot: region (our branches) and district (our leaves);</li>
   <li><code class="language-plaintext highlighter-rouge">vSize</code> specifies the death rate to define the size of our rectangles;</li>
   <li><code class="language-plaintext highlighter-rouge">vColor</code> specifies the region to define the color of our higher hierarchy rectangles;</li>
   <li><code class="language-plaintext highlighter-rouge">type</code> informs the function that <code class="language-plaintext highlighter-rouge">vColor</code> is a categorical variable;</li>
@@ -2357,336 +2505,4 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Use R to analyze the relationship between two variables. Learn how to create linear models with R.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">When Numbers Meet Stories - an introduction to the synthetic control method in R</title><link href="http://localhost:4000/2023/07/21/Synthetic-Control.html" rel="alternate" type="text/html" title="When Numbers Meet Stories - an introduction to the synthetic control method in R" /><published>2023-07-21T00:00:00+02:00</published><updated>2023-07-21T00:00:00+02:00</updated><id>http://localhost:4000/2023/07/21/Synthetic-Control</id><content type="html" xml:base="http://localhost:4000/2023/07/21/Synthetic-Control.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p>“Qualitative flesh on quantitative bones.”</p>
-
-<p>Sidney Tarrow</p>
-
-<p><br /></p>
-
-<p>Greetings, humanists, social and data scientists!</p>
-
-<p><br /></p>
-
-<p>As our world grows increasingly data-driven, novel methods emerge that allow us to explore present and past social phenomena using sophisticated algorithms and statistical models. One such method is the synthetic control.</p>
-
-<p><br /></p>
-
-<p>Alberto Abadie, Alexis Diamond, and Jens Hainmueller, in their groundbreaking work, “Comparative Politics and the Synthetic Control Method,” have used the synthetic control method to bridge the often disparate domains of qualitative and quantitative research. Their article presents a systematic framework for selecting comparison units in comparative case studies. As an illustrative example, the authors examine the economic impact of the 1990 German reunification on West Germany.</p>
-
-<p><br /></p>
-
-<p>In this lesson we present the synthetic control method and show how to replicate Abadie et al. (2015)’s study of the impact of German reunification on West German GDP using <code class="language-plaintext highlighter-rouge">Synth</code>, an R package. I also present other applications of the synthetic control method.</p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_12_01.jpeg" alt="Berlin Wall" /></p>
-<p class="fig-caption">The Berlin Wall. Rieste, CC0, via Wikimedia Commons. Public Domain.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>The data required to replicate Abadie’s study is available in the <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/24714">Harvard Database</a>, which includes both the R script needed for replication and the relevant dataset. This dataset contains information about West Germany and 16 other developed countries. The included variables encompass aspects such as education, income, trade openness, industry share, inflation rate, and investment rate. Note that you do not need to go over the R script provided by the authors since I will simplify and explain it for you in this lesson.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-the-synthetic-control-method">Coding the past: the synthetic control method</h1>
-
-<p><br /></p>
-
-<h2 id="1-the-synthetic-control-method">1. The Synthetic Control Method</h2>
-
-<p>In the article, <a href="https://doi.org/10.1590/1981-3821202300010005">Better Incentives, Better Marks: A Synthetic Control Evaluation of Educational Policies in Ceará, Brazil</a>, I explain that the fundamental issue in evaluating the impact of an event, treatment, or intervention is that, once it occurs in a specific place and time, one can no longer assess how the outcome of interest would have developed in the absence of that event or intervention.</p>
-
-<p><br /></p>
-
-<p>Consider our example of Germany’s reunification; after it happened, it became impossible to determine how its Gross Domestic Product (GDP) would have progressed had reunification not taken place. The synthetic control method is a tool designed to overcome this limitation.</p>
-
-<p><br /></p>
-
-<p>How does the synthetic control method estimate what would have happened to West Germany’s GDP in the absence of reunification?</p>
-
-<p><br /></p>
-
-<p>A straightforward approach would be to select a country similar to West Germany, one that did not experience any significant political events, and examine how its GDP evolved over the same period. Would Denmark, France, New Zealand, or Norway serve as suitable comparison units? Rather than choosing a single country as a comparison reference, the synthetic control method estimates a weighted average of several similar countries. The primary skill of synthetic control lies in its use of optimization to find the best weights for calculating this weighted average, ensuring that this artificial unit — the composite of all the similar countries — most closely resembles West Germany in the period prior to the event. The set of similar countries is called the donor pool.</p>
-
-<p><br /></p>
-
-<p>To calculate these weights, we require data on the characteristics of West Germany and the similar countries over time. Ultimately, the synthetic control method generates a synthetic West Germany that did not undergo reunification, which can be used as a reference to assess the impact of the actual reunification. This concept will become clearer as we proceed with the replication outlined below.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> For more information on the optimization process, please refer to
-        
-        <a href="https://www.aeaweb.org/articles?id=10.1257/jel.20191450" target="_blank"> Abadie (2021)</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-the-synth-package">2. The synth package</h2>
-
-<p><code class="language-plaintext highlighter-rouge">Synth</code> is an R implementation of the synthetic control method. Its most relevant functions are as follows:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">dataprep()</code>: this function prepares the data for the optimization process;</li>
-  <li><code class="language-plaintext highlighter-rouge">synth()</code>:  it calculates the optimal weights for each candidate comparison unit and each characteristic;</li>
-  <li><code class="language-plaintext highlighter-rouge">path.plot()</code> and <code class="language-plaintext highlighter-rouge">gaps.plot()</code>: These functions provide plots of the trend of the affected unit and its synthetic version, along with the gap between them (the effect).</li>
-</ul>
-
-<p><br /></p>
-
-<p>The primary task for computing the synthetic control involves configuring the <code class="language-plaintext highlighter-rouge">dataprep()</code> function. This function provides necessary information to <code class="language-plaintext highlighter-rouge">synth()</code> about which unit was affected by the event, which units will act as comparisons (donor pool), and the characteristics used to estimate the synthetic control. Below are the main arguments <code class="language-plaintext highlighter-rouge">dataprep()</code>:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>foo: a data frame containing the necessary data;</li>
-  <li>predictors: a vector containing the names of the variables with characteristics (predictors);</li>
-  <li>special.predictors: a list object identifying additional numeric predictors, their associated pretreatment years and the measure of central tendency to use (e.g., mean, median);</li>
-  <li>dependent: the name of the variable of interest (e.g., GDP);</li>
-  <li>unit.variable: the name of the variable containing the code of the units. It must be numerical (e.g., codes for each country)</li>
-  <li>time.variable: the name of the variable indicating time (year). It must be numerical.</li>
-  <li>treatment.identifier: the code of the unit that suffered the event or intervention;</li>
-  <li>controls.identifier: the codes of the units that did not undergo the event or intervention (donor pool);</li>
-  <li>time.predictors.prior: time period to calculate the average of characteristics (predictors of the dependent variable);</li>
-  <li>time.optimize.ssr: the period of optimization, during which the mean squared prediction error (MSPE) between treated and synthetic control units is minimized.</li>
-  <li>time.plot: the periods for the plots made by path.plot and gaps.plot ;</li>
-  <li>unit.names.variable: the name of the variable with unit (country) names.  It must be of character type.</li>
-</ul>
-
-<p><br /></p>
-
-<p>Some of these arguments might not be clear for you right now, but they will make sense once we explain them with the example below. After estimating the synthetic control, we can use the <code class="language-plaintext highlighter-rouge">path.plot()</code> and <code class="language-plaintext highlighter-rouge">gaps.plot()</code> functions to visualize the effects.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_12_02.png" alt="synthetic control estimation flow " /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-synthetic-control-in-r">3. Synthetic control in R</h2>
-
-<p>The first step to replicate the study is to load the <code class="language-plaintext highlighter-rouge">Synth</code> package and the dataset. We use the <code class="language-plaintext highlighter-rouge">foreign</code> package to load the file <code class="language-plaintext highlighter-rouge">repgermany.dta</code>. The dataset contains information about West Germany and 16 other developed countries: Australia, Austria, Belgium, Denmark, France, Greece, Italy, Japan, the Netherlands, New Zealand, Norway, Portugal, Spain, Switzerland, the United Kingdom, and the United States. Information on education, income, trade openness, industry share, inflation rate, and investment rate is included. The data spans the period from 1960 to 2001.
-<br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-12-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-12-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">foreign</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">Synth</span><span class="p">)</span><span class="w">
-
-</span><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.dta</span><span class="p">(</span><span class="s2">"repgermany.dta"</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>The next step is to prepare the data for the synth function. We use the <code class="language-plaintext highlighter-rouge">dataprep()</code> function to do that. The code below specifies the following:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">foo = d</code>: the full dataframe containing the data;</li>
-  <li><code class="language-plaintext highlighter-rouge">predictors = c("gdp","trade","infrate")</code>: the predictors of the dependent variable (GDP).</li>
-  <li><code class="language-plaintext highlighter-rouge">special.predictors = list(list("industry" ,1981:1990, c("mean")), list("schooling",c(1980,1985), c("mean")), list("invest80" ,1980, c("mean")))</code>: additional predictors and their associated pretreatment years. This argument allows us to choose the time periods and which measure of central tendency (eg. “mean”, “median”) to use. Note that the <code class="language-plaintext highlighter-rouge">synth</code> function requires a summary statistic of the predictors rather than the complete time series. In this case, we use the mean of the industry share, schooling, and investment rate in the 1980s. The predictors specified in the <code class="language-plaintext highlighter-rouge">predictors</code> argument also use the mean by default;</li>
-  <li><code class="language-plaintext highlighter-rouge">dependent = "gdp"</code>: the dependent variable, which is GDP;</li>
-  <li><code class="language-plaintext highlighter-rouge">unit.variable = "index"</code>: the variable containing country codes;</li>
-  <li><code class="language-plaintext highlighter-rouge">time.variable = "year"</code>: the variable indicating time (year);</li>
-  <li><code class="language-plaintext highlighter-rouge">treatment.identifier = 7</code>: the code of the unit that suffered the event (West Germany);</li>
-  <li><code class="language-plaintext highlighter-rouge">controls.identifier = unique(d$index)[-7]</code>: all country codes, except for West Germany;</li>
-  <li><code class="language-plaintext highlighter-rouge">time.predictors.prior = 1981:1990</code>: the mean of the predictors specified in the <code class="language-plaintext highlighter-rouge">predictors</code> argument will be calculated in the period from 1981 to 1990;</li>
-  <li><code class="language-plaintext highlighter-rouge">time.optimize.ssr = 1960:1989</code>: the optimization will be performed in the period from 1960 to 1989;</li>
-  <li><code class="language-plaintext highlighter-rouge">time.plot = 1960:2003</code>: the plots will be made from 1960 to 2003;</li>
-</ul>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-12-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-12-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dataprep_out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">
-  </span><span class="n">dataprep</span><span class="p">(</span><span class="w">
-    </span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w">
-    </span><span class="n">predictors</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"gdp"</span><span class="p">,</span><span class="s2">"trade"</span><span class="p">,</span><span class="s2">"infrate"</span><span class="p">),</span><span class="w">
-    </span><span class="n">dependent</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"gdp"</span><span class="p">,</span><span class="w">
-    </span><span class="n">unit.variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"index"</span><span class="p">,</span><span class="w">
-    </span><span class="n">time.variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w">
-    </span><span class="n">special.predictors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w">
-      </span><span class="nf">list</span><span class="p">(</span><span class="s2">"industry"</span><span class="w"> </span><span class="p">,</span><span class="m">1981</span><span class="o">:</span><span class="m">1990</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">)),</span><span class="w">
-      </span><span class="nf">list</span><span class="p">(</span><span class="s2">"schooling"</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="m">1980</span><span class="p">,</span><span class="m">1985</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">)),</span><span class="w">
-      </span><span class="nf">list</span><span class="p">(</span><span class="s2">"invest80"</span><span class="w"> </span><span class="p">,</span><span class="m">1980</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">))</span><span class="w">
-    </span><span class="p">),</span><span class="w">
-    </span><span class="n">treatment.identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w">
-    </span><span class="n">controls.identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">d</span><span class="o">$</span><span class="n">index</span><span class="p">)[</span><span class="m">-7</span><span class="p">],</span><span class="w">
-    </span><span class="n">time.predictors.prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1981</span><span class="o">:</span><span class="m">1990</span><span class="p">,</span><span class="w">
-    </span><span class="n">time.optimize.ssr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1960</span><span class="o">:</span><span class="m">1989</span><span class="p">,</span><span class="w">
-    </span><span class="n">unit.names.variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"country"</span><span class="p">,</span><span class="w">
-    </span><span class="n">time.plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1960</span><span class="o">:</span><span class="m">2003</span><span class="w">
-  </span><span class="p">)</span><span class="w">
-
-</span><span class="n">synth_out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">synth</span><span class="p">(</span><span class="n">dataprep_out</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>The final step is to pass the output of <code class="language-plaintext highlighter-rouge">dataprep()</code> to the <code class="language-plaintext highlighter-rouge">synth()</code>function. This provides the weights for each candidate comparison unit (solution.w) and each characteristic (solution.v) used in the optimization. Note that the optimization algorithm assigned the largest weights to Austria and the United States, which makes sense given the economic and historical similarities of these countries with West Germany.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-visualizing-synthetic-control-models">4. Visualizing synthetic control models</h2>
-
-<p>Now we can use <code class="language-plaintext highlighter-rouge">Synth</code> functions path.plot() and gaps.plot() to visualize the effects. The <code class="language-plaintext highlighter-rouge">path.plot()</code> function plots the trend of the affected unit and its synthetic version. The <code class="language-plaintext highlighter-rouge">gaps.plot()</code> function plots the gap between them (the effect). You can set the labels of the axes and the title of the plot using the arguments <code class="language-plaintext highlighter-rouge">Ylab</code>, <code class="language-plaintext highlighter-rouge">Xlab</code>, and <code class="language-plaintext highlighter-rouge">Main</code>. You can also set the legend text using the argument <code class="language-plaintext highlighter-rouge">Legend</code> and a dashed line to indicate the year of the event using the argument <code class="language-plaintext highlighter-rouge">tr.intake</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-12-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-12-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">path.plot</span><span class="p">(</span><span class="n">synth.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">synth_out</span><span class="p">,</span><span class="w">
-          </span><span class="n">dataprep.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataprep_out</span><span class="p">,</span><span class="w">
-          </span><span class="n">tr.intake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w">
-          </span><span class="n">Ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Per capita GDP"</span><span class="p">,</span><span class="w">
-          </span><span class="n">Xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Year"</span><span class="p">,</span><span class="w">
-          </span><span class="n">Legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"West Germany"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Synthetic West Germany"</span><span class="p">),</span><span class="w">
-          </span><span class="n">Main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"West Germany vs Synthetic West Germany"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">gaps.plot</span><span class="p">(</span><span class="n">synth.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">synth_out</span><span class="p">,</span><span class="w">
-          </span><span class="n">dataprep.res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataprep_out</span><span class="p">,</span><span class="w">
-          </span><span class="n">tr.intake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1990</span><span class="p">,</span><span class="w">
-          </span><span class="n">Ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Effect"</span><span class="p">,</span><span class="w">
-          </span><span class="n">Xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Year"</span><span class="p">,</span><span class="w">
-          </span><span class="n">Main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" Gap between per capita GDP in West Germany and its synthetic version"</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_12_03.png" alt="West Germany GDP vs Synthetic West Germany" /></p>
-
-<p><br /></p>
-
-<p>In this first plot, we can observe that the per capita GDP of synthetic West Germany closely resembles that of actual West Germany during the period prior to reunification. Upon the implementation of reunification, the model suggests that the synthetic West Germany, unaffected by reunification, would have continued following the same trend in its GDP per capita, while the actual West Germany experienced a decrease. The difference between their trajectories represents the effect of reunification on GDP per capita.</p>
-
-<p><br /></p>
-
-<p>It is important to note that during the first two years of German reunification, West Germany actually experienced an increase in GDP per capita. According to Abadie et al. (2015), this increase can be attributed to a demand boom in goods and services. However, starting from 1992 onwards, the effect of reunification on GDP turned negative.</p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_12_04.png" alt="Effect of Reunification on GDP per capita" /></p>
-
-<p><br /></p>
-
-<p>The plot above clearly illustrates the effect by highlighting the difference between the synthetic West Germany and the actual West Germany. Following the initial demand boom, the gap between the two units widens significantly after 1992, indicating a negative impact of reunification on West Germany’s GDP. For instance, in 2003, the gap amounts to approximately 3,000 dollars. Considering that West Germany’s GDP per capita in 2003 was around 29,000 dollars, the effect of reunification resulted in a decrease of approximately 10% in GDP per capita that year. Over the entire period, the authors estimate that reunification led to an average reduction of about 1,600 USD in GDP per year (Abadie et al., 2015).</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-synthetic-control-for-policy-evaluation">5. Synthetic Control for policy evaluation</h2>
-
-<p>Besides its application to evaluate historical events, like the German reunification, synthetic control is also used to evaluate the impact of policies.</p>
-
-<p><br /></p>
-
-<p>Abadie et al. (2010) evaluate the effect of a tobacco control program in California. The authors use the synthetic control method to estimate the effect of the program on cigarette consumption.</p>
-
-<p><br /></p>
-
-<p>In the article <a href="https://doi.org/10.1590/1981-3821202300010005">Better Incentives, Better Marks: A Synthetic Control Evaluation of Educational Policies in Ceará, Brazil</a>, I employed the synthetic control method to evaluate the impact of the educational policies implemented in Ceará, Brazil. The study revealed that a combination of technical assistance (TA) and tax incentives (TI) resulted in up to a 12 percent increase in student test scores. The figure below illustrates the estimated models, where the green line represents the treated Ceará, and the yellow line represents the synthetic Ceará. The gap between these lines represents the effect of the policies.</p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_12_05.jpeg" alt="Synthetic control used for policy evaluation" /></p>
-
-<p><br /></p>
-
-<p><strong>If you have any questions about the synthetic control method, please feel free to ask in the comments below.</strong></p>
-
-<p><br /></p>
-
-<p>Moreover, I recommend checking out <a href="https://www.aeaweb.org/articles?id=10.1257/jel.20191450">Using Synthetic Controls: Feasibility, Data Requirements, and Methodological Aspects</a>, a clarifying article by Abadie (2021) that provides a comprehensive overview of the synthetic control method.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<p><strong>Articles cited</strong></p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>Abadie, Alberto. 2021. “Using Synthetic Controls: Feasibility, Data Requirements, and Methodological Aspects.” Journal of Economic Literature, 59 (2): 391-425 DOI: 10.1257/jel.20191450</li>
-  <li>Abadie, Alberto, Alexis Diamond, and Jens Hainmueller. 2015. “Comparative Politics and the Synthetic Control Method.” American Journal of Political Science 59 (2): 495-510. doi: 10.1111/ajps.12116</li>
-  <li>Abadie, Alberto, Alexis Diamond &amp; Jens Hainmueller. 2010. “Synthetic Control Methods for Comparative Case Studies: Estimating the Effect of California’s Tobacco Control Program” Journal of the American Statistical Association, 105:490, 493-505, DOI: 10.1198/jasa.2009.ap08746</li>
-  <li>Ponne, Bruno Gasparotto. 2023. “Better Incentives, Better Marks: A Synthetic Control Evaluation of the Educational Policies in Ceará, Brazil”. Braz. political sci. rev., 17(1), e0005. https://doi.org/10.1590/1981-3821202300010005</li>
-</ul>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>Synthetic control is a method that allows us to estimate the effect of an event, treatment, or intervention by creating an artificial comparison unit;</li>
-  <li>The <code class="language-plaintext highlighter-rouge">Synth</code> package is an R implementation that allows us to estimate synthetic control models;</li>
-  <li>Besides being used to evaluate historical events, synthetic control is also used to evaluate the impact of policies.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="historicaldata" /><summary type="html"><![CDATA[Use the synth package to estimate synthetic control models, a powerful causal inference tool. Explore its strengths, limitations and main applications.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_12.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_12.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Use R to analyze the relationship between two variables. Learn how to create linear models with R.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

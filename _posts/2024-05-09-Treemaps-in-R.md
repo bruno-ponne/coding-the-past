@@ -28,9 +28,16 @@ last_modified_at: 09-May-24
 
 ## 1. What is a treemap?
 
-A treemap consists of a set of rectangles which represent different categories in your data and whose size is defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. In our example, within each continent rectangle, new rectangles could represent countries and their populations.
+A treemap consists of a set of rectangles that represent different categories in your data and whose sizes are defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. Going back to our example of the continents, within each continent rectangle, new rectangles could represent countries and their populations.
+
+<br>
+
+You might also think of the more general category — in our example, the continents — as branches of a tree and each branch has its own leaves — in our example, the countries. Below you see a visual representation of the concept behind a treemap.
+
 
 ![Visual representation of a treemap.](/assets/images/lesson_21_01.png)
+{: .larger } 
+
 
 ***
 
@@ -77,7 +84,7 @@ str(Cholera)
 
 <br>
 
-We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:
+We would like to create a treemap in which we have bigger rectangles representing the regions of London (branches) and smaller rectangles representing the districts (leaves) within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:
 
 - `region` will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);
 - `district` will define our inner rectangles (lower hierarchy), representing the districts of London;
@@ -93,7 +100,7 @@ We would like to create a treemap in which we have bigger rectangles representin
 The `treemap` function is used to plot the treemap in R. The main arguments necessary are:
 
 - the first argument is the dataframe;
-- `index` defines the two levels of hierarchy in our plot: region and district;
+- `index` defines the two levels of hierarchy in our plot: region (our branches) and district (our leaves);
 - `vSize` specifies the death rate to define the size of our rectangles;
 - `vColor` specifies the region to define the color of our higher hierarchy rectangles;
 - `type` informs the function that `vColor` is a categorical variable; 

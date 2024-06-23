@@ -5,42 +5,6 @@
     <!-- Structured data -->
     
 
-        <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-
-
-      
-      {
-        "@type": "Question",
-        "name": "What is a treemap?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A treemap consists of a set of rectangles which represent different categories of a variable and whose size is defined by a numeric value associated with the respective category. Treemaps can represent hierarchies with nested rectangles, that is, categories within categories."
-        }
-      }
-      ,
-      
-      {
-        "@type": "Question",
-        "name": "When should you use a treemap?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It is well-suited to show part-to-whole relationships and to highlight the hierarchies in your data. Do not use treemaps when the variable defining the size of rectangles presents little variation."
-        }
-      }
-      
-      
-      ]
-    }
-</script>
-
-
-
-    
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
     <script>
@@ -53,16 +17,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="R, treemaps, data visualisation">
-    <meta name="description" content="Explore how to effectively use a treemap in R to visualize hierarchical data and analyze part-to-whole relationships. This guide covers what a treemap is, when to use it, and a step-by-step tutorial on plotting with the treemap package.">
+    <meta name="keywords" content="R, business intelligence, data visualisation, power bi">
+    <meta name="description" content="Understand R and Power BI differences and applications, from academic research to business intelligence, and discover how they can enrich your data analysis.">
     <meta property= og:image content= />
-    <title>Treemaps In R</title>
+    <title>R vs Power BI</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google icon: -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Canonical Domain -->
-    <link rel="canonical" href="http://localhost:4000/2024/05/09/Treemaps-in-R.html">
+    <link rel="canonical" href="http://localhost:4000/2024/06/23/r-vs-powerbi.html">
     <link rel="icon" href="/favicon.png">
 </head>
 
@@ -92,14 +56,14 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Treemaps In R</h1>
-    <p id = "author">Bruno Ponne &#9679 09 May 2024</p>
+    <h1 id = "post-main-title">R vs Power BI</h1>
+    <p id = "author">Bruno Ponne &#9679 23 Jun 2024</p>
     <hr>
     <ul class = "meta-info">
         
         <li>Easy</li>
         
-        <li>R</li>
+        <li>R/Power BI</li>
         
         <li>3 min</li>
         
@@ -108,36 +72,21 @@
     <p class = "pre-lesson">What you will learn</p>
     <ul>
         
-        <li class = "objectives"> Understand what a treemap is;</li>
+        <li class = "objectives"> Understand typical uses of R and Power BI;</li>
         
-        <li class = "objectives"> Be able to create a treemap in R.</li>
+        <li class = "objectives"> Be able to identify how R and Power BI can enrich your analysis;</li>
         
     </ul>
     <br>
     <p class = "pre-lesson">Table of Contents</p>
 
 
-    <ul class="toc-entry"><li><a href="#1-what-is-a-treemap">1. What is a treemap?</a></li><li><a href="#2-when-should-you-use-a-treemap">2. When should you use a treemap?</a></li><li><a href="#3-how-to-plot-a-treemap-in-r">3. How to plot a treemap in R?</a></li><li><a href="#4-conclusions">4. Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#1-what-is-r">1. What is R?</a></li><li><a href="#2-what-is-power-bi">2. What is Power BI?</a></li><li><a href="#3-r-vs-power-bi">3. R vs Power BI</a></li><li><a href="#4-r-vs-power-bi-for-digital-humanities">4. R vs Power BI for digital humanities</a></li><li><a href="#5-r-vs-power-bi---examples">5. R vs Power BI - Examples</a></li><li><a href="#4-conclusions">4. Conclusions</a></li></ul>
 
     <p><br /></p>
 
-<h2 id="1-what-is-a-treemap">1. What is a treemap?</h2>
-
-<p>A treemap consists of a set of rectangles that represent different categories in your data and whose sizes are defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. Going back to our example of the continents, within each continent rectangle, new rectangles could represent countries and their populations.</p>
-
-<p><br /></p>
-
-<p>You might also think of the more general category — in our example, the continents — as branches of a tree and each branch has its own leaves — in our example, the countries. Below you see a visual representation of the concept behind a treemap.</p>
-
-<p class="larger"><img src="/assets/images/lesson_21_01.png" alt="Visual representation of a treemap." /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-when-should-you-use-a-treemap">2. When should you use a treemap?</h2>
-
-<p>One of the main advantages of a treemap is that it allows for the interpretation of a large amount of data at a single glance. It is well-suited to show part-to-whole relationships and to highlight the hierarchies in your data. Do not use treemaps when the variable defining the size of rectangles presents little variation.</p>
+<h2 id="1-what-is-r">1. What is R?</h2>
+<p>R is a programming language and an environment for statistical computing and visualization. R is not a  general-purpose programming language, like Python or Java, because its focus is on statistical computing. The language is very popular in the academic environment and allows for complex calculations and algorithms.</p>
 
 <p><br /></p>
 
@@ -145,127 +94,125 @@
 
 <p><br /></p>
 
-<h2 id="3-how-to-plot-a-treemap-in-r">3. How to plot a treemap in R?</h2>
-
-<p>To exemplify a treemap in R, we will use the <code class="language-plaintext highlighter-rouge">Cholera</code> dataset, which contains that on the mortality caused by cholera in England in the years 1848-1849. This data comes from the <code class="language-plaintext highlighter-rouge">histdata</code> R package. Moreover, you will need to install the <code class="language-plaintext highlighter-rouge">treemap</code> package, one of the alternatives to plot a treemap in R. We will also use <code class="language-plaintext highlighter-rouge">RColorBrewer</code> package for a color palette and <code class="language-plaintext highlighter-rouge">dplyr</code> to transform the data.</p>
-
-<p><br /></p>
-
-<p>After you install the packages, load them and explore the structure of the <code class="language-plaintext highlighter-rouge">Cholera</code> data frame.</p>
+<h2 id="2-what-is-power-bi">2. What is Power BI?</h2>
+<p>Power BI is a set of softwares and applications focused on data analysis and visualization for Business Intelligence. For this article, when we talk about Power BI, we refer to Power BI Desktop, a drag and drop application used to transform, analyse and visualize data.</p>
 
 <p><br /></p>
 
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-21-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">treemap</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Load the data to your R environment</span><span class="w">
-</span><span class="n">data</span><span class="p">(</span><span class="s2">"Cholera"</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Check the dataframe structure</span><span class="w">
-</span><span class="n">str</span><span class="p">(</span><span class="n">Cholera</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
+<hr />
 
 <p><br /></p>
 
-<p>We would like to create a treemap in which we have bigger rectangles representing the regions of London (branches) and smaller rectangles representing the districts (leaves) within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:</p>
+<h2 id="3-r-vs-power-bi">3. R vs Power BI</h2>
+
+<p>Below, a list of the main differences and similarities of R and Power BI is presented for several aspects:</p>
 
 <ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);</li>
-  <li><code class="language-plaintext highlighter-rouge">district</code> will define our inner rectangles (lower hierarchy), representing the districts of London;</li>
+  <li><strong>Scope</strong>: While R is more suitable for academic and complex statistical data analysis, Power BI is more adequate for quick visual analyses. While R is common in the academic context, it can also be used in companies and industries that leverage data science for decision making. In this case, R would be used to prepare the data, train models and the Power BI to visualize the findings;</li>
+  <li><strong>Learning Curve</strong>: Power BI is user-friendly and allows the creation of beautiful visualizations with a few clicks. R, on the other hand, has a steep learning curve. It requires a lot more training and reading more complex documentation before you can produce effective visualizations;</li>
+  <li><strong>Interface</strong>: R is a written programming language, while most of tasks in Power BI are achieved with drag and drop actions;</li>
+  <li><strong>Data Visualization</strong>: Power BI is limited in its visuals and customization options of reports and graphs, while R is flexible and versatile. There are many more chart types that can be plotted in R compared to Power BI. On the other hand, it is much easier and faster to plot appealing visualizations in Power BI compared to R;</li>
+  <li><strong>Data Analysis</strong>: R provides libraries for advanced statistical operations that allow statistical inference, causal inference, machine learning and more complex analysis. Power BI is more suitable for answering simple Business Intelligence questions.</li>
+  <li><strong>Price</strong>: Both platforms are free, but companies offer paid tools to enrich their functionalities.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-r-vs-power-bi-for-digital-humanities">4. R vs Power BI for digital humanities</h2>
+
+<p>R as well as Power BI might be used for digital humanities. R is perfect for analyses and visualizations for a scientific article. It is also the right option if you would like to implement complex algorithms. Power BI is a great fit if you would like to easily produce beautiful plots and enable user interactivity for a broader audience.</p>
+
+<p><br /></p>
+
+<p>In education, for example, Power BI could be used to produce an interactive dashboard exploring the casualties of World War II. This could be used to teach history or bring insights to researchers on possible research questions.</p>
+
+<p><br /></p>
+
+<p>Regarding R, this blog has plenty of examples of how to apply it to the humanities. I recommend this article where you learn about the use of synthetic control to investigate hypothesis in History: <a href="/2023/07/21/Synthetic-Control.html">‘When Numbers Meet Stories - an introduction to the synthetic control method in R’</a></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-r-vs-power-bi---examples">5. R vs Power BI - Examples</h2>
+
+<p>To exemplify the differences and similarities of R and Power BI, we will replicate in Power BI the treemap plotted in R in the lesson <a href="/2024/05/09/Treemaps-in-R.html">Treemaps in R</a>.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_01.png" alt="Visual representation of a treemap." /></p>
+
+<p><br /></p>
+
+<p>The data used in R is also available in a <em>CSV</em> file at <a href="https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Cholera.csv">this link</a>. It is part of a great initiative by Professor Vincent Arel-Bundock to gather many interesting R datasets and make them available in <em>CSV</em> format on this page: <a href="https://vincentarelbundock.github.io/Rdatasets/articles/data.html">R Datasets</a>.</p>
+
+<p><br /></p>
+
+<p>Power BI Desktop is free and you can download it from the Power BI Microsoft official page. To learn more about it and how to get started, please consult <a href="https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-what-is-desktop">this resource</a>.</p>
+
+<p><br /></p>
+
+<p>In the lesson <a href="/2024/05/09/Treemaps-in-R.html">Treemaps in R</a> we learnt how to plot a treemap in R. In this lesson we will plot the same treemap in Power BI. To do that, download the data above and save it in the desired folder.</p>
+
+<p><br /></p>
+
+<p>When you open Power BI, you will see the option to load data from an Excel File. You can choose this option and a window will open to select the file with your data. You can then select <em>all files</em> to see also <em>csv</em> files. Select the <em>cholera.csv</em> file and confirm. You will be offered the option to transform your data in Power Query, a tool aimed at preparing your data before visualization. For this lesson, you can skip this step and load the data without transforming its structure.</p>
+
+<p><br /></p>
+
+<p>On the bar to the right, you will see the variables of your dataset. We would like to create a treemap in which we have bigger rectangles representing the regions of London and smaller rectangles representing the districts within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. These are the relevant variables for us:</p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (categories) and will represent regions of London (West, North, Central, South, Kent);</li>
+  <li><code class="language-plaintext highlighter-rouge">district</code> will define our inner rectangles (details), representing the districts of London;</li>
   <li><code class="language-plaintext highlighter-rouge">cholera_drate</code> represents deaths caused by cholera per 10,000 inhabitants in 1849 and will define the size of rectangles</li>
 </ul>
 
 <p><br /></p>
 
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To learn more about the data, please see the
-        
-        <a href="https://cran.r-project.org/web/packages/HistData/HistData.pdf" target="_blank"> package documentation here.</a>
-        
-    </div>
-</div>
+<p>The first step is to select the <em>cholera_drate</em> field, as shown in the image below. You will realise that Power BI automatically creates a bar chart with the sum of all death rates.</p>
 
 <p><br /></p>
 
-<p>The <code class="language-plaintext highlighter-rouge">treemap</code> function is used to plot the treemap in R. The main arguments necessary are:</p>
-
-<ul class="conclusion-list">
-  <li>the first argument is the dataframe;</li>
-  <li><code class="language-plaintext highlighter-rouge">index</code> defines the two levels of hierarchy in our plot: region (our branches) and district (our leaves);</li>
-  <li><code class="language-plaintext highlighter-rouge">vSize</code> specifies the death rate to define the size of our rectangles;</li>
-  <li><code class="language-plaintext highlighter-rouge">vColor</code> specifies the region to define the color of our higher hierarchy rectangles;</li>
-  <li><code class="language-plaintext highlighter-rouge">type</code> informs the function that <code class="language-plaintext highlighter-rouge">vColor</code> is a categorical variable;</li>
-  <li>the remaining parameters are used to adjust format options like color palette and position of elements.</li>
-</ul>
+<p class="larger"><img src="/assets/images/lesson_22_02.png" alt="Showing death rates in a bar plot in Power BI" /></p>
 
 <p><br /></p>
 
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To further format your treemap, check more options in the
-        
-        <a href="https://cran.r-project.org/web/packages/treemap/treemap.pdf" target="_blank"> package documentation.</a>
-        
-    </div>
-</div>
-
-<p><br />
-<span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-21-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">treemap</span><span class="p">(</span><span class="n">Cholera</span><span class="p">,</span><span class="w">
-        </span><span class="n">index</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"region"</span><span class="p">,</span><span class="s2">"district"</span><span class="p">),</span><span class="w">
-        </span><span class="n">vSize</span><span class="o">=</span><span class="s2">"cholera_deaths"</span><span class="p">,</span><span class="w">
-        </span><span class="n">vColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"region"</span><span class="p">,</span><span class="w">
-        </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"categorical"</span><span class="p">,</span><span class="w">
-        </span><span class="c1"># formatting options:</span><span class="w">
-        </span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brewer.pal</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Accent"</span><span class="p">),</span><span class="w">
-        </span><span class="n">align.labels</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="w">
-          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">),</span><span class="w"> 
-          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"right"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">)</span><span class="w">
-        </span><span class="p">),</span><span class="w">     
-        </span><span class="n">border.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">
-        </span><span class="n">bg.labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">,</span><span class="w">
-        </span><span class="n">position.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
+<p>Now, click on the bar plot and select the option Treemap in the Visualization tab, as shown in the image below.</p>
 
 <p><br /></p>
 
-<p class="larger"><img src="/assets/images/lesson_21_02.png" alt="Treemap plotted in R" /></p>
+<p class="larger"><img src="/assets/images/lesson_22_03.png" alt="Creating a treemap in Power BI" /></p>
 
 <p><br /></p>
 
-<p><strong>Note that Kent is the region with the largest death rate, followed by Southern London. Moreover, districts like Lambeth and Bethnal Green were especially affected by the disease. This treemap is a powerful tool to give you a general picture of the data at first glance.</strong></p>
+<p>The next step is to define which variable will determine the branches of our treemap, that is, the more general category. In our case, it is region. Finally, we define the field determining the leaves of our treemap. In this example, the leaves are the districts inside each region of London. Drag these two fields to <em>category</em> and <em>details</em> as shown below.</p>
 
 <p><br /></p>
 
-<p><strong>If you have any questions, please feel free to comment below!</strong></p>
+<p class="larger"><img src="/assets/images/lesson_22_04.png" alt="Adding a category to the Power BI treemap" /></p>
 
 <p><br /></p>
 
-<hr />
+<p class="larger"><img src="/assets/images/lesson_22_05.png" alt="Adding details to the Power BI treemap" /></p>
+
+<p><br /></p>
+
+<p>That’s it! Without any line of code, you created a treemap that offers a great visual of London cholera death rates by region and district. You have even automatically generated tooltips that provide additional information about each leaf in your tree. You can further format your plot to have your desired colors, fonts and sizes. Read more about how to format a visualization on <a href="https://learn.microsoft.com/en-us/power-bi/visuals/service-getting-started-with-color-formatting-and-axis-properties">this page</a>. Below you see the formatted version of the treemap.</p>
+
+<p><br /></p>
+
+<p class="larger"><img src="/assets/images/lesson_22_06.png" alt="Final Version of treemap in Power BI" /></p>
+
+<p><br /></p>
+
+<p>As you have seen, compared to R, it is easier to plot a treemap in Power BI. On the other hand, Power BI customization options are limited compared to R. Please, if you have any question or comments, feel free to write below and I wish you a great learning journey!</p>
 
 <p><br /></p>
 
@@ -274,8 +221,8 @@
 <p><br /></p>
 
 <ul class="conclusion-list">
-  <li>A treemap is very useful to represent hierarchical relations in your data and provide a quick overall picture of your data;</li>
-  <li>Plotting a treemap in R can be easily accomplished with the <code class="language-plaintext highlighter-rouge">treemap</code> package.</li>
+  <li>Both R and Power BI are great tools for data analysis. While R is more suitable for complex and academic applications, Power BI is user-friendly and produces beautiful visualizations with drag-and-drop actions;</li>
+  <li>Deciding whether to use R or Power BI depends on your goals and requirements, and the two tools can complement each other to produce effective results.</li>
 </ul>
 
 <p><br /></p>
@@ -357,7 +304,7 @@
 			};var interval = setInterval(checkJQuery, 250);
 		};};
 
-	var thisPageUrl = "/2024/05/09/Treemaps-in-R.html";
+	var thisPageUrl = "/2024/06/23/r-vs-powerbi.html";
 	const EXTRA_INFO_START = "chunkedCommentInfoStart";
 	const EXTRA_INFO_END = "chunkedCommentInfoEnd";var visibleComments = [];
 	var hiddenComments = [];
@@ -735,11 +682,11 @@
 </style>
 
 <span style="color: white;"> Share on </span><div id="share-buttons">
-    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2024/05/09/Treemaps-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
-    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2024/05/09/Treemaps-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
-    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2024/05/09/Treemaps-in-R.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
-    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_21.jpg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
-    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2024/05/09/Treemaps-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2024/06/23/r-vs-powerbi.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2024/06/23/r-vs-powerbi.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2024/06/23/r-vs-powerbi.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_22.jpg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2024/06/23/r-vs-powerbi.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
 </div>
 </div>
 
