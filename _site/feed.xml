@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-23T14:52:01+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">R vs Power BI</title><link href="http://localhost:4000/2024/06/23/r-vs-powerbi.html" rel="alternate" type="text/html" title="R vs Power BI" /><published>2024-06-23T00:00:00+02:00</published><updated>2024-06-23T00:00:00+02:00</updated><id>http://localhost:4000/2024/06/23/r-vs-powerbi</id><content type="html" xml:base="http://localhost:4000/2024/06/23/r-vs-powerbi.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-08-13T17:18:39+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">R vs Power BI</title><link href="http://localhost:4000/2024/06/23/r-vs-powerbi.html" rel="alternate" type="text/html" title="R vs Power BI" /><published>2024-06-23T00:00:00+02:00</published><updated>2024-06-23T00:00:00+02:00</updated><id>http://localhost:4000/2024/06/23/r-vs-powerbi</id><content type="html" xml:base="http://localhost:4000/2024/06/23/r-vs-powerbi.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-what-is-r">1. What is R?</h2>
 <p>R is a programming language and an environment for statistical computing and visualization. R is not a  general-purpose programming language, like Python or Java, because its focus is on statistical computing. The language is very popular in the academic environment and allows for complex calculations and algorithms.</p>
@@ -766,14 +766,14 @@
 </span></p>
 <div id="code-19-7">
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">psycopg2</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">psycopg2</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 
-<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span>
-    <span class="n">host</span><span class="o">=</span><span class="s">"localhost"</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s">"art_db"</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s">"postgres"</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s">"*******"</span><span class="p">)</span></code></pre></figure>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="sh">"</span><span class="s">localhost</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="sh">"</span><span class="s">art_db</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="sh">"</span><span class="s">postgres</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="sh">"</span><span class="s">*******</span><span class="sh">"</span><span class="p">)</span></code></pre></figure>
 
 
 </div>
@@ -790,10 +790,10 @@
 </span></p>
 <div id="code-19-8">
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">command</span> <span class="o">=</span> <span class="s">''' SELECT o.title, o.attribution, o.classification, ot.term
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">command</span> <span class="o">=</span> <span class="sh">'''</span><span class="s"> SELECT o.title, o.attribution, o.classification, ot.term
                 FROM objects as o
                 LEFT JOIN objects_terms as ot ON o.objectid = ot.objectid
-                WHERE classification = 'Painting' AND termtype = 'Style' '''</span></code></pre></figure>
+                WHERE classification = </span><span class="sh">'</span><span class="s">Painting</span><span class="sh">'</span><span class="s"> AND termtype = </span><span class="sh">'</span><span class="s">Style</span><span class="sh">'</span><span class="s"> </span><span class="sh">'''</span></code></pre></figure>
 
 
 </div>
@@ -812,17 +812,17 @@
 <div id="code-19-9">
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># open cursor to insert our query
-</span><span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="nf">cursor</span><span class="p">()</span>
 
 <span class="c1"># use pd.read_sql_query to query our database and get the result in a pandas dataframe
-</span><span class="n">paintings</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+</span><span class="n">paintings</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_sql_query</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
 
 <span class="c1"># save any changes to the database
-</span><span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span class="n">conn</span><span class="p">.</span><span class="nf">commit</span><span class="p">()</span>
 
 <span class="c1"># close cursor and connection
-</span><span class="n">cur</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">conn</span><span class="p">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+</span><span class="n">cur</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+<span class="n">conn</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span></code></pre></figure>
 
 
 </div>
@@ -845,40 +845,40 @@
 </span></p>
 <div id="code-19-10">
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="n">top_10_styles</span> <span class="o">=</span> <span class="n">paintings</span><span class="p">[</span><span class="s">'term'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">().</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">top_10_styles</span> <span class="o">=</span> <span class="n">paintings</span><span class="p">[</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">].</span><span class="nf">value_counts</span><span class="p">().</span><span class="nf">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="nf">subplots</span><span class="p">()</span>
 
-<span class="n">ax</span><span class="p">.</span><span class="n">barh</span><span class="p">(</span><span class="n">top_10_styles</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">top_10_styles</span><span class="p">.</span><span class="n">values</span><span class="p">,</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">,</span> 
-        <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">"#f0027f"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">barh</span><span class="p">(</span><span class="n">top_10_styles</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">top_10_styles</span><span class="p">.</span><span class="n">values</span><span class="p">,</span> 
+        <span class="n">color</span> <span class="o">=</span> <span class="sh">"</span><span class="s">#f0027f</span><span class="sh">"</span><span class="p">,</span> 
+        <span class="n">edgecolor</span> <span class="o">=</span> <span class="sh">"</span><span class="s">#f0027f</span><span class="sh">"</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"The Most Popular Styles"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_title</span><span class="p">(</span><span class="sh">"</span><span class="s">The Most Popular Styles</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># inverts y axis
-</span><span class="n">ax</span><span class="p">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">invert_yaxis</span><span class="p">()</span>
 
 <span class="c1"># eliminates grids
-</span><span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="c1"># set ticks' colors to white    
-</span><span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>    
-<span class="n">ax</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'white'</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="sh">'</span><span class="s">x</span><span class="sh">'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="sh">'</span><span class="s">white</span><span class="sh">'</span><span class="p">)</span>    
+<span class="n">ax</span><span class="p">.</span><span class="nf">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="sh">'</span><span class="s">y</span><span class="sh">'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="sh">'</span><span class="s">white</span><span class="sh">'</span><span class="p">)</span>
 
 <span class="c1"># set font colors
-</span><span class="n">ax</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'white'</span><span class="p">)</span>   
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">set_facecolor</span><span class="p">(</span><span class="sh">'</span><span class="s">#2E3031</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="nf">set_color</span><span class="p">(</span><span class="sh">'</span><span class="s">white</span><span class="sh">'</span><span class="p">)</span>   
 
 <span class="c1"># eliminates top, left and right borders and sets the bottom border color to white
-</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         
-<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"bottom"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"white"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="sh">"</span><span class="s">top</span><span class="sh">"</span><span class="p">].</span><span class="nf">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>         
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="sh">"</span><span class="s">right</span><span class="sh">"</span><span class="p">].</span><span class="nf">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="sh">"</span><span class="s">left</span><span class="sh">"</span><span class="p">].</span><span class="nf">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="sh">"</span><span class="s">bottom</span><span class="sh">"</span><span class="p">].</span><span class="nf">set_color</span><span class="p">(</span><span class="sh">"</span><span class="s">white</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># fig background color:
-</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'#2E3031'</span><span class="p">)</span></code></pre></figure>
+</span><span class="n">fig</span><span class="p">.</span><span class="n">patch</span><span class="p">.</span><span class="nf">set_facecolor</span><span class="p">(</span><span class="sh">'</span><span class="s">#2E3031</span><span class="sh">'</span><span class="p">)</span></code></pre></figure>
 
 
 </div>
@@ -1732,20 +1732,20 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 </span></p>
 <div id="code-16-5">
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">"Description"</span><span class="p">:</span> <span class="p">[</span><span class="s">"Eastern Front"</span><span class="p">,</span> <span class="s">"North: Norway/Finland"</span><span class="p">,</span> <span class="s">"Southwest: N Africa/Italy"</span><span class="p">,</span> <span class="s">"Southeast: Balkans"</span><span class="p">,</span> <span class="s">"West: France/Low Countries"</span><span class="p">,</span> <span class="s">"Training Forces"</span><span class="p">,</span> <span class="s">"Died of Wounds-All Fronts"</span><span class="p">,</span> <span class="s">"Location not Given"</span><span class="p">],</span>
-    <span class="s">"Dead"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1105987</span><span class="p">,</span> <span class="mi">16639</span><span class="p">,</span> <span class="mi">50481</span><span class="p">,</span> <span class="mi">19235</span><span class="p">,</span> <span class="mi">107042</span><span class="p">,</span> <span class="mi">10467</span><span class="p">,</span> <span class="mi">295659</span><span class="p">,</span> <span class="mi">17051</span><span class="p">],</span>
-    <span class="s">"Missing &amp; POW"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1018365</span><span class="p">,</span> <span class="mi">5157</span><span class="p">,</span> <span class="mi">194250</span><span class="p">,</span> <span class="mi">14805</span><span class="p">,</span> <span class="mi">409715</span><span class="p">,</span> <span class="mi">1337</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2687</span><span class="p">],</span>
-    <span class="s">"Total"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2124352</span><span class="p">,</span> <span class="mi">21796</span><span class="p">,</span> <span class="mi">244731</span><span class="p">,</span> <span class="mi">34040</span><span class="p">,</span> <span class="mi">516757</span><span class="p">,</span> <span class="mi">11804</span><span class="p">,</span> <span class="mi">295659</span><span class="p">,</span> <span class="mi">19738</span><span class="p">],</span>
-    <span class="s">"Wounded &amp; Sick"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3498059</span><span class="p">,</span> <span class="mi">60451</span><span class="p">,</span> <span class="mi">163602</span><span class="p">,</span> <span class="mi">55069</span><span class="p">,</span> <span class="mi">399856</span><span class="p">,</span> <span class="mi">42174</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">]</span>
+    <span class="sh">"</span><span class="s">Description</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">Eastern Front</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">North: Norway/Finland</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Southwest: N Africa/Italy</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Southeast: Balkans</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">West: France/Low Countries</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Training Forces</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Died of Wounds-All Fronts</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Location not Given</span><span class="sh">"</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Dead</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1105987</span><span class="p">,</span> <span class="mi">16639</span><span class="p">,</span> <span class="mi">50481</span><span class="p">,</span> <span class="mi">19235</span><span class="p">,</span> <span class="mi">107042</span><span class="p">,</span> <span class="mi">10467</span><span class="p">,</span> <span class="mi">295659</span><span class="p">,</span> <span class="mi">17051</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Missing &amp; POW</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1018365</span><span class="p">,</span> <span class="mi">5157</span><span class="p">,</span> <span class="mi">194250</span><span class="p">,</span> <span class="mi">14805</span><span class="p">,</span> <span class="mi">409715</span><span class="p">,</span> <span class="mi">1337</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2687</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Total</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2124352</span><span class="p">,</span> <span class="mi">21796</span><span class="p">,</span> <span class="mi">244731</span><span class="p">,</span> <span class="mi">34040</span><span class="p">,</span> <span class="mi">516757</span><span class="p">,</span> <span class="mi">11804</span><span class="p">,</span> <span class="mi">295659</span><span class="p">,</span> <span class="mi">19738</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Wounded &amp; Sick</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3498059</span><span class="p">,</span> <span class="mi">60451</span><span class="p">,</span> <span class="mi">163602</span><span class="p">,</span> <span class="mi">55069</span><span class="p">,</span> <span class="mi">399856</span><span class="p">,</span> <span class="mi">42174</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">]</span>
 <span class="p">}</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code></pre></figure>
+<span class="nf">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code></pre></figure>
 
 
 </div>
@@ -2162,59 +2162,15 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Use R to explore the link between literacy and suicide in 1830s France</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Use R to explore the link between literacy and suicide in 1830s France" /><published>2023-08-16T00:00:00+02:00</published><updated>2023-08-16T00:00:00+02:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Master geom_smooth, cor.test, and stargazer in R - A Guide to Analyzing Data Relationships</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Master geom_smooth, cor.test, and stargazer in R - A Guide to Analyzing Data Relationships" /><published>2023-08-16T00:00:00+02:00</published><updated>2024-08-13T00:00:00+02:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
 
-<h1 id="introduction">Introduction</h1>
+<h2 id="1-how-to-use-geom_smooth-to-evaluate-relationships-in-r">1. How to use geom_smooth to evaluate relationships in R?</h2>
 
-<p><br /></p>
-
-<p><strong>‘Happiness in intelligent people is the rarest thing I know’</strong></p>
-
-<p>A character in Ernest Hemingway’s novel “The Garden of Eden”</p>
+<p>The geom_smooth layer in ggplot2 allows you to depict a regression line in just a few steps. To exemplify its use, we will use the Guerry dataset, provided by the R package <a href="https://cran.r-project.org/web/packages/HistData/index.html">HistData</a>. It includes data on several social variables of 86 French departments in the 1830s. To learn more about this package, please refer to our lesson <a href="/2023/07/12/HistData.html">‘Uncovering History with R - A Look at the HistData Package’</a>.</p>
 
 <p><br /></p>
 
-<p>Greetings, humanists, social and data scientists!</p>
-
-<p><br /></p>
-
-<p>In this lesson, we will learn how to evaluate the relationship between two variables with R. Check out the video below for a short introduction.</p>
-
-<p><br /></p>
-
-<div class="videoWrapper">
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Fee7FMwAv_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>The Guerry dataset is provided by the R package <a href="https://cran.r-project.org/web/packages/HistData/index.html">HistData</a>. To know more about this package, please refer to our lesson <a href="/2023/07/12/HistData.html">‘Uncovering History with R - A Look at the HistData Package’</a>.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-the-relationship-between-literacy-and-suicides-in-1830s-france">Coding the past: the relationship between literacy and suicides in 1830s France</h1>
-
-<p><br /></p>
-
-<h2 id="1-exploring-andre-michel-guerrys-pioneering-data-moral-statistics-of-1830s-france">1. Exploring Andre-Michel Guerry’s Pioneering Data: Moral Statistics of 1830s France</h2>
-
-<p>Andre-Michel Guerry was a French lawyer who was passionate about statistics. He is considered to be the founder of moral statistics and had a major influence on the development of modern social science. His work “Essay on the Moral Statistics of France” includes data on several social variables of 86 French departments in the 1830s.</p>
-
-<p><br /></p>
-
-<p>To access this data, we need to load the HistData package. After doing so, we can use the command <code class="language-plaintext highlighter-rouge">help(Guerry)</code> to see the description of the dataset and the details about each of the 23 variables. Variables include information such as population, crime, literacy, suicide, wealth, and location of the 86 French departments.</p>
+<p>First, we need to load the HistData package. After doing so, we can use the command <code class="language-plaintext highlighter-rouge">help(Guerry)</code> to view the dataset’s description about each of the 23 variables. Variables include information such as population, crime, literacy, suicide, wealth, and location.</p>
 
 <p><br /></p>
 
@@ -2241,17 +2197,11 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-add-a-new-column-to-a-dataframe-in-r">2. Add a new column to a dataframe in R</h2>
-
 <p>In the documentation of the dataset, the author states “Note that most of the variables (e.g., Crime_pers) are scaled so that ‘more is better’ morally.”. Thus, suicide, for example, is expressed as the population divided by the number of suicides. In this way, the fewer the suicides, the larger the value in the <code class="language-plaintext highlighter-rouge">Suicides</code> column.</p>
 
 <p><br /></p>
 
-<p>To make our analysis easier to interpret, we can calculate the inverse of <code class="language-plaintext highlighter-rouge">Suicides</code>, that is, instead of having <strong>population/suicides</strong>, we will consider <strong>suicides/population</strong> (suicides per inhabitants). Moreover, to avoid very small numbers, let us multiply this by 100,000 so that we have suicides per 100,000 population. The code below creates this new variable.</p>
+<p>To make our analysis easier to interpret, we can calculate the inverse of <code class="language-plaintext highlighter-rouge">Suicides</code>, that is, instead of having <strong>population/suicides</strong>, we will consider <strong>suicides/population</strong> (suicides per inhabitant). Moreover, to avoid very small numbers, let us multiply this by 100,000 so that we have suicides per 100,000 population. The code below creates this new variable.</p>
 
 <p><br /></p>
 
@@ -2272,20 +2222,14 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
         tips_and_updates
     </span>
     <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content">  Note that "Pop1831" tells us the population of French departments in the thousands in 1831. "summary(df$Pop1831)" tells us that the least populated department had a population of 129,000 inhabitants and the most populated had around 990,000 inhabitants.
+    <div class="text-note-content">  Note that "Pop1831" tells us the population of French departments in the thousands in 1831. "summary(df$Pop1831)" informs us that the least populated department had a population of 129,000 inhabitants and the most populated had around 990,000 inhabitants.
         
     </div>
 </div>
 
 <p><br /></p>
 
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-use-geom_point-to-create-a-scatter-plot">3. Use geom_point to create a scatter plot</h2>
-
-<p>Now, we’ll examine the relationship between <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> and <code class="language-plaintext highlighter-rouge">Literacy</code> using a scatter plot. As per the documentation, <code class="language-plaintext highlighter-rouge">Literacy</code> represents the “percentage of military conscripts who can read and write” in a department. Keep in mind that the relationships studied in this lesson apply only to this subgroup which is not representative of the whole population. The code below leverages <code class="language-plaintext highlighter-rouge">geom_point</code> to visualize this relationship.</p>
+<p>To depict the relationship between suicides and literacy, an easy and quick method is to plot the regression line between these variables. To know more about linear regression, check out the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a>. In the code below, we use <code class="language-plaintext highlighter-rouge">geom_smooth</code> with the <code class="language-plaintext highlighter-rouge">method</code> argument set to “lm”. This tells ggplot to use a linear model (lm) to depict the relationship. geom_point adds a scatterplot to enrich the analysis. Please note that the code below incorporates the function <code class="language-plaintext highlighter-rouge">theme_coding_the_past</code> to style the plot. You can access this theme in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate Data Visualization’</a></p>
 
 <p><br /></p>
 
@@ -2293,93 +2237,8 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
   content_copy
   <span class="tooltiptext">Copy</span>
 </span></p>
+
 <div id="code-13-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Relationship between Suicides and Literacy"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Percentage of literate conscripts"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Suicides (per 100,000 population)"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>Please note, the code above incorporates the function <code class="language-plaintext highlighter-rouge">theme_coding_the_past</code> to style the plot. You can access this theme in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate Data Visualization’</a></p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_13_01.png" alt="Percentage of literate conscripts vs Suicides per inhabitants" /></p>
-
-<p><br /></p>
-
-<p>The plot suggests that as literacy percentages rise, suicide rates tend to increase. In the distribution of literacy rates below, we also see that the majority of the French departments recorded literacy rates lower than 50% (indicated by the dashed line). If you count the departments to the right of the dashed line, you will find 24 departments, which represents only 24/86 = 28% of the total departments. Notably, the highest suicide rates are in this subgroup.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-13-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w">  </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">25</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Distribution of literacy percentages"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Literacy"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Count"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_13_02.png" alt="Distribution of literacy percentages" /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-corttest-in-r">4. cort.test in R</h2>
-
-<p>Having observed a graphical association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides</code>, let’s use <code class="language-plaintext highlighter-rouge">cor.test</code> to find this association analytically. This function takes two arguments <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> and returns a Pearson correlation coefficient (by default) and its statistical significance. As explained in the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a> “correlation measures how much two variables change together. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation”.</p>
-
-<p><br /></p>
-
-<p>Using <code class="language-plaintext highlighter-rouge">cor.test(x = df$Literacy, df$Suicides_Pop)</code> we obtain a correlation coefficient of 0.4 which means a moderate positive correlation. As literacy increases so does suicide proportion. The p-value is less than 0.01, meaning there is a statistically significant association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>. Framed differently, under the hypothesis that there is no correlation between the two variables, the probability of finding a coefficient of 0.4 or higher would be less than 1%. So we can reject the null hypothesis.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-linear-models-with-r">5. Linear models with R</h2>
-
-<p>To further study the relationship between these two variables let’s model 3 linear regressions. To know more about linear regression, check out the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a>.</p>
-
-<p><br /></p>
-
-<p>The first model will only include <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> as the dependent variable and <code class="language-plaintext highlighter-rouge">Literacy</code> as the independent variable. Use <code class="language-plaintext highlighter-rouge">summary(lm(Suicides_Pop ~ Literacy, data = df))</code> to see the results of this model. The literacy coefficient tells us that if we increase the literacy rate by 1%, then the suicide proportion grows by 0.11. Put differently, a 10% increase in literacy is associated with around 1 suicide more per 100,000 population. This estimate is statistically significant.</p>
-
-<p><br />
-In the code below, we use <code class="language-plaintext highlighter-rouge">geom_smooth</code> to plot the regression line describing the positive link between literacy and suicides. The <code class="language-plaintext highlighter-rouge">method</code> argument tells ggplot to use a linear model (lm) to depict the relationship.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-13-5">
 
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">))</span><span class="o">+</span><span class="w">
@@ -2395,7 +2254,44 @@ In the code below, we use <code class="language-plaintext highlighter-rouge">geo
 
 <p><br /></p>
 
-<p class="larger"><img src="/assets/images/lesson_13_03.png" alt="geom_smooth" /></p>
+<p class="larger"><img src="/assets/images/lesson_13_03.png" alt="geom_smooth used to depict the linear relationship between two variables" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-corttest-in-r">2. cort.test in R</h2>
+
+<p>Having observed a graphical association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides</code>, let’s use <code class="language-plaintext highlighter-rouge">cor.test</code> to find this association analytically. This function takes two arguments <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> and returns a Pearson correlation coefficient (by default) and its statistical significance. As explained in the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a> “correlation measures how much two variables change together. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation”. Use the code below to calculate the correlation between suicides and literacy rates.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-13-4">
+
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cor.test</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-how-to-interpret-corttest-in-r">3. How to interpret cort.test in R?</h2>
+
+<p>After running the code above, we obtain a correlation coefficient of 0.4, which indicates a moderate positive correlation. As literacy increases so does suicide proportion. The cor.test function also provides a p-value, that in this case is less than 0.01, meaning there is a statistically significant association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>. Framed differently, under the hypothesis that there is no correlation between the two variables, the probability of finding a coefficient of 0.4 or higher would be less than 1%. So we can reject the null hypothesis that assumes no relationship between the two variables.</p>
 
 <p><br /></p>
 
@@ -2407,9 +2303,9 @@ In the code below, we use <code class="language-plaintext highlighter-rouge">geo
 
 <p><br /></p>
 
-<h2 id="6-how-to-use-stargazer-in-r">6. How to use stargazer in R</h2>
+<h2 id="4-how-to-use-stargazer-in-r">4. How to use stargazer in R?</h2>
 
-<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> package offers a very neat and practical way of presenting the results of several linear models. Users can set it up to produce LaTeX or HTML outputs using the <code class="language-plaintext highlighter-rouge">type</code> argument. In the code that follows, we configure it to generate HTML, making it suitable for this blog post. First, we create three models adding variables indicating the wealth and distance to Paris of each department. Second, we pass these models to stargazer.</p>
+<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> package offers a neat and practical way of presenting the results of several linear models. Users can set it up to produce LaTeX or HTML outputs using the <code class="language-plaintext highlighter-rouge">type</code> argument. In the code that follows, we configure it to generate HTML, making it suitable for this blog post. First, we create three models adding variables indicating the wealth and distance to Paris of each department. Second, we pass these models to stargazer.</p>
 
 <p><br /></p>
 
@@ -2436,7 +2332,11 @@ In the code below, we use <code class="language-plaintext highlighter-rouge">geo
 
 <p><br /></p>
 
-<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> table can be seen below. Note in model 2 that <code class="language-plaintext highlighter-rouge">Wealth</code> appears to influence <code class="language-plaintext highlighter-rouge">Suicides</code> negatively, meaning that richer areas are associated with fewer suicides. The coefficient regarding <code class="language-plaintext highlighter-rouge">Literacy</code> decreases a bit but remains statistically significant. Finally, model 3 includes the distance to Paris as an additional variable. The coefficient of <code class="language-plaintext highlighter-rouge">Literacy</code> decreases again but remains statistically significant. Moreover, being close to Paris is associated with more suicides.</p>
+<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> table can be seen below. The first model only includes <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> as the dependent variable and <code class="language-plaintext highlighter-rouge">Literacy</code> as the independent variable. The literacy coefficient tells us that if we increase the literacy rate by 1%, then the suicide proportion grows by 0.11. Put differently, a 10% increase in literacy is associated with around 1 suicide more per 100,000 population. This estimate is statistically significant.</p>
+
+<p><br /></p>
+
+<p>Note in model 2 that <code class="language-plaintext highlighter-rouge">Wealth</code> appears to influence <code class="language-plaintext highlighter-rouge">Suicides</code> negatively, meaning that richer areas are associated with fewer suicides. The coefficient regarding <code class="language-plaintext highlighter-rouge">Literacy</code> decreases a bit but remains statistically significant. Finally, model 3 includes the distance to Paris as an additional variable. The coefficient of <code class="language-plaintext highlighter-rouge">Literacy</code> decreases again but remains statistically significant. Moreover, being close to Paris is associated with more suicides.</p>
 
 <p><br /></p>
 
@@ -2466,10 +2366,6 @@ In the code below, we use <code class="language-plaintext highlighter-rouge">geo
 
 <p><br /></p>
 
-<hr />
-
-<p><br /></p>
-
 <p>Like all social phenomena, the incidence of suicide is shaped by a multitude of factors.  While we cannot definitively claim that literacy directly caused suicides in 19th-century France, our analysis above does indicate an association between these variables. Delving deeper into the contextual nuances of France in the 1830s might shed light on whether literacy indeed influenced the decision to commit suicide. For instance, check this article by Lisa Lieberman <a href="https://www.cambridge.org/core/journals/comparative-studies-in-society-and-history/article/abs/romanticism-and-the-culture-of-suicide-in-nineteenthcentury-france/FA6EBEDC86A5F6812B37DCA03D609C67">“Romanticism and the Culture of Suicide in Nineteenth-Century France”</a></p>
 
 <p><br /></p>
@@ -2483,8 +2379,6 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 <p><br /></p>
 
-<p><br /></p>
-
 <p><strong>If you have any questions or would like to share your thoughts on this topic, please feel free to ask in the comments below.</strong></p>
 
 <p><br /></p>
@@ -2493,16 +2387,16 @@ Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on hi
 
 <p><br /></p>
 
-<h1 id="conclusions">Conclusions</h1>
+<h2 id="conclusions">Conclusions</h2>
 
 <p><br /></p>
 
 <ul class="conclusion-list">
-  <li>Association between two variables can be identified with a scatter plot;</li>
-  <li>It can also be explored analytically with <code class="language-plaintext highlighter-rouge">cor.test</code>;</li>
-  <li>Linear regression helps us further understand the relationship of two variables, given other relevant variables</li>
+  <li>geom_smooth offers an easy way to depict a linear regression</li>
+  <li>To calculate the correlation of two variables along with its statistical significance, use cor.test;</li>
+  <li>Finally, stargazer offers a clean and effective way of summarizing several linear models in R</li>
 </ul>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Use R to analyze the relationship between two variables. Learn how to create linear models with R.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn how to use geom_smooth for visualizing relationships, cor.test for correlation analysis, and stargazer for presenting regression results in R. Perfect for R users looking to enhance their data analysis skills.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
