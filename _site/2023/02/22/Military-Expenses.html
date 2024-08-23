@@ -17,10 +17,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="r color palette, rcolorbrewer, scale_color_brewer, ggplot, how to use pivot_longer">
-    <meta name="description" content="A step-by-step guide on how to use RColorBrewer and scale_color_brewer in ggplot2 demonstrated with historical military expense data.">
+    <meta name="keywords" content="r, scale_color_brewer, ggplot, color palette">
+    <meta name="description" content="A step-by-step on how to use scale_color_brewer to change colors in ggplot2 and an example of application.">
     <meta property= og:image content= />
-    <title>Changing ggplot colors with scale_color_brewer</title>
+    <title>Learn To Use scale_color_brewer To Change Colors In ggplot2</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google icon: -->
     <link rel="stylesheet"
@@ -56,7 +56,7 @@
     <div class="content">
         <div class="content-body">
             <div class="post-body">
-    <h1 id = "post-main-title">Changing ggplot colors with scale_color_brewer</h1>
+    <h1 id = "post-main-title">Learn To Use scale_color_brewer To Change Colors In ggplot2</h1>
     <p id = "author">Bruno Ponne &#9679 22 Feb 2023</p>
     <hr>
     <ul class = "meta-info">
@@ -72,33 +72,26 @@
     <p class = "pre-lesson">What you will learn</p>
     <ul>
         
-        <li class = "objectives"> Learn to transform data from wide to long format with tidyr;</li>
+        <li class = "objectives"> Learn to improve your plots with scale_color_brewer;</li>
         
-        <li class = "objectives"> Be able to choose a different color palette with RColorBrewer;</li>
+        <li class = "objectives"> Become comfortable using scale_color_brewer in a hands-on application</li>
         
     </ul>
     <br>
     <p class = "pre-lesson">Table of Contents</p>
 
 
-    <ul class="toc-entry"><li><a href="#introduction">Introduction</a></li><li><a href="#data-source">Data source</a></li><li><a href="#coding-the-past-change-colors-in-ggplot-with-rcolorbrewer">Coding the past: change colors in ggplot with RColorBrewer</a><ul><li><a href="#1-importing-data-into-r">1. Importing data into R</a></li><li><a href="#2-how-to-use-pivot_longer">2. How to use pivot_longer?</a></li><li><a href="#3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</a></li><li><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li></ul></li><li><a href="#conclusions">Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#1-what-is-scale_color_brewer">1. What is scale_color_brewer?</a></li><li><a href="#2-how-to-use-scale_color_brewer">2. How to use scale_color_brewer?</a></li><li><a href="#3-using-scale_color_brewer-with-real-data">3. Using scale_color_brewer with real data</a></li><li><a href="#4-adding-a-theme-to-the-plot">4. Adding a theme to the plot</a></li></ul>
 
     <p><br /></p>
 
-<h1 id="introduction">Introduction</h1>
+<p>R offers several libraries created by professional designers that provide excellent color palettes. In this lesson, you will learn to use scale_color_brewer to improve your plots with professional looking colors. To make things more interesting, we’ll use data from the military expenses of leading capitalist countries during the Cold War era. Let’s paint your data story!</p>
 
 <p><br /></p>
 
-<p><strong>‘War is over, if you want it, war is over, now’</strong></p>
+<h2 id="1-what-is-scale_color_brewer">1. What is scale_color_brewer?</h2>
 
-<p>John Lennon</p>
-
-<p><br />
-Ever visited a webpage with clashing colors or poor text contrast? You’re not alone! Choosing the perfect color palette for data visualizations can be complex.</p>
-
-<p><br /></p>
-
-<p>Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer package.  To make things more interesting, we’ll use data from the military expenses of leading capitalist countries during the Cold War era. Let’s paint your data story!</p>
+<p>Simply put, scale_color_brewer is a ggplot2 layer that you can use to easily select the colors of your ggplot visualizations. It makes use of color schemes from <a href="https://colorbrewer2.org/#">ColorBrewer</a> to provide professional sequential, diverging and qualitative palettes.</p>
 
 <p><br /></p>
 
@@ -106,11 +99,9 @@ Ever visited a webpage with clashing colors or poor text contrast? You’re not 
 
 <p><br /></p>
 
-<h1 id="data-source">Data source</h1>
+<h2 id="2-how-to-use-scale_color_brewer">2. How to use scale_color_brewer?</h2>
 
-<p>Data used in this lesson is available on the <a href="https://databank.worldbank.org/home" target="_blank">World Bank</a> website.</p>
-
-<p><br /></p>
+<p>If you load <code class="language-plaintext highlighter-rouge">ggplot2</code>, scale_color_brewer will be available for you and, since ggplot also loads the <code class="language-plaintext highlighter-rouge">scales</code> package, a series of ColorBrewer palettes will also be automatically loaded. Therefore all you need to do is adding a new layer to your plot specifying the palette you would like to use. For example, <code class="language-plaintext highlighter-rouge">ggplot(...)+ scale_color_brewer(palette = 'Set1')</code>. Check the example below for more color palettes.</p>
 
 <p><br /></p>
 
@@ -118,12 +109,13 @@ Ever visited a webpage with clashing colors or poor text contrast? You’re not 
 
 <p><br /></p>
 
-<h1 id="coding-the-past-change-colors-in-ggplot-with-rcolorbrewer">Coding the past: change colors in ggplot with RColorBrewer</h1>
+<h2 id="3-using-scale_color_brewer-with-real-data">3. Using scale_color_brewer with real data</h2>
 
-<h2 id="1-importing-data-into-r">1. Importing data into R</h2>
+<p>Data used in this example is available on the <a href="https://databank.worldbank.org/home" target="_blank">World Bank</a> website. We will be analysing military expenses of countries during the Cold War era, expressed in percentage of their GDP. To make it easier, a file with the data was prepared for you.</p>
 
-<p><br />
-Download the <a href="http://localhost:4000/assets/data/military.csv">data file here</a> and load the libraries we will need, according to the code below. To read the data, use the R function <code class="language-plaintext highlighter-rouge">read_csv()</code>. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with <code class="language-plaintext highlighter-rouge">[1:5, c(3, 5:36)]</code>.</p>
+<p><br /></p>
+
+<p>Download the <a href="http://localhost:4000/assets/data/military.csv">data file here</a> and load the libraries we will need, according to the code below. To read the data, use the R function <code class="language-plaintext highlighter-rouge">read_csv()</code>. Additionally, we are only interested in the first five rows and in columns 3 and 5 to 36. They are selected with <code class="language-plaintext highlighter-rouge">[1:5, c(3, 5:36)]</code>.</p>
 
 <p><br /></p>
 
@@ -138,19 +130,11 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 </span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
+
 
 </span><span class="n">military</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'military.csv'</span><span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">36</span><span class="p">)]</span></code></pre></figure>
 
 </div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-how-to-use-pivot_longer">2. How to use pivot_longer?</h2>
 
 <p><br /></p>
 
@@ -178,7 +162,7 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 <p><br /></p>
 
-<p>To make our data tidy, we will transform all the year columns in one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the <code class="language-plaintext highlighter-rouge">pivot_longer</code> function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, <code class="language-plaintext highlighter-rouge">names_to</code> indicates the name of the new column that will receive the years and <code class="language-plaintext highlighter-rouge">values_to</code> indicates the name of the new column that will receive the values of the year columns.</p>
+<p>To make our data tidy, we will transform all the year columns into one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the <code class="language-plaintext highlighter-rouge">pivot_longer</code> function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, <code class="language-plaintext highlighter-rouge">names_to</code> indicates the name of the new column that will receive the years and <code class="language-plaintext highlighter-rouge">values_to</code> indicates the name of the new column that will receive the values of the year columns.</p>
 
 <p><br /></p>
 
@@ -215,15 +199,9 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 <p><br /></p>
 
-<hr />
-
 <p><br /></p>
 
-<h2 id="3-using-scale_color_brewer-to-improve-your-plots-colors">3. Using scale_color_brewer to improve your plots’ colors</h2>
-
-<p><br /></p>
-
-<p>To see all the colors palettes the RColorBrewer offers, use the following code:</p>
+<p>Finally, we can plot the trend of military expenses over time using ggplot. The palette <code class="language-plaintext highlighter-rouge">Set1</code> will be used in this example. To set it, add the layer <code class="language-plaintext highlighter-rouge">scale_color_brewer(palette = 'Set1')</code>. <strong>Note</strong> that we also set the x-axis to have labels every 4 years with <code class="language-plaintext highlighter-rouge">scale_x_discrete(breaks = seq(1960, 1990, by=4))</code>. Color and group aesthetics were mapped to countries so that each country has a different color.</p>
 
 <p><br /></p>
 
@@ -233,31 +211,6 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 </span></p>
 
 <div id="code-5-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
-</span><span class="n">display.brewer.all</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_05_02.png" alt="RColorBrewer available palettes" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p>We will be using palette <code class="language-plaintext highlighter-rouge">Set1</code> in our line plot. To set it, add the layer <code class="language-plaintext highlighter-rouge">scale_color_brewer(palette = 'Set1')</code>. <strong>Note</strong> that we also set the x-axis to have labels every 4 years with <code class="language-plaintext highlighter-rouge">scale_x_discrete(breaks = seq(1960, 1990, by=4))</code>. Color  and group aesthetics were mapped to countries so that each country has a different color.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-5-4">
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">military_long</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expense</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">country</span><span class="p">))</span><span class="o">+</span><span class="w">
   </span><span class="n">geom_line</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
@@ -277,9 +230,1090 @@ Download the <a href="http://localhost:4000/assets/data/military.csv">data file 
 
 <p><br /></p>
 
+<p>As mentioned above, scale_color_brewer employs <a href="https://colorbrewer2.org/#">ColorBrewer</a> palettes. These are originally available from the RColorBrewer package, but are also automatically loaded by ggplot2. However, to see all the color palettes RColorBrewer offers, you will have to install the package and use the code as follows.</p>
+
 <p><br /></p>
 
-<hr />
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-5-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-5-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Displays the colors visually</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+</span><span class="n">display.brewer.all</span><span class="p">()</span><span class="w">
+
+</span><span class="c1"># Get information about all available palettes</span><span class="w">
+</span><span class="n">brewer.pal.info</span><span class="w">
+
+</span><span class="c1"># Get hexa codes for a specific palette</span><span class="w">
+</span><span class="n">brewer.pal</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Dark2"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Below you can explore the available palettes by clicking on the type of your interest:</p>
+
+<p><br /></p>
+
+<!-- Buttons to filter palettes -->
+<div>
+  <button class="tag-button" onclick="showPaletteType('diverging')">Diverging</button>
+  <button class="tag-button" onclick="showPaletteType('qualitative')">Qualitative</button>
+  <button class="tag-button" onclick="showPaletteType('sequential')">Sequential</button>
+  <button class="tag-button" onclick="showPaletteType('colorblind')">Keep Only Color Blind Friendly</button>
+</div>
+<p><br />
+<!-- Container for palette tables --></p>
+<div id="palette-container">
+  
+
+  
+    <div class="palette-group" data-type="diverging">
+      <p><strong>Diverging Palettes</strong></p>
+      <br />
+      <table style="width: 100%;">
+        <tbody>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">BrBG</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #543005; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #8C510A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BF812D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DFC27D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F6E8C3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F5F5F5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C7EAE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #80CDC1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #35978F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #01665E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #003C30; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">PiYG</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #8E0152; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C51B7D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DE77AE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F1B6DA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDE0EF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E6F5D0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B8E186; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7FBC41; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4D9221; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #276419; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">PRGn</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #40004B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #762A83; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #9970AB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C2A5CF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E7D4E8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D9F0D3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A6DBA0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #5AAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #1B7837; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #00441B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">PuOr</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #7F3B08; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B35806; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E08214; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDB863; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE0B6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D8DAEB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B2ABD2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #8073AC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #542788; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #2D004B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">RdBu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #67001F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B2182B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D6604D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F4A582; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDDBC7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D1E5F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #92C5DE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4393C3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #2166AC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #053061; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">RdGy</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #67001F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B2182B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D6604D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F4A582; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDDBC7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFFFF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E0E0E0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BABABA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #878787; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4D4D4D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #1A1A1A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">RdYlBu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #A50026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D73027; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F46D43; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE090; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFFBF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E0F3F8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #ABD9E9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #74ADD1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4575B4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #313695; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">RdYlGn</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #A50026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D73027; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F46D43; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE08B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFFBF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D9EF8B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A6D96A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #66BD63; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #1A9850; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #006837; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">Spectral</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #9E0142; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D53E4F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F46D43; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE08B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFFBF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E6F598; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #ABDDA4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #66C2A5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #3288BD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #5E4FA2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <br />
+    </div>
+  
+    <div class="palette-group" data-type="qualitative">
+      <p><strong>Qualitative Palettes</strong></p>
+      <br />
+      <table style="width: 100%;">
+        <tbody>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">Accent</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #7FC97F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BEAED4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDC086; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFF99; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #386CB0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F0027F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BF5B17; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #666666; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Dark2</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #1B9E77; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D95F02; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7570B3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E7298A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #66A61E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E6AB02; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A6761D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #666666; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Paired</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #A6CEE3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #1F78B4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B2DF8A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #33A02C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FB9A99; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E31A1C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDBF6F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FF7F00; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CAB2D6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #6A3D9A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFF99; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B15928; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">Pastel1</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FBB4AE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B3CDE3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CCEBC5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DECBE4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FED9A6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFFCC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E5D8BD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDDAEC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F2F2F2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">Pastel2</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #B3E2CD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDCDAC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CBD5E8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F4CAE4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E6F5C9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFF2AE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F1E2CC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CCCCCC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">Set1</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #E41A1C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #377EB8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4DAF4A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #984EA3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FF7F00; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFF33; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A65628; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F781BF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #999999; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Set2</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #66C2A5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FC8D62; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #8DA0CB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E78AC3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A6D854; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFD92F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E5C494; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B3B3B3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 15%; vertical-align: middle;">Set3</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #8DD3C7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFFFB3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BEBADA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FB8072; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #80B1D3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDB462; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B3DE69; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FCCDE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D9D9D9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BC80BD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CCEBC5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFED6F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <br />
+    </div>
+  
+    <div class="palette-group" data-type="sequential">
+      <p><strong>Sequential Palettes</strong></p>
+      <br />
+      <table style="width: 100%;">
+        <tbody>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Blues</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #F7FBFF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DEEBF7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C6DBEF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #9ECAE1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #6BAED6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4292C6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #2171B5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #08519C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #08306B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">BuGn</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #F7FCFD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E5F5F9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CCECE6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #99D8C9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #66C2A4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #41AE76; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #238B45; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #006D2C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #00441B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">BuPu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #F7FCFD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E0ECF4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BFD3E6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #9EBCDA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #8C96C6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #8C6BB1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #88419D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #810F7C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4D004B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">GnBu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #F7FCF0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E0F3DB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CCEBC5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A8DDB5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7BCCC4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #4EB3D3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #2B8CBE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #0868AC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #084081; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Greens</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #F7FCF5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E5F5E0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C7E9C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A1D99B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #74C476; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #41AB5D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #238B45; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #006D2C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #00441B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Greys</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFFFFF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F0F0F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D9D9D9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BDBDBD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #969696; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #737373; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #525252; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #252525; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #000000; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Oranges</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFF5EB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE6CE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDD0A2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDAE6B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FD8D3C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F16913; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D94801; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A63603; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7F2704; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">OrRd</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFF7EC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE8C8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDD49E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDBB84; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FC8D59; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #EF6548; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D7301F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #B30000; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7F0000; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">PuBu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFF7FB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #ECE7F2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D0D1E6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A6BDDB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #74A9CF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #3690C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #0570B0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #045A8D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #023858; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">PuBuGn</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFF7FB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #ECE2F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D0D1E6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A6BDDB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #67A9CF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #3690C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #02818A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #016C59; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #014636; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">PuRd</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #F7F4F9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E7E1EF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D4B9DA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C994C7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DF65B0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E7298A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CE1256; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #980043; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #67001F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Purples</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FCFBFD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #EFEDF5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DADAEB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BCBDDC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #9E9AC8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #807DBA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #6A51A3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #54278F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #3F007D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">RdPu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFF7F3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FDE0DD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FCC5C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FA9FB5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F768A1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #DD3497; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #AE017E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7A0177; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #49006A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">Reds</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFF5F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE0D2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FCBBA1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FC9272; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FB6A4A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #EF3B2C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CB181D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #A50F15; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #67000D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">YlGn</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFFFE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #F7FCB9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #D9F0A3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #ADDD8E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #78C679; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #41AB5D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #238443; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #006837; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #004529; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">YlGnBu</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFFFD9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #EDF8B1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #C7E9B4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #7FCDBB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #41B6C4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #1D91C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #225EA8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #253494; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #081D58; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">YlOrBr</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFFFE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFF7BC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEE391; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEC44F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FE9929; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #EC7014; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #CC4C02; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #993404; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #662506; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+          <tr class="colorblind">
+            <td style="width: 15%; vertical-align: middle;">YlOrRd</td>
+            <td style="width: 85%;">
+              
+              
+                <span style="background-color: #FFFFCC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FFEDA0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FED976; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FEB24C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FD8D3C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #FC4E2A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #E31A1C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #BD0026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+                <span style="background-color: #800026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;"></span>
+              
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <br />
+    </div>
+  
+
+</div>
+
+<!-- JavaScript to filter palette types -->
+<script>
+  function showPaletteType(type) {
+    var paletteGroups = document.querySelectorAll('.palette-group');
+    
+    paletteGroups.forEach(function(group) {
+      if (type === 'colorblind') {
+        var rows = group.querySelectorAll('tr');
+        var hasVisibleRow = false;
+
+        rows.forEach(function(row) {
+          if (row.classList.contains('colorblind')) {
+            row.style.display = 'table-row';
+            hasVisibleRow = true;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        // Show the group only if it has visible rows
+        group.style.display = hasVisibleRow ? 'block' : 'none';
+
+      } else {
+        group.style.display = group.getAttribute('data-type') === type ? 'block' : 'none';
+
+        // Ensure all rows are visible in the selected group
+        if (group.style.display === 'block') {
+          var rows = group.querySelectorAll('tr');
+          rows.forEach(function(row) {
+            row.style.display = 'table-row';
+          });
+        }
+      }
+    });
+  }
+
+  // Initially show all palettes
+  showPaletteType('diverging');
+</script>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Note that we chose a qualitative color palette because in our case each color represents a country. Always keep in mind which kind of variable you are mapping the color attribute to.
+        
+    </div>
+</div>
+
+<p><br /></p>
 
 <p><br /></p>
 
@@ -340,7 +1374,7 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 
 <p><br /></p>
 
-<p>Feel free to test other color palettes and check the one you like the most!</p>
+<p>Feel free to test other color palettes and check the one you like the most! Please, leave your opinion or question below and have a great time coding!</p>
 
 <p><br /></p>
 
@@ -351,8 +1385,8 @@ To customize our plot, we will use the ggplot theme developed in the lesson <a h
 <h1 id="conclusions">Conclusions</h1>
 
 <ul class="conclusion-list">
-  <li>You can transform your dataframe from wide to long format using <code class="language-plaintext highlighter-rouge">pivot_longer</code>;</li>
-  <li>RColorBrewer offers color palettes to make your plots more effective and beautiful.</li>
+  <li><code class="language-plaintext highlighter-rouge">scale_color_brewer</code> offers an effective and straightforward method to apply a color palette in <code class="language-plaintext highlighter-rouge">ggplot2</code>;</li>
+  <li>Using appropriate color palettes is essential to plot an informing and beautiful visualization.</li>
 </ul>
 <p><br /></p>
 

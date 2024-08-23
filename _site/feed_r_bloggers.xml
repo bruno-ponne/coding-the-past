@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 13 Aug 2024 17:18:39 +0200</pubDate>
-        <lastBuildDate>Tue, 13 Aug 2024 17:18:39 +0200</lastBuildDate>
+        <pubDate>Fri, 23 Aug 2024 15:36:15 +0200</pubDate>
+        <lastBuildDate>Fri, 23 Aug 2024 15:36:15 +0200</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
         
             <item>
@@ -3819,24 +3819,17 @@ Florence Nightingale. Photograph by Millbourn. Wellcome Collection. Public Domai
             </item>
         
             <item>
-                <title>Changing ggplot colors with scale_color_brewer</title>
+                <title>Learn To Use scale_color_brewer To Change Colors In ggplot2</title>
 				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
                 <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;R offers several libraries created by professional designers that provide excellent color palettes. In this lesson, you will learn to use scale_color_brewer to improve your plots with professional looking colors. To make things more interesting, we’ll use data from the military expenses of leading capitalist countries during the Cold War era. Let’s paint your data story!&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;‘War is over, if you want it, war is over, now’&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1-what-is-scale_color_brewer&quot;&gt;1. What is scale_color_brewer?&lt;/h2&gt;
 
-&lt;p&gt;John Lennon&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-Ever visited a webpage with clashing colors or poor text contrast? You’re not alone! Choosing the perfect color palette for data visualizations can be complex.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Fortunately R offers you several libraries made by professional designers that offer excellent color palettes for you. In this lesson, you will learn about one of these libraries, the RColorBrewer package.  To make things more interesting, we’ll use data from the military expenses of leading capitalist countries during the Cold War era. Let’s paint your data story!&lt;/p&gt;
+&lt;p&gt;Simply put, scale_color_brewer is a ggplot2 layer that you can use to easily select the colors of your ggplot visualizations. It makes use of color schemes from &lt;a href=&quot;https://colorbrewer2.org/#&quot;&gt;ColorBrewer&lt;/a&gt; to provide professional sequential, diverging and qualitative palettes.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3844,11 +3837,9 @@ Ever visited a webpage with clashing colors or poor text contrast? You’re not 
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;data-source&quot;&gt;Data source&lt;/h1&gt;
+&lt;h2 id=&quot;2-how-to-use-scale_color_brewer&quot;&gt;2. How to use scale_color_brewer?&lt;/h2&gt;
 
-&lt;p&gt;Data used in this lesson is available on the &lt;a href=&quot;https://databank.worldbank.org/home&quot; target=&quot;_blank&quot;&gt;World Bank&lt;/a&gt; website.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;If you load &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt;, scale_color_brewer will be available for you and, since ggplot also loads the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scales&lt;/code&gt; package, a series of ColorBrewer palettes will also be automatically loaded. Therefore all you need to do is adding a new layer to your plot specifying the palette you would like to use. For example, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ggplot(...)+ scale_color_brewer(palette = &apos;Set1&apos;)&lt;/code&gt;. Check the example below for more color palettes.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3856,12 +3847,13 @@ Ever visited a webpage with clashing colors or poor text contrast? You’re not 
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;coding-the-past-change-colors-in-ggplot-with-rcolorbrewer&quot;&gt;Coding the past: change colors in ggplot with RColorBrewer&lt;/h1&gt;
+&lt;h2 id=&quot;3-using-scale_color_brewer-with-real-data&quot;&gt;3. Using scale_color_brewer with real data&lt;/h2&gt;
 
-&lt;h2 id=&quot;1-importing-data-into-r&quot;&gt;1. Importing data into R&lt;/h2&gt;
+&lt;p&gt;Data used in this example is available on the &lt;a href=&quot;https://databank.worldbank.org/home&quot; target=&quot;_blank&quot;&gt;World Bank&lt;/a&gt; website. We will be analysing military expenses of countries during the Cold War era, expressed in percentage of their GDP. To make it easier, a file with the data was prepared for you.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;
-Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quot;&gt;data file here&lt;/a&gt; and load the libraries we will need, according to the code below. To read the data, use the R function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;. Additionally, we are only interested in the five first rows and in columns 3 and 5 to 36. They are selected with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1:5, c(3, 5:36)]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quot;&gt;data file here&lt;/a&gt; and load the libraries we will need, according to the code below. To read the data, use the R function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;. Additionally, we are only interested in the first five rows and in columns 3 and 5 to 36. They are selected with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1:5, c(3, 5:36)]&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3876,19 +3868,11 @@ Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quo
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tidyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RColorBrewer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
 
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;military&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;military.csv&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;2-how-to-use-pivot_longer&quot;&gt;2. How to use pivot_longer?&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3916,7 +3900,7 @@ Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;To make our data tidy, we will transform all the year columns in one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pivot_longer&lt;/code&gt; function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names_to&lt;/code&gt; indicates the name of the new column that will receive the years and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;values_to&lt;/code&gt; indicates the name of the new column that will receive the values of the year columns.&lt;/p&gt;
+&lt;p&gt;To make our data tidy, we will transform all the year columns into one variable called “year” and we will also transfer the values contained in these columns to a single new variable called “expense”. Note the syntax of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pivot_longer&lt;/code&gt; function. The first argument is the dataframe we want to transform, the second are the columns we would like to treat. Finally, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names_to&lt;/code&gt; indicates the name of the new column that will receive the years and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;values_to&lt;/code&gt; indicates the name of the new column that will receive the values of the year columns.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3953,15 +3937,9 @@ Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;3-using-scale_color_brewer-to-improve-your-plots-colors&quot;&gt;3. Using scale_color_brewer to improve your plots’ colors&lt;/h2&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;To see all the colors palettes the RColorBrewer offers, use the following code:&lt;/p&gt;
+&lt;p&gt;Finally, we can plot the trend of military expenses over time using ggplot. The palette &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set1&lt;/code&gt; will be used in this example. To set it, add the layer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scale_color_brewer(palette = &apos;Set1&apos;)&lt;/code&gt;. &lt;strong&gt;Note&lt;/strong&gt; that we also set the x-axis to have labels every 4 years with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scale_x_discrete(breaks = seq(1960, 1990, by=4))&lt;/code&gt;. Color and group aesthetics were mapped to countries so that each country has a different color.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3971,31 +3949,6 @@ Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quo
 &lt;/span&gt;&lt;/p&gt;
 
 &lt;div id=&quot;code-5-3&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;display.brewer.all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-
-&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_05_02.png&quot; alt=&quot;RColorBrewer available palettes&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;We will be using palette &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set1&lt;/code&gt; in our line plot. To set it, add the layer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scale_color_brewer(palette = &apos;Set1&apos;)&lt;/code&gt;. &lt;strong&gt;Note&lt;/strong&gt; that we also set the x-axis to have labels every 4 years with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scale_x_discrete(breaks = seq(1960, 1990, by=4))&lt;/code&gt;. Color  and group aesthetics were mapped to countries so that each country has a different color.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-5-4&apos;)&quot;&gt;
-  content_copy
-  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
-&lt;/span&gt;&lt;/p&gt;
-
-&lt;div id=&quot;code-5-4&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;military_long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -4015,9 +3968,1090 @@ Download the &lt;a href=&quot;http://localhost:4000/assets/data/military.csv&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
+&lt;p&gt;As mentioned above, scale_color_brewer employs &lt;a href=&quot;https://colorbrewer2.org/#&quot;&gt;ColorBrewer&lt;/a&gt; palettes. These are originally available from the RColorBrewer package, but are also automatically loaded by ggplot2. However, to see all the color palettes RColorBrewer offers, you will have to install the package and use the code as follows.&lt;/p&gt;
+
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-5-4&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-5-4&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RColorBrewer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Displays the colors visually&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;display.brewer.all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Get information about all available palettes&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;brewer.pal.info&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Get hexa codes for a specific palette&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;brewer.pal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Dark2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Below you can explore the available palettes by clicking on the type of your interest:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;!-- Buttons to filter palettes --&gt;
+&lt;div&gt;
+  &lt;button class=&quot;tag-button&quot; onclick=&quot;showPaletteType(&apos;diverging&apos;)&quot;&gt;Diverging&lt;/button&gt;
+  &lt;button class=&quot;tag-button&quot; onclick=&quot;showPaletteType(&apos;qualitative&apos;)&quot;&gt;Qualitative&lt;/button&gt;
+  &lt;button class=&quot;tag-button&quot; onclick=&quot;showPaletteType(&apos;sequential&apos;)&quot;&gt;Sequential&lt;/button&gt;
+  &lt;button class=&quot;tag-button&quot; onclick=&quot;showPaletteType(&apos;colorblind&apos;)&quot;&gt;Keep Only Color Blind Friendly&lt;/button&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;!-- Container for palette tables --&gt;&lt;/p&gt;
+&lt;div id=&quot;palette-container&quot;&gt;
+  
+
+  
+    &lt;div class=&quot;palette-group&quot; data-type=&quot;diverging&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Diverging Palettes&lt;/strong&gt;&lt;/p&gt;
+      &lt;br /&gt;
+      &lt;table style=&quot;width: 100%;&quot;&gt;
+        &lt;tbody&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;BrBG&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #543005; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #8C510A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BF812D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DFC27D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F6E8C3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F5F5F5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C7EAE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #80CDC1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #35978F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #01665E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #003C30; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;PiYG&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #8E0152; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C51B7D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DE77AE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F1B6DA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDE0EF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E6F5D0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B8E186; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7FBC41; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4D9221; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #276419; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;PRGn&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #40004B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #762A83; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #9970AB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C2A5CF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E7D4E8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D9F0D3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A6DBA0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #5AAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #1B7837; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #00441B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;PuOr&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #7F3B08; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B35806; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E08214; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDB863; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE0B6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D8DAEB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B2ABD2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #8073AC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #542788; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #2D004B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;RdBu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #67001F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B2182B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D6604D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F4A582; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDDBC7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F7F7F7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D1E5F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #92C5DE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4393C3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #2166AC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #053061; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;RdGy&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #67001F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B2182B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D6604D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F4A582; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDDBC7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFFFF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E0E0E0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BABABA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #878787; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4D4D4D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #1A1A1A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;RdYlBu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #A50026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D73027; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F46D43; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE090; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFFBF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E0F3F8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #ABD9E9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #74ADD1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4575B4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #313695; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;RdYlGn&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #A50026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D73027; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F46D43; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE08B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFFBF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D9EF8B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A6D96A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #66BD63; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #1A9850; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #006837; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Spectral&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #9E0142; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D53E4F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F46D43; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDAE61; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE08B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFFBF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E6F598; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #ABDDA4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #66C2A5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #3288BD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #5E4FA2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;br /&gt;
+    &lt;/div&gt;
+  
+    &lt;div class=&quot;palette-group&quot; data-type=&quot;qualitative&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Qualitative Palettes&lt;/strong&gt;&lt;/p&gt;
+      &lt;br /&gt;
+      &lt;table style=&quot;width: 100%;&quot;&gt;
+        &lt;tbody&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Accent&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #7FC97F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BEAED4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDC086; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFF99; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #386CB0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F0027F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BF5B17; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #666666; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Dark2&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #1B9E77; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D95F02; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7570B3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E7298A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #66A61E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E6AB02; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A6761D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #666666; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Paired&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #A6CEE3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #1F78B4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B2DF8A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #33A02C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FB9A99; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E31A1C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDBF6F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FF7F00; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CAB2D6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #6A3D9A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFF99; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B15928; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Pastel1&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FBB4AE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B3CDE3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CCEBC5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DECBE4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FED9A6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFFCC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E5D8BD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDDAEC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F2F2F2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Pastel2&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #B3E2CD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDCDAC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CBD5E8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F4CAE4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E6F5C9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFF2AE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F1E2CC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CCCCCC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Set1&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #E41A1C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #377EB8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4DAF4A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #984EA3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FF7F00; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFF33; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A65628; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F781BF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #999999; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Set2&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #66C2A5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FC8D62; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #8DA0CB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E78AC3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A6D854; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFD92F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E5C494; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B3B3B3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Set3&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #8DD3C7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFFFB3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BEBADA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FB8072; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #80B1D3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDB462; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B3DE69; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FCCDE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D9D9D9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BC80BD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CCEBC5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFED6F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;br /&gt;
+    &lt;/div&gt;
+  
+    &lt;div class=&quot;palette-group&quot; data-type=&quot;sequential&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Sequential Palettes&lt;/strong&gt;&lt;/p&gt;
+      &lt;br /&gt;
+      &lt;table style=&quot;width: 100%;&quot;&gt;
+        &lt;tbody&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Blues&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #F7FBFF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DEEBF7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C6DBEF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #9ECAE1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #6BAED6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4292C6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #2171B5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #08519C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #08306B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;BuGn&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #F7FCFD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E5F5F9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CCECE6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #99D8C9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #66C2A4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #41AE76; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #238B45; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #006D2C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #00441B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;BuPu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #F7FCFD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E0ECF4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BFD3E6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #9EBCDA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #8C96C6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #8C6BB1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #88419D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #810F7C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4D004B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;GnBu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #F7FCF0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E0F3DB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CCEBC5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A8DDB5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7BCCC4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #4EB3D3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #2B8CBE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #0868AC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #084081; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Greens&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #F7FCF5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E5F5E0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C7E9C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A1D99B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #74C476; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #41AB5D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #238B45; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #006D2C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #00441B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Greys&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFFFFF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F0F0F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D9D9D9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BDBDBD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #969696; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #737373; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #525252; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #252525; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #000000; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Oranges&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFF5EB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE6CE; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDD0A2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDAE6B; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FD8D3C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F16913; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D94801; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A63603; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7F2704; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;OrRd&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFF7EC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE8C8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDD49E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDBB84; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FC8D59; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #EF6548; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D7301F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #B30000; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7F0000; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;PuBu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFF7FB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #ECE7F2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D0D1E6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A6BDDB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #74A9CF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #3690C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #0570B0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #045A8D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #023858; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;PuBuGn&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFF7FB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #ECE2F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D0D1E6; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A6BDDB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #67A9CF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #3690C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #02818A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #016C59; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #014636; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;PuRd&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #F7F4F9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E7E1EF; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D4B9DA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C994C7; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DF65B0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E7298A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CE1256; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #980043; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #67001F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Purples&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FCFBFD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #EFEDF5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DADAEB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BCBDDC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #9E9AC8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #807DBA; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #6A51A3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #54278F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #3F007D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;RdPu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFF7F3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FDE0DD; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FCC5C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FA9FB5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F768A1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #DD3497; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #AE017E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7A0177; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #49006A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;Reds&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFF5F0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE0D2; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FCBBA1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FC9272; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FB6A4A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #EF3B2C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CB181D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #A50F15; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #67000D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;YlGn&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFFFE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #F7FCB9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #D9F0A3; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #ADDD8E; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #78C679; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #41AB5D; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #238443; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #006837; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #004529; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;YlGnBu&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFFFD9; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #EDF8B1; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #C7E9B4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #7FCDBB; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #41B6C4; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #1D91C0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #225EA8; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #253494; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #081D58; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;YlOrBr&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFFFE5; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFF7BC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEE391; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEC44F; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FE9929; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #EC7014; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #CC4C02; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #993404; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #662506; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+          &lt;tr class=&quot;colorblind&quot;&gt;
+            &lt;td style=&quot;width: 15%; vertical-align: middle;&quot;&gt;YlOrRd&lt;/td&gt;
+            &lt;td style=&quot;width: 85%;&quot;&gt;
+              
+              
+                &lt;span style=&quot;background-color: #FFFFCC; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FFEDA0; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FED976; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FEB24C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FD8D3C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #FC4E2A; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #E31A1C; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #BD0026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+                &lt;span style=&quot;background-color: #800026; padding: 5px; display: inline-block; width: 20px; height: 20px; margin-right: 5px;&quot;&gt;&lt;/span&gt;
+              
+            &lt;/td&gt;
+          &lt;/tr&gt;
+          
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;br /&gt;
+    &lt;/div&gt;
+  
+
+&lt;/div&gt;
+
+&lt;!-- JavaScript to filter palette types --&gt;
+&lt;script&gt;
+  function showPaletteType(type) {
+    var paletteGroups = document.querySelectorAll(&apos;.palette-group&apos;);
+    
+    paletteGroups.forEach(function(group) {
+      if (type === &apos;colorblind&apos;) {
+        var rows = group.querySelectorAll(&apos;tr&apos;);
+        var hasVisibleRow = false;
+
+        rows.forEach(function(row) {
+          if (row.classList.contains(&apos;colorblind&apos;)) {
+            row.style.display = &apos;table-row&apos;;
+            hasVisibleRow = true;
+          } else {
+            row.style.display = &apos;none&apos;;
+          }
+        });
+
+        // Show the group only if it has visible rows
+        group.style.display = hasVisibleRow ? &apos;block&apos; : &apos;none&apos;;
+
+      } else {
+        group.style.display = group.getAttribute(&apos;data-type&apos;) === type ? &apos;block&apos; : &apos;none&apos;;
+
+        // Ensure all rows are visible in the selected group
+        if (group.style.display === &apos;block&apos;) {
+          var rows = group.querySelectorAll(&apos;tr&apos;);
+          rows.forEach(function(row) {
+            row.style.display = &apos;table-row&apos;;
+          });
+        }
+      }
+    });
+  }
+
+  // Initially show all palettes
+  showPaletteType(&apos;diverging&apos;);
+&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;text-note&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; Note that we chose a qualitative color palette because in our case each color represents a country. Always keep in mind which kind of variable you are mapping the color attribute to.
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -4078,7 +5112,7 @@ To customize our plot, we will use the ggplot theme developed in the lesson &lt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;Feel free to test other color palettes and check the one you like the most!&lt;/p&gt;
+&lt;p&gt;Feel free to test other color palettes and check the one you like the most! Please, leave your opinion or question below and have a great time coding!&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -4089,8 +5123,8 @@ To customize our plot, we will use the ggplot theme developed in the lesson &lt;
 &lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
 
 &lt;ul class=&quot;conclusion-list&quot;&gt;
-  &lt;li&gt;You can transform your dataframe from wide to long format using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pivot_longer&lt;/code&gt;;&lt;/li&gt;
-  &lt;li&gt;RColorBrewer offers color palettes to make your plots more effective and beautiful.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scale_color_brewer&lt;/code&gt; offers an effective and straightforward method to apply a color palette in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;Using appropriate color palettes is essential to plot an informing and beautiful visualization.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
