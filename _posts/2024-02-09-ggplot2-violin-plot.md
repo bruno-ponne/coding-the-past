@@ -1,20 +1,19 @@
 ---
 layout: post
 author: Bruno Ponne
-title: Unveiling Roman Amphitheaters with a ggplot2 violin plot
+title: Mastering Violin Plots in ggplot2 with Real Data
 attributes:
   - e: Easy
   - e: R
   - e: 5 min
 tags: r ggplot2 
 image: lesson_20.jpeg
-abstract: Discover the capacity of Roman amphitheaters while learning about ggplot2 violin plots
+abstract: Learn how to create ggplot2 violin plots
 objectives:
   - o: Understand what a violin plot is;
   - o: Be comfortable creating a violin plot with ggplot2;
 keywords: R, ggplot2, violin plot
-description: Discover Roman amphitheaters through ggplot2 violin plots. Learn data visualization and uncover ancient architectural secrets. Perfect for R users.
-sd: true
+description: Learn how to create beautiful violin plots in ggplot2 with real-world data from Roman amphitheaters.
 faq:
   - question: What is a violin plot?
     answer: A violin plot is a mirrored density plot that is rotated 90 degrees as shown in the picture. It depicts the distribution of numeric data.
@@ -22,7 +21,7 @@ faq:
     answer: A violin plot is useful to compare the distribution of a numeric variable across different subgroups in a sample. For instance, the distribution of heights of a group of people could be compared across gender with a violin plot.
   - question: How to code a ggplot2 violin plot?
     answer: First, map the numeric variable whose distribution you would like to analyze to the x position aesthetic in ggplot2. Second, map the variable you want to use to separate your sample in different groups to the y position aesthetic. This is done with `aes(x = variable_of_interest, y = dimension)` inside the `ggplot()` function. The last step is to add the geom_violin() layer.
-last_modified_at: 09-Feb-24
+last_modified_at: 23-Aug-24
 ---
 
 <br>
