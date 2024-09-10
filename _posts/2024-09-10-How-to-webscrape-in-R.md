@@ -24,6 +24,10 @@ In this lesson you will learn the basics of webscraping with the `rvest` R packa
 
 <br>
 
+{% include note.html content = 'These speeches are analysed here strictly for research purposes. Read more about an academic project to make Hitler speeches available for research:'   url= 'https://aktuelles.uni-frankfurt.de/en/english/putting-hitler-research-on-a-new-footing/' url_description = 'Collection of Adolf Hitlers Speeches, 1933-1945' %}
+
+<br>
+
 ## 1. What is webscraping?
 Simply put, webscraping is the process of gathering data on webpages. In its basic form, it consists of downloading the HTML code of a webpage, locating in which element of the HTML structure the content of interest is and, finally, extracting and storing it locally for further data analysis.
 
