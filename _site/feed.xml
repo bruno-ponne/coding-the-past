@@ -1,4 +1,235 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-08-23T17:09:56+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">R vs Power BI</title><link href="http://localhost:4000/2024/06/23/r-vs-powerbi.html" rel="alternate" type="text/html" title="R vs Power BI" /><published>2024-06-23T00:00:00+02:00</published><updated>2024-06-23T00:00:00+02:00</updated><id>http://localhost:4000/2024/06/23/r-vs-powerbi</id><content type="html" xml:base="http://localhost:4000/2024/06/23/r-vs-powerbi.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-09-10T09:30:27+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to webscrape in R?</title><link href="http://localhost:4000/2024/09/10/How-to-webscrape-in-R.html" rel="alternate" type="text/html" title="How to webscrape in R?" /><published>2024-09-10T00:00:00+02:00</published><updated>2024-09-10T00:00:00+02:00</updated><id>http://localhost:4000/2024/09/10/How-to-webscrape-in-R</id><content type="html" xml:base="http://localhost:4000/2024/09/10/How-to-webscrape-in-R.html"><![CDATA[<p><br /></p>
+
+<p>In this lesson you will learn the basics of webscraping with the <code class="language-plaintext highlighter-rouge">rvest</code> R package. To demonstrate how it works, you will extract three speeches by Adolf Hitler from Wikipedia pages and analyze their word frequencies!</p>
+
+<p><br /></p>
+
+<h2 id="1-what-is-webscraping">1. What is webscraping?</h2>
+<p>Simply put, webscraping is the process of gathering data on webpages. In its basic form, it consists of downloading the HTML code of a webpage, locating in which element of the HTML structure the content of interest is and, finally, extracting and storing it locally for further data analysis.</p>
+
+<p><img src="/assets/images/lesson_23_01.png" alt="Visual explanation of web scraping steps" /></p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Keep in mind that webscraping can be more complex if the target website uses JavaScript to render content. In this case, consider combining rvest with other libraries, as described
+        
+        <a href="https://www.datacamp.com/tutorial/scraping-javascript-generated-data-with-r" target="_blank"> here.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-how-to-webscrape-in-r">2. How to webscrape in R?</h2>
+<p>There are several libraries developed to webscrape in R. In this lesson, we will stick to one of the most popular, <a href="https://rvest.tidyverse.org/">rvest</a>. This library is part of the tidyverse set of libraries and allows you to use the pipe operator (%&gt;%). It is inspired by Python’s <a href="https://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> and <a href="https://robobrowser.readthedocs.io/en/latest/readme.html">RoboBrowser</a>. The basic steps for webscraping with rvest would involve using the following functions:</p>
+
+<ul class="conclusion-list">
+  <li><strong>read_html</strong>: Extracts the HTML source code associated with an URL;</li>
+  <li><strong>html_nodes</strong>: Extracts the relevant HTML nodes from the HTML code;</li>
+  <li><strong>html_text</strong>: Extracts the text (content) from the nodes;</li>
+</ul>
+
+<p><b></b></p>
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> There is a lot of debate on whether webscraping is ethical/legal or not. It depends a lot on where you are and the kind of content and purpose of your webscraping. Usually the robots.txt file of a website gives you hints about what is allowed and disallowed in a website. For more details on this debate, please check
+        
+        <a href="https://r4ds.hadley.nz/webscraping#scraping-ethics-and-legalities" target="_blank"> this link.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p>To illustrate how this works, we will extract the text of three speeches made by Adolt Hitler during the Second World War. The first step is to save the url of these speeches in a variable. We also load the necessary libraries. Please install them if you haven’t already done that.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-23-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-23-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rvest</span><span class="p">)</span><span class="w"> </span><span class="c1"># for webscraping</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidytext</span><span class="p">)</span><span class="w"> </span><span class="c1"># for cleaning text data</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1"># for data preparation</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w"> </span><span class="c1"># for data viz</span><span class="w">
+
+</span><span class="n">speech_01</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"https://en.wikisource.org/wiki/Adolf_Hitler%27s_Address_at_the_Opening_of_the_Winter_Relief_Campaign_(4_September_1940)"</span><span class="w">
+</span><span class="n">speech_02</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"https://en.wikisource.org/wiki/Adolf_Hitler%27s_Address_to_the_Reichstag_(4_May_1941)"</span><span class="w">
+</span><span class="n">speech_03</span><span class="w"> </span><span class="o">&lt;-</span><span class="s2">"https://en.wikisource.org/wiki/Adolf_Hitler%27s_Declaration_of_War_against_the_United_States"</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Since we are going to extract the content of three speeches, it is a good idea to create a function to perform this task, since the same steps will repeat three times. If you inspect the URLs above, you will realize that the text content is located inside <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> (paragraph) tags. Therefore, our target is to extract these nodes. Note that in Firefox and Chrome, you can inspect a webpage by right clicking any area of the page and clicking “inspect”. For other browsers the procedure should be similar. If you have difficulty finding this option, please check the browser documentation.</p>
+
+<p><br /></p>
+
+<p>Our <code class="language-plaintext highlighter-rouge">read_speech</code> function is pretty straightforward. The <code class="language-plaintext highlighter-rouge">read_html</code> reads the URL of the webpage and delivers the HTML of it. The pipe operator <code class="language-plaintext highlighter-rouge">%&gt;%</code> passes the output of one function to the input of the next one. <code class="language-plaintext highlighter-rouge">html_nodes</code> extracts only paragraph tags from the code and, finally, <code class="language-plaintext highlighter-rouge">html_text</code> extracts the text from the paragraph tags.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-23-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-23-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">read_speech</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">url</span><span class="p">){</span><span class="w">
+  </span><span class="n">speech</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"p"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_text</span><span class="p">()</span><span class="w">
+
+</span><span class="n">speech_04_Sep_40</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_01</span><span class="p">)</span><span class="w">
+</span><span class="n">speech_04_May_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_02</span><span class="p">)</span><span class="w">
+</span><span class="n">speech_11_Dec_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_03</span><span class="p">)</span><span class="w">
+
+</span><span class="p">}</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br />
+At this point, if you check the results, you will note that the function delivers a text vector in which each element of the vector is one paragraph. We still need to make some adjustments because the first paragraph is only a small presentation of the speech, rather than part of it. Therefore we should eliminate the first element of the vector. For the speech of 4th of September and the one of 11th December, that is all we need to do. If you print the speech of 4th of May, you will see that the last 5 elements are also metadata and need to be excluded. The code below uses indexing to filter the data accordingly. Moreover, we transform all the dataframes into <a href="https://r4ds.had.co.nz/tibbles.html">tibble</a> - a more modern kind of dataframe - to make it easier to prepare the data in the next steps.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-23-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-23-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">speech_04_Sep_40</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">speech_04_Sep_40</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">60</span><span class="p">]</span><span class="w">
+</span><span class="n">speech_04_May_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">speech_04_May_41</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">60</span><span class="p">]</span><span class="w">
+</span><span class="n">speech_11_Dec_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">speech_11_Dec_41</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">155</span><span class="p">]</span><span class="w">
+
+</span><span class="c1"># tibble creates a modern kind of dataframe with two columns: paragraph and text</span><span class="w">
+</span><span class="n">speech_04_Sep_40</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">paragraph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">59</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speech_04_Sep_40</span><span class="p">)</span><span class="w"> 
+</span><span class="n">speech_04_May_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">paragraph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">59</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speech_04_May_41</span><span class="p">)</span><span class="w">
+</span><span class="n">speech_11_Dec_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">paragraph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">154</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speech_11_Dec_41</span><span class="p">)</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-visualizing-the-most-frequent-words-in-hitlers-speeches">3. Visualizing the most frequent words in Hitler’s speeches</h2>
+
+<p>Our next objective is to visualize the top 10 words in each Hitler’s speech. In order to do that, we will first prepare the data, transforming the dataframes from the previous step to contain one word per row with its respective count. Note that we will eliminate stopwords - words with little meaning for the analysis, like articles.</p>
+
+<p><br /></p>
+
+<p>A function called <code class="language-plaintext highlighter-rouge">count_words</code> will be created to carry out data preparation. This function will expand the dataframe from the paragraph level to the word level. This is done by <code class="language-plaintext highlighter-rouge">unnest_tokens</code>, which transforms the table to one-token-per-row. It takes the “text” column as input and outputs a “word” column. <code class="language-plaintext highlighter-rouge">anti_join</code> eliminates rows containing stopwords. If you print stopwords you can see exactly which words are being eliminated. Finally, <code class="language-plaintext highlighter-rouge">count</code> counts how many times each word occurs.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-23-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-23-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">count_words</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">speech</span><span class="p">){</span><span class="w">
+    </span><span class="n">speech_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">speech</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">unnest_tokens</span><span class="p">(</span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">anti_join</span><span class="p">(</span><span class="n">stop_words</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">count</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">speech_04_Sep_40_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">count_words</span><span class="p">(</span><span class="n">speech_04_Sep_40</span><span class="p">)</span><span class="w">
+</span><span class="n">speech_04_May_41_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">count_words</span><span class="p">(</span><span class="n">speech_04_May_41</span><span class="p">)</span><span class="w">
+</span><span class="n">speech_11_Dec_41_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">count_words</span><span class="p">(</span><span class="n">speech_11_Dec_41</span><span class="p">)</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+
+<p>Great, now we can use <code class="language-plaintext highlighter-rouge">ggplot2</code> to visualize the top 10 words in each speech. Note that we specify the dataframe of interest with index filtering to keep only the top 10 words. Note, as well, that we reorder the bar plot so that bar start from most to least frequent word. We choose a color and eliminate the y-axis label. The same can be done for the two other speeches.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-23-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-23-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speech_04_Sep_40_count</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,],</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_col</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">)</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+<ul>
+  <li>Top 10 words used in Hitler’s speech of 4th September 1940</li>
+</ul>
+
+<p><img src="/assets/images/lesson_23_02.png" alt="Top 10 words used in Hitler's speech of 4th September 1940" /></p>
+
+<p><br /></p>
+<ul>
+  <li>Top 10 words used in Hitler’s speech of 4th May 1941</li>
+</ul>
+
+<p><img src="/assets/images/lesson_23_03.png" alt="Top 10 words used in Hitler's speech of 4th May 1941" /></p>
+
+<p><br /></p>
+<ul>
+  <li>Top 10 words used in Hitler’s speech of 11th December 1941</li>
+</ul>
+
+<p><img src="/assets/images/lesson_23_04.png" alt="Top 10 words used in Hitler's speech of 11th December 1941" /></p>
+
+<p><br /></p>
+
+<p>To add the same ggplot2 theme as used in these plots, please check <code class="language-plaintext highlighter-rouge">theme_coding_the_past()</code>, our theme that is available here: <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization with ggplot2’</a>.</p>
+
+<p><br /></p>
+
+<p>Not surprisingly, “war” is a word that reaches the top 3 in all Hitler’s speeches. It is also interesting that other words refering to Britain, Balkans and Americans reflect the stage in which the war was. For example, in the speech of 11th of December, 1941, Hitler declares war on the US and therefore we observe a high frequency of words semantically related to the US. Please, leave your comment, questions or thoughts below and happy coding!</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-conclusions">4. Conclusions</h2>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>R can be an effective tool to perform webscraping, notably with the <code class="language-plaintext highlighter-rouge">rvest</code> package;</li>
+  <li>To smoothly clean webscraped content, you may use the <code class="language-plaintext highlighter-rouge">tidytext</code> package.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="digitalhumanities" /><category term="textanalysis" /><summary type="html"><![CDATA[Learn how to webscrape in R and use it to gather real data on the Internet.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_23.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_23.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">R vs Power BI</title><link href="http://localhost:4000/2024/06/23/r-vs-powerbi.html" rel="alternate" type="text/html" title="R vs Power BI" /><published>2024-06-23T00:00:00+02:00</published><updated>2024-06-23T00:00:00+02:00</updated><id>http://localhost:4000/2024/06/23/r-vs-powerbi</id><content type="html" xml:base="http://localhost:4000/2024/06/23/r-vs-powerbi.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-what-is-r">1. What is R?</h2>
 <p>R is a programming language and an environment for statistical computing and visualization. R is not a  general-purpose programming language, like Python or Java, because its focus is on statistical computing. The language is very popular in the academic environment and allows for complex calculations and algorithms.</p>
@@ -2162,241 +2393,4 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Master geom_smooth, cor.test, and stargazer in R - A Guide to Analyzing Data Relationships</title><link href="http://localhost:4000/2023/08/16/Study-of-Relationships.html" rel="alternate" type="text/html" title="Master geom_smooth, cor.test, and stargazer in R - A Guide to Analyzing Data Relationships" /><published>2023-08-16T00:00:00+02:00</published><updated>2024-08-13T00:00:00+02:00</updated><id>http://localhost:4000/2023/08/16/Study-of-Relationships</id><content type="html" xml:base="http://localhost:4000/2023/08/16/Study-of-Relationships.html"><![CDATA[<p><br /></p>
-
-<h2 id="1-how-to-use-geom_smooth-to-evaluate-relationships-in-r">1. How to use geom_smooth to evaluate relationships in R?</h2>
-
-<p>The geom_smooth layer in ggplot2 allows you to depict a regression line in just a few steps. To exemplify its use, we will use the Guerry dataset, provided by the R package <a href="https://cran.r-project.org/web/packages/HistData/index.html">HistData</a>. It includes data on several social variables of 86 French departments in the 1830s. To learn more about this package, please refer to our lesson <a href="/2023/07/12/HistData.html">‘Uncovering History with R - A Look at the HistData Package’</a>.</p>
-
-<p><br /></p>
-
-<p>First, we need to load the HistData package. After doing so, we can use the command <code class="language-plaintext highlighter-rouge">help(Guerry)</code> to view the dataset’s description about each of the 23 variables. Variables include information such as population, crime, literacy, suicide, wealth, and location.</p>
-
-<p><br /></p>
-
-<p>You can use <code class="language-plaintext highlighter-rouge">df &lt;- Guerry</code> to load the data. Feel free to explore the dataset and check the <strong>str</strong>ucture of the dataframe with <code class="language-plaintext highlighter-rouge">str(df)</code>.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-13-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-
-</span><span class="n">help</span><span class="p">(</span><span class="n">Guerry</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Guerry</span><span class="w">
-
-</span><span class="n">str</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>In the documentation of the dataset, the author states “Note that most of the variables (e.g., Crime_pers) are scaled so that ‘more is better’ morally.”. Thus, suicide, for example, is expressed as the population divided by the number of suicides. In this way, the fewer the suicides, the larger the value in the <code class="language-plaintext highlighter-rouge">Suicides</code> column.</p>
-
-<p><br /></p>
-
-<p>To make our analysis easier to interpret, we can calculate the inverse of <code class="language-plaintext highlighter-rouge">Suicides</code>, that is, instead of having <strong>population/suicides</strong>, we will consider <strong>suicides/population</strong> (suicides per inhabitant). Moreover, to avoid very small numbers, let us multiply this by 100,000 so that we have suicides per 100,000 population. The code below creates this new variable.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-13-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">df</span><span class="o">$</span><span class="n">Suicides</span><span class="p">)</span><span class="o">*</span><span class="m">100000</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content">  Note that "Pop1831" tells us the population of French departments in the thousands in 1831. "summary(df$Pop1831)" informs us that the least populated department had a population of 129,000 inhabitants and the most populated had around 990,000 inhabitants.
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>To depict the relationship between suicides and literacy, an easy and quick method is to plot the regression line between these variables. To know more about linear regression, check out the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a>. In the code below, we use <code class="language-plaintext highlighter-rouge">geom_smooth</code> with the <code class="language-plaintext highlighter-rouge">method</code> argument set to “lm”. This tells ggplot to use a linear model (lm) to depict the relationship. geom_point adds a scatterplot to enrich the analysis. Please note that the code below incorporates the function <code class="language-plaintext highlighter-rouge">theme_coding_the_past</code> to style the plot. You can access this theme in the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate Data Visualization’</a></p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-13-3">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lm"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Relationship between Suicides and Literacy"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Percentage of literate conscripts"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Suicides (per 100,000 population)"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_13_03.png" alt="geom_smooth used to depict the linear relationship between two variables" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-corttest-in-r">2. cort.test in R</h2>
-
-<p>Having observed a graphical association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides</code>, let’s use <code class="language-plaintext highlighter-rouge">cor.test</code> to find this association analytically. This function takes two arguments <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> and returns a Pearson correlation coefficient (by default) and its statistical significance. As explained in the lesson <a href="/2023/02/07/Linear-Models-in-R.html">R programming for climate data analysis and visualization</a> “correlation measures how much two variables change together. It ranges from 1 to -1, where 1 means perfect positive correlation, 0 means no correlation at all and -1 means perfect negative correlation”. Use the code below to calculate the correlation between suicides and literacy rates.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-13-4">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cor.test</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-how-to-interpret-corttest-in-r">3. How to interpret cort.test in R?</h2>
-
-<p>After running the code above, we obtain a correlation coefficient of 0.4, which indicates a moderate positive correlation. As literacy increases so does suicide proportion. The cor.test function also provides a p-value, that in this case is less than 0.01, meaning there is a statistically significant association between <code class="language-plaintext highlighter-rouge">Literacy</code> and <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>. Framed differently, under the hypothesis that there is no correlation between the two variables, the probability of finding a coefficient of 0.4 or higher would be less than 1%. So we can reject the null hypothesis that assumes no relationship between the two variables.</p>
-
-<p><br /></p>
-
-<p>Note that we cannot say that higher literacy rates directly cause more suicides, as factors beyond literacy rates might influence suicide rates. In the next section, we will check whether wealth and the distance to Paris influence suicides as well. Moreover, we will determine if the association between literacy and suicides holds even after controlling for these variables. To show the results, we will use <a href="https://cran.r-project.org/web/packages/stargazer/index.html">stargazer</a>, a very handy package designed for displaying linear model results.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-how-to-use-stargazer-in-r">4. How to use stargazer in R?</h2>
-
-<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> package offers a neat and practical way of presenting the results of several linear models. Users can set it up to produce LaTeX or HTML outputs using the <code class="language-plaintext highlighter-rouge">type</code> argument. In the code that follows, we configure it to generate HTML, making it suitable for this blog post. First, we create three models adding variables indicating the wealth and distance to Paris of each department. Second, we pass these models to stargazer.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-13-6')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-13-6">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">linear_model_01</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Literacy</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
-
-</span><span class="n">linear_model_02</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Literacy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Wealth</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
-
-</span><span class="n">linear_model_03</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Literacy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Wealth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Distance</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
-
-</span><span class="n">library</span><span class="p">(</span><span class="n">stargazer</span><span class="p">)</span><span class="w">
-
-</span><span class="n">stargazer</span><span class="p">(</span><span class="n">linear_model_01</span><span class="p">,</span><span class="w"> </span><span class="n">linear_model_02</span><span class="p">,</span><span class="w"> </span><span class="n">linear_model_03</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"html"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>The <code class="language-plaintext highlighter-rouge">stargazer</code> table can be seen below. The first model only includes <code class="language-plaintext highlighter-rouge">Suicides_Pop</code> as the dependent variable and <code class="language-plaintext highlighter-rouge">Literacy</code> as the independent variable. The literacy coefficient tells us that if we increase the literacy rate by 1%, then the suicide proportion grows by 0.11. Put differently, a 10% increase in literacy is associated with around 1 suicide more per 100,000 population. This estimate is statistically significant.</p>
-
-<p><br /></p>
-
-<p>Note in model 2 that <code class="language-plaintext highlighter-rouge">Wealth</code> appears to influence <code class="language-plaintext highlighter-rouge">Suicides</code> negatively, meaning that richer areas are associated with fewer suicides. The coefficient regarding <code class="language-plaintext highlighter-rouge">Literacy</code> decreases a bit but remains statistically significant. Finally, model 3 includes the distance to Paris as an additional variable. The coefficient of <code class="language-plaintext highlighter-rouge">Literacy</code> decreases again but remains statistically significant. Moreover, being close to Paris is associated with more suicides.</p>
-
-<p><br /></p>
-
-<table style="text-align:center; width: 100%;"><tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left"></td><td colspan="3"><em>Dependent variable:</em></td></tr>
-<tr><td></td><td colspan="3" style="border-bottom: 1px solid white"></td></tr>
-<tr><td style="text-align:left"></td><td colspan="3">Suicides_Pop</td></tr>
-<tr><td style="text-align:left"></td><td>(1)</td><td>(2)</td><td>(3)</td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left">Literacy</td><td>0.112<sup>***</sup></td><td>0.080<sup>***</sup></td><td>0.064<sup>**</sup></td></tr>
-<tr><td style="text-align:left"></td><td>(0.027)</td><td>(0.026)</td><td>(0.025)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Wealth</td><td></td><td>-0.080<sup>***</sup></td><td>-0.059<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td></td><td>(0.018)</td><td>(0.018)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Distance</td><td></td><td></td><td>-0.014<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td>(0.004)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Constant</td><td>0.645</td><td>5.347<sup>***</sup></td><td>7.901<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td>(1.168)</td><td>(1.489)</td><td>(1.604)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left">Observations</td><td>86</td><td>86</td><td>86</td></tr>
-<tr><td style="text-align:left">R<sup>2</sup></td><td>0.167</td><td>0.329</td><td>0.408</td></tr>
-<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.157</td><td>0.313</td><td>0.386</td></tr>
-<tr><td style="text-align:left">Residual Std. Error</td><td>4.360 (df = 84)</td><td>3.938 (df = 83)</td><td>3.720 (df = 82)</td></tr>
-<tr><td style="text-align:left">F Statistic</td><td>16.826<sup>***</sup> (df = 1; 84)</td><td>20.321<sup>***</sup> (df = 2; 83)</td><td>18.841<sup>***</sup> (df = 3; 82)</td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid white"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="3" style="text-align:right"><sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01</td></tr>
-</table>
-
-<p><br /></p>
-
-<p>Like all social phenomena, the incidence of suicide is shaped by a multitude of factors.  While we cannot definitively claim that literacy directly caused suicides in 19th-century France, our analysis above does indicate an association between these variables. Delving deeper into the contextual nuances of France in the 1830s might shed light on whether literacy indeed influenced the decision to commit suicide. For instance, check this article by Lisa Lieberman <a href="https://www.cambridge.org/core/journals/comparative-studies-in-society-and-history/article/abs/romanticism-and-the-culture-of-suicide-in-nineteenthcentury-france/FA6EBEDC86A5F6812B37DCA03D609C67">“Romanticism and the Culture of Suicide in Nineteenth-Century France”</a></p>
-
-<p><br /></p>
-
-<p>If you are interested in this topic, <a href="https://en.wikipedia.org/wiki/The_Sorrows_of_Young_Werther">The Sorrows of Young Werther</a>, by Johann Wolfgang Goethe, is a literary representation of a particular view on suicide that would influence the Romantic movement in 19th-century Europe.</p>
-
-<p><br /></p>
-
-<p class="fig-caption"><img src="/assets/images/lesson_13.jpeg" alt="The Sorrows of Young Werther" />
-Daniel Chodowiecki. Goethe’s Werther in his bedroom, with him lying dead on his bed. Public Domain.</p>
-
-<p><br /></p>
-
-<p><strong>If you have any questions or would like to share your thoughts on this topic, please feel free to ask in the comments below.</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="conclusions">Conclusions</h2>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>geom_smooth offers an easy way to depict a linear regression</li>
-  <li>To calculate the correlation of two variables along with its statistical significance, use cor.test;</li>
-  <li>Finally, stargazer offers a clean and effective way of summarizing several linear models in R</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="regression" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn how to use geom_smooth for visualizing relationships, cor.test for correlation analysis, and stargazer for presenting regression results in R. Perfect for R users looking to enhance their data analysis skills.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_13.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_13.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
