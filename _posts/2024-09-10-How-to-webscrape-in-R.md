@@ -48,8 +48,8 @@ Simply put, webscraping is the process of gathering data on webpages. In its bas
 There are several libraries developed to webscrape in R. In this lesson, we will stick to one of the most popular, [rvest](https://rvest.tidyverse.org/). This library is part of the tidyverse set of libraries and allows you to use the pipe operator (%>%). It is inspired by Python's [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/) and [RoboBrowser](https://robobrowser.readthedocs.io/en/latest/readme.html). The basic steps for webscraping with rvest would involve using the following functions:
 
 - **read_html**: Extracts the HTML source code associated with an URL;
-- **html_nodes**: Extracts the relevant HTML nodes from the HTML code;
-- **html_text**: Extracts the text (content) from the nodes;
+- **html_elements**: Extracts the relevant HTML elements from the HTML code;
+- **html_text**: Extracts the text (content) from the HTML elements;
 {: .conclusion-list }
 
 <b>
@@ -82,11 +82,11 @@ speech_03 <-"https://en.wikisource.org/wiki/Adolf_Hitler%27s_Declaration_of_War_
 
 <br>
 
-Since we are going to extract the content of three speeches, it is a good idea to create a function to perform this task, since the same steps will repeat three times. If you inspect the URLs above, you will realize that the text content is located inside `<p>` (paragraph) tags. Therefore, our target is to extract these nodes. Note that in Firefox and Chrome, you can inspect a webpage by right clicking any area of the page and clicking "inspect". For other browsers the procedure should be similar. If you have difficulty finding this option, please check the browser documentation.
+Since we are going to extract the content of three speeches, it is a good idea to create a function to perform this task, since the same steps will repeat three times. If you inspect the URLs above, you will realize that the text content is located inside `<p>` (paragraph) tags. Therefore, our target is to extract these elements. Note that in Firefox and Chrome, you can inspect a webpage by right clicking any area of the page and clicking "inspect". For other browsers the procedure should be similar. If you have difficulty finding this option, please check the browser documentation.
 
 <br>
 
-Our `read_speech` function is pretty straightforward. The `read_html` reads the URL of the webpage and delivers the HTML of it. The pipe operator `%>%` passes the output of one function to the input of the next one. `html_nodes` extracts only paragraph tags from the code and, finally, `html_text` extracts the text from the paragraph tags.
+Our `read_speech` function is pretty straightforward. The `read_html` reads the URL of the webpage and delivers the HTML of it. The pipe operator `%>%` passes the output of one function to the input of the next one. `html_elements` extracts only paragraph tags from the code and, finally, `html_text` extracts the text from the paragraph tags.
 
 <br>
 
@@ -96,14 +96,15 @@ Our `read_speech` function is pretty straightforward. The `read_html` reads the 
 
 read_speech <- function(url){
   speech <- read_html(url) %>% 
-    html_nodes("p") %>% 
+    html_elements("p") %>% 
     html_text()
+}
 
 speech_04_Sep_40 <- read_speech(speech_01)
 speech_04_May_41 <- read_speech(speech_02)
 speech_11_Dec_41 <- read_speech(speech_03)
 
-}
+
 
 {% endhighlight %} 
 

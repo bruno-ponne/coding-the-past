@@ -133,8 +133,8 @@
 
 <ul class="conclusion-list">
   <li><strong>read_html</strong>: Extracts the HTML source code associated with an URL;</li>
-  <li><strong>html_nodes</strong>: Extracts the relevant HTML nodes from the HTML code;</li>
-  <li><strong>html_text</strong>: Extracts the text (content) from the nodes;</li>
+  <li><strong>html_elements</strong>: Extracts the relevant HTML elements from the HTML code;</li>
+  <li><strong>html_text</strong>: Extracts the text (content) from the HTML elements;</li>
 </ul>
 
 <p><b></b></p>
@@ -176,11 +176,11 @@
 
 <p><br /></p>
 
-<p>Since we are going to extract the content of three speeches, it is a good idea to create a function to perform this task, since the same steps will repeat three times. If you inspect the URLs above, you will realize that the text content is located inside <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> (paragraph) tags. Therefore, our target is to extract these nodes. Note that in Firefox and Chrome, you can inspect a webpage by right clicking any area of the page and clicking “inspect”. For other browsers the procedure should be similar. If you have difficulty finding this option, please check the browser documentation.</p>
+<p>Since we are going to extract the content of three speeches, it is a good idea to create a function to perform this task, since the same steps will repeat three times. If you inspect the URLs above, you will realize that the text content is located inside <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> (paragraph) tags. Therefore, our target is to extract these elements. Note that in Firefox and Chrome, you can inspect a webpage by right clicking any area of the page and clicking “inspect”. For other browsers the procedure should be similar. If you have difficulty finding this option, please check the browser documentation.</p>
 
 <p><br /></p>
 
-<p>Our <code class="language-plaintext highlighter-rouge">read_speech</code> function is pretty straightforward. The <code class="language-plaintext highlighter-rouge">read_html</code> reads the URL of the webpage and delivers the HTML of it. The pipe operator <code class="language-plaintext highlighter-rouge">%&gt;%</code> passes the output of one function to the input of the next one. <code class="language-plaintext highlighter-rouge">html_nodes</code> extracts only paragraph tags from the code and, finally, <code class="language-plaintext highlighter-rouge">html_text</code> extracts the text from the paragraph tags.</p>
+<p>Our <code class="language-plaintext highlighter-rouge">read_speech</code> function is pretty straightforward. The <code class="language-plaintext highlighter-rouge">read_html</code> reads the URL of the webpage and delivers the HTML of it. The pipe operator <code class="language-plaintext highlighter-rouge">%&gt;%</code> passes the output of one function to the input of the next one. <code class="language-plaintext highlighter-rouge">html_elements</code> extracts only paragraph tags from the code and, finally, <code class="language-plaintext highlighter-rouge">html_text</code> extracts the text from the paragraph tags.</p>
 
 <p><br /></p>
 
@@ -192,14 +192,13 @@
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">read_speech</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">url</span><span class="p">){</span><span class="w">
   </span><span class="n">speech</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-    </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"p"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_elements</span><span class="p">(</span><span class="s2">"p"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
     </span><span class="n">html_text</span><span class="p">()</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span><span class="n">speech_04_Sep_40</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_01</span><span class="p">)</span><span class="w">
 </span><span class="n">speech_04_May_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_02</span><span class="p">)</span><span class="w">
-</span><span class="n">speech_11_Dec_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_03</span><span class="p">)</span><span class="w">
-
-</span><span class="p">}</span></code></pre></figure>
+</span><span class="n">speech_11_Dec_41</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_speech</span><span class="p">(</span><span class="n">speech_03</span><span class="p">)</span></code></pre></figure>
  
 
 </div>
