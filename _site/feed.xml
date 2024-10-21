@@ -1,4 +1,302 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-09-11T18:46:52+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to webscrape in R?</title><link href="http://localhost:4000/2024/09/10/How-to-webscrape-in-R.html" rel="alternate" type="text/html" title="How to webscrape in R?" /><published>2024-09-10T00:00:00+02:00</published><updated>2024-09-10T00:00:00+02:00</updated><id>http://localhost:4000/2024/09/10/How-to-webscrape-in-R</id><content type="html" xml:base="http://localhost:4000/2024/09/10/How-to-webscrape-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-10-21T08:00:14+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Sentiment Analysis in R</title><link href="http://localhost:4000/2024/10/21/Sentiment-analysis-in-R.html" rel="alternate" type="text/html" title="Sentiment Analysis in R" /><published>2024-10-21T00:00:00+02:00</published><updated>2024-10-21T00:00:00+02:00</updated><id>http://localhost:4000/2024/10/21/Sentiment-analysis-in-R</id><content type="html" xml:base="http://localhost:4000/2024/10/21/Sentiment-analysis-in-R.html"><![CDATA[<p><br /></p>
+
+<p>In this lesson on sentiment analysis in R, you will learn how to perform sentiment analysis using the <code class="language-plaintext highlighter-rouge">sentimentr</code> package. To demonstrate the use of the package, you will compare the sentiment in the speeches of Adolf Hitler and Franklin Roosevelt about the declaration of war by Germany against the United States in 1941.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> These speeches are analyzed here strictly for research purposes. Read more about an academic project to make Hitler speeches available for research:
+        
+        <a href="https://aktuelles.uni-frankfurt.de/en/english/putting-hitler-research-on-a-new-footing/" target="_blank"> Collection of Adolf Hitlers Speeches, 1933-1945</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<h2 id="1-what-is-sentiment-analysis">1. What is sentiment analysis?</h2>
+<p>Sentiment analysis or opinion mining consists of detecting the emotional tone of natural language. It works by assigning an emotion or emotional score to each word in a text. Some methods consider each word separately and others approach them in a wider context, for example, by evaluating their emotion considering its position in a sentence.</p>
+
+<p><br /></p>
+
+<p>In this post we will be taking the latter approach, because the context of the word not rarely influences the emotion conveyed by it. 
+In this context, the <a href="https://github.com/trinker/sentimentr"><code class="language-plaintext highlighter-rouge">sentimentr</code> package</a> is a great option for sentiment analysis in R, because it calculates the sentiment at the sentence level. 
+Each sentence is assigned a score that, in our example, varies from around -1.2 (very negative) to around 1.2 (very positive).</p>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">sentimentr</code> package takes into account valence shifters that can change the emotion of a sentence, for example:</p>
+
+<ul class="conclusion-list">
+  <li><strong>negator</strong>: I do <strong>not</strong> like it.</li>
+  <li><strong>amplifier</strong>: I <strong>really</strong> like it.</li>
+  <li><strong>de-amplifier</strong>: I <strong>hardly</strong> like it.</li>
+</ul>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> Check the package repository if you are interested in the math behind the methodology:
+        
+        <a href="https://github.com/trinker/sentimentr" target="_blank"> Rinker, Tyler W. 2021. sentimentr: Calculate Text Polarity Sentiment. Buffalo, New York.</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-how-to-get-the-data">2. How to get the data?</h2>
+<p>We will gather the data for this example from two webpages using web scraping. If you want to learn more about web scraping, please consult  <a href="/2024/09/10/How-to-webscrape-in-R.html">‘How to webscrape in R?’</a>.
+The <a href="https://rvest.tidyverse.org/">rvest</a> package will be used to webscrape, specifically, the following three functions:</p>
+
+<ul class="conclusion-list">
+  <li><strong>read_html</strong>: Extracts the HTML source code associated with an URL;</li>
+  <li><strong>html_elements</strong>: Extracts the relevant HTML elements from the HTML code;</li>
+  <li><strong>html_text</strong>: Extracts the text (content) from the HTML elements;</li>
+</ul>
+
+<p><br /></p>
+
+<p>The first step is to load the necessary packages and to save the URLs of the two speeches in variables.
+Please follow the instructions of the <a href="https://github.com/trinker/sentimentr"><code class="language-plaintext highlighter-rouge">sentimentr</code> package</a> webpage to install it.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-24-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-24-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rvest</span><span class="p">)</span><span class="w"> </span><span class="c1"># for webscraping</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidytext</span><span class="p">)</span><span class="w"> </span><span class="c1"># for cleaning text data</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1"># for data preparation</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w"> </span><span class="c1"># for data viz</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sentimentr</span><span class="p">)</span><span class="w"> </span><span class="c1"># for sentiment analysis in R</span><span class="w">
+
+
+</span><span class="n">url_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"https://en.wikisource.org/wiki/Adolf_Hitler%27s_Declaration_of_War_against_the_United_States"</span><span class="w">
+</span><span class="n">url_r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"https://www.archives.gov/milestone-documents/president-franklin-roosevelts-annual-message-to-congress#transcript"</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>If you inspect the source code of the webpages referenced above, you will realise that while the text from Wikipedia can be gathered by simply extracting the <code class="language-plaintext highlighter-rouge">p</code> elements,
+for the speech from the American archives, we need to specify the particular <code class="language-plaintext highlighter-rouge">div</code> element where the speech is located. This is because the webpage contains an initial section with several paragraphs introducing President Roosevelt’s speech. 
+In the code below, note that Roosevelt’s speech requires an additional step to specify that the speech is within the <code class="language-plaintext highlighter-rouge">div.col-sm-9</code> (a <code class="language-plaintext highlighter-rouge">div</code> with the class “col-sm-9”). 
+Also, note that we exclude the first text element of Hitler’s speech because it is actually metadata about the speech.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-24-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-24-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Webscraping Hitler´s speech</span><span class="w">
+</span><span class="n">speech_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_html</span><span class="p">(</span><span class="n">url_h</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_elements</span><span class="p">(</span><span class="s2">"p"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_text</span><span class="p">()</span><span class="w">
+
+</span><span class="c1"># Webscraping Roosevelt´s speech</span><span class="w">
+</span><span class="n">speech_r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_html</span><span class="p">(</span><span class="n">url_r</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_elements</span><span class="p">(</span><span class="s2">"div.col-sm-9"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_elements</span><span class="p">(</span><span class="s2">"p"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_text</span><span class="p">()</span><span class="w">
+
+</span><span class="c1"># Excluding first text element of Hitler's speech, because it is meta data</span><span class="w">
+</span><span class="n">speech_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">speech_h</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="m">155</span><span class="p">]</span><span class="w"> </span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-performing-sentiment-analysis-in-r-with-sentimentr">3. Performing sentiment analysis in R with sentimentr</h2>
+
+<p>Our next objective is to further split each of the paragraphs of our speeches into sentences. This can be achieved with the <code class="language-plaintext highlighter-rouge">get_sentences</code> function from the <code class="language-plaintext highlighter-rouge">sentimentr</code> package. 
+This function takes a character vetor, splits each element of this vector in sentences and delivers them in a list object. Each paragraph of our speeches becomes one list element that consists of a character vector containing the sentences of the respective paragraph.
+<br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-24-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-24-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">sentences_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">get_sentences</span><span class="p">(</span><span class="n">speech_h</span><span class="p">)</span><span class="w">
+</span><span class="n">sentences_r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">get_sentences</span><span class="p">(</span><span class="n">speech_r</span><span class="p">)</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_24_01.png" alt="Explanation of an R list and its elements" /></p>
+
+<p><br /></p>
+
+<p>Finally we can apply sentiment analysis to our sentences. We do that by using the <code class="language-plaintext highlighter-rouge">sentiment</code> function. It delivers a data frame containing:</p>
+
+<ul class="conclusion-list">
+  <li><strong>element_id</strong>: identifies the paragraph;</li>
+  <li><strong>sentence_id</strong>: identifies the sentence;</li>
+  <li><strong>word_count</strong>: informs how many words the sentence has;</li>
+  <li><strong>sentiment</strong>: informs the sentiment score attributed to that sentence;</li>
+</ul>
+
+<p><br />
+In the code below we also check the most negative sentence in both speeches by ordering the data frames by sentiment (ascending) and getting the IDs of the sentences.
+Note that to access a sentence in the list, you use the following syntax: <code class="language-plaintext highlighter-rouge">list[[element_id]][sentence_id]</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-24-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-24-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">sentiment_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sentiment</span><span class="p">(</span><span class="n">sentences_h</span><span class="p">)</span><span class="w">
+</span><span class="n">sentiment_r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sentiment</span><span class="p">(</span><span class="n">sentences_r</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Checking the most negative sentences (element n sentence id)</span><span class="w">
+</span><span class="n">sentiment_h</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">arrange</span><span class="p">(</span><span class="n">sentiment</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">head</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+
+</span><span class="n">sentiment_r</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">arrange</span><span class="p">(</span><span class="n">sentiment</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">head</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Checking the most negative sentences (text)</span><span class="w">
+
+</span><span class="n">sentences_h</span><span class="p">[[</span><span class="m">148</span><span class="p">]][</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span><span class="n">sentences_r</span><span class="p">[[</span><span class="m">39</span><span class="p">]][</span><span class="m">1</span><span class="p">]</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+<ul class="conclusion-list">
+  <li>Hitler’s most negative sentence: <em>The government of the United States of America, having violated in the most flagrant manner and in ever increasing measure all rules of neutrality in favor of the adversaries of Germany, and having continually been guilty of the most severe provocations toward Germany ever since the outbreak of the European war, brought on by the British declaration of war against Germany on 3 September 1939, has finally resorted to open military acts of aggression.</em></li>
+  <li>Roosevelt’s most negative sentence: <em>I am not satisfied with the progress thus far made.</em></li>
+</ul>
+
+<p><br /></p>
+
+<p>The next step is to visualize how the sentiment of both authors changed over the duration of the speech. For that, we will add two variables to the dataframe.
+One to identify the author of the speech and the other to identify the order of the sentence in the speech (a sort of time variable). We also union the two data frames to make the plot coding with <code class="language-plaintext highlighter-rouge">ggplot2</code> easier.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-24-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-24-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># adding a column to identify author and sentence order</span><span class="w">
+</span><span class="n">sentiment_h</span><span class="o">$</span><span class="n">author</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Adolf Hitler"</span><span class="w">
+</span><span class="n">sentiment_h</span><span class="o">$</span><span class="n">sentence_n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">sentiment_h</span><span class="p">))</span><span class="w">
+
+</span><span class="n">sentiment_r</span><span class="o">$</span><span class="n">author</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Franklin Roosevelt"</span><span class="w">
+</span><span class="n">sentiment_r</span><span class="o">$</span><span class="n">sentence_n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">sentiment_r</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># union of the two df</span><span class="w">
+</span><span class="n">df_union</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rbind</span><span class="p">(</span><span class="n">sentiment_h</span><span class="p">,</span><span class="w"> </span><span class="n">sentiment_r</span><span class="p">)</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+
+<p>To plot the sentiment using <code class="language-plaintext highlighter-rouge">ggplot2</code>, we assign the sentence order to the x axis, sentiment to the y axis and author to the color aesthetics. We then use <code class="language-plaintext highlighter-rouge">geom_point</code> to plot one point per sentence according to its sentiment and order in the speech.
+We use <code class="language-plaintext highlighter-rouge">geom_smooth</code> to visualise the trend of the sentiment through the speech. Read more about <code class="language-plaintext highlighter-rouge">geom_smooth</code> <a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">here</a>.</p>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">scale_color_manual</code> layer allows us to choose the colors attributed to each author. Feel free to choose your colors and <code class="language-plaintext highlighter-rouge">ggplot2</code> theme.
+To add the same ggplot2 theme as used in these plots, please check <code class="language-plaintext highlighter-rouge">theme_coding_the_past()</code>, our theme that is available here: <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization with ggplot2’</a>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-24-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-24-6">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_union</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sentence_n</span><span class="p">,</span><span class="w"> 
+                            </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sentiment</span><span class="p">,</span><span class="w">
+                            </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">author</span><span class="p">))</span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.4</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_color_manual</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"#FF6885"</span><span class="p">,</span><span class="w"> </span><span class="s2">"white"</span><span class="p">))</span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">se</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Sentence Order"</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Sentiment"</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
+ 
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_24_02.png" alt="Results of the sentiment analysis in R shown in a scatter plot" /></p>
+
+<p><br /></p>
+
+<p>Note that the length of Roosevelt’s speech is shorter compared to Hitler’s. They both approach the declaration of war made by Germany against the US,
+but it is quite clear that the tone and emotions of Roosevelt are more positive. He starts low and increases the emotional tone until the end of the speech.
+The amplitude of Hitler’s emotions is a lot larger and, in general, the emotions are more negative.</p>
+
+<p><br /></p>
+
+<p>In this case, sentiment analysis could be a powerful tool for a researcher to preselect which speeches to further analyze according to the emotional tone of interest. The method could also enrich a research comparing 
+the speeches of more than two personalities and help to find personal styles and traces in the speeches of each personality. Finally, from a data science perspective, it would be interesting to know the differences 
+in the results of sentiment analysis at the word level versus the analysis at the sentence level (as carried out in this post).</p>
+
+<p><br /></p>
+
+<p><strong>Feel free to leave your comment or question below and happy coding!</strong></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-conclusions">4. Conclusions</h2>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li><code class="language-plaintext highlighter-rouge">sentimentr</code> package allows you to perform sentiment analysis in R, providing a powerful tool to estimate the emotional tone of sentences;</li>
+  <li>Sentiment analysis can be a powerful tool to preselect large amounts of texts and to find particular characteristics across different authors.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="digitalhumanities" /><category term="textanalysis" /><summary type="html"><![CDATA[Learn how to carry out sentiment analysis in R and apply it to historical speeches.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_24.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_24.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to webscrape in R?</title><link href="http://localhost:4000/2024/09/10/How-to-webscrape-in-R.html" rel="alternate" type="text/html" title="How to webscrape in R?" /><published>2024-09-10T00:00:00+02:00</published><updated>2024-09-10T00:00:00+02:00</updated><id>http://localhost:4000/2024/09/10/How-to-webscrape-in-R</id><content type="html" xml:base="http://localhost:4000/2024/09/10/How-to-webscrape-in-R.html"><![CDATA[<p><br /></p>
 
 <p>In this lesson you will learn the basics of webscraping with the <code class="language-plaintext highlighter-rouge">rvest</code> R package. To demonstrate how it works, you will extract three speeches by Adolf Hitler from Wikipedia pages and analyze their word frequencies!</p>
 
@@ -1507,6 +1805,19 @@ At this point, if you check the results, you will note that the function deliver
 
 <p><br /></p>
 
+<p>Use the app below to check out the fonts you will be able to access after completing this lesson:</p>
+
+<p><br /></p>
+
+<iframe src="https://brunoponne.shinyapps.io/ggFontPicker-master/" width="100%" height="700px" style="border:none;">
+</iframe>
+
+<p><br /></p>
+
+<p>If you are interested in how this Shiny App was coded, please, check this <a href="https://github.com/bruno-ponne/ggFontPicker">GitHub repository</a>.</p>
+
+<p><br /></p>
+
 <hr />
 
 <p><br /></p>
@@ -2140,270 +2451,4 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_15.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_15.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mapping the Past - Geospatial Visualization in R</title><link href="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html" rel="alternate" type="text/html" title="Mapping the Past - Geospatial Visualization in R" /><published>2023-09-06T00:00:00+02:00</published><updated>2023-09-05T00:00:00+02:00</updated><id>http://localhost:4000/2023/09/06/Geospatial-Data-Visualization</id><content type="html" xml:base="http://localhost:4000/2023/09/06/Geospatial-Data-Visualization.html"><![CDATA[<p><br /></p>
-
-<h1 id="introduction">Introduction</h1>
-
-<p><br /></p>
-
-<p><strong>‘Space is to place as eternity is to time.’</strong></p>
-
-<p>Joseph Joubert</p>
-
-<p><br /></p>
-
-<p>Greetings, humanists, social and data scientists!</p>
-
-<p><br /></p>
-
-<p>In the realm of data science, the ability to visualize geospatial data is paramount. This is particularly true when working with historical data analysis. Maps provide a visual representation of spatial data that allows viewers to discern patterns and relationships that might not be immediately apparent in tabular data. R, with its rich ecosystem of packages and libraries, offers versatile tools for geospatial data visualization.</p>
-
-<p><br /></p>
-
-<p>In this lesson, we will continue our journey exploring 19th century France. Using the <code class="language-plaintext highlighter-rouge">Guerry</code> package we’ll be exploring how to plot maps in R. Please, check out the lesson <a href="/2023/08/16/Study-of-Relationships.html">Use R to explore the link between literacy and suicide in 1830s France</a> to learn how to use regression analysis to study the relationship between literacy and suicides in 19th century France.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>After I wrote the lesson <a href="/2023/08/16/Study-of-Relationships.html">Use R to explore the link between literacy and suicide in 1830s France</a>, the author of the <code class="language-plaintext highlighter-rouge">HistData</code> package, Michael Friendly, kindly let me know that the <code class="language-plaintext highlighter-rouge">Guerry</code> dataset has its own package that includes not only the data provided in <code class="language-plaintext highlighter-rouge">HistData</code> but also additional historical maps of France. Please, check the documentation of the package <a href="https://cran.r-project.org/web/packages/Guerry/Guerry.pdf">here</a>.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="coding-the-past-historical-data-analysis-with-maps">Coding the past: historical data analysis with maps</h1>
-
-<p><br /></p>
-
-<h2 id="1-getting-started-with-maps-in-r">1. Getting Started with Maps in R</h2>
-
-<p>Before immersing in our geospatial journey, ensure you’ve equipped your R environment with the <code class="language-plaintext highlighter-rouge">Guerry</code> package and that you load it.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-14-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"Guerry"</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">Guerry</span><span class="p">)</span></code></pre></figure>
-
-</div>
-
-<p><br /></p>
-
-<p>Once you have loaded the package, the <code class="language-plaintext highlighter-rouge">gfrance</code> object will be available in your environment. If you check the class of this object with <code class="language-plaintext highlighter-rouge">class(gfrance)</code>, you will get <code class="language-plaintext highlighter-rouge">SpatialPolygonsDataFrame</code>.</p>
-
-<p><br /></p>
-
-<p>But what is a <code class="language-plaintext highlighter-rouge">SpatialPolygonsDataFrame</code>? For a detailed explanation, check <a href="https://mhallwor.github.io/_pages/basics_SpatialPolygons">Michael T. Hallworth</a>. Alternatively, a succinct explanation is provided below.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> A SpatialPolygonsDataFrame integrates a simple dataframe with spatial data, utilizing a list structure.
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>Simply put, <code class="language-plaintext highlighter-rouge">gfrance</code> combines the Guerry dataframe that we explored in the <a href="/2023/08/16/Study-of-Relationships.html">last lesson</a> with spatial information of France and its departments in 1830.</p>
-
-<p><br /></p>
-
-<p>For a simple initiation into maps in R, trace the contours of France by plotting the <code class="language-plaintext highlighter-rouge">gfrance</code> data. This is as simple as using <code class="language-plaintext highlighter-rouge">plot(gfrance)</code>. The result, as you’ll see below, is a distinct outline of the various departments of France as they existed in 1830. It is a perfect canvas for deeper geospatial data visualization.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_14_01.png" alt="Map of France in 1830" /></p>
-
-<p><br /></p>
-
-<h2 id="2-st_as_sf">2. st_as_sf</h2>
-
-<p>We could work directly with the <code class="language-plaintext highlighter-rouge">gfrance</code> object, but in order to use <code class="language-plaintext highlighter-rouge">ggplot2</code>, we will first convert it to <code class="language-plaintext highlighter-rouge">sf</code>, which stands for <em>simple feature</em>. Simple feature is a standard for representing real world objects in computers. To learn more about it, check this article about the <a href="https://r-spatial.github.io/sf/articles/sf1.html">sf package</a>, written by its author, Edzer Prebesma. To make the conversion, we will use the <code class="language-plaintext highlighter-rouge">st_as_sf</code> function from the <code class="language-plaintext highlighter-rouge">sf</code> package.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-14-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="w">
-</span><span class="n">gfrance_sf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_as_sf</span><span class="p">(</span><span class="n">gfrance</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>Note that the conversion to sf added a variable in the data frame called <code class="language-plaintext highlighter-rouge">geometry</code>. This variable contains the spatial information of each department.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-geom_sf---give-color-and-meaning-to-your-maps">3. geom_sf - give color and meaning to your maps</h2>
-
-<p>In the lesson <a href="/2023/08/16/Study-of-Relationships.html">‘Use R to explore the link between literacy and suicide in 1830s France’</a> we used regression to study the relationship between literacy and the incidence of suicides. Furthermore, we also included in our model variables regarding the wealth of the department and its distance to Paris. We found that the distance to Paris is negatively associated with the incidence of suicides, that is, the farther from Paris, the lower the incidence of suicides.</p>
-
-<p><br /></p>
-
-<p><strong>Do you think this relationship can be seen in a map?</strong></p>
-
-<p><br /></p>
-
-<p>To find out, we will plot a map of France and color the departments according to their suicide rate. The first step is to create a new variable expressing suicides per 100,000 inhabitants. Remember that, in the Guerry dataset, suicide is expressed as the population divided by the number of suicides. We can calculate the inverse of Suicides and multiply it by 100,000 to obtain suicides per 100,000 inhabitants.</p>
-
-<p><br /></p>
-
-<p>In the code below, we load <code class="language-plaintext highlighter-rouge">ggplot2</code> and create the variable <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>, as described above. To plot the map of France colored according to the suicides per inhabitants, we use a layer called <code class="language-plaintext highlighter-rouge">geom_sf</code>. This function takes the data and maps the filling color of the map to the variable <code class="language-plaintext highlighter-rouge">Suicides_Pop</code>. It also sets two constant attributes: the color and size of the department border lines. With scale_fill_gradient we tell ggplot that we would like the fill to be a gradient in which high numbers are associated with a darker red and low numbers with a lighter red. Finally, we set some theme configurations.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-14-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-
-</span><span class="n">gfrance_sf</span><span class="o">$</span><span class="n">Suicides_Pop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">gfrance_sf</span><span class="o">$</span><span class="n">Suicides</span><span class="p">)</span><span class="o">*</span><span class="m">100000</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">()</span><span class="o">+</span><span class="w"> 
-  </span><span class="n">geom_sf</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gfrance_sf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#FF6885'</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="s1">'#67001f'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="w">
-    </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-    </span><span class="n">axis.ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-  </span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_14_02.png" alt="map plot with geom_sf and colored with scale_fil_gradient" /></p>
-
-<p><br /></p>
-
-<p>Indeed, as the regression analysis indicated, the departments closer to Paris have a higher incidence of suicides.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-adding-a-second-geom_sf-to-highlight-paris">4. Adding a second geom_sf to highlight Paris</h2>
-
-<p>In the previous map, we can see that the departments closer to Paris have a higher incidence of suicides. However, it is not clear where Paris is located. To highlight Paris, we will add a second layer of <code class="language-plaintext highlighter-rouge">geom_sf</code> to the map. This time, we will use the <code class="language-plaintext highlighter-rouge">filter</code> function to select only the department of Paris (Seine, code 75). We will also set the fill color to white. Finally we will add the following items to make the plot more informative:</p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">ggtitle</code> is used to add a title and a subtitle to the plot;</li>
-  <li><code class="language-plaintext highlighter-rouge">theme</code> and <code class="language-plaintext highlighter-rouge">theme_bw</code> are used to customize the appearance of the plot:
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">text = element_text(color = 'white')</code> sets the color of the text to white;</li>
-      <li><code class="language-plaintext highlighter-rouge">axis.text</code>and <code class="language-plaintext highlighter-rouge">axis.tick</code> remove axis ticks and text;</li>
-      <li><code class="language-plaintext highlighter-rouge">panel.grid.major</code> and <code class="language-plaintext highlighter-rouge">panel.grid.minor</code> remove grid lines;</li>
-      <li><code class="language-plaintext highlighter-rouge">panel.background</code> and <code class="language-plaintext highlighter-rouge">plot.background</code> and <code class="language-plaintext highlighter-rouge">legend.background</code> set the background color to match the color of this blog;</li>
-      <li><code class="language-plaintext highlighter-rouge">legend.text</code> sets the color of the legend text to white.</li>
-    </ul>
-  </li>
-</ul>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-14-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-14-4">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-
-</span><span class="n">seine</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">gfrance_sf</span><span class="p">,</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">75</span><span class="p">)</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">()</span><span class="o">+</span><span class="w"> 
-  </span><span class="n">geom_sf</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gfrance_sf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Suicides_Pop</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_sf</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seine</span><span class="p">,</span><span class="w">  </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#FF6885'</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="s1">'#67001f'</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Suicide incidence per 100,000 people"</span><span class="p">,</span><span class="w"> </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Seine (Paris) highlighted in white"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'white'</span><span class="p">),</span><span class="w">
-        </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="n">axis.ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> 
-        </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
-        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'#2E3031'</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">"#2E3031"</span><span class="p">),</span><span class="w">
-        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">element_text</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">))</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_14_03.png" alt="map with a second geom_sf layer" /></p>
-
-<p><br /></p>
-
-<p>Apart from some outliers, the surroundings of Paris present indeed higher rates of suicides compared to the rest of the country.</p>
-
-<p><br /></p>
-
-<p><strong>Do you think that indeed the geographical location has an impact on suicides? Or maybe a third variable is confounding this relationship? In the <a href="/2023/08/16/Study-of-Relationships.html">last lesson</a>, we saw that even when we controlled for wealth and literacy rates, the associates persisted. There are other variables that might play a role in this relationship. Feel free to further investigate and share your thoughts in the comments below.</strong></p>
-
-<p><br /></p>
-
-<p>For more information on maps, please check these materials:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>Eric Weinberg, “<a href="https://programminghistorian.org/en/lessons/geospatial-data-analysis">Using Geospatial Data to Inform Historical Research in R</a>” Programming Historian 7 (2018), https://doi.org/10.46430/phen0075.</li>
-  <li>Moraga, Paula. (2023). <a href="https://www.paulamoraga.com/book-spatial/index.html">Spatial Statistics for Data Science: Theory and Practice with R</a>. Chapman &amp; Hall/CRC.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>st_as_sf is used to convert a SpatialPolygonsDataFrame to sf;</li>
-  <li>geom_sf is used to plot sf objects in ggplot2;</li>
-  <li>maps can be a powerful tool to visualize relationships that involve space;</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="maps" /><category term="ggplot2" /><category term="historicaldata" /><summary type="html"><![CDATA[Turn data into storytelling with geospatial data visualization in R. Utilize st_as_sf and geom_sf for impactful map creation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_14.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_14.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_15.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_15.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

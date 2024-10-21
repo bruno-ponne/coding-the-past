@@ -32,6 +32,21 @@ In this lesson, we delve into the world of data visualization with a focus on th
 
 <br>
 
+Use the app below to check out the fonts you will be able to access after completing this lesson:
+
+<br>
+
+<iframe src="https://brunoponne.shinyapps.io/ggFontPicker-master/"
+        width="100%" 
+        height="700px" 
+        style="border:none;">
+</iframe>
+
+<br>
+
+If you are interested in how this Shiny App was coded, please, check this [GitHub repository](https://github.com/bruno-ponne/ggFontPicker).
+
+<br>
 
 ***
  
