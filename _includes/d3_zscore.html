@@ -1,0 +1,199 @@
+
+<div id="chart"></div>
+<div id="buttons">
+    <button class="myBtn" id="showHorizontalLine">1. See Average Wage</button>
+    <button class="myBtn" id="showPointLines">2. See Distance to the Mean</button>
+    <button class="myBtn" id="seeZScores">3. See Z-Scores</button>
+    <button class="myBtn" id="reset">Reset</button>
+</div>
+
+{% raw %}
+<script>
+    const margin = { top: 50, right: 50, bottom: 70, left: 70 }; // Increased margins for labels
+    const width = 600; // Inner width of the plot
+    const height = 400; // Inner height of the plot
+    const outerWidth = width + margin.left + margin.right;
+    const outerHeight = height + margin.top + margin.bottom;
+
+    // Create SVG with viewBox for responsiveness
+    const svg = d3.select("#chart")
+        .append("svg")
+        .attr("viewBox", `0 0 ${outerWidth} ${outerHeight}`) // Includes margins
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const linesGroup = svg.append("g").attr("class", "lines-group");
+    const circlesGroup = svg.append("g").attr("class", "circles-group");
+
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    let currentMode = 'wage'; // Tracks current mode ('wage' or 'z-score')
+    let averageShown = false; // Tracks if the average line is displayed
+
+    // Load data
+    d3.csv("https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Wheat.csv").then(data => {
+        data = data.filter(d => {
+            d.Year = parseFloat(d.Year);
+            d.Wages = parseFloat(d.Wages);
+            return !isNaN(d.Year) && !isNaN(d.Wages);
+        });
+
+        const avgWage = d3.mean(data, d => d.Wages);
+        const stdDevWage = d3.deviation(data, d => d.Wages);
+        data.forEach(d => {
+            d.zScore = (d.Wages - avgWage) / stdDevWage;
+        });
+
+        let yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.Wages)])
+            .range([height, 0]);
+
+        const xScale = d3.scaleLinear()
+            .domain([1550, d3.max(data, d => d.Year)]) // X-axis starts at 1550
+            .range([0, width]);
+
+        const yAxis = svg.append("g")
+            .attr("class", "y-axis axis")
+            .call(d3.axisLeft(yScale).tickFormat(d3.format(".2f")));
+
+        const xAxis = svg.append("g")
+            .attr("class", "x-axis axis")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+
+        // Add axis labels
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height + 50) // Space for the label below the x-axis
+            .style("text-anchor", "middle")
+            .text("Year");
+
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -50) // Space for the label beside the y-axis
+            .attr("x", -height / 2)
+            .style("text-anchor", "middle")
+            .text("Wages");
+
+        const circles = circlesGroup.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xScale(d.Year))
+            .attr("cy", d => yScale(d.Wages))
+            .attr("r", 5)
+            .attr("fill", "#FF6885")
+            .on("mouseover", (event, d) => {
+                tooltip.transition().duration(200).style("opacity", 1);
+                tooltip.html(`Year: ${d.Year}<br>Wages: ${d.Wages.toFixed(2)}<br>Z-Score: ${d.zScore.toFixed(2)}`)
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.transition().duration(200).style("opacity", 0);
+            });
+
+        const avgLine = svg.append("line")
+            .attr("class", "average-line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", yScale(avgWage))
+            .attr("y2", yScale(avgWage))
+            .style("stroke", "white")
+            .style("stroke-dasharray", "5,5")
+            .style("opacity", 0);
+
+        // Function to draw lines
+        function drawLines() {
+            const averageValue = currentMode === 'wage' ? avgWage : 0;
+
+            linesGroup.selectAll(".point-line")
+                .data(data)
+                .join("line")
+                .attr("class", "point-line")
+                .attr("x1", d => xScale(d.Year))
+                .attr("x2", d => xScale(d.Year))
+                .attr("y1", d => yScale(currentMode === 'wage' ? d.Wages : d.zScore))
+                .attr("y2", d => yScale(currentMode === 'wage' ? d.Wages : d.zScore))
+                .style("stroke", "white")
+                .transition()
+                .duration(1000)
+                .attr("y2", yScale(averageValue));
+        }
+
+        // Event handlers
+        document.getElementById("showHorizontalLine").addEventListener("click", () => {
+            if (!averageShown) {
+                avgLine.transition()
+                    .duration(1000)
+                    .style("opacity", 0.5);
+                averageShown = true;
+            }
+        });
+
+        document.getElementById("showPointLines").addEventListener("click", () => {
+            if (averageShown) {
+                drawLines();
+            }
+        });
+
+        document.getElementById("seeZScores").addEventListener("click", () => {
+            if (currentMode !== 'z-score') {
+                // Remove existing lines
+                linesGroup.selectAll(".point-line").remove();
+
+                // Update scale to z-scores
+                yScale = d3.scaleLinear()
+                    .domain([d3.min(data, d => d.zScore), d3.max(data, d => d.zScore)])
+                    .range([height, 0]);
+
+                yAxis.transition()
+                    .duration(1000)
+                    .call(d3.axisLeft(yScale).tickFormat(d3.format(".2f")));
+
+                avgLine.transition()
+                    .duration(1000)
+                    .attr("y1", yScale(0))
+                    .attr("y2", yScale(0))
+                    .style("opacity", 0.5);
+
+                circles.transition()
+                    .duration(1000)
+                    .attr("cy", d => yScale(d.zScore));
+
+                currentMode = 'z-score';
+                averageShown = true; // Ensure the average is shown
+                drawLines();
+            }
+        });
+
+        document.getElementById("reset").addEventListener("click", () => {
+            yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.Wages)])
+                .range([height, 0]);
+
+            yAxis.transition()
+                .duration(1000)
+                .call(d3.axisLeft(yScale).tickFormat(d3.format(".2f")));
+
+            avgLine.transition()
+                .duration(1000)
+                .attr("y1", yScale(avgWage))
+                .attr("y2", yScale(avgWage))
+                .style("opacity", 0);
+
+            circles.transition()
+                .duration(1000)
+                .attr("cy", d => yScale(d.Wages));
+
+            linesGroup.selectAll(".point-line").remove();
+
+            currentMode = 'wage';
+            averageShown = false;
+        });
+    });
+</script>
+{% endraw %}

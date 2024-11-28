@@ -5,9 +5,438 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_python_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 21 Oct 2024 08:00:14 +0200</pubDate>
-        <lastBuildDate>Mon, 21 Oct 2024 08:00:14 +0200</lastBuildDate>
+        <pubDate>Thu, 28 Nov 2024 19:40:29 +0100</pubDate>
+        <lastBuildDate>Thu, 28 Nov 2024 19:40:29 +0100</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
+        
+            <item>
+                <title>How to calculate Z-Scores in Python</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you’ve worked with statistical data, you’ve likely encountered z-scores. A z-score measures how far a data point is from the mean, expressed in terms of standard deviations. It helps identify outliers and compare data distributions, making it a vital tool in data science.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this guide, we’ll show you how to calculate z-scores in Python using a custom function and built-in libraries like SciPy. You’ll also learn to visualize z-scores for better insights.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-what-is-a-z-score&quot;&gt;1. What is a z-score?&lt;/h2&gt;
+
+&lt;p&gt;A z-score measures how many standard deviations a data point is from the mean. The formula for calculating the z-score of a data point X is:&lt;/p&gt;
+
+\[Z_{X} = \frac{X - \overline{X}}{S}\]
+
+&lt;p&gt;Where:&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;\(Z_{X}\) is the z score of the point \(X\);&lt;/li&gt;
+  &lt;li&gt;\(X\) is the value for which we want to calculate the Z score;&lt;/li&gt;
+  &lt;li&gt;\(\overline{X}\) is the mean of the sample;&lt;/li&gt;
+  &lt;li&gt;\(S\) is the standard deviation of the sample.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-python-z-score-using-a-custom-function&quot;&gt;2. Python z score using a custom function&lt;/h2&gt;
+
+&lt;p&gt;A custom function allows you to implement the z-score formula directly. Here’s how to define and use it in Python:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-25-1&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-25-1&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculate_z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_sd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;return &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_sd&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The function takes three arguments:&lt;/p&gt;
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;a vector &lt;strong&gt;X&lt;/strong&gt; of values for which you want to calculate the z-scores, like a pandas dataframe column, for example;&lt;/li&gt;
+  &lt;li&gt;the mean of the values in &lt;strong&gt;X&lt;/strong&gt;;&lt;/li&gt;
+  &lt;li&gt;the standard deviation of the values in &lt;strong&gt;X&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, in the return clause, we apply the z-score formula explained above.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;To test our function, we will use data from Playfair (1821). He collected data regarding the price of wheat and the typical weekly wage for a “good mechanic” in England from 1565 to 1821. His objective was to show how well-off working men were in the 19th century. This dataset is available in the HistData R package and also on the &lt;a href=&quot;https://vincentarelbundock.github.io/Rdatasets/&quot;&gt;webpage of Professor Vincent Arel-Bundock&lt;/a&gt;, a great source of datasets. It consists of 3 variables: year, price of wheat (in Shillings) and weekly wages (in Shillings).&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;We will be calculating the z-scores for the weekly wages. First we load the dataset directly from the website, as indicated in the code below.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-25-2&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-25-2&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Wheat.csv&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;z-score_wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculate_z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The average weekly wage during the period was 11.58 Shillings, with a standard deviation of 7.34. With this information, we can calculate the Z score for each observation in the dataset. This is done and stored in a new column called “z-score_wages”.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you check the first row of the data frame, you will find out that in 1565 the z score was around -0.9, that is, the wages were 0.9 standard deviations below the mean of the values for the whole period.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-python-z-score-using-scipy&quot;&gt;3. Python z score using SciPy&lt;/h2&gt;
+
+&lt;p&gt;A second option to calculate z-scores in Python is to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zscore&lt;/code&gt; method of the SciPy library as shown below. Ensure you set a policy for handling missing values if your dataset is incomplete.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the code below, we calculate the z-scores for Wheat prices. If you look at the z-score summary statistics, you will see that the price of wheat varied between -1.13 and 3.65 standard deviations away from the mean in the observed period.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-25-3&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-25-3&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scipy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;z-score_wheat&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;zscore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wheat&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nan_policy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;omit&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;z-score_wheat&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-visualising-z-scores&quot;&gt;3. Visualising z scores&lt;/h2&gt;
+
+&lt;p&gt;Below you can better visualize the basic idea of z scores: to measure how far away a data point is from the mean in terms of standard deviations. This visualization was created in &lt;a href=&quot;https://d3js.org/&quot;&gt;D3&lt;/a&gt;, a JavaScript library for interactive data visualization. Click “See average wage” to see the averave wage for the whole period. Then check out how far from the mean each data point is and finally note that the z-score consists of this distance in terms of standard deviation.&lt;/p&gt;
+
+&lt;div id=&quot;chart&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;buttons&quot;&gt;
+    &lt;button class=&quot;myBtn&quot; id=&quot;showHorizontalLine&quot;&gt;1. See Average Wage&lt;/button&gt;
+    &lt;button class=&quot;myBtn&quot; id=&quot;showPointLines&quot;&gt;2. See Distance to the Mean&lt;/button&gt;
+    &lt;button class=&quot;myBtn&quot; id=&quot;seeZScores&quot;&gt;3. See Z-Scores&lt;/button&gt;
+    &lt;button class=&quot;myBtn&quot; id=&quot;reset&quot;&gt;Reset&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    const margin = { top: 50, right: 50, bottom: 70, left: 70 }; // Increased margins for labels
+    const width = 600; // Inner width of the plot
+    const height = 400; // Inner height of the plot
+    const outerWidth = width + margin.left + margin.right;
+    const outerHeight = height + margin.top + margin.bottom;
+
+    // Create SVG with viewBox for responsiveness
+    const svg = d3.select(&quot;#chart&quot;)
+        .append(&quot;svg&quot;)
+        .attr(&quot;viewBox&quot;, `0 0 ${outerWidth} ${outerHeight}`) // Includes margins
+        .append(&quot;g&quot;)
+        .attr(&quot;transform&quot;, `translate(${margin.left},${margin.top})`);
+
+    const linesGroup = svg.append(&quot;g&quot;).attr(&quot;class&quot;, &quot;lines-group&quot;);
+    const circlesGroup = svg.append(&quot;g&quot;).attr(&quot;class&quot;, &quot;circles-group&quot;);
+
+    const tooltip = d3.select(&quot;body&quot;)
+        .append(&quot;div&quot;)
+        .attr(&quot;class&quot;, &quot;tooltip&quot;)
+        .style(&quot;opacity&quot;, 0);
+
+    let currentMode = &apos;wage&apos;; // Tracks current mode (&apos;wage&apos; or &apos;z-score&apos;)
+    let averageShown = false; // Tracks if the average line is displayed
+
+    // Load data
+    d3.csv(&quot;https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Wheat.csv&quot;).then(data =&gt; {
+        data = data.filter(d =&gt; {
+            d.Year = parseFloat(d.Year);
+            d.Wages = parseFloat(d.Wages);
+            return !isNaN(d.Year) &amp;&amp; !isNaN(d.Wages);
+        });
+
+        const avgWage = d3.mean(data, d =&gt; d.Wages);
+        const stdDevWage = d3.deviation(data, d =&gt; d.Wages);
+        data.forEach(d =&gt; {
+            d.zScore = (d.Wages - avgWage) / stdDevWage;
+        });
+
+        let yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d =&gt; d.Wages)])
+            .range([height, 0]);
+
+        const xScale = d3.scaleLinear()
+            .domain([1550, d3.max(data, d =&gt; d.Year)]) // X-axis starts at 1550
+            .range([0, width]);
+
+        const yAxis = svg.append(&quot;g&quot;)
+            .attr(&quot;class&quot;, &quot;y-axis axis&quot;)
+            .call(d3.axisLeft(yScale).tickFormat(d3.format(&quot;.2f&quot;)));
+
+        const xAxis = svg.append(&quot;g&quot;)
+            .attr(&quot;class&quot;, &quot;x-axis axis&quot;)
+            .attr(&quot;transform&quot;, `translate(0, ${height})`)
+            .call(d3.axisBottom(xScale).tickFormat(d3.format(&quot;d&quot;)));
+
+        // Add axis labels
+        svg.append(&quot;text&quot;)
+            .attr(&quot;x&quot;, width / 2)
+            .attr(&quot;y&quot;, height + 50) // Space for the label below the x-axis
+            .style(&quot;text-anchor&quot;, &quot;middle&quot;)
+            .text(&quot;Year&quot;);
+
+        svg.append(&quot;text&quot;)
+            .attr(&quot;transform&quot;, &quot;rotate(-90)&quot;)
+            .attr(&quot;y&quot;, -50) // Space for the label beside the y-axis
+            .attr(&quot;x&quot;, -height / 2)
+            .style(&quot;text-anchor&quot;, &quot;middle&quot;)
+            .text(&quot;Wages&quot;);
+
+        const circles = circlesGroup.selectAll(&quot;circle&quot;)
+            .data(data)
+            .enter()
+            .append(&quot;circle&quot;)
+            .attr(&quot;cx&quot;, d =&gt; xScale(d.Year))
+            .attr(&quot;cy&quot;, d =&gt; yScale(d.Wages))
+            .attr(&quot;r&quot;, 5)
+            .attr(&quot;fill&quot;, &quot;#FF6885&quot;)
+            .on(&quot;mouseover&quot;, (event, d) =&gt; {
+                tooltip.transition().duration(200).style(&quot;opacity&quot;, 1);
+                tooltip.html(`Year: ${d.Year}&lt;br&gt;Wages: ${d.Wages.toFixed(2)}&lt;br&gt;Z-Score: ${d.zScore.toFixed(2)}`)
+                    .style(&quot;left&quot;, `${event.pageX + 10}px`)
+                    .style(&quot;top&quot;, `${event.pageY - 20}px`);
+            })
+            .on(&quot;mouseout&quot;, () =&gt; {
+                tooltip.transition().duration(200).style(&quot;opacity&quot;, 0);
+            });
+
+        const avgLine = svg.append(&quot;line&quot;)
+            .attr(&quot;class&quot;, &quot;average-line&quot;)
+            .attr(&quot;x1&quot;, 0)
+            .attr(&quot;x2&quot;, width)
+            .attr(&quot;y1&quot;, yScale(avgWage))
+            .attr(&quot;y2&quot;, yScale(avgWage))
+            .style(&quot;stroke&quot;, &quot;white&quot;)
+            .style(&quot;stroke-dasharray&quot;, &quot;5,5&quot;)
+            .style(&quot;opacity&quot;, 0);
+
+        // Function to draw lines
+        function drawLines() {
+            const averageValue = currentMode === &apos;wage&apos; ? avgWage : 0;
+
+            linesGroup.selectAll(&quot;.point-line&quot;)
+                .data(data)
+                .join(&quot;line&quot;)
+                .attr(&quot;class&quot;, &quot;point-line&quot;)
+                .attr(&quot;x1&quot;, d =&gt; xScale(d.Year))
+                .attr(&quot;x2&quot;, d =&gt; xScale(d.Year))
+                .attr(&quot;y1&quot;, d =&gt; yScale(currentMode === &apos;wage&apos; ? d.Wages : d.zScore))
+                .attr(&quot;y2&quot;, d =&gt; yScale(currentMode === &apos;wage&apos; ? d.Wages : d.zScore))
+                .style(&quot;stroke&quot;, &quot;white&quot;)
+                .transition()
+                .duration(1000)
+                .attr(&quot;y2&quot;, yScale(averageValue));
+        }
+
+        // Event handlers
+        document.getElementById(&quot;showHorizontalLine&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+            if (!averageShown) {
+                avgLine.transition()
+                    .duration(1000)
+                    .style(&quot;opacity&quot;, 0.5);
+                averageShown = true;
+            }
+        });
+
+        document.getElementById(&quot;showPointLines&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+            if (averageShown) {
+                drawLines();
+            }
+        });
+
+        document.getElementById(&quot;seeZScores&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+            if (currentMode !== &apos;z-score&apos;) {
+                // Remove existing lines
+                linesGroup.selectAll(&quot;.point-line&quot;).remove();
+
+                // Update scale to z-scores
+                yScale = d3.scaleLinear()
+                    .domain([d3.min(data, d =&gt; d.zScore), d3.max(data, d =&gt; d.zScore)])
+                    .range([height, 0]);
+
+                yAxis.transition()
+                    .duration(1000)
+                    .call(d3.axisLeft(yScale).tickFormat(d3.format(&quot;.2f&quot;)));
+
+                avgLine.transition()
+                    .duration(1000)
+                    .attr(&quot;y1&quot;, yScale(0))
+                    .attr(&quot;y2&quot;, yScale(0))
+                    .style(&quot;opacity&quot;, 0.5);
+
+                circles.transition()
+                    .duration(1000)
+                    .attr(&quot;cy&quot;, d =&gt; yScale(d.zScore));
+
+                currentMode = &apos;z-score&apos;;
+                averageShown = true; // Ensure the average is shown
+                drawLines();
+            }
+        });
+
+        document.getElementById(&quot;reset&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+            yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d =&gt; d.Wages)])
+                .range([height, 0]);
+
+            yAxis.transition()
+                .duration(1000)
+                .call(d3.axisLeft(yScale).tickFormat(d3.format(&quot;.2f&quot;)));
+
+            avgLine.transition()
+                .duration(1000)
+                .attr(&quot;y1&quot;, yScale(avgWage))
+                .attr(&quot;y2&quot;, yScale(avgWage))
+                .style(&quot;opacity&quot;, 0);
+
+            circles.transition()
+                .duration(1000)
+                .attr(&quot;cy&quot;, d =&gt; yScale(d.Wages));
+
+            linesGroup.selectAll(&quot;.point-line&quot;).remove();
+
+            currentMode = &apos;wage&apos;;
+            averageShown = false;
+        });
+    });
+&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-visualizing-z-scores-with-matplotlib&quot;&gt;4. Visualizing z scores with Matplotlib&lt;/h2&gt;
+
+&lt;p&gt;The code below plots the wage z scores over time and shows them as the distance from the point to the mean, as demonstrated in the D3 visualization above. Please consult the lesson &lt;a href=&quot;/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html&quot;&gt;‘Storytelling with Matplotlib - Visualizing historical data’&lt;/a&gt; to learn more about Matplotlib visualizations.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-25-4&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-25-4&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Calculate mean wage
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean_wage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;z-score_wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Create the plot
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Scatter plot of wages over years
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Year&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;z-score_wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;#FF6885&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Wage Z-scores&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;markeredgewidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Add a horizontal line for the mean wage
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;axhline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean_wage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linestyle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;dashed&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Mean Z-score = &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean_wage&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Add gray lines connecting points to the mean
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wage&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Year&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;z-score_wages&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean_wage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linestyle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;dotted&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linewidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Customize the plot
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Year&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Z-scores&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Z-scores Over Time&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Show the plot
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_25_01.png&quot; alt=&quot;Python z scores over time plotted with matplolib&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Have questions or insights? Leave a comment below, and I’ll be happy to help.&lt;/p&gt;
+
+&lt;p&gt;Happy coding!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;A z score is a measure of how many standard deviations a data point is away from the mean. It can be easily calculated in Python;&lt;/li&gt;
+  &lt;li&gt;You can visualize z-scores using traditional python libraries like Matplotlib or Seaborn.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+                <pubDate>Thu, 28 Nov 2024 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/2024/11/28/Python-z-score.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2024/11/28/Python-z-score.html</guid>
+                
+                <category>python</category>
+                
+                <category>statistics</category>
+                
+                
+            </item>
         
             <item>
                 <title>Explore art with SQL and pd.read_sql_query</title>

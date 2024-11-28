@@ -1,4 +1,417 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-10-21T08:00:14+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Sentiment Analysis in R</title><link href="http://localhost:4000/2024/10/21/Sentiment-analysis-in-R.html" rel="alternate" type="text/html" title="Sentiment Analysis in R" /><published>2024-10-21T00:00:00+02:00</published><updated>2024-10-21T00:00:00+02:00</updated><id>http://localhost:4000/2024/10/21/Sentiment-analysis-in-R</id><content type="html" xml:base="http://localhost:4000/2024/10/21/Sentiment-analysis-in-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-11-28T19:40:29+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to calculate Z-Scores in Python</title><link href="http://localhost:4000/2024/11/28/Python-z-score.html" rel="alternate" type="text/html" title="How to calculate Z-Scores in Python" /><published>2024-11-28T00:00:00+01:00</published><updated>2024-11-28T00:00:00+01:00</updated><id>http://localhost:4000/2024/11/28/Python-z-score</id><content type="html" xml:base="http://localhost:4000/2024/11/28/Python-z-score.html"><![CDATA[<p><br /></p>
+
+<p>If you’ve worked with statistical data, you’ve likely encountered z-scores. A z-score measures how far a data point is from the mean, expressed in terms of standard deviations. It helps identify outliers and compare data distributions, making it a vital tool in data science.</p>
+
+<p><br /></p>
+
+<p>In this guide, we’ll show you how to calculate z-scores in Python using a custom function and built-in libraries like SciPy. You’ll also learn to visualize z-scores for better insights.</p>
+
+<p><br /></p>
+
+<h2 id="1-what-is-a-z-score">1. What is a z-score?</h2>
+
+<p>A z-score measures how many standard deviations a data point is from the mean. The formula for calculating the z-score of a data point X is:</p>
+
+\[Z_{X} = \frac{X - \overline{X}}{S}\]
+
+<p>Where:</p>
+
+<ul class="conclusion-list">
+  <li>\(Z_{X}\) is the z score of the point \(X\);</li>
+  <li>\(X\) is the value for which we want to calculate the Z score;</li>
+  <li>\(\overline{X}\) is the mean of the sample;</li>
+  <li>\(S\) is the standard deviation of the sample.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-python-z-score-using-a-custom-function">2. Python z score using a custom function</h2>
+
+<p>A custom function allows you to implement the z-score formula directly. Here’s how to define and use it in Python:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-25-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-25-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">calculate_z</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X_mean</span><span class="p">,</span> <span class="n">X_sd</span><span class="p">):</span>
+    <span class="nf">return </span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">X_sd</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The function takes three arguments:</p>
+<ul class="conclusion-list">
+  <li>a vector <strong>X</strong> of values for which you want to calculate the z-scores, like a pandas dataframe column, for example;</li>
+  <li>the mean of the values in <strong>X</strong>;</li>
+  <li>the standard deviation of the values in <strong>X</strong>.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Finally, in the return clause, we apply the z-score formula explained above.</p>
+
+<p><br /></p>
+
+<p>To test our function, we will use data from Playfair (1821). He collected data regarding the price of wheat and the typical weekly wage for a “good mechanic” in England from 1565 to 1821. His objective was to show how well-off working men were in the 19th century. This dataset is available in the HistData R package and also on the <a href="https://vincentarelbundock.github.io/Rdatasets/">webpage of Professor Vincent Arel-Bundock</a>, a great source of datasets. It consists of 3 variables: year, price of wheat (in Shillings) and weekly wages (in Shillings).</p>
+
+<p><br /></p>
+
+<p>We will be calculating the z-scores for the weekly wages. First we load the dataset directly from the website, as indicated in the code below.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-25-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-25-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="sh">"</span><span class="s">https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Wheat.csv</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">'</span><span class="s">Wages</span><span class="sh">'</span><span class="p">].</span><span class="nf">mean</span><span class="p">())</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">'</span><span class="s">Wages</span><span class="sh">'</span><span class="p">].</span><span class="nf">std</span><span class="p">())</span>
+
+<span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">z-score_wages</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="nf">calculate_z</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">Wages</span><span class="sh">"</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">Wages</span><span class="sh">"</span><span class="p">].</span><span class="nf">mean</span><span class="p">(),</span> <span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">Wages</span><span class="sh">"</span><span class="p">].</span><span class="nf">std</span><span class="p">())</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>The average weekly wage during the period was 11.58 Shillings, with a standard deviation of 7.34. With this information, we can calculate the Z score for each observation in the dataset. This is done and stored in a new column called “z-score_wages”.</p>
+
+<p><br /></p>
+
+<p>If you check the first row of the data frame, you will find out that in 1565 the z score was around -0.9, that is, the wages were 0.9 standard deviations below the mean of the values for the whole period.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-python-z-score-using-scipy">3. Python z score using SciPy</h2>
+
+<p>A second option to calculate z-scores in Python is to use the <code class="language-plaintext highlighter-rouge">zscore</code> method of the SciPy library as shown below. Ensure you set a policy for handling missing values if your dataset is incomplete.</p>
+
+<p><br /></p>
+
+<p>In the code below, we calculate the z-scores for Wheat prices. If you look at the z-score summary statistics, you will see that the price of wheat varied between -1.13 and 3.65 standard deviations away from the mean in the observed period.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-25-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-25-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="n">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">z-score_wheat</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">.</span><span class="nf">zscore</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">Wheat</span><span class="sh">"</span><span class="p">],</span> <span class="n">nan_policy</span><span class="o">=</span><span class="sh">"</span><span class="s">omit</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">z-score_wheat</span><span class="sh">"</span><span class="p">].</span><span class="nf">describe</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-visualising-z-scores">3. Visualising z scores</h2>
+
+<p>Below you can better visualize the basic idea of z scores: to measure how far away a data point is from the mean in terms of standard deviations. This visualization was created in <a href="https://d3js.org/">D3</a>, a JavaScript library for interactive data visualization. Click “See average wage” to see the averave wage for the whole period. Then check out how far from the mean each data point is and finally note that the z-score consists of this distance in terms of standard deviation.</p>
+
+<div id="chart"></div>
+<div id="buttons">
+    <button class="myBtn" id="showHorizontalLine">1. See Average Wage</button>
+    <button class="myBtn" id="showPointLines">2. See Distance to the Mean</button>
+    <button class="myBtn" id="seeZScores">3. See Z-Scores</button>
+    <button class="myBtn" id="reset">Reset</button>
+</div>
+
+<script>
+    const margin = { top: 50, right: 50, bottom: 70, left: 70 }; // Increased margins for labels
+    const width = 600; // Inner width of the plot
+    const height = 400; // Inner height of the plot
+    const outerWidth = width + margin.left + margin.right;
+    const outerHeight = height + margin.top + margin.bottom;
+
+    // Create SVG with viewBox for responsiveness
+    const svg = d3.select("#chart")
+        .append("svg")
+        .attr("viewBox", `0 0 ${outerWidth} ${outerHeight}`) // Includes margins
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const linesGroup = svg.append("g").attr("class", "lines-group");
+    const circlesGroup = svg.append("g").attr("class", "circles-group");
+
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    let currentMode = 'wage'; // Tracks current mode ('wage' or 'z-score')
+    let averageShown = false; // Tracks if the average line is displayed
+
+    // Load data
+    d3.csv("https://vincentarelbundock.github.io/Rdatasets/csv/HistData/Wheat.csv").then(data => {
+        data = data.filter(d => {
+            d.Year = parseFloat(d.Year);
+            d.Wages = parseFloat(d.Wages);
+            return !isNaN(d.Year) && !isNaN(d.Wages);
+        });
+
+        const avgWage = d3.mean(data, d => d.Wages);
+        const stdDevWage = d3.deviation(data, d => d.Wages);
+        data.forEach(d => {
+            d.zScore = (d.Wages - avgWage) / stdDevWage;
+        });
+
+        let yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.Wages)])
+            .range([height, 0]);
+
+        const xScale = d3.scaleLinear()
+            .domain([1550, d3.max(data, d => d.Year)]) // X-axis starts at 1550
+            .range([0, width]);
+
+        const yAxis = svg.append("g")
+            .attr("class", "y-axis axis")
+            .call(d3.axisLeft(yScale).tickFormat(d3.format(".2f")));
+
+        const xAxis = svg.append("g")
+            .attr("class", "x-axis axis")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+
+        // Add axis labels
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height + 50) // Space for the label below the x-axis
+            .style("text-anchor", "middle")
+            .text("Year");
+
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -50) // Space for the label beside the y-axis
+            .attr("x", -height / 2)
+            .style("text-anchor", "middle")
+            .text("Wages");
+
+        const circles = circlesGroup.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xScale(d.Year))
+            .attr("cy", d => yScale(d.Wages))
+            .attr("r", 5)
+            .attr("fill", "#FF6885")
+            .on("mouseover", (event, d) => {
+                tooltip.transition().duration(200).style("opacity", 1);
+                tooltip.html(`Year: ${d.Year}<br>Wages: ${d.Wages.toFixed(2)}<br>Z-Score: ${d.zScore.toFixed(2)}`)
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.transition().duration(200).style("opacity", 0);
+            });
+
+        const avgLine = svg.append("line")
+            .attr("class", "average-line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", yScale(avgWage))
+            .attr("y2", yScale(avgWage))
+            .style("stroke", "white")
+            .style("stroke-dasharray", "5,5")
+            .style("opacity", 0);
+
+        // Function to draw lines
+        function drawLines() {
+            const averageValue = currentMode === 'wage' ? avgWage : 0;
+
+            linesGroup.selectAll(".point-line")
+                .data(data)
+                .join("line")
+                .attr("class", "point-line")
+                .attr("x1", d => xScale(d.Year))
+                .attr("x2", d => xScale(d.Year))
+                .attr("y1", d => yScale(currentMode === 'wage' ? d.Wages : d.zScore))
+                .attr("y2", d => yScale(currentMode === 'wage' ? d.Wages : d.zScore))
+                .style("stroke", "white")
+                .transition()
+                .duration(1000)
+                .attr("y2", yScale(averageValue));
+        }
+
+        // Event handlers
+        document.getElementById("showHorizontalLine").addEventListener("click", () => {
+            if (!averageShown) {
+                avgLine.transition()
+                    .duration(1000)
+                    .style("opacity", 0.5);
+                averageShown = true;
+            }
+        });
+
+        document.getElementById("showPointLines").addEventListener("click", () => {
+            if (averageShown) {
+                drawLines();
+            }
+        });
+
+        document.getElementById("seeZScores").addEventListener("click", () => {
+            if (currentMode !== 'z-score') {
+                // Remove existing lines
+                linesGroup.selectAll(".point-line").remove();
+
+                // Update scale to z-scores
+                yScale = d3.scaleLinear()
+                    .domain([d3.min(data, d => d.zScore), d3.max(data, d => d.zScore)])
+                    .range([height, 0]);
+
+                yAxis.transition()
+                    .duration(1000)
+                    .call(d3.axisLeft(yScale).tickFormat(d3.format(".2f")));
+
+                avgLine.transition()
+                    .duration(1000)
+                    .attr("y1", yScale(0))
+                    .attr("y2", yScale(0))
+                    .style("opacity", 0.5);
+
+                circles.transition()
+                    .duration(1000)
+                    .attr("cy", d => yScale(d.zScore));
+
+                currentMode = 'z-score';
+                averageShown = true; // Ensure the average is shown
+                drawLines();
+            }
+        });
+
+        document.getElementById("reset").addEventListener("click", () => {
+            yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.Wages)])
+                .range([height, 0]);
+
+            yAxis.transition()
+                .duration(1000)
+                .call(d3.axisLeft(yScale).tickFormat(d3.format(".2f")));
+
+            avgLine.transition()
+                .duration(1000)
+                .attr("y1", yScale(avgWage))
+                .attr("y2", yScale(avgWage))
+                .style("opacity", 0);
+
+            circles.transition()
+                .duration(1000)
+                .attr("cy", d => yScale(d.Wages));
+
+            linesGroup.selectAll(".point-line").remove();
+
+            currentMode = 'wage';
+            averageShown = false;
+        });
+    });
+</script>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-visualizing-z-scores-with-matplotlib">4. Visualizing z scores with Matplotlib</h2>
+
+<p>The code below plots the wage z scores over time and shows them as the distance from the point to the mean, as demonstrated in the D3 visualization above. Please consult the lesson <a href="/2023/02/11/Use-Matplotlib-line-plot-to-create-visualizations.html">‘Storytelling with Matplotlib - Visualizing historical data’</a> to learn more about Matplotlib visualizations.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-25-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-25-4">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Calculate mean wage
+</span><span class="n">mean_wage</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">z-score_wages</span><span class="sh">"</span><span class="p">].</span><span class="nf">mean</span><span class="p">()</span>
+
+<span class="c1"># Create the plot
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="nf">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Scatter plot of wages over years
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">Year</span><span class="sh">"</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">z-score_wages</span><span class="sh">"</span><span class="p">],</span> <span class="sh">'</span><span class="s">o</span><span class="sh">'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">#FF6885</span><span class="sh">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Wage Z-scores</span><span class="sh">"</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Add a horizontal line for the mean wage
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">mean_wage</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">gray</span><span class="sh">'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="sh">'</span><span class="s">dashed</span><span class="sh">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="sh">"</span><span class="s">Mean Z-score = </span><span class="si">{</span><span class="n">mean_wage</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Add gray lines connecting points to the mean
+</span><span class="k">for</span> <span class="n">year</span><span class="p">,</span> <span class="n">wage</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">Year</span><span class="sh">"</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="sh">"</span><span class="s">z-score_wages</span><span class="sh">"</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="p">.</span><span class="nf">plot</span><span class="p">([</span><span class="n">year</span><span class="p">,</span> <span class="n">year</span><span class="p">],</span> <span class="p">[</span><span class="n">mean_wage</span><span class="p">,</span> <span class="n">wage</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">gray</span><span class="sh">'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="sh">'</span><span class="s">dotted</span><span class="sh">'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Customize the plot
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">set_xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Year</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Z-scores</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">set_title</span><span class="p">(</span><span class="sh">"</span><span class="s">Z-scores Over Time</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
+
+<span class="c1"># Show the plot
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_25_01.png" alt="Python z scores over time plotted with matplolib" /></p>
+
+<p><br /></p>
+
+<p>Have questions or insights? Leave a comment below, and I’ll be happy to help.</p>
+
+<p>Happy coding!</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>A z score is a measure of how many standard deviations a data point is away from the mean. It can be easily calculated in Python;</li>
+  <li>You can visualize z-scores using traditional python libraries like Matplotlib or Seaborn.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="statistics" /><summary type="html"><![CDATA[Master statistics by learning how to calculate and visualize Z-scores in Python. Learn data visualization techniques and enhance your statistical analysis skills!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_25.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_25.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Sentiment Analysis in R</title><link href="http://localhost:4000/2024/10/21/Sentiment-analysis-in-R.html" rel="alternate" type="text/html" title="Sentiment Analysis in R" /><published>2024-10-21T00:00:00+02:00</published><updated>2024-10-21T00:00:00+02:00</updated><id>http://localhost:4000/2024/10/21/Sentiment-analysis-in-R</id><content type="html" xml:base="http://localhost:4000/2024/10/21/Sentiment-analysis-in-R.html"><![CDATA[<p><br /></p>
 
 <p>In this lesson on sentiment analysis in R, you will learn how to perform sentiment analysis using the <code class="language-plaintext highlighter-rouge">sentimentr</code> package. To demonstrate the use of the package, you will compare the sentiment in the speeches of Adolf Hitler and Franklin Roosevelt about the declaration of war by Germany against the United States in 1941.</p>
 
@@ -2327,128 +2740,4 @@ Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ai" /><category term="python" /><summary type="html"><![CDATA[Unlock the potential of AI in R and Python with this comprehensive tutorial on using ChatGPT for data analysis. Learn how to extract historical data from Wikipedia and transform it into organized R and Pandas dataframes. Plus, discover best practices for crafting ChatGPT prompts!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_16.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_16.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to use R in Google Colab?</title><link href="http://localhost:4000/2023/10/03/R-in-GoogleColab.html" rel="alternate" type="text/html" title="How to use R in Google Colab?" /><published>2023-10-03T00:00:00+02:00</published><updated>2024-01-18T00:00:00+01:00</updated><id>http://localhost:4000/2023/10/03/R-in-GoogleColab</id><content type="html" xml:base="http://localhost:4000/2023/10/03/R-in-GoogleColab.html"><![CDATA[<p><br /></p>
-
-<p><strong>Greetings, humanists, social and data scientists!</strong></p>
-
-<p><br /></p>
-
-<p>Ever imagined a world where any computer with an internet browser could be your playground for programming in R? Believe it, because this is your reality! Google Colab enables you to execute R code with remarkable ease, eliminating the need for installations and providing a seamless setup process. The cherry on top? It’s free and allows easy sharing and collaboration on your projects.</p>
-
-<p><br /></p>
-
-<p>In this lesson, I will show you how to use R in Google Colab and suggest a code example to explore the popularity of baby names over the last century. Don’t forget to check out the step-by-step tutorial in the video below! Additionally, feel free to copy the example code from the sections that follow.</p>
-
-<p><br /></p>
-
-<div class="videoWrapper">
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WKtcrvd_2-0?si=BGqZJ7ekj47PCTYP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="1-data-source">1. Data source</h2>
-
-<p>The data used in this tutorial comes from the <code class="language-plaintext highlighter-rouge">babynames</code> package. It contains a dataset with baby names registered between 1880 and 2017 in the United States. For further details, please explore the documentation of the package <a href="https://cran.r-project.org/web/packages/babynames/index.html">here</a>.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-set-the-right-runtime">2. Set the right runtime</h2>
-
-<p>It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from <code class="language-plaintext highlighter-rouge">Python 3</code> to <code class="language-plaintext highlighter-rouge">R</code>. In the menu <em>Runtime</em>, choose the option <em>Change Runtime Type</em>, as shown in the figure below. That’s all!</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_15_01.png" alt="Figure explaining how to use R in Google Colab" width="650" height="650" /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> You can also set which type of hardware accelerator you would like to use to process your code. Usually graphics processing units (GPU) are better for machine learning applications.
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-example-using-r-in-google-colab">3. Example: using R in Google Colab</h2>
-
-<p>Below you find the code used in the video tutorial. Feel free to copy, test and change it!</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-15-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-15-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"babynames"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">library</span><span class="p">(</span><span class="n">babynames</span><span class="p">)</span><span class="w">
-
-</span><span class="n">str</span><span class="p">(</span><span class="n">babynames</span><span class="p">)</span><span class="w">
-
-</span><span class="n">bruno_df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">babynames</span><span class="p">[</span><span class="n">babynames</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Bruno"</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
-
-</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bruno_df</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> 
-    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bruno_df</span><span class="o">$</span><span class="n">n</span><span class="p">,</span><span class="w">
-    </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w">
-    </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Popularity of the name Bruno"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Note that each time you reopen a Colab notebook, you will need to reinstall the libraries required to run your code. While this might seem like a disadvantage, it also encourages you to code without relying heavily on numerous libraries, potentially leading to more robust code.
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p><strong>Leave any questions or concerns you might have in the comments below.</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-conclusions">4. Conclusions</h2>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>Google Colab provides a hassle-free journey into the world of R programming and data exploration;</li>
-  <li>with a small change in Google Colab runtime type, it can proccess R code</li>
-  <li>mastering the use of R within Google Colab not only enriches our data analysis skills but also paves the way for enhanced collaborative computing in the cloud.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_15.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_15.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ai" /><category term="python" /><summary type="html"><![CDATA[Unlock the potential of AI in R and Python with this comprehensive tutorial on using ChatGPT for data analysis. Learn how to extract historical data from Wikipedia and transform it into organized R and Pandas dataframes. Plus, discover best practices for crafting ChatGPT prompts!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_16.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_16.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

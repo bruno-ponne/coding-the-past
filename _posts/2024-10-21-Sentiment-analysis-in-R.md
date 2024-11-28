@@ -97,9 +97,9 @@ url_r <- "https://www.archives.gov/milestone-documents/president-franklin-roosev
 <br>
 
 If you inspect the source code of the webpages referenced above, you will realise that while the text from Wikipedia can be gathered by simply extracting the `p` elements,
-for the speech from the American archives, we need to specify the particular `div` element where the speech is located. This is because the webpage contains an initial section with several paragraphs introducing President Roosevelt’s speech. 
+for the speech from the American archives, we need to specify the particular `div` element where the speech is located. This is because the webpage contains an initial section with several paragraphs introducing President Roosevelt's speech. 
 In the code below, note that Roosevelt's speech requires an additional step to specify that the speech is within the `div.col-sm-9` (a `div` with the class "col-sm-9"). 
-Also, note that we exclude the first text element of Hitler’s speech because it is actually metadata about the speech.
+Also, note that we exclude the first text element of Hitler's speech because it is actually metadata about the speech.
 
 <br>
 
