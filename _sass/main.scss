@@ -28,8 +28,8 @@ body{
     flex-direction: column;
     min-height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 18px;
+    line-height: 1.5em;
 }
 
 h1, h2{
@@ -163,7 +163,6 @@ h2{
     margin-bottom: 4%;
     margin-left: 0;
     margin-right: 0;
-    font-size: 17px;
 
 }
 
@@ -602,7 +601,10 @@ h2{
     max-width: 500px;
 }
 
-#mc_embed_signup #mc_embed_signup_scroll h2{
+.cta{
+    margin-top: 15%;
+    margin-bottom: 5%;
+    text-align: center;
 }
 
 /*  Code Highlight Styles   */
@@ -803,6 +805,11 @@ h2{
 
     .post-body{
         margin-top: 17%;
+    }
+
+    .cta{
+        margin-top: 20%;
+
     }
 
     .post-body img{
