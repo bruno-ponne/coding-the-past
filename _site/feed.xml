@@ -1,4 +1,269 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-01-07T23:03:18+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">How to calculate Z-Scores in Python</title><link href="http://localhost:4000/2024/11/28/Python-z-score.html" rel="alternate" type="text/html" title="How to calculate Z-Scores in Python" /><published>2024-11-28T00:00:00+01:00</published><updated>2024-11-28T00:00:00+01:00</updated><id>http://localhost:4000/2024/11/28/Python-z-score</id><content type="html" xml:base="http://localhost:4000/2024/11/28/Python-z-score.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-02-24T13:10:10+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Demystifying geom_bar() - How ggplot2 Automatically Counts and Transforms Data</title><link href="http://localhost:4000/2025/02/24/geom_bar.html" rel="alternate" type="text/html" title="Demystifying geom_bar() - How ggplot2 Automatically Counts and Transforms Data" /><published>2025-02-24T00:00:00+01:00</published><updated>2025-02-24T00:00:00+01:00</updated><id>http://localhost:4000/2025/02/24/geom_bar</id><content type="html" xml:base="http://localhost:4000/2025/02/24/geom_bar.html"><![CDATA[<p><br /></p>
+
+<p><strong>ggplot2</strong> is a powerful and well-known data visualization package for R. But do you know what <strong>gg</strong> stands for? It actually refers to the <strong>Grammar of Graphics</strong>, a conceptual framework for understanding and constructing graphs. The core idea behind the Grammar of Graphics is that a plot consists of multiple layers.</p>
+
+<p><br /></p>
+
+<p>The most well-known layers are <strong>geometries</strong> — the geometric forms that represent data in a plot — and <strong>aesthetic mappings</strong>, which connect data to specific visual properties. A lesser-known but equally important layer is the <strong>statistical layer</strong>, which transforms the original data to enable specific types of plots. This may sound complex at first, but it’s actually quite intuitive. In this lesson, we will explore how <code class="language-plaintext highlighter-rouge">geom_bar()</code> applies a statistical transformation to make bar plots simpler and more straightforward.</p>
+
+<p><br /></p>
+
+<h2 id="1-how-does-geom_bar-work-by-default">1. How does geom_bar work by default?</h2>
+
+<p>To exemplify geom_bar’s default behavior, we will use <a href="https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv">a dataset</a> about Westminster inquests conducted between 1760 and 1799. 
+These inquests document investigations into deaths that occurred under sudden, unexplained, or suspicious circumstances. To learn more, please visit the project webpage <a href="https://www.londonlives.org/">London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis</a>.</p>
+
+<p><br /></p>
+
+<p>The first step is to load the data using <code class="language-plaintext highlighter-rouge">read_tsv()</code>, a function from the <code class="language-plaintext highlighter-rouge">readr</code> package used to read <em>tab-separated values</em>. The verdict variable tells us the conclusion of the investigation, which could be, for example that the death was a homicide or a suicide. 
+To simplify our analysis we unify ‘suicide (delirious)’, ‘suicide (felo de se)’, and ‘suicide (insane)’ into a single category: ‘suicide’. We also filter out observations where the verdict or gender is missing.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-26-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-26-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="s2">"wa_coroners_inquests_v1-1.tsv"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df_prep</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">gender</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"f"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recode</span><span class="p">(</span><span class="n">verdict</span><span class="p">,</span><span class="w"> </span><span class="s2">"suicide (delirious)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
+                          </span><span class="s2">"suicide (felo de se)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
+                          </span><span class="s2">"suicide (insane)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>Each row of <code class="language-plaintext highlighter-rouge">df_prep</code> contains data about the investigation of one death, including the date, gender, and verdict. 
+We would like to have a first overview about the verdicts to determine how many deaths were classified as homicide, suicide, accidental, etc. 
+The default behavior of geom_bar makes it very easy to visualize this information:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-26-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-26-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">theme_set</span><span class="p">(</span><span class="n">theme_bw</span><span class="p">())</span><span class="w"> </span><span class="c1"># chooses a lighter ggplot2 theme: theme_bw()</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_prep</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">verdict</span><span class="p">))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_26_01.png" alt="geom_bar plot" /></p>
+
+<p><br /></p>
+
+<p>Why does this work if we mapped a categorical variable to x? Where does ggplot2 get the count for each cause of death? 
+Well, every geometry in ggplot2 has an associated default statistical transformation that tells ggplot whether it should consider the raw input data or whether it should first transform the dataset and then plot it. 
+In the case of geom_bar, the default stat is “count”. That means ggplot will create a second dataframe with the values of verdict and their respective frequency/count, as shown in the figure below.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_26_02.png" alt="Statistical transformation in ggplot2" /></p>
+
+<p><br /></p>
+
+<p>As you can see, ggplot2 does this work for you. But what if your data has already been transformed? In that case, you need to explicitly set <code class="language-plaintext highlighter-rouge">geom_bar(aes(x=verdict, y = count), stat = "identity")</code>. If stat is set to “identity”, then ggplot takes the raw input data and does not perform any transformation. In that case, note that an x and y are necessary.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content">  You can use the command `layer_data(plot = last_plot(), i = 1L)` to check out the data ggplot transformed for you. Use this command after the plot command. It will get the transformed data from the last plot, regarding i = 1L, or the first layer of our plot (geom_bar in this case).
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="2-how-to-reorder-geom_bar">2. How to reorder geom_bar?</h2>
+
+<p>One improvement we can make to our plot is to reorder the verdicts so that the most frequent one comes first. This can be done with the help of the <a href="https://forcats.tidyverse.org/">forcats package</a>. One of its functions, <code class="language-plaintext highlighter-rouge">fct_infreq()</code>, reorders a variable based on the frequency of its values (largest first).</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-26-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-26-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_prep</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fct_infreq</span><span class="p">(</span><span class="n">verdict</span><span class="p">)))</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_26_03.png" alt="reorder geom_bar" /></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-stacked-and-percent-stacked-geom_bar">3. Stacked and percent stacked geom_bar</h2>
+
+<p>Imagine now that you would like to investigate how the verdicts compare across genders, highlighting the cases involving female individuals. 
+This can easily be achieved by mapping gender to the fill aesthetics. The result is two bars on top of each other, one referring to male and other to female.</p>
+
+<p><br /></p>
+
+<p>In the code below, we also make our plot more visually attractive by changing the colors, legend title, and labels. Moreover, we adjust the axis labels.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-26-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-26-4">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_prep</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fct_infreq</span><span class="p">(</span><span class="n">verdict</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gender</span><span class="p">))</span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#f79326"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gray"</span><span class="p">),</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Male"</span><span class="p">))</span><span class="o">+</span><span class="w">
+    </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Number of Cases"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_26_04.png" alt="stacked geom_bar" /></p>
+
+<p><br /></p>
+
+<p>The stacked bar chart above results from the default <code class="language-plaintext highlighter-rouge">position = "stack"</code> configuration. 
+To better visualize the distribution of female and male cases for each cause of death (verdict), we can display the percentages instead of absolute counts. 
+This approach makes it easier to see in which verdict category females have a higher proportion.
+To achieve this, you need to change position to <code class="language-plaintext highlighter-rouge">position = "fill"</code> in geom_bar().</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-26-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-26-5">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_prep</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fct_infreq</span><span class="p">(</span><span class="n">verdict</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gender</span><span class="p">),</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"fill"</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#f79326"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gray"</span><span class="p">),</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Male"</span><span class="p">))</span><span class="o">+</span><span class="w">
+    </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Percentage"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_26_05.png" alt="percent stacked geom_bar" /></p>
+
+<p><br /></p>
+
+<p>Now it is clearer that, among all causes of death, homicides have the highest proportion of women. Moreover, the smallest percentage of female cases corresponds to accidental deaths.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-use-stat_bin-to-group-observations-by-date">4. Use stat_bin to group observations by date</h2>
+
+<p>Further examining the data, you want to study how the proportion of suicide cases among women has evolved over time. 
+One way to do this is by filtering only suicide verdicts and visualizing the proportion of female suicide cases across time. 
+Since we have data spanning multiple years, it is a good idea to group them into bins and count the cases within each period. 
+This can be done using stat_bin(), which works similarly to geom_bar() but groups data into bins.</p>
+
+<p><br />
+Since our dataset is in a tidy format — where each row represents a single case — we can count the number of occurrences within a specific bin to determine how many cases fall into each time interval. That’s why we set x to doc_date, the date of the investigation. Additionally, we can specify the number of bins by setting a value for the bins parameter. In the code below, we set bins = 10. We also set color = “white” to create white borders around the bars. Apart from these modifications, the code remains the same as in the geom_bar() example above.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-26-6')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-26-6">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df_prep_2</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">stat_bin</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">doc_date</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gender</span><span class="p">),</span><span class="w"> 
+             </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"fill"</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> 
+             </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_manual</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"#f79326"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gray"</span><span class="p">),</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Male"</span><span class="p">))</span><span class="o">+</span><span class="w">
+    </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Percentage"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_26_06.png" alt="percent stacked geom_bar for suicide cases" /></p>
+
+<p><br /></p>
+
+<p>The plot shows a slight decreasing trend in the proportion of female suicide cases between 1760 and 1800. It also highlights that, throughout the entire period, males accounted for at least 60% of suicide cases.</p>
+
+<p><br /></p>
+
+<p>I would love to hear any feedback or suggestions for improving the plots above. Feel free to share your thoughts or ask any questions in the comments below! Happy coding!</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<ul class="conclusion-list">
+  <li>geom_bar and stat_bin are powerful tools to depict frequencies of subgroups in your data;</li>
+  <li>The geom_bar <code class="language-plaintext highlighter-rouge">stat</code> and <code class="language-plaintext highlighter-rouge">position</code> parameters allow users to plot several kinds of bar plots, turning geom_bar into a versatile visualization tool.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<p>**I would like to thank June Choe for <a href="https://yjunechoe.github.io/posts/2020-09-26-demystifying-stat-layers-ggplot2/">this brilliant explanation</a> about stat_layers in ggplot2.
+Also, thanks a lot to <a href="https://sharonhoward.org/">Sharon Howard</a> for preparing this instigating dataset and for making it available.</p>]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn how to use geom_bar() in ggplot2 to create bar charts effortlessly. Discover default behaviors, statistical transformations, stacking, reordering, and more to improve your data visualizations in R]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_26.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_26.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to calculate Z-Scores in Python</title><link href="http://localhost:4000/2024/11/28/Python-z-score.html" rel="alternate" type="text/html" title="How to calculate Z-Scores in Python" /><published>2024-11-28T00:00:00+01:00</published><updated>2024-11-28T00:00:00+01:00</updated><id>http://localhost:4000/2024/11/28/Python-z-score</id><content type="html" xml:base="http://localhost:4000/2024/11/28/Python-z-score.html"><![CDATA[<p><br /></p>
 
 <p>If you’ve worked with statistical data, you’ve likely encountered z-scores. A z-score measures how far a data point is from the mean, expressed in terms of standard deviations. It helps identify outliers and compare data distributions, making it a vital tool in data science.</p>
 
@@ -2480,264 +2745,4 @@ At this point, if you check the results, you will note that the function deliver
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ggplot2" /><summary type="html"><![CDATA[Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_17.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_17.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Harnessing AI in R and Python - Gather data with ChatGPT</title><link href="http://localhost:4000/2023/11/01/AI-in-R.html" rel="alternate" type="text/html" title="Harnessing AI in R and Python - Gather data with ChatGPT" /><published>2023-11-01T00:00:00+01:00</published><updated>2023-11-01T00:00:00+01:00</updated><id>http://localhost:4000/2023/11/01/AI-in-R</id><content type="html" xml:base="http://localhost:4000/2023/11/01/AI-in-R.html"><![CDATA[<p><br /></p>
-
-<h1 id="ai-in-r-and-python">AI in R and Python</h1>
-
-<p><br /></p>
-
-<p><strong>Greetings, humanists, social and data scientists!</strong></p>
-
-<p><br /></p>
-
-<p>Welcome to this enlightening journey to extract historical data from the Web using AI! In this lesson, we delve into the innovative ways of harnessing the power of ChatGPT to gather data for your analyses. Specifically, you’ll learn how to command ChatGPT to retrieve historical data from a Wikipedia article and present it in a neat R and Pandas dataframe.</p>
-
-<p><br /></p>
-
-<p><a href="https://openai.com/blog/chatgpt">ChatGPT</a> is an advanced large language model that has the remarkable capability to generate human-like text based on the prompts it receives. With ChatGPT, you can ask questions or provide instructions, and it will respond with relevant and coherent written answers. By the end of this post, the vast historical archives of Wikipedia will be just a prompt away, all thanks to the capabilities of ChatGPT.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="data-source">Data source</h1>
-
-<p>The data used in this tutorial is presented in the Wikipedia article <a href="https://en.wikipedia.org/w/index.php?title=German_casualties_in_World_War_II&amp;oldid=1180060662">German casualties in World War II</a>. This article offers an overview of the casualties sustained by the German Army during the Second World War.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="1-use-chatgpt-to-retrieve-data-in-a-wikipedia-table">1. Use ChatGPT to retrieve data in a Wikipedia table</h2>
-
-<p>The first step to gather the data is to access <a href="https://en.wikipedia.org/w/index.php?title=German_casualties_in_World_War_II&amp;oldid=1180060662">German casualties in World War II</a>. This article provides an exploration of the number of deaths, wounded, and sick people during World War II in Germany.</p>
-
-<p><br /></p>
-
-<p>Suppose you are interested in studying how the war differed across the different fronts and geographical regions. You see the second table presented in the article and would like to make a visualization showing the number of deaths in the German Army across the different war fronts. For small tables like this, you can simply select and copy the data you would like to transform in a dataframe, as shown in the figure below.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_16_01.png" alt="Figure showing Wikipedia article and its table" /></p>
-
-<p><br /></p>
-
-<p>In this example, we will only gather the Army section of the table. Once you have copied the data, you are ready to use ChatGPT.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-a-good-chatgpt-prompt">2. A good ChatGPT prompt</h2>
-
-<p>When writing prompts for ChatGPT, clarity and specificity are key. Start by providing enough context so the model understands what you’re asking. Being explicit about the format or type of answer you want can also help guide ChatGPT in generating a response that meets your expectations.</p>
-
-<p><br /></p>
-
-<p>Additionally, including examples of desired responses can be beneficial. Always consider the “garbage in, garbage out” principle; a well-crafted prompt is more likely to result in a useful and coherent response.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_16_02.png" alt="Figure with tips for writing a good ChatGPT prompt" /></p>
-
-<p><br /></p>
-
-<p>For the R prompt, consult step 3 below and for the Python prompt jump to step 4.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-ai-for-r">3. AI for R</h2>
-
-<p>Below you can see a suggestion of prompt to ask ChatGPT to transform the text input copied from Wikipedia in an R dataframe. In the figure, we highlight each part of the prompt. Moreover, ChatGPT response is provided.</p>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_16_03.png" alt="ChatGPT prompt with highlighted elements" /></p>
-
-<p><br /></p>
-
-<p>If you would like, you can copy the prompt here:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-16-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-16-1">
-
-<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">You are a data scientist investigating the number of deaths in the German Army during the Second World War.  Please, could you transform the table below into an R data frame made with the data.frame( ) function? The character "-" should be replaced by NA.  The table was copied from a Wikipedia place and is as follows: """
-Description	Dead	Missing &amp; POW	Total	Wounded &amp; Sick
-Army				
-Eastern Front	1,105,987	1,018,365	2,124,352	3,498,059
-North: Norway/Finland	16,639	5,157	21,796	60,451
-Southwest: N Africa/Italy	50,481	194,250	244,731	163,602
-Southeast: Balkans	19,235	14,805	34,040	55,069
-West: France/Low Countries	107,042	409,715	516,757	399,856
-Training Forces	10,467	1,337	11,804	42,174
-Died of Wounds-All Fronts	295,659	-	295,659	-
-Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>And here is the model’s answer:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-16-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-16-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="w">
-  </span><span class="n">Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Eastern Front"</span><span class="p">,</span><span class="w"> </span><span class="s2">"North: Norway/Finland"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Southwest: N Africa/Italy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Southeast: Balkans"</span><span class="p">,</span><span class="w"> </span><span class="s2">"West: France/Low Countries"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Training Forces"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Died of Wounds-All Fronts"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Location not Given"</span><span class="p">),</span><span class="w">
-  </span><span class="n">Dead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"1105987"</span><span class="p">,</span><span class="w"> </span><span class="s2">"16639"</span><span class="p">,</span><span class="w"> </span><span class="s2">"50481"</span><span class="p">,</span><span class="w"> </span><span class="s2">"19235"</span><span class="p">,</span><span class="w"> </span><span class="s2">"107042"</span><span class="p">,</span><span class="w"> </span><span class="s2">"10467"</span><span class="p">,</span><span class="w"> </span><span class="s2">"295659"</span><span class="p">,</span><span class="w"> </span><span class="s2">"17051"</span><span class="p">))),</span><span class="w">
-  </span><span class="n">Missing_POW</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"1018365"</span><span class="p">,</span><span class="w"> </span><span class="s2">"5157"</span><span class="p">,</span><span class="w"> </span><span class="s2">"194250"</span><span class="p">,</span><span class="w"> </span><span class="s2">"14805"</span><span class="p">,</span><span class="w"> </span><span class="s2">"409715"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1337"</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="s2">"2687"</span><span class="p">))),</span><span class="w">
-  </span><span class="n">Total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"2124352"</span><span class="p">,</span><span class="w"> </span><span class="s2">"21796"</span><span class="p">,</span><span class="w"> </span><span class="s2">"244731"</span><span class="p">,</span><span class="w"> </span><span class="s2">"34040"</span><span class="p">,</span><span class="w"> </span><span class="s2">"516757"</span><span class="p">,</span><span class="w"> </span><span class="s2">"11804"</span><span class="p">,</span><span class="w"> </span><span class="s2">"295659"</span><span class="p">,</span><span class="w"> </span><span class="s2">"19738"</span><span class="p">))),</span><span class="w">
-  </span><span class="n">Wounded_Sick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"3498059"</span><span class="p">,</span><span class="w"> </span><span class="s2">"60451"</span><span class="p">,</span><span class="w"> </span><span class="s2">"163602"</span><span class="p">,</span><span class="w"> </span><span class="s2">"55069"</span><span class="p">,</span><span class="w"> </span><span class="s2">"399856"</span><span class="p">,</span><span class="w"> </span><span class="s2">"42174"</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)))</span><span class="w">
-</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>And that’s it. In a few seconds you have your data formatted in a nice dataframe, ready to be analyzed.</p>
-
-<p><br /></p>
-
-<p>Now we will make a simple bar plot to visualize the total number of deaths by front. To do that, we use ggplot. Note that we reorder the variable <code class="language-plaintext highlighter-rouge">Description</code> so that it is ordered from the largest number of deaths to the smallest. Moreover, we also divide <code class="language-plaintext highlighter-rouge">Total</code> by one million to have millions of deaths in the x axis. To add a customized ggplot2 theme, like the one in the plot presented below, check the lesson <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization with ggplot2’</a></p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-16-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-16-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">Description</span><span class="p">,</span><span class="w"> </span><span class="n">Total</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Total</span><span class="o">/</span><span class="m">1000000</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#FF6885"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deaths in the German Army by location or cause"</span><span class="p">,</span><span class="w">
-       </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Second World War (1939-1945)"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Front/Cause"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Number of Deaths [in millions]"</span><span class="p">,</span><span class="w">
-       </span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Source: German casualties in World War II. Wikipedia"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_16_04.png" alt="Bar plot showing number of deaths per front in the German Army in the Second World War" /></p>
-
-<p><br /></p>
-
-<p>It is remarkable that most of casualties occurred in the Eastern Front while the least lethal front was in the nordic countries.</p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> The approach demonstrated in this lesson is effective for small tables. However, when faced with larger and more complex tables, ChatGPT tends to avoid the task of assembling a dataframe directly. Instead, it often proposes a solution that involves scraping the table in R using the page URL. You should also consider the prompt length limit when using this approach.
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<h2 id="4-ai-for-python">4. AI for Python</h2>
-
-<p>The prompt for achieving the same result in Python is almost the same, but we ask for a Pandas data frame, instead of an R data frame.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-16-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-16-4">
-
-<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">You are a data scientist investigating the number of deaths in the German Army during the Second World War.  Please, could you transform the table below into a Pandas data frame? The character "-" should be replaced by NA.  The table was copied from a Wikipedia place and is as follows: """
-Description	Dead	Missing &amp; POW	Total	Wounded &amp; Sick
-Army				
-Eastern Front	1,105,987	1,018,365	2,124,352	3,498,059
-North: Norway/Finland	16,639	5,157	21,796	60,451
-Southwest: N Africa/Italy	50,481	194,250	244,731	163,602
-Southeast: Balkans	19,235	14,805	34,040	55,069
-West: France/Low Countries	107,042	409,715	516,757	399,856
-Training Forces	10,467	1,337	11,804	42,174
-Died of Wounds-All Fronts	295,659	-	295,659	-
-Location not Given	17,051	2,687	19,738	- """</code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>This prompts correctly organizes the data in a Pandas data frame, as shown below:</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-16-5')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-16-5">
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="sh">"</span><span class="s">Description</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">Eastern Front</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">North: Norway/Finland</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Southwest: N Africa/Italy</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Southeast: Balkans</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">West: France/Low Countries</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Training Forces</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Died of Wounds-All Fronts</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">Location not Given</span><span class="sh">"</span><span class="p">],</span>
-    <span class="sh">"</span><span class="s">Dead</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1105987</span><span class="p">,</span> <span class="mi">16639</span><span class="p">,</span> <span class="mi">50481</span><span class="p">,</span> <span class="mi">19235</span><span class="p">,</span> <span class="mi">107042</span><span class="p">,</span> <span class="mi">10467</span><span class="p">,</span> <span class="mi">295659</span><span class="p">,</span> <span class="mi">17051</span><span class="p">],</span>
-    <span class="sh">"</span><span class="s">Missing &amp; POW</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1018365</span><span class="p">,</span> <span class="mi">5157</span><span class="p">,</span> <span class="mi">194250</span><span class="p">,</span> <span class="mi">14805</span><span class="p">,</span> <span class="mi">409715</span><span class="p">,</span> <span class="mi">1337</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2687</span><span class="p">],</span>
-    <span class="sh">"</span><span class="s">Total</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2124352</span><span class="p">,</span> <span class="mi">21796</span><span class="p">,</span> <span class="mi">244731</span><span class="p">,</span> <span class="mi">34040</span><span class="p">,</span> <span class="mi">516757</span><span class="p">,</span> <span class="mi">11804</span><span class="p">,</span> <span class="mi">295659</span><span class="p">,</span> <span class="mi">19738</span><span class="p">],</span>
-    <span class="sh">"</span><span class="s">Wounded &amp; Sick</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3498059</span><span class="p">,</span> <span class="mi">60451</span><span class="p">,</span> <span class="mi">163602</span><span class="p">,</span> <span class="mi">55069</span><span class="p">,</span> <span class="mi">399856</span><span class="p">,</span> <span class="mi">42174</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">]</span>
-<span class="p">}</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="nf">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><strong>Keep in mind that accuracy is not one of ChatGPT’s strengths. While I have not seen any mistakes in the code above, it is always good to revise ChatGPT’s work. Let me know if you have any suggestions on how to improve this method. Also, leave any questions or concerns you might have in the comments below.</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h1 id="conclusions">Conclusions</h1>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>ChatGPT is a powerful tool that can be utilized to efficiently gather and organize historical data from the web, specifically Wikipedia, into structured data frames for analysis in R and Python;</li>
-  <li>Clarity and specificity are essential when crafting prompts for ChatGPT to ensure accurate and relevant responses;</li>
-  <li>While this method is highly effective for small tables, it’s important to note that ChatGPT may suggest alternative solutions such as web scraping for larger and more complex tables, and to always review ChatGPT’s output for accuracy.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ai" /><category term="python" /><summary type="html"><![CDATA[Unlock the potential of AI in R and Python with this comprehensive tutorial on using ChatGPT for data analysis. Learn how to extract historical data from Wikipedia and transform it into organized R and Pandas dataframes. Plus, discover best practices for crafting ChatGPT prompts!]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_16.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_16.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ggplot2" /><summary type="html"><![CDATA[Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_17.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_17.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
