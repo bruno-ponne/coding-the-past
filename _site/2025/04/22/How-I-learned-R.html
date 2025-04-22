@@ -5,42 +5,6 @@
     <!-- Structured data -->
     
 
-        <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-
-
-      
-      {
-        "@type": "Question",
-        "name": "What is a treemap?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A treemap consists of a set of rectangles which represent different categories of a variable and whose size is defined by a numeric value associated with the respective category. Treemaps can represent hierarchies with nested rectangles, that is, categories within categories."
-        }
-      }
-      ,
-      
-      {
-        "@type": "Question",
-        "name": "When should you use a treemap?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It is well-suited to show part-to-whole relationships and to highlight the hierarchies in your data. Do not use treemaps when the variable defining the size of rectangles presents little variation."
-        }
-      }
-      
-      
-      ]
-    }
-</script>
-
-
-
-    
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
     <script>
@@ -53,16 +17,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="R, treemaps, data visualisation">
-    <meta name="description" content="Explore how to effectively use a treemap in R to visualize hierarchical data and analyze part-to-whole relationships. This guide covers what a treemap is, when to use it, and a step-by-step tutorial on plotting with the treemap package.">
+    <meta name="keywords" content="r, statistics, digitalhumanities, ggplot2">
+    <meta name="description" content="Discover how a public policy master's student transformed frustration into successfully learning R — from first syntax errors in RStudio to mastering ggplot2 on DataCamp.">
     <meta property= og:image content= />
-    <title>Treemaps In R</title>
+    <title>My Journey Learning R as a Humanities Undergrad</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google icon: -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Canonical Domain -->
-    <link rel="canonical" href="http://localhost:4000/2024/05/09/Treemaps-in-R.html">
+    <link rel="canonical" href="http://localhost:4000/2025/04/22/How-I-learned-R.html">
     <link rel="icon" href="/favicon.png">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <meta name='impact-site-verification' value='ca1c851b-2b22-4fb4-bdc9-3d4329b314c1'>
@@ -101,22 +65,16 @@
         <div class="content-body">
             
 
-
-
- <!-- Affiliate Banner -->
-<div class="affiliate-banner" style="background-color: #e9ddc3; padding: 1rem; color: #2E3031; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
-    <div class="affiliate-banner-text" style= "margin-left: 5%;">
-      <strong style="font-size: 1.5rem; display: block; margin-bottom: 0.25rem;"><a href="/2025/04/22/How-I-learned-R.html" class="btn--affiliate" style="text-decoration: none;">My Journey Learning R as a Humanities Undergrad</a></strong>
-      <span>Discover how I got started with R, the challenges I faced and resources I used.</span>
-    </div>
-    <a href="/2025/04/22/How-I-learned-R.html" class="btn btn--read-more" style="background-color: #C84848; color: #fff; padding: 0.5rem 1rem; text-decoration: none; margin-right: 5%;">Read More</a>
+<div class="affiliate-banner" style="background-color: #2E3031; padding: 0rem; color:#2E3031 ; margin-bottom: 0rem; display: flex; align-items: center; justify-content: space-between;">
+   
 </div>
 
 
 
+
 <div class="post-body">
-    <h1 id = "post-main-title">Treemaps In R</h1>
-    <p id = "author">Bruno Ponne &#9679 09 May 2024</p>
+    <h1 id = "post-main-title">My Journey Learning R as a Humanities Undergrad</h1>
+    <p id = "author">Bruno Ponne &#9679 22 Apr 2025</p>
     <hr>
     <ul class = "meta-info">
         
@@ -124,89 +82,63 @@
         
         <li>R</li>
         
-        <li>3 min</li>
+        <li>5 min</li>
         
     </ul>
     <br>
     <p class = "pre-lesson">What you will learn</p>
     <ul>
         
-        <li class = "objectives"> Understand what a treemap is;</li>
+        <li class = "objectives"> Learn about the main challenges in learning R.</li>
         
-        <li class = "objectives"> Be able to create a treemap in R.</li>
+        <li class = "objectives"> Discover good paid and free resources for your learning journey.</li>
         
     </ul>
     <br>
     <p class = "pre-lesson">Table of Contents</p>
 
 
-    <ul class="toc-entry"><li><a href="#1-what-is-a-treemap">1. What is a treemap?</a></li><li><a href="#2-when-should-you-use-a-treemap">2. When should you use a treemap?</a></li><li><a href="#3-how-to-plot-a-treemap-in-r">3. How to plot a treemap in R?</a></li><li><a href="#4-conclusions">4. Conclusions</a></li></ul>
+    <ul class="toc-entry"><li><a href="#1-a-passion-for-the-past">1. A Passion for the Past</a></li><li><a href="#2-first-encounters-with-r">2. First Encounters with R</a></li><li><a href="#3-discovering-datacamp">3. Discovering DataCamp</a></li><li><a href="#4-building-confidence-and-choosing-policy-analysis">4. Building Confidence and Choosing Policy Analysis</a></li><li><a href="#5-pandemic-pivot">5. Pandemic Pivot</a></li><li><a href="#6-thesis--beyond">6. Thesis &amp; Beyond</a></li><li><a href="#7-ai-as-a-resource-to-learn-programming">7. AI as a resource to learn programming</a></li><li><a href="#key-takeaways">Key Takeaways</a></li><li><a href="#ready-to-start-your-own-journey">Ready to Start Your Own Journey?</a><ul><li><a href="#start-learning-r-on-datacamp-with-my-discounted-link"><a href="https://datacamp.pxf.io/Wy2ybP">Start Learning R on DataCamp with My Discounted Link</a></a></li></ul></li></ul>
 
     <p><br /></p>
 
-<h2 id="1-what-is-a-treemap">1. What is a treemap?</h2>
+<h2 id="1-a-passion-for-the-past">1. A Passion for the Past</h2>
 
-<p>A treemap consists of a set of rectangles that represent different categories in your data and whose sizes are defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. Going back to our example of the continents, within each continent rectangle, new rectangles could represent countries and their populations.</p>
+<p>Since I was a teenager, History has been one of my passions. I was very lucky in high school to have a great History teacher whom I could listen to for hours. My interest was, of course, driven by curiosity about all those dead humans in historical plots that exist no more except in books, images, movies, and — mostly — in our imagination.</p>
 
 <p><br /></p>
 
-<p>You might also think of the more general category — in our example, the continents — as branches of a tree and each branch has its own leaves — in our example, the countries. Below you see a visual representation of the concept behind a treemap.</p>
+<p>However, what really triggered my passion was realizing how different texts can describe the same event from such varied perspectives. We are able to see the same realities in different ways, which gives us the power  to shape our lives — and our future — ­­­into something more meaningful, if we so choose.</p>
 
-<p class="larger"><img src="/assets/images/lesson_21_01.png" alt="Visual representation of a treemap." /></p>
+<p><br /></p>
+
+<h2 id="2-first-encounters-with-r">2. First Encounters with R</h2>
+
+<p>When I began my master’s in public policy at the Hertie School in Berlin, Statistics I was a mandatory course for both management and policy analysis, the two areas of concentration offered in the course.  I began the semester certain I would choose management because I’d always struggled with mathematical abstractions. However, as the first semester passed, I became intrigued by some of the concepts we were learning in Statistics I. Internal and external validity, selection bias, and regression to the mean were concepts that truly captured my interest and have applications far beyond statistics, reaching into many areas of research.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_27_01.jpg" alt="The Hertie School Building" />
+The Hertie School Building. Source: Zugzwang1972, CC BY 3.0, via Wikimedia Commons</p>
+
+<p><br /></p>
+
+<p>Then came our first R programming assignments. I struggled endlessly with function syntax and felt frustrated by every error — especially since I needed strong grades to pass Statistics I. Yet each failure also felt like a challenge I couldn’t put down. I missed RStudio’s help features and wasted time searching the web for solutions, but slowly the pieces began to click.</p>
+
+<p><br /></p>
 
 <hr />
 
 <p><br /></p>
 
-<h2 id="2-when-should-you-use-a-treemap">2. When should you use a treemap?</h2>
+<h2 id="3-discovering-datacamp">3. Discovering DataCamp</h2>
 
-<p>One of the main advantages of a treemap is that it allows for the interpretation of a large amount of data at a single glance. It is well-suited to show part-to-whole relationships and to highlight the hierarchies in your data. Do not use treemaps when the variable defining the size of rectangles presents little variation.</p>
-
-<p><br /></p>
-
-<hr />
+<p>By semester’s end, I was eager to dive deeper. That’s when I discovered that as Master candidates, we had free access to DataCamp — a platform that combines short, focused videos with in-browser coding exercises, no software installation required. The instant feedback loop—seeing my ggplot chart render in seconds—gave me a small win every day. Over a few months, I completed courses from <strong>Introduction to R</strong> and <strong>ggplot2</strong> to more advanced statistical topics. DataCamp’s structured approach transformed my frustration into momentum. <a href="https://datacamp.pxf.io/nXWj4a">Introduction to Statistics in R</a> was one of my first courses and helped me pass Stats I with a better grade. You can test the first chapter for free to see if it matches your learning style.</p>
 
 <p><br /></p>
 
-<h2 id="3-how-to-plot-a-treemap-in-r">3. How to plot a treemap in R?</h2>
-
-<p>To exemplify a treemap in R, we will use the <code class="language-plaintext highlighter-rouge">Cholera</code> dataset, which contains that on the mortality caused by cholera in England in the years 1848-1849. This data comes from the <code class="language-plaintext highlighter-rouge">histdata</code> R package. Moreover, you will need to install the <code class="language-plaintext highlighter-rouge">treemap</code> package, one of the alternatives to plot a treemap in R. We will also use <code class="language-plaintext highlighter-rouge">RColorBrewer</code> package for a color palette and <code class="language-plaintext highlighter-rouge">dplyr</code> to transform the data.</p>
-
-<p><br /></p>
-
-<p>After you install the packages, load them and explore the structure of the <code class="language-plaintext highlighter-rouge">Cholera</code> data frame.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-21-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">treemap</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Load the data to your R environment</span><span class="w">
-</span><span class="n">data</span><span class="p">(</span><span class="s2">"Cholera"</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Check the dataframe structure</span><span class="w">
-</span><span class="n">str</span><span class="p">(</span><span class="n">Cholera</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>We would like to create a treemap in which we have bigger rectangles representing the regions of London (branches) and smaller rectangles representing the districts (leaves) within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:</p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);</li>
-  <li><code class="language-plaintext highlighter-rouge">district</code> will define our inner rectangles (lower hierarchy), representing the districts of London;</li>
-  <li><code class="language-plaintext highlighter-rouge">cholera_drate</code> represents deaths caused by cholera per 10,000 inhabitants in 1849 and will define the size of rectangles</li>
-</ul>
+<p class="fig-caption"><img src="/assets/images/lesson_27_02.png" alt="DataCamp Methodology" />
+DataCamp Method. Source: AI Generated.</p>
 
 <p><br /></p>
 
@@ -215,76 +147,12 @@
         tips_and_updates
     </span>
     <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To learn more about the data, please see the
+    <div class="text-note-content"> The links to DataCamp in this post are affiliate links. That means if you click them and sign up, I receive a small share of the subscription value from DataCamp, which helps me maintain this blog. That being said, there are many free resources on the Internet that are very effective for learning R without spending any money. One suggestion is the HTML free version of "R Cookbook" that helped me a lot to deepen my R skills.:
         
-        <a href="https://cran.r-project.org/web/packages/HistData/HistData.pdf" target="_blank"> package documentation here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>The <code class="language-plaintext highlighter-rouge">treemap</code> function is used to plot the treemap in R. The main arguments necessary are:</p>
-
-<ul class="conclusion-list">
-  <li>the first argument is the dataframe;</li>
-  <li><code class="language-plaintext highlighter-rouge">index</code> defines the two levels of hierarchy in our plot: region (our branches) and district (our leaves);</li>
-  <li><code class="language-plaintext highlighter-rouge">vSize</code> specifies the death rate to define the size of our rectangles;</li>
-  <li><code class="language-plaintext highlighter-rouge">vColor</code> specifies the region to define the color of our higher hierarchy rectangles;</li>
-  <li><code class="language-plaintext highlighter-rouge">type</code> informs the function that <code class="language-plaintext highlighter-rouge">vColor</code> is a categorical variable;</li>
-  <li>the remaining parameters are used to adjust format options like color palette and position of elements.</li>
-</ul>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To further format your treemap, check more options in the
-        
-        <a href="https://cran.r-project.org/web/packages/treemap/treemap.pdf" target="_blank"> package documentation.</a>
+        <a href="https://rc2e.com/" target="_blank"> R Cookbook</a>
         
     </div>
 </div>
-
-<p><br />
-<span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-21-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">treemap</span><span class="p">(</span><span class="n">Cholera</span><span class="p">,</span><span class="w">
-        </span><span class="n">index</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"region"</span><span class="p">,</span><span class="s2">"district"</span><span class="p">),</span><span class="w">
-        </span><span class="n">vSize</span><span class="o">=</span><span class="s2">"cholera_deaths"</span><span class="p">,</span><span class="w">
-        </span><span class="n">vColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"region"</span><span class="p">,</span><span class="w">
-        </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"categorical"</span><span class="p">,</span><span class="w">
-        </span><span class="c1"># formatting options:</span><span class="w">
-        </span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brewer.pal</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Accent"</span><span class="p">),</span><span class="w">
-        </span><span class="n">align.labels</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="w">
-          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">),</span><span class="w"> 
-          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"right"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">)</span><span class="w">
-        </span><span class="p">),</span><span class="w">     
-        </span><span class="n">border.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">
-        </span><span class="n">bg.labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">,</span><span class="w">
-        </span><span class="n">position.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_21_02.png" alt="Treemap plotted in R" /></p>
-
-<p><br /></p>
-
-<p><strong>Note that Kent is the region with the largest death rate, followed by Southern London. Moreover, districts like Lambeth and Bethnal Green were especially affected by the disease. This treemap is a powerful tool to give you a general picture of the data at first glance.</strong></p>
-
-<p><br /></p>
-
-<p><strong>If you have any questions, please feel free to comment below!</strong></p>
 
 <p><br /></p>
 
@@ -292,18 +160,86 @@
 
 <p><br /></p>
 
-<h2 id="4-conclusions">4. Conclusions</h2>
+<h2 id="4-building-confidence-and-choosing-policy-analysis">4. Building Confidence and Choosing Policy Analysis</h2>
+
+<p>Armed with new R skills, I chose policy analysis for my concentration area—and I’ve never looked back. Learning to program in R created a positive feedback loop for my statistical learning, as visualizations and simulations gave life to abstract concepts I once found very difficult to understand.</p>
 
 <p><br /></p>
 
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-pandemic-pivot">5. Pandemic Pivot</h2>
+
+<p>Then the pandemic of 2020 hit, which in some ways only fueled my R learning since we could do little besides stay home at our computers. Unfortunately, my institution stopped providing us with free DataCamp accounts, but I continued to learn R programming and discovered <a href="https://stackoverflow.com/questions">Stack Overflow</a> — a platform of questions and answers for R and Python, among other languages — to debug my code.</p>
+
+<p><br /></p>
+
+<p>I also began reading more of the official documentation for functions and packages, which was not as pleasant or easy as watching DataCamp videos, which summarized everything for me. As I advanced, I had to become more patient and persevere to understand the packages and functions I needed. I also turned to books—mostly from <a href="https://www.oreilly.com/">O’Reilly Media</a>, a publisher with extensive programming resources. There are also many free and great online books, such as <a href="https://r4ds.had.co.nz/introduction.html">R for Data Science</a>.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_27_03.png" alt="My resources to learn R" />
+Main Resources Used to Learn R. Source: Author.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-thesis--beyond">6. Thesis &amp; Beyond</h2>
+
+<p>In 2021, I completed my master’s degree with a thesis evaluating educational policies in Brazil. To perform this analysis, I used the synthetic control method—implemented via an <a href="https://cran.r-project.org/web/packages/Synth/index.html">R package</a>. If you’re interested, you can read my thesis here: <a href="https://doi.org/10.1590/1981-3821202300010005">Better Incentives, Better Marks: A Synthetic Control Evaluation of Educational Policies in Ceará, Brazil</a>. 
+My thesis is also an example of how you can learn R by working on a project with goals and final results. It also introduced me to <a href="https://git-scm.com/">Git</a> and <a href="https://github.com/">GitHub</a>, a well known system for controling the versions of your coding projects and a nice tool to showcase your coding skills.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="7-ai-as-a-resource-to-learn-programming">7. AI as a resource to learn programming</h2>
+
+<p>Although AI wasn’t part of my initial learning journey, I shouldn’t overlook its growing influence on programming in recent years. I wouldn’t recommend relying on AI for your very first steps in R, but it can be a valuable tool when you’ve tried to accomplish something and remain stuck. Include the error message you’re encountering in your prompt, or ask AI to explain the code line by line if you’re unsure what it does. However, avoid asking AI to write entire programs or scripts for you, as this will limit your learning and you may be surprised by errors. Use AI to assist you, but always review its suggestions and retain final control over your code.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="key-takeaways">Key Takeaways</h2>
+
 <ul class="conclusion-list">
-  <li>A treemap is very useful to represent hierarchical relations in your data and provide a quick overall picture of your data;</li>
-  <li>Plotting a treemap in R can be easily accomplished with the <code class="language-plaintext highlighter-rouge">treemap</code> package.</li>
+  <li>Learning R as a humanities major can be daunting, but persistence pays off.</li>
+  <li>Embrace small, consistent wins — DataCamp’s bite‑sized exercises are perfect for that.</li>
+  <li>Visualizations unlock understanding — seeing data come to life cements concepts.</li>
+  <li>Phase in documentation and books when you need to tackle more advanced topics.</li>
+  <li>Use AI to debug your code and explain what the code of other programmers does.</li>
+  <li>Join the community — Stack Overflow, GitHub, online books and peer groups bridge gaps when videos aren’t enough.</li>
 </ul>
 
 <p><br /></p>
 
 <hr />
+
+<p><br /></p>
+
+<h2 id="ready-to-start-your-own-journey">Ready to Start Your Own Journey?</h2>
+
+<p>If you’re also beginning or if you want to deepen your R skills, DataCamp is a pleasant and productive way to get going. Using my discounted link below supports Coding the Past and helps me keep fresh content coming on my blog:</p>
+
+<p><br /></p>
+
+<h3 id="start-learning-r-on-datacamp-with-my-discounted-link"><a href="https://datacamp.pxf.io/Wy2ybP">Start Learning R on DataCamp with My Discounted Link</a></h3>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p>What was the biggest challenge you faced learning R? Share your story in the comments below!</p>
 
 
     
@@ -380,7 +316,7 @@
 			};var interval = setInterval(checkJQuery, 250);
 		};};
 
-	var thisPageUrl = "/2024/05/09/Treemaps-in-R.html";
+	var thisPageUrl = "/2025/04/22/How-I-learned-R.html";
 	const EXTRA_INFO_START = "chunkedCommentInfoStart";
 	const EXTRA_INFO_END = "chunkedCommentInfoEnd";var visibleComments = [];
 	var hiddenComments = [];
@@ -758,11 +694,11 @@
 </style>
 
 <span style="color: white;"> Share on </span><div id="share-buttons">
-    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2024/05/09/Treemaps-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
-    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2024/05/09/Treemaps-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
-    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2024/05/09/Treemaps-in-R.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
-    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_21.jpg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
-    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2024/05/09/Treemaps-in-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2025/04/22/How-I-learned-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2025/04/22/How-I-learned-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2025/04/22/How-I-learned-R.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_27.png&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2025/04/22/How-I-learned-R.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
 </div>
 </div>
 

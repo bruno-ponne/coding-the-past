@@ -313,8 +313,26 @@ h2{
     border: 1px solid #C84848;
 }
 
+.affiliate-banner{
+    margin-top: 15%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.btn--affiliate{
+    text-decoration: none;
+    color: #2E3031;
+}
+
+.btn--affiliate:hover{
+    color: #C84848;
+}
+
+.btn--affiliate::after{
+    color: #2E3031;
+}
+
 .post-body{
-    margin-top: 5%;
     margin-left: 5%;
     margin-right: 5%;
     background-color: #2E3031;
@@ -331,11 +349,11 @@ h2{
 #post-main-title{
     font-size: 32px;
     margin-bottom: 2%;
-    margin-top: 10%;
 }
 
 .post-body h1{
     scroll-margin-top: 7rem;
+    margin-top: 2%;
     margin-bottom: 2%;
 }
 

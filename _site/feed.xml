@@ -1,4 +1,143 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-02-24T18:21:27+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Understand geom_bar and its statistical transformations</title><link href="http://localhost:4000/2025/02/24/geom_bar.html" rel="alternate" type="text/html" title="Understand geom_bar and its statistical transformations" /><published>2025-02-24T00:00:00+01:00</published><updated>2025-02-24T00:00:00+01:00</updated><id>http://localhost:4000/2025/02/24/geom_bar</id><content type="html" xml:base="http://localhost:4000/2025/02/24/geom_bar.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-04-22T13:50:16+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">My Journey Learning R as a Humanities Undergrad</title><link href="http://localhost:4000/2025/04/22/How-I-learned-R.html" rel="alternate" type="text/html" title="My Journey Learning R as a Humanities Undergrad" /><published>2025-04-22T00:00:00+02:00</published><updated>2025-04-22T00:00:00+02:00</updated><id>http://localhost:4000/2025/04/22/How-I-learned-R</id><content type="html" xml:base="http://localhost:4000/2025/04/22/How-I-learned-R.html"><![CDATA[<p><br /></p>
+
+<h2 id="1-a-passion-for-the-past">1. A Passion for the Past</h2>
+
+<p>Since I was a teenager, History has been one of my passions. I was very lucky in high school to have a great History teacher whom I could listen to for hours. My interest was, of course, driven by curiosity about all those dead humans in historical plots that exist no more except in books, images, movies, and — mostly — in our imagination.</p>
+
+<p><br /></p>
+
+<p>However, what really triggered my passion was realizing how different texts can describe the same event from such varied perspectives. We are able to see the same realities in different ways, which gives us the power  to shape our lives — and our future — ­­­into something more meaningful, if we so choose.</p>
+
+<p><br /></p>
+
+<h2 id="2-first-encounters-with-r">2. First Encounters with R</h2>
+
+<p>When I began my master’s in public policy at the Hertie School in Berlin, Statistics I was a mandatory course for both management and policy analysis, the two areas of concentration offered in the course.  I began the semester certain I would choose management because I’d always struggled with mathematical abstractions. However, as the first semester passed, I became intrigued by some of the concepts we were learning in Statistics I. Internal and external validity, selection bias, and regression to the mean were concepts that truly captured my interest and have applications far beyond statistics, reaching into many areas of research.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_27_01.jpg" alt="The Hertie School Building" />
+The Hertie School Building. Source: Zugzwang1972, CC BY 3.0, via Wikimedia Commons</p>
+
+<p><br /></p>
+
+<p>Then came our first R programming assignments. I struggled endlessly with function syntax and felt frustrated by every error — especially since I needed strong grades to pass Statistics I. Yet each failure also felt like a challenge I couldn’t put down. I missed RStudio’s help features and wasted time searching the web for solutions, but slowly the pieces began to click.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-discovering-datacamp">3. Discovering DataCamp</h2>
+
+<p>By semester’s end, I was eager to dive deeper. That’s when I discovered that as Master candidates, we had free access to DataCamp — a platform that combines short, focused videos with in-browser coding exercises, no software installation required. The instant feedback loop—seeing my ggplot chart render in seconds—gave me a small win every day. Over a few months, I completed courses from <strong>Introduction to R</strong> and <strong>ggplot2</strong> to more advanced statistical topics. DataCamp’s structured approach transformed my frustration into momentum. <a href="https://datacamp.pxf.io/nXWj4a">Introduction to Statistics in R</a> was one of my first courses and helped me pass Stats I with a better grade. You can test the first chapter for free to see if it matches your learning style.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_27_02.png" alt="DataCamp Methodology" />
+DataCamp Method. Source: AI Generated.</p>
+
+<p><br /></p>
+
+<div class="text-note">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> The links to DataCamp in this post are affiliate links. That means if you click them and sign up, I receive a small share of the subscription value from DataCamp, which helps me maintain this blog. That being said, there are many free resources on the Internet that are very effective for learning R without spending any money. One suggestion is the HTML free version of "R Cookbook" that helped me a lot to deepen my R skills.:
+        
+        <a href="https://rc2e.com/" target="_blank"> R Cookbook</a>
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-building-confidence-and-choosing-policy-analysis">4. Building Confidence and Choosing Policy Analysis</h2>
+
+<p>Armed with new R skills, I chose policy analysis for my concentration area—and I’ve never looked back. Learning to program in R created a positive feedback loop for my statistical learning, as visualizations and simulations gave life to abstract concepts I once found very difficult to understand.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="5-pandemic-pivot">5. Pandemic Pivot</h2>
+
+<p>Then the pandemic of 2020 hit, which in some ways only fueled my R learning since we could do little besides stay home at our computers. Unfortunately, my institution stopped providing us with free DataCamp accounts, but I continued to learn R programming and discovered <a href="https://stackoverflow.com/questions">Stack Overflow</a> — a platform of questions and answers for R and Python, among other languages — to debug my code.</p>
+
+<p><br /></p>
+
+<p>I also began reading more of the official documentation for functions and packages, which was not as pleasant or easy as watching DataCamp videos, which summarized everything for me. As I advanced, I had to become more patient and persevere to understand the packages and functions I needed. I also turned to books—mostly from <a href="https://www.oreilly.com/">O’Reilly Media</a>, a publisher with extensive programming resources. There are also many free and great online books, such as <a href="https://r4ds.had.co.nz/introduction.html">R for Data Science</a>.</p>
+
+<p><br /></p>
+
+<p class="fig-caption"><img src="/assets/images/lesson_27_03.png" alt="My resources to learn R" />
+Main Resources Used to Learn R. Source: Author.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="6-thesis--beyond">6. Thesis &amp; Beyond</h2>
+
+<p>In 2021, I completed my master’s degree with a thesis evaluating educational policies in Brazil. To perform this analysis, I used the synthetic control method—implemented via an <a href="https://cran.r-project.org/web/packages/Synth/index.html">R package</a>. If you’re interested, you can read my thesis here: <a href="https://doi.org/10.1590/1981-3821202300010005">Better Incentives, Better Marks: A Synthetic Control Evaluation of Educational Policies in Ceará, Brazil</a>. 
+My thesis is also an example of how you can learn R by working on a project with goals and final results. It also introduced me to <a href="https://git-scm.com/">Git</a> and <a href="https://github.com/">GitHub</a>, a well known system for controling the versions of your coding projects and a nice tool to showcase your coding skills.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="7-ai-as-a-resource-to-learn-programming">7. AI as a resource to learn programming</h2>
+
+<p>Although AI wasn’t part of my initial learning journey, I shouldn’t overlook its growing influence on programming in recent years. I wouldn’t recommend relying on AI for your very first steps in R, but it can be a valuable tool when you’ve tried to accomplish something and remain stuck. Include the error message you’re encountering in your prompt, or ask AI to explain the code line by line if you’re unsure what it does. However, avoid asking AI to write entire programs or scripts for you, as this will limit your learning and you may be surprised by errors. Use AI to assist you, but always review its suggestions and retain final control over your code.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="key-takeaways">Key Takeaways</h2>
+
+<ul class="conclusion-list">
+  <li>Learning R as a humanities major can be daunting, but persistence pays off.</li>
+  <li>Embrace small, consistent wins — DataCamp’s bite‑sized exercises are perfect for that.</li>
+  <li>Visualizations unlock understanding — seeing data come to life cements concepts.</li>
+  <li>Phase in documentation and books when you need to tackle more advanced topics.</li>
+  <li>Use AI to debug your code and explain what the code of other programmers does.</li>
+  <li>Join the community — Stack Overflow, GitHub, online books and peer groups bridge gaps when videos aren’t enough.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="ready-to-start-your-own-journey">Ready to Start Your Own Journey?</h2>
+
+<p>If you’re also beginning or if you want to deepen your R skills, DataCamp is a pleasant and productive way to get going. Using my discounted link below supports Coding the Past and helps me keep fresh content coming on my blog:</p>
+
+<p><br /></p>
+
+<h3 id="start-learning-r-on-datacamp-with-my-discounted-link"><a href="https://datacamp.pxf.io/Wy2ybP">Start Learning R on DataCamp with My Discounted Link</a></h3>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p>What was the biggest challenge you faced learning R? Share your story in the comments below!</p>]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics," /><category term="digitalhumanities" /><summary type="html"><![CDATA[Discover how a public policy master's student transformed frustration into successfully learning R — from first syntax errors in RStudio to mastering ggplot2 on DataCamp.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_27.png" /><media:content medium="image" url="http://localhost:4000/lesson_27.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Understand geom_bar and its statistical transformations</title><link href="http://localhost:4000/2025/02/24/geom_bar.html" rel="alternate" type="text/html" title="Understand geom_bar and its statistical transformations" /><published>2025-02-24T00:00:00+01:00</published><updated>2025-02-24T00:00:00+01:00</updated><id>http://localhost:4000/2025/02/24/geom_bar</id><content type="html" xml:base="http://localhost:4000/2025/02/24/geom_bar.html"><![CDATA[<p><br /></p>
 
 <p><strong>ggplot2</strong> is a powerful and well-known data visualization package for R. But do you know what <strong>gg</strong> stands for? It actually refers to the <strong>Grammar of Graphics</strong>, a conceptual framework for understanding and constructing graphs. The core idea behind the Grammar of Graphics is that a plot consists of multiple layers.</p>
 
@@ -2461,288 +2600,4 @@ At this point, if you check the results, you will note that the function deliver
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn about the chi-square distribution in R, understand degrees of freedom through practical examples, and master hypothesis testing in historical contexts. Perfect for enthusiasts at the intersection of data science and history. Dive into statistical analysis and uncover patterns from 18th-century London inquests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_18.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_18.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Change Fonts in ggplot2 with Google Fonts</title><link href="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html" rel="alternate" type="text/html" title="How to Change Fonts in ggplot2 with Google Fonts" /><published>2023-11-15T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><id>http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot</id><content type="html" xml:base="http://localhost:4000/2023/11/15/Change-Fonts-in-ggplot.html"><![CDATA[<p><br /></p>
-
-<p><strong>Greetings, humanists, social and data scientists!</strong></p>
-
-<p><br /></p>
-
-<p>In this lesson, we delve into the world of data visualization with a focus on the use of different fonts in ggplot2. We are going to learn how to take advantage of Google Fonts to enrich our plots. Our journey takes us back in time, exploring a dataset derived from the “London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis” project. This dataset provides a window into the socio-economic and health conditions of 18th-century.</p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Google fonts are open source and without cost.
-        
-        <a href="https://developers.google.com/fonts/faq?hl=en" target="_blank"> Read more here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>Use the app below to check out the fonts you will be able to access after completing this lesson:</p>
-
-<p><br /></p>
-
-<iframe src="https://brunoponne.shinyapps.io/ggFontPicker-master/" width="100%" height="700px" style="border:none;">
-</iframe>
-
-<p><br /></p>
-
-<p>If you are interested in how this Shiny App was coded, please, check this <a href="https://github.com/bruno-ponne/ggFontPicker">GitHub repository</a>.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="1-data-source">1. Data source</h2>
-
-<p>The data used in this tutorial consists of a catalogue of historical documents organized by <a href="https://sharonhoward.org/index.html">Sharon Howard</a>. These documents detail an extensive range of Westminster inquests conducted between 1760 and 1799. They document investigations into deaths under circumstances that were sudden, unexplained, or suspicious.</p>
-
-<p><br /></p>
-
-<p>The data is derived from a larger project, <a href="https://www.londonlives.org/">London Lives 1690-1800: Crime, Poverty and Social Policy in the Metropolis</a>, a rich resource shedding light on the lives of ordinary Londoners during this era. <a href="https://github.com/sharonhoward/ll-coroners">The dataset</a> we explore comprises 2,894 inquest records, each containing detailed information such as the dates of the inquests, names of the deceased, the verdicts rendered, and the causes of death. Sharon Howard’s contribution in organizing these records offers an invaluable opportunity to study the social and legal intricacies of historic London.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-how-to-load-a-tsv-file-in-r">2. How to load a tsv file in R?</h2>
-
-<p>TSV stands for ‘Tab-Separated Values,’ a textual format used to store tabular data. In this lesson, <a href="https://github.com/sharonhoward/ll-coroners/blob/master/coroners_inquests/wa_coroners_inquests_v1-1.tsv">our data</a> is stored in TSV format. To load it, we use the <code class="language-plaintext highlighter-rouge">read_tsv</code> function from the <code class="language-plaintext highlighter-rouge">readr</code> package. After loading the data, we need to eliminate observations where the verdict is undefined.</p>
-
-<p><br /></p>
-
-<p>Furthermore, the original data categorizes three types of suicide: ‘suicide (delirious)’, ‘suicide (felo de se)’, and ‘suicide (insane)’. However, for our purposes, we will classify all these as simply ‘suicide’. The code below execute these steps. Note that we use <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">mutate</code> and <code class="language-plaintext highlighter-rouge">recode</code> from the <code class="language-plaintext highlighter-rouge">dplyr</code> package. The <code class="language-plaintext highlighter-rouge">recode</code> function takes as argument the column to be recoded and each value associated with its new content. The packages needed for this lesson are called at the beginning of the code. Please install them with <code class="language-plaintext highlighter-rouge">install.packages()</code> in case you don’t have them.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-17-1">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">showtext</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="s2">"wa_coroners_inquests_v1-1.tsv"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df_prep</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">filter</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">mutate</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recode</span><span class="p">(</span><span class="n">verdict</span><span class="p">,</span><span class="w"> </span><span class="s2">"suicide (delirious)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
-                          </span><span class="s2">"suicide (felo de se)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
-                          </span><span class="s2">"suicide (insane)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">))</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-using-the-table-function-to-summarize-a-categorical-variable">3. Using the table function to summarize a categorical variable</h2>
-
-<p>An efficient method for counting the number of each type of verdict in the <code class="language-plaintext highlighter-rouge">verdict</code> variable is to use the <code class="language-plaintext highlighter-rouge">table</code> function. While this function is typically used to construct a contingency table for two variables, in this instance, it is utilized to tally the frequency of each category within the <code class="language-plaintext highlighter-rouge">verdict</code> variable. We then transform this table into a data frame to facilitate its use in <code class="language-plaintext highlighter-rouge">ggplot2</code>.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> A contingency table, or crosstab, presents the counts for the combination of two categorical variables.
-        
-        <a href="https://statisticsbyjim.com/basics/contingency-table/" target="_blank"> Read more here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-17-2">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">table_ver</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">df_prep</span><span class="o">$</span><span class="n">verdict</span><span class="p">))</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-change-fonts-in-ggplot2-with-showtext">4. Change fonts in ggplot2 with showtext</h2>
-
-<p>The <a href="https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html">showtext package</a>, developed by Yixuan Qiu, greatly simplifies the use of various font types in R plots. In this lesson, we’ll focus on using <code class="language-plaintext highlighter-rouge">showtext</code> to access Google Fonts, though the package offers more than just that capability.</p>
-
-<p><br /></p>
-
-<p>After loading the library, you can select your desired Google Font using the <code class="language-plaintext highlighter-rouge">font_add_google</code> function. The <code class="language-plaintext highlighter-rouge">showtext_auto</code> command then instructs R to employ <code class="language-plaintext highlighter-rouge">showtext</code> for text rendering. That’s it — next, simply specify your chosen font in the ggplot2 theme, as demonstrated in the code below. Since our <code class="language-plaintext highlighter-rouge">table_ver</code> data is already aggregated, we need to set stat = “identity” in the geom_bar layer. It’s important to note the use of <code class="language-plaintext highlighter-rouge">reorder</code> to arrange the bars from largest to smallest frequency. The figures illustrate the resulting plots, first with the ‘Montserrat’ font followed by the ‘Dancing Script’ font.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-17-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">font_add_google</span><span class="p">(</span><span class="s2">"Montserrat"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">showtext_auto</span><span class="p">()</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">table_ver</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">Var1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">Freq</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Freq</span><span class="p">),</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Jury's Veredicts"</span><span class="p">,</span><span class="w"> 
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">,</span><span class="w"> 
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Verdict"</span><span class="p">,</span><span class="w">
-       </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Westminster Coroners' Inquests 1760-1799"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="o">=</span><span class="s2">"Montserrat"</span><span class="p">))</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_17_01.png" alt="Bar plot showing verdicts using the Montserrat font" /></p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Even though I use "Dancing Script" (handwriting) in the plot below, it is generally recommended to use sans-serif fonts to plot your data. It makes your text more readable. In this tutorial I used "Dancing Script" to show you the options offered by Google Fonts. Lisa Charlotte Muth gives relevant advice on the use of fonts in plots in
-        
-        <a href="https://blog.datawrapper.de/fonts-for-data-visualization/" target="_blank"> this article.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_17_02.png" alt="Bar plot showing verdicts using the Dancing Script font" /></p>
-
-<p><br /></p>
-
-<p>The plot above suggests a relatively low number of homicides in these inquests. One could investigate, if indeed the number is so low or if maybe the inquest’s documentation suggest the possibility of homicides being wrongly classified as accidental.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-checking-the-causes-of-death">5. Checking the causes of death</h2>
-
-<p>In the plots above, we explored the verdict that resulted from the inquests, but the dataset is richer in details. Let us explore a little more?</p>
-
-<p><br /></p>
-
-<p>The variable <code class="language-plaintext highlighter-rouge">cause_of_death</code> tells us more details of the circumstances in which the person in each inquest died. To visualize the most frequent causes of death, we will start by elimintating <code class="language-plaintext highlighter-rouge">NA</code> observations in this variable. We can do that with <code class="language-plaintext highlighter-rouge">filter(!is.na())</code>, which filters only values that are not <code class="language-plaintext highlighter-rouge">NA</code>. Following that command, we group observations by <code class="language-plaintext highlighter-rouge">cause_of_death</code> and count the frequency of each cause with <code class="language-plaintext highlighter-rouge">tally</code>.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> tally() is equivalent to dplyr summarise(n = n()).
-        
-        <a href="https://dplyr.tidyverse.org/reference/count.html" target="_blank"> Read more here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>The last step is to filter only causes of death that occurred more than 15 times in our dataset. Please, decrease this number if you would like to see more causes. Finally, we can use the same ggplot2 code to plot the causes of death. Since the texts representing the causes of death are longer than the verdicts, we will plot the them in the y axis and the frequency in the x axis. The remaining code remains very similar.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-17-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-17-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cause</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df_prep</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
-  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">group_by</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
-  </span><span class="n">tally</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">filter</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="m">15</span><span class="p">)</span><span class="w">
-
-
-</span><span class="n">font_add_google</span><span class="p">(</span><span class="s2">"Montserrat"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">showtext_auto</span><span class="p">()</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">cause</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reorder</span><span class="p">(</span><span class="n">cause_of_death</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">),</span><span class="w"> 
-           </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">.5</span><span class="p">,</span><span class="w"> </span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">,</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Causes of death"</span><span class="p">,</span><span class="w">
-       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
-  </span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">10</span><span class="p">,</span><span class="w"> 
-                          </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Montserrat"</span><span class="p">))</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_17_03.png" alt="Bar plot showing causes of death" /></p>
-
-<p><br /></p>
-
-<p>It’s noteworthy that a significant number of the inquests pertained to cases of drowning or suicide. An intriguing avenue for further research would be to delve into the complete reports of these inquests. Such an investigation could shed light on the reasons behind the high incidence of drownings.</p>
-
-<p><br /></p>
-
-<p><strong>Please, feel free to leave any questions or concerns you might have in the comments below.</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="6-conclusions">6. Conclusions</h2>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>Using Google Fonts within ggplot2 not only transforms but significantly elevates the aesthetic appeal of our data visualizations;</li>
-  <li>Leveraging the showtext package simplifies incorporating diverse Google Fonts into R, enhancing our data representation capabilities;</li>
-  <li>Employing simple plots with historical data effectively generates insightful hypotheses, offering a deeper understanding of our past.;</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><category term="ggplot2" /><summary type="html"><![CDATA[Master the art of data visualization in R with our comprehensive guide on using Google Fonts in ggplot2. Learn to load, process historical datasets, and enhance your ggplot2 charts with custom fonts for more impactful and visually appealing data presentations.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_17.jpeg" /><media:content medium="image" url="http://localhost:4000/lesson_17.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn about the chi-square distribution in R, understand degrees of freedom through practical examples, and master hypothesis testing in historical contexts. Perfect for enthusiasts at the intersection of data science and history. Dive into statistical analysis and uncover patterns from 18th-century London inquests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_18.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_18.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
