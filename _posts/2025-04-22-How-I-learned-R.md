@@ -6,7 +6,7 @@ attributes:
   - e: Easy
   - e: R
   - e: 5 min
-tags: r statistics, digitalhumanities
+tags: r statistics digitalhumanities
 image: lesson_27.png
 abstract: Discover how I learned R programming
 objectives:
