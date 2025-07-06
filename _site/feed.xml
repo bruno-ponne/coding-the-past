@@ -1,4 +1,222 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-19T19:56:46+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">My Journey Learning R as a Humanities Undergrad</title><link href="http://localhost:4000/2025/04/22/How-I-learned-R.html" rel="alternate" type="text/html" title="My Journey Learning R as a Humanities Undergrad" /><published>2025-04-22T00:00:00+02:00</published><updated>2025-04-22T00:00:00+02:00</updated><id>http://localhost:4000/2025/04/22/How-I-learned-R</id><content type="html" xml:base="http://localhost:4000/2025/04/22/How-I-learned-R.html"><![CDATA[<p><br /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-07-06T07:47:51+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">From R to Tableau - Leverage Both Tools for Effective Dashboards</title><link href="http://localhost:4000/2025/07/06/From-R-to-Tableau.html" rel="alternate" type="text/html" title="From R to Tableau - Leverage Both Tools for Effective Dashboards" /><published>2025-07-06T00:00:00+02:00</published><updated>2025-07-05T00:00:00+02:00</updated><id>http://localhost:4000/2025/07/06/From-R-to-Tableau</id><content type="html" xml:base="http://localhost:4000/2025/07/06/From-R-to-Tableau.html"><![CDATA[<p><br /></p>
+
+<p><em>When the violence causes silence, we must be mistaken.</em></p>
+
+<p>Zombie, The Cranberries (1994)</p>
+
+<p><br /></p>
+
+<p>Data analysis can be more than quarterly KPIs or complicated statistical models — it can help us remember and critically retell our past. While Latin America is often viewed as a peaceful region, the second half of the 20th century saw several brutal authoritarian regimes. <a href="https://en.wikipedia.org/wiki/Military_dictatorship_of_Chile">Chile’s dictatorship (1973‑1990)</a> was among the most violent.</p>
+
+<p><br /></p>
+
+<p>In this post, I show how I used an R package to obtain data about the victims of Chile’s dictatorship and visualize it in Tableau Public. You’ll also discover the strengths and limitations of each tool for dashboard creation.</p>
+
+<p><br /></p>
+
+<h2 id="1-the-pinochet-package">1. The pinochet Package</h2>
+
+<p>Developed by <a href="https://danilofreire.github.io/dist/index.html">Professor Danilo Freire</a> and colleagues, <a href="https://cran.r-project.org/web/packages/pinochet/vignettes/pinochet.html">the <code class="language-plaintext highlighter-rouge">pinochet</code> R package</a> provides clean and tidy data on victims of the Chilean dictatorship. Each row in the dataset represents one individual.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-28-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-28-1">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pinochet"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">pinochet</span><span class="p">)</span><span class="w">
+
+</span><span class="n">data</span><span class="p">(</span><span class="n">pinochet</span><span class="p">)</span><span class="w">  </span><span class="c1"># loads the data in a data frame called pinochet</span><span class="w">
+
+</span><span class="n">str</span><span class="p">(</span><span class="n">pinochet</span><span class="p">)</span><span class="w">   </span><span class="c1"># explores the structure of the data frame</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>R excels at complex tasks — such as causal inference and statistical analyses — and it is equally powerful (and free) for data exploration and interactivity. With <a href="https://shiny.posit.co/">Shiny</a>, you can build attractive dashboards entirely in R. However, mastering Shiny and producing polished interactive visuals with libraries like <a href="https://plotly.com/">Plotly</a> can take significant time and practice.</p>
+
+<p><br /></p>
+
+<p>In this context, <a href="https://public.tableau.com/app/discover">Tableau Public</a> is an appealing option. It is the free edition of Tableau, designed for exploring public datasets and building engaging dashboards, while you learn. Tableau is a drag-and-drop tool that lets you create visualizations without writing code. As noted earlier, it is less versatile than R, but it is also easier to learn and use. In just a few hours, you can build beautiful exploratory dashboards using drag-and-drop alone. That’s why I chose Tableau to visualize this data. To bring the dataset into Tableau, I saved it as an Excel (.xlsx) file.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-28-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-28-2">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">writexl</span><span class="p">)</span><span class="w">
+
+</span><span class="n">write_xlsx</span><span class="p">(</span><span class="n">pinochet</span><span class="p">,</span><span class="w"> </span><span class="s2">"pinochet.xlsx"</span><span class="p">)</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<h2 id="2-tableau-public">2. Tableau Public</h2>
+
+<p><a href="https://public.tableau.com/app/discover">Tableau Public</a> is a free, public platform for exploring, creating, and sharing data visualizations. It offers a more limited version of the well-known data visualization tool, Tableau.</p>
+
+<p><br /></p>
+
+<p>Tableau, like <a href="https://ggplot2-book.org/">ggplot2</a>, has its roots in the <a href="https://data.europa.eu/apps/data-visualisation-guide/foundation-of-the-grammar-of-graphics">Grammar of Graphics</a>, a framework for understanding and creating visualizations. Within this framework, a plot is built by mapping data variables to visual aesthetics. In Tableau, this mapping is accomplished through drag-and-drop: you literally place fields onto the X-axis, Y-axis, Color shelf, and so on.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_01.jpg" alt="Mapping variables to visual elements of a plot in Tableau. " /></p>
+
+<p><br /></p>
+
+<p>In contrast, <code class="language-plaintext highlighter-rouge">ggplot2</code> mappings happen through code:</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-28-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-28-3">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gender</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">()</span></code></pre></figure>
+
+
+</div>
+
+<p><br /></p>
+
+<p>You can download Tableau Public Desktop in the official Tableau webpage. When you open it, you can easily load the Excel file you saved from R by selecting a connection to Microsoft Excel or Text File (if you prefer to save it as a .csv)</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_02.jpg" alt="Connecting to data in Tableau Public." /></p>
+
+<p><br /></p>
+
+<p>Please, check out this <a href="https://data.europa.eu/apps/data-visualisation-guide/grammar-of-graphics-in-practice-tableau#tableau-online">tutorial</a> to learn more about Tableau Public. You can also download my <a href="https://public.tableau.com/views/DitaduraChilena/Dashboard1?:language=en-US&amp;:sid=&amp;:redirect=auth&amp;:display_count=n&amp;:origin=viz_share_link">Tableau workbook</a>, that contains the dashboard, and check out how I created the full dashboard. Don’t forget to leave a star if you enjoy it! 🙂</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_03.gif" alt="The Dashboard Overview" /></p>
+
+<p><br /></p>
+
+<h2 id="3-the-dashboard-and-key-insights">3. The Dashboard and Key Insights</h2>
+
+<h3 id="31-the-dashboard">3.1 The Dashboard</h3>
+
+<p>The dashboard is organized into four interactive sections:</p>
+
+<p><br /></p>
+
+<p><strong>1. Tough Years</strong><br />
+  A bar chart of victims per year.<br />
+  <em>Tip: Scrub over the bars to filter by year.</em></p>
+
+<p><br /></p>
+
+<p><strong>2. Occupation &amp; Place of Disappearance</strong><br />
+  Treemap and map views.<br />
+  <em>Tip: Click an occupation to highlight where those victims disappeared.</em></p>
+
+<p><br /></p>
+
+<p><strong>3. An Exploratory Memorial</strong><br />
+  One star per confirmed victim.<br />
+  <em>Tip: Hover to read personal details.</em></p>
+
+<p><br /></p>
+
+<p><strong>4. Age &amp; Gender</strong><br />
+  Histogram split by gender.<br />
+  <em>Tip: Hover bars to see counts; toggle genders in the legend.</em></p>
+
+<p><br /></p>
+
+<h3 id="32-key-insights">3.2 Key Insights</h3>
+
+<p>Here are some insights from the dashboard:</p>
+
+<p><br /></p>
+
+<p><strong>1973 was the deadliest year</strong>, with ~1,230 victims during the coup.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_04.png" alt="Victims over the years." /></p>
+
+<p><br /></p>
+
+<p><strong>Blue-collar workers</strong> made up almost half the victims, revealing a class dimension of state violence.</p>
+
+<p><br /></p>
+
+<p><strong>Students</strong> (university and school) accounted for nearly 13% of the disappeared — a stark cost of activism.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_05.png" alt="Victims by Occupation. " /></p>
+
+<p><br /></p>
+
+<p><strong>96% of the victims were male</strong>, but the women’s stories reveal deep family traumas.</p>
+
+<p><br /></p>
+
+<p><strong>Most victims were between 20–30 years old</strong> — showing how youth were disproportionately targeted.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_06.png" alt="Victims by age and gender. " /></p>
+
+<p><br /></p>
+
+<p><strong>No place was safe</strong> — from Santiago to remote mining towns, disappearances happened everywhere.</p>
+
+<p><br /></p>
+
+<p><img src="/assets/images/lesson_28_07.png" alt="Map showing where victims disappeared. " /></p>
+
+<p><br /></p>
+
+<h2 id="4-conclusions-and-limitations">4. Conclusions and Limitations</h2>
+
+<p>Tableau is a user-friendly tool for creating visual dashboards — especially good for quick exploration and sharing. It supports traditional charts and maps, and its drag‑and‑drop interface is great for beginners.</p>
+
+<p><br /></p>
+
+<p>However, it has limitations. It lacks advanced statistical tools and doesn’t support robust preprocessing or modeling tasks. That’s where R truly shines.</p>
+
+<p><br /></p>
+
+<p>Used together, R and Tableau offer a powerful combo for data-driven storytelling.</p>
+
+<p><br /></p>
+
+<p><strong>Data Source:</strong> Freire, D., Mingardi, L., &amp; McDonnell, R. (2019). <em>pinochet: Data About the Victims of the Pinochet Regime, 1973–1990</em></p>
+
+<p><br /></p>
+
+<p><a href="https://public.tableau.com/views/DitaduraChilena/Dashboard1?:language=en-US&amp;:sid=&amp;:redirect=auth&amp;:display_count=n&amp;:origin=viz_share_link"><strong>Link to Tableau Public Dashboard</strong></a></p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<p>What other historical datasets would you like to see visualized? Share your ideas in the comments below!</p>]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="tableau" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Tableau vs R - Explore how to use the pinochet R package and Tableau Public to visualize data about the Chilean dictatorship. Discover the strengths and limitations of R and Tableau for building dashboards.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_28.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_28.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">My Journey Learning R as a Humanities Undergrad</title><link href="http://localhost:4000/2025/04/22/How-I-learned-R.html" rel="alternate" type="text/html" title="My Journey Learning R as a Humanities Undergrad" /><published>2025-04-22T00:00:00+02:00</published><updated>2025-04-22T00:00:00+02:00</updated><id>http://localhost:4000/2025/04/22/How-I-learned-R</id><content type="html" xml:base="http://localhost:4000/2025/04/22/How-I-learned-R.html"><![CDATA[<p><br /></p>
 
 <h2 id="1-a-passion-for-the-past">1. A Passion for the Past</h2>
 
@@ -2272,332 +2490,4 @@ At this point, if you check the results, you will note that the function deliver
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="statistics" /><category term="sql" /><summary type="html"><![CDATA[Learn to integrate Python with SQL for art data analysis using pd.read_sql_query in this insightful lesson on managing large datasets efficiently.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_19.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_19.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Chi-square distribution and test in R</title><link href="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html" rel="alternate" type="text/html" title="Chi-square distribution and test in R" /><published>2023-12-04T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><id>http://localhost:4000/2023/12/04/Chi-square-distribution-in-R</id><content type="html" xml:base="http://localhost:4000/2023/12/04/Chi-square-distribution-in-R.html"><![CDATA[<p><br /></p>
-
-<p><strong>Greetings, humanists, social and data scientists!</strong></p>
-
-<p><br /></p>
-
-<p>Was there an association or relationship between gender and the verdicts in investigations in 18th-century London? If an inquest concerned a man, did this fact influence the final verdict of the investigation?</p>
-
-<p><br /></p>
-
-<p>In this lesson we will answer these questions employing a chi-square test and the data explored in the lesson <a href="/2023/11/15/Change-Fonts-in-ggplot.html">‘How to Change Fonts in ggplot2 with Google Fonts’</a>. You will learn what degrees of freedom are and how to harness the power of the chi-square distribution to infer relationships in historical London.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="1-data-source">1. Data source</h2>
-
-<p>The <a href="https://github.com/sharonhoward/ll-coroners">dataset</a> used in this lesson is made available by <a href="https://sharonhoward.org/index.html">Sharon Howard</a>. This dataset documents a range of Westminster inquests conducted between 1760 and 1799. Inquests were mostly investigations into deaths under circumstances that were sudden, unexplained, or suspicious. Please, check the lesson <a href="/2023/11/15/Change-Fonts-in-ggplot.html">‘How to Change Fonts in ggplot2 with Google Fonts’</a> for more information.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-why-is-the-chi-square-distribution-useful-for-us">2. Why is the chi-square distribution useful for us?</h2>
-
-<p>The chi-square distribution is useful because it is the basis for testing the independence of two categorical variables. When we perform this test, the statistic we calculate follows a chi-square distribution. This enables us to determine the probability of observing a specific test statistic in our analytical sample under a certain hypothesis.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> A test statistic is a summary of your sample, reducing your dataset to a single value that enables hypothesis testing.
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>It’s not essential to know the function below, but understanding that the probability density function of a chi-square distribution follows this formula is beneficial. In the following steps we will write R code to generate a chi-square curve with <em>n</em> degrees of freedom and now you know that actually what R will compute is the function below with the <em>n</em> and <em>x</em> interval that you pass to the function. Note that f(0) = 0 and that  \(\Gamma\) is the <a href="https://en.wikipedia.org/wiki/Gamma_function">gamma function</a>.</p>
-
-<p><br /></p>
-
-\[f(x) = \frac{1}{2^{\frac{n}{2}} \Gamma(\frac{n}{2})}x^{\frac{n}{2}-1}e^{-\frac{x}{2}}\]
-
-<p><br /></p>
-
-<p>The area under this function gives us the probability of an interval of chi-squares happening. Fortunately, R has a function <code class="language-plaintext highlighter-rouge">dchisq(x, df)</code> that provides the chi-square density function. In the code below, we plot three chi-square distributions with 4, 8 and 16 degrees of freedom:</p>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>to make it easier to plot the curves with color depending on the degrees of freedom, we create a data frame with three variables: x (from 0 to 50 in 0.1 steps); y (the result of the function f(n,x) above) and df (n degrees of freedom);</li>
-  <li>in R, the chi-square density function is calculated with <code class="language-plaintext highlighter-rouge">dchisq</code>;</li>
-  <li>color aesthetic is mapped to df (degrees of freedom) and to make sure ggplot uses discrete colors we transform degrees of freedom into a factor;</li>
-  <li><code class="language-plaintext highlighter-rouge">scale_color_discrete</code> is used to give a name to the legend and <code class="language-plaintext highlighter-rouge">theme_coding_the_past()</code> is our theme available here: <a href="/2023/01/24/Historical-Weather-Data.html">‘Climate data visualization with ggplot2’</a>.</li>
-</ul>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-18-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-18-1">
-
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-
-
-</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
-
-</span><span class="n">y1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dchisq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
-</span><span class="n">y2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dchisq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">)</span><span class="w">
-</span><span class="n">y3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dchisq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
-</span><span class="n">df2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y2</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">)</span><span class="w">
-</span><span class="n">df3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y3</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rbind</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="w"> </span><span class="n">df2</span><span class="p">,</span><span class="w"> </span><span class="n">df3</span><span class="p">)</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.factor</span><span class="p">(</span><span class="n">df</span><span class="p">)))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">scale_color_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"DF"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Density Function"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Chi-square"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_18_01.png" alt="Chi-square distribution curves with different degrees of freedom" /></p>
-
-<p><br /></p>
-
-<p>Note that as the degrees of freedom increase, the chi-square distribution increasingly resembles a normal distribution. With fewer degrees of freedom, the distribution exhibits more asymmetry.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-degrees-of-freedom-in-a-chi-square-test">3. Degrees of freedom in a chi-square test</h2>
-
-<p>As the plot above demonstrates, degrees of freedom are crucial as they determine the shape of our chi-square distribution. But what exactly are degrees of freedom?</p>
-
-<p><br /></p>
-
-<p>Essentially, they represent the number of independent pieces of information allowed to vary in a system. For instance, in a contingency table, the degrees of freedom refer to the number of cells that can be varied, considering the total values observed in our sample. Is this concept a bit complex? I have created a video to illustrate this concept more clearly.</p>
-
-<p><br /></p>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HWYepBHFDwk?si=rhmShSTV22EaHg2S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
-
-<p><br /></p>
-
-<p>In a contingency table, degrees of freedom (DF) are calculated with the expression below, where <em>nrows</em> and <em>ncolumns</em> are the numbers of rows and columns, respectively.</p>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> A contingency table, or crosstab, presents the counts for the combination of two categorical variables.
-        
-        <a href="https://statisticsbyjim.com/basics/contingency-table/" target="_blank"> Read more here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-\[DF = (nrows - 1)(ncolumns - 1)\]
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-how-to-estimate-a-contingency-table-under-the-null-hypothesis">4. How to estimate a contingency table under the null hypothesis?</h2>
-
-<p>Now that you’re familiar with the chi-square distribution and understand how to calculate degrees of freedom for a chi-square test, let’s explore how to derive our test statistic. Our aim is to determine if there’s an association between two categorical variables. Therefore, our alternative hypothesis (<em>H1</em>) posits that these two variables are dependent. Conversely, the <em>null</em> hypothesis (<em>H0</em>) suggests that the variables are independent.</p>
-
-<p><br /></p>
-
-<p>In our case, we’re investigating the potential association between gender and verdict variables. To examine our contingency table, please run the following code. For an in-depth explanation of what this code accomplishes, refer to the lesson <a href="/2023/11/15/Change-Fonts-in-ggplot.html">‘How to Change Fonts in ggplot2 with Google Fonts’</a></p>
-
-<p><br /></p>
-
-<p><em>H0</em>: There is no association between gender and verdict.</p>
-
-<p><em>H1</em>: There is association between gender and verdict.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-18-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-18-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">showtext</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="s2">"wa_coroners_inquests_v1-1.tsv"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df_prep</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">filter</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
-  </span><span class="n">mutate</span><span class="p">(</span><span class="n">verdict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recode</span><span class="p">(</span><span class="n">verdict</span><span class="p">,</span><span class="w"> </span><span class="s2">"suicide (delirious)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
-                          </span><span class="s2">"suicide (felo de se)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">,</span><span class="w">
-                          </span><span class="s2">"suicide (insane)"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"suicide"</span><span class="p">))</span><span class="w">
-
-</span><span class="n">table_ver</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">df_prep</span><span class="o">$</span><span class="n">verdict</span><span class="p">))</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_18_02.png" alt="Contingency table of gender versus verdict" /></p>
-
-<p><br /></p>
-
-<p><br /></p>
-
-<p>What would the above table appear like if the null hypothesis were true? In other words, if gender and verdict were truly independent, how would we calculate the expected values for each cell in that table? It’s important to remember that when events are independent, their probabilities are not influenced by each other. This principle is key to calculating the expected values in such a scenario.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_18_03.png" alt="Probability of two independent events happening" /></p>
-
-<p><br /></p>
-
-<p>For instance, if we assume that the cause of death and gender are independent, we can calculate the probability of observing a case where a woman had an accidental death by multiplying the probability of the individual being a woman by the probability of an accidental death occurring.  Once you’ve determined this probability, you can then multiply it by the total number of individuals in the sample to estimate the expected count for that specific cell in the table. This procedure is shown below.</p>
-
-<p><br /></p>
-
-<p><img src="/assets/images/lesson_18_04.png" alt="Expected value calculation example" /></p>
-
-<p><br /></p>
-
-<p>The calculation for the other cells in the table follows the same methodology. It’s worth noting that many textbooks present the following formula to calculate the expected values, which is based on the logic we’ve just discussed. In this formula, <em>RT</em> stands for row total; <em>CT</em> for column total; and <em>TT</em> for table total. You do not have to know this formula if you understood the underlying logic we explained earlier.</p>
-
-<p><br /></p>
-
-\[E = \frac{RT \times CT}{TT}\]
-
-<p><br /></p>
-
-<p>After you calculate all the expected values, it is time to calculate our test statistic.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="5-calculating-chi-square-in-r">5. Calculating chi-square in R</h2>
-
-<p>With both the observed and expected tables at hand, calculating the chi-square statistic becomes a straightforward process. For each cell, subtract the expected value (E) from the observed value (O), square this difference, and then divide by the expected value. Once you complete this calculation for every cell in the table, sum up these individual results. This sum is your chi-square statistic!</p>
-
-<p><br /></p>
-
-<p>The next step is to determine how unusual this statistic is within the context of the chi-square distribution. It’s important to remember that this test statistic operates under the assumption that the null hypothesis is true. Therefore, the chi-square distribution will indicate the probability of encountering a chi-square statistic as large as, or larger than, the one you’ve calculated, under the assumption of the <em>null</em> hypothesis.</p>
-
-<p><br /></p>
-
-\[\chi^{2} = \sum \frac{(O-E)^{2}}{E}\]
-
-<p>If you calculate it, you should find something around 59.3. We can plot a chi-square distribution with 4 degrees of freedom and estimate visually the probability of it. The code below does that and highlights the test statistic with a white dashed line. It is clear that a test statistic as large or larger than the one we obtained is extremely unlikely under the <em>null</em> hypothesis.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-18-3')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-18-3">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">70</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
-
-</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dchisq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
-
-</span><span class="n">df_4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
-
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_4</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_line</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#C84848"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">59.3</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dashed"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">labs</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Density Function"</span><span class="p">,</span><span class="w">
-       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Chi-squared"</span><span class="p">)</span><span class="o">+</span><span class="w">
-  </span><span class="n">theme_coding_the_past</span><span class="p">()</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_18_05.png" alt="Test statistic highlighted in the chi square distribution" /></p>
-
-<p><br /></p>
-
-<p>The good news is that the <code class="language-plaintext highlighter-rouge">chisq.test</code> function does all this work for us! In only one line of code you perform the test! With the code below you also get a numerical p-value to evaluate your hypotheses.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-18-4')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-
-<div id="code-18-4">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">chi_test</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">chisq.test</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">df_prep</span><span class="o">$</span><span class="n">verdict</span><span class="p">,</span><span class="w"> </span><span class="n">df_prep</span><span class="o">$</span><span class="n">gender</span><span class="p">))</span><span class="w">
-
-</span><span class="n">chi_test</span><span class="o">$</span><span class="n">statistic</span><span class="w">
-</span><span class="n">chi_test</span><span class="o">$</span><span class="n">p.value</span><span class="w">
-</span><span class="n">chi_test</span><span class="o">$</span><span class="n">expected</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>The result of <code class="language-plaintext highlighter-rouge">chisq.test</code> is stored in a list that I called <code class="language-plaintext highlighter-rouge">chi_test</code>. This list has several elements. Some of them are the chi-square statistic, the p-value and even the expected contingency table that we estimated above.</p>
-
-<p><br /></p>
-
-<p>Now we can confirm analytically what we showed graphically above. The p-value tells us that the probability of observing a chi-square equal or larger than 59.3 is \(4.13 \times 10^{-12}\) under the <em>null</em> hypothesis. Our data is extremely unlikely under the <em>null</em> and therefore we can reject it. We can then accept the hypothesis that indeed gender and verdict are associated. Nevertheless, keep in mind that association does not mean causation.</p>
-
-<p><br /></p>
-
-<p><strong>These findings offer valuable insights into the distinct experiences of men and women in 18th-century London inquests. The results of our chi-square test suggest a relationship between the gender of the deceased and the outcome of an investigation. To further enrich our understanding of this statistical finding, a qualitative analysis could provide deeper context and detail. Your comments and questions are highly welcomed, so please feel free to share your thoughts and inquiries below!</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="6-conclusions">6. Conclusions</h2>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>You can easily perform a chi-square test in R with the <code class="language-plaintext highlighter-rouge">chisq.test</code> function;</li>
-  <li>Degrees of freedom play a crucial role in shaping the chi-square distribution, influencing the accuracy and reliability of our statistical inferences;</li>
-  <li>The chi-square test reveals a significant association between gender and the verdicts of 18th-century London inquests, suggesting gender-based differences in investigation outcomes;</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="statistics" /><category term="ggplot2" /><summary type="html"><![CDATA[Learn about the chi-square distribution in R, understand degrees of freedom through practical examples, and master hypothesis testing in historical contexts. Perfect for enthusiasts at the intersection of data science and history. Dive into statistical analysis and uncover patterns from 18th-century London inquests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_18.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_18.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="python" /><category term="statistics" /><category term="sql" /><summary type="html"><![CDATA[Learn to integrate Python with SQL for art data analysis using pd.read_sql_query in this insightful lesson on managing large datasets efficiently.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_19.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_19.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

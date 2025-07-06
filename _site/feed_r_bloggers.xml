@@ -5,9 +5,245 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 19 May 2025 19:56:46 +0200</pubDate>
-        <lastBuildDate>Mon, 19 May 2025 19:56:46 +0200</lastBuildDate>
+        <pubDate>Sun, 06 Jul 2025 07:47:51 +0200</pubDate>
+        <lastBuildDate>Sun, 06 Jul 2025 07:47:51 +0200</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
+        
+            <item>
+                <title>From R to Tableau - Leverage Both Tools for Effective Dashboards</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;When the violence causes silence, we must be mistaken.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Zombie, The Cranberries (1994)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Data analysis can be more than quarterly KPIs or complicated statistical models — it can help us remember and critically retell our past. While Latin America is often viewed as a peaceful region, the second half of the 20th century saw several brutal authoritarian regimes. &lt;a href=&quot;https://en.wikipedia.org/wiki/Military_dictatorship_of_Chile&quot;&gt;Chile’s dictatorship (1973‑1990)&lt;/a&gt; was among the most violent.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this post, I show how I used an R package to obtain data about the victims of Chile’s dictatorship and visualize it in Tableau Public. You’ll also discover the strengths and limitations of each tool for dashboard creation.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-the-pinochet-package&quot;&gt;1. The pinochet Package&lt;/h2&gt;
+
+&lt;p&gt;Developed by &lt;a href=&quot;https://danilofreire.github.io/dist/index.html&quot;&gt;Professor Danilo Freire&lt;/a&gt; and colleagues, &lt;a href=&quot;https://cran.r-project.org/web/packages/pinochet/vignettes/pinochet.html&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pinochet&lt;/code&gt; R package&lt;/a&gt; provides clean and tidy data on victims of the Chilean dictatorship. Each row in the dataset represents one individual.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-28-1&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-28-1&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;install.packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;pinochet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pinochet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pinochet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# loads the data in a data frame called pinochet&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pinochet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# explores the structure of the data frame&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;R excels at complex tasks — such as causal inference and statistical analyses — and it is equally powerful (and free) for data exploration and interactivity. With &lt;a href=&quot;https://shiny.posit.co/&quot;&gt;Shiny&lt;/a&gt;, you can build attractive dashboards entirely in R. However, mastering Shiny and producing polished interactive visuals with libraries like &lt;a href=&quot;https://plotly.com/&quot;&gt;Plotly&lt;/a&gt; can take significant time and practice.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this context, &lt;a href=&quot;https://public.tableau.com/app/discover&quot;&gt;Tableau Public&lt;/a&gt; is an appealing option. It is the free edition of Tableau, designed for exploring public datasets and building engaging dashboards, while you learn. Tableau is a drag-and-drop tool that lets you create visualizations without writing code. As noted earlier, it is less versatile than R, but it is also easier to learn and use. In just a few hours, you can build beautiful exploratory dashboards using drag-and-drop alone. That’s why I chose Tableau to visualize this data. To bring the dataset into Tableau, I saved it as an Excel (.xlsx) file.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-28-2&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-28-2&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;writexl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write_xlsx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pinochet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;pinochet.xlsx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-tableau-public&quot;&gt;2. Tableau Public&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/app/discover&quot;&gt;Tableau Public&lt;/a&gt; is a free, public platform for exploring, creating, and sharing data visualizations. It offers a more limited version of the well-known data visualization tool, Tableau.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tableau, like &lt;a href=&quot;https://ggplot2-book.org/&quot;&gt;ggplot2&lt;/a&gt;, has its roots in the &lt;a href=&quot;https://data.europa.eu/apps/data-visualisation-guide/foundation-of-the-grammar-of-graphics&quot;&gt;Grammar of Graphics&lt;/a&gt;, a framework for understanding and creating visualizations. Within this framework, a plot is built by mapping data variables to visual aesthetics. In Tableau, this mapping is accomplished through drag-and-drop: you literally place fields onto the X-axis, Y-axis, Color shelf, and so on.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_01.jpg&quot; alt=&quot;Mapping variables to visual elements of a plot in Tableau. &quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In contrast, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt; mappings happen through code:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-28-3&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-28-3&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;ggplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geom_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can download Tableau Public Desktop in the official Tableau webpage. When you open it, you can easily load the Excel file you saved from R by selecting a connection to Microsoft Excel or Text File (if you prefer to save it as a .csv)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_02.jpg&quot; alt=&quot;Connecting to data in Tableau Public.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Please, check out this &lt;a href=&quot;https://data.europa.eu/apps/data-visualisation-guide/grammar-of-graphics-in-practice-tableau#tableau-online&quot;&gt;tutorial&lt;/a&gt; to learn more about Tableau Public. You can also download my &lt;a href=&quot;https://public.tableau.com/views/DitaduraChilena/Dashboard1?:language=en-US&amp;amp;:sid=&amp;amp;:redirect=auth&amp;amp;:display_count=n&amp;amp;:origin=viz_share_link&quot;&gt;Tableau workbook&lt;/a&gt;, that contains the dashboard, and check out how I created the full dashboard. Don’t forget to leave a star if you enjoy it! 🙂&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_03.gif&quot; alt=&quot;The Dashboard Overview&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-the-dashboard-and-key-insights&quot;&gt;3. The Dashboard and Key Insights&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-the-dashboard&quot;&gt;3.1 The Dashboard&lt;/h3&gt;
+
+&lt;p&gt;The dashboard is organized into four interactive sections:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Tough Years&lt;/strong&gt;&lt;br /&gt;
+  A bar chart of victims per year.&lt;br /&gt;
+  &lt;em&gt;Tip: Scrub over the bars to filter by year.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Occupation &amp;amp; Place of Disappearance&lt;/strong&gt;&lt;br /&gt;
+  Treemap and map views.&lt;br /&gt;
+  &lt;em&gt;Tip: Click an occupation to highlight where those victims disappeared.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. An Exploratory Memorial&lt;/strong&gt;&lt;br /&gt;
+  One star per confirmed victim.&lt;br /&gt;
+  &lt;em&gt;Tip: Hover to read personal details.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. Age &amp;amp; Gender&lt;/strong&gt;&lt;br /&gt;
+  Histogram split by gender.&lt;br /&gt;
+  &lt;em&gt;Tip: Hover bars to see counts; toggle genders in the legend.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;32-key-insights&quot;&gt;3.2 Key Insights&lt;/h3&gt;
+
+&lt;p&gt;Here are some insights from the dashboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1973 was the deadliest year&lt;/strong&gt;, with ~1,230 victims during the coup.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_04.png&quot; alt=&quot;Victims over the years.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Blue-collar workers&lt;/strong&gt; made up almost half the victims, revealing a class dimension of state violence.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Students&lt;/strong&gt; (university and school) accounted for nearly 13% of the disappeared — a stark cost of activism.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_05.png&quot; alt=&quot;Victims by Occupation. &quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;96% of the victims were male&lt;/strong&gt;, but the women’s stories reveal deep family traumas.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Most victims were between 20–30 years old&lt;/strong&gt; — showing how youth were disproportionately targeted.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_06.png&quot; alt=&quot;Victims by age and gender. &quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;No place was safe&lt;/strong&gt; — from Santiago to remote mining towns, disappearances happened everywhere.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lesson_28_07.png&quot; alt=&quot;Map showing where victims disappeared. &quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-conclusions-and-limitations&quot;&gt;4. Conclusions and Limitations&lt;/h2&gt;
+
+&lt;p&gt;Tableau is a user-friendly tool for creating visual dashboards — especially good for quick exploration and sharing. It supports traditional charts and maps, and its drag‑and‑drop interface is great for beginners.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;However, it has limitations. It lacks advanced statistical tools and doesn’t support robust preprocessing or modeling tasks. That’s where R truly shines.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Used together, R and Tableau offer a powerful combo for data-driven storytelling.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Data Source:&lt;/strong&gt; Freire, D., Mingardi, L., &amp;amp; McDonnell, R. (2019). &lt;em&gt;pinochet: Data About the Victims of the Pinochet Regime, 1973–1990&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://public.tableau.com/views/DitaduraChilena/Dashboard1?:language=en-US&amp;amp;:sid=&amp;amp;:redirect=auth&amp;amp;:display_count=n&amp;amp;:origin=viz_share_link&quot;&gt;&lt;strong&gt;Link to Tableau Public Dashboard&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;What other historical datasets would you like to see visualized? Share your ideas in the comments below!&lt;/p&gt;
+</description>
+                <pubDate>Sun, 06 Jul 2025 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/2025/07/06/From-R-to-Tableau.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2025/07/06/From-R-to-Tableau.html</guid>
+                
+                <category>r</category>
+                
+                <category>tableau</category>
+                
+                <category>digitalhumanities</category>
+                
+                
+            </item>
         
             <item>
                 <title>My Journey Learning R as a Humanities Undergrad</title>
