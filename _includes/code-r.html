@@ -1,0 +1,11 @@
+<br>
+<div class="code-block">
+  {% include copy.html content=include.id %}
+
+  <div id="{{ include.id }}">
+    {% highlight r %}
+{{ include.code }}
+    {% endhighlight %}
+  </div>
+</div>
+<br>

@@ -1,0 +1,31 @@
+---
+layout: default_minimal
+---
+
+<div class="post-body-minimal">
+    <h1 id = "post-main-title">{{ page.title }}</h1>
+    <p id = "author">{{ page.date | date_to_string }}</p>
+    <hr>
+    <br>
+
+    {{ content }}
+    
+</div>
+
+
+<div class = "comments-style">
+    {% include comment-section.html url=page.url %}
+</div>
+<div class = "share">
+    {% include share-buttons.html %}
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
