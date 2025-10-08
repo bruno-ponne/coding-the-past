@@ -5,8 +5,8 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 21 Sep 2025 16:43:28 +0200</pubDate>
-        <lastBuildDate>Sun, 21 Sep 2025 16:43:28 +0200</lastBuildDate>
+        <pubDate>Wed, 08 Oct 2025 20:53:13 +0200</pubDate>
+        <lastBuildDate>Wed, 08 Oct 2025 20:53:13 +0200</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
         
             <item>
@@ -753,7 +753,7 @@ My thesis is also an example of how you can learn R by working on a project with
             </item>
         
             <item>
-                <title>Understand geom_bar and its statistical transformations</title>
+                <title>geom_bar() in ggplot2 Explained - When to Use stat=&apos;count&apos; vs stat=&apos;identity&apos;</title>
 				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
                 <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
