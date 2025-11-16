@@ -51,6 +51,12 @@ If you do not want to have your activities monitored by Google Analytics, please
 
 <br>
 
+**Adsense**
+
+**Coding the Past** uses Google AdSense to collect and process data on our behalf.Google AdSense may use cookies to collect information about your use of our website. You can read Google’s privacy policy here: https://policies.google.com/privacy. You can also manage your preferences for personalized advertising by visiting the Google Ad Settings page here: https://adssettings.google.com/authenticated.
+
+<br>
+
 
 ## 2. Data Use
 
