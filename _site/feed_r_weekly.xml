@@ -5,9 +5,371 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_r_weekly.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 16 Nov 2025 13:01:53 +0100</pubDate>
-        <lastBuildDate>Sun, 16 Nov 2025 13:01:53 +0100</lastBuildDate>
+        <pubDate>Sat, 22 Nov 2025 15:25:43 +0100</pubDate>
+        <lastBuildDate>Sat, 22 Nov 2025 15:25:43 +0100</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
+        
+            <item>
+                <title>Data Science Quiz For Humanities</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;Test your skills with this interactive data science quiz covering statistics, Python, R, and data analysis.&lt;/p&gt;
+
+&lt;div class=&quot;quiz-container&quot;&gt;
+  &lt;style&gt;
+    .quiz-container { font-family: Inter, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial; max-width: 900px; margin: 2rem auto; padding: 1.25rem; }
+    .meta { text-align: center; color: #555; margin-bottom: 1.25rem; }
+    .progress-wrap { background:#eee; border-radius:999px; overflow:hidden; height:14px; margin-bottom:1rem; box-shadow: inset 0 1px 2px rgba(0,0,0,0.03); }
+    .progress-bar { height:100%; width:0%; transition: width 450ms cubic-bezier(.2,.8,.2,1); background: linear-gradient(90deg,#4f46e5,#06b6d4); }
+    .question { background:#fbfdff; border:1px solid #eef2ff; padding:14px; border-radius:12px; margin-bottom:14px; box-shadow: 0 1px 2px rgba(13,17,25,0.03); }
+    .q-head { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .q-num { background:#eef2ff; color:#3730a3; padding:6px 10px; border-radius:999px; font-weight:600; font-size:0.9rem; }
+    .options label { display:block; margin:8px 0; padding:8px 10px; border-radius:8px; cursor:pointer; transition: background 180ms, transform 120ms; }
+    .options input { margin-right:8px; }
+    .options label:hover { transform: translateY(-2px); }
+    .correct { background: #ecfdf5; border:1px solid #bbf7d0; }
+    .incorrect { background: #ffefef; border:1px solid #fca5a5; }
+    .muted { color:#666; font-size:0.9rem; }
+    .controls { display:flex; gap:12px; justify-content:flex-end; align-items:center; margin-top:12px; }
+    button.primary { background:#4f46e5; color:white; border:none; padding:10px 16px; border-radius:10px; cursor:pointer; font-weight:600; }
+    button.ghost { background:transparent; border:1px solid #e5e7eb; padding:8px 12px; border-radius:10px; cursor:pointer; }
+    #result { margin-top:16px; font-size:1.05rem; font-weight:700; text-align:center; }
+    .explanation { margin-top:8px; font-size:0.95rem; color:#0f172a; }
+    .fade-in { animation: fadeIn 380ms ease both; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+  &lt;/style&gt;
+
+  Progress
+
+  &lt;br /&gt;
+  
+  &lt;div class=&quot;progress-wrap&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;div id=&quot;progressBar&quot; class=&quot;progress-bar&quot; style=&quot;width:0%&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;muted&quot; id=&quot;progressText&quot;&gt;Answered 0 of 15&lt;/div&gt;
+
+  &lt;form id=&quot;quizForm&quot; class=&quot;fade-in&quot;&gt;
+
+    &lt;!-- Questions 1–15 --&gt;
+
+    &lt;!-- 1 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q1&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Which of the following best describes a z-score?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q1&quot; value=&quot;A&quot; /&gt; A measure of central tendency&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q1&quot; value=&quot;B&quot; /&gt; The number of standard deviations a value is from the mean&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q1&quot; value=&quot;C&quot; /&gt; The square of the correlation coefficient&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q1&quot; value=&quot;D&quot; /&gt; A type of probability distribution&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 2 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q2&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;What is the main advantage of using tidy data principles in R?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q2&quot; value=&quot;A&quot; /&gt; Increased computation speed&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q2&quot; value=&quot;B&quot; /&gt; Easier visualization and consistent analysis&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q2&quot; value=&quot;C&quot; /&gt; Reduced memory usage&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q2&quot; value=&quot;D&quot; /&gt; Automatically removes missing values&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 3 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q3&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;In Python, which library is most commonly used for data manipulation?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q3&quot; value=&quot;A&quot; /&gt; matplotlib&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q3&quot; value=&quot;B&quot; /&gt; numpy&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q3&quot; value=&quot;C&quot; /&gt; pandas&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q3&quot; value=&quot;D&quot; /&gt; statsmodels&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 4 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q4&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Which metric is best for evaluating a classification model on imbalanced data?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q4&quot; value=&quot;A&quot; /&gt; Accuracy&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q4&quot; value=&quot;B&quot; /&gt; Recall&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q4&quot; value=&quot;C&quot; /&gt; Variance&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q4&quot; value=&quot;D&quot; /&gt; R-squared&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 5 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q5&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;In a linear regression, what does R² represent?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q5&quot; value=&quot;A&quot; /&gt; Slope of the regression line&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q5&quot; value=&quot;B&quot; /&gt; Variance explained by the model&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q5&quot; value=&quot;C&quot; /&gt; Covariance between variables&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q5&quot; value=&quot;D&quot; /&gt; Degree of overfitting&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 6 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q6&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;In historical or humanities datasets, which challenge occurs most frequently?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q6&quot; value=&quot;A&quot; /&gt; Excessively large sample sizes&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q6&quot; value=&quot;B&quot; /&gt; Perfectly standardized variable names&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q6&quot; value=&quot;C&quot; /&gt; Missing or incomplete records&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q6&quot; value=&quot;D&quot; /&gt; Highly structured relational databases&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 7 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q7&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;What does the &lt;code&gt;groupby()&lt;/code&gt; function do in pandas?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q7&quot; value=&quot;A&quot; /&gt; Sorts values by category&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q7&quot; value=&quot;B&quot; /&gt; Applies aggregate operations to subsets of data&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q7&quot; value=&quot;C&quot; /&gt; Removes duplicates&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q7&quot; value=&quot;D&quot; /&gt; Normalizes columns&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 8 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q8&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;What is the primary purpose of cross-validation?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q8&quot; value=&quot;A&quot; /&gt; Increase training accuracy&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q8&quot; value=&quot;B&quot; /&gt; Test different loss functions&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q8&quot; value=&quot;C&quot; /&gt; Evaluate a model on unseen data to reduce overfitting&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q8&quot; value=&quot;D&quot; /&gt; Speed up model training&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 9 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q9&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Feature engineering refers to:&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q9&quot; value=&quot;A&quot; /&gt; Training a model with more iterations&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q9&quot; value=&quot;B&quot; /&gt; Preparing input variables to improve model performance&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q9&quot; value=&quot;C&quot; /&gt; Removing outliers&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q9&quot; value=&quot;D&quot; /&gt; Selecting the best model&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 10 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q10&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Which visualization is most appropriate for the distribution of a continuous variable?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q10&quot; value=&quot;A&quot; /&gt; Bar chart&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q10&quot; value=&quot;B&quot; /&gt; Histogram&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q10&quot; value=&quot;C&quot; /&gt; Pie chart&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q10&quot; value=&quot;D&quot; /&gt; Line plot&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 11 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q11&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;A z-score of +2.5 means:&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q11&quot; value=&quot;A&quot; /&gt; The value is below the mean&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q11&quot; value=&quot;B&quot; /&gt; The value is 2.5 SD above the mean&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q11&quot; value=&quot;C&quot; /&gt; The value is an outlier&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q11&quot; value=&quot;D&quot; /&gt; The standard deviation is 2.5&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 12 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q12&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Which is an advantage of using R for statistical analysis?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q12&quot; value=&quot;A&quot; /&gt; Native GPU acceleration&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q12&quot; value=&quot;B&quot; /&gt; Strong statistical libraries and ggplot2&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q12&quot; value=&quot;C&quot; /&gt; Automatic machine learning&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q12&quot; value=&quot;D&quot; /&gt; Faster than Python&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 13 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q13&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Normalization in data preprocessing means:&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q13&quot; value=&quot;A&quot; /&gt; Converting categorical data to numeric&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q13&quot; value=&quot;B&quot; /&gt; Rescaling values to a standard range like 0–1&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q13&quot; value=&quot;C&quot; /&gt; Detecting outliers&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q13&quot; value=&quot;D&quot; /&gt; Filling missing values&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 14 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q14&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Why may historical datasets be biased?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q14&quot; value=&quot;A&quot; /&gt; They always include all records&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q14&quot; value=&quot;B&quot; /&gt; Selective or incomplete record-keeping&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q14&quot; value=&quot;C&quot; /&gt; Automatic modern data collection&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q14&quot; value=&quot;D&quot; /&gt; Perfect measurement systems&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- 15 --&gt;
+    &lt;section class=&quot;question&quot; data-q=&quot;q15&quot;&gt;
+      &lt;div class=&quot;q-head&quot;&gt;&lt;div class=&quot;q-num&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;q-title&quot;&gt;&lt;strong&gt;Which Python function can compute a z-score?&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;options&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q15&quot; value=&quot;A&quot; /&gt; pandas.normalize()&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q15&quot; value=&quot;B&quot; /&gt; scipy.stats.zscore()&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q15&quot; value=&quot;C&quot; /&gt; numpy.z()&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;q15&quot; value=&quot;D&quot; /&gt; matplotlib.stats()&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;div class=&quot;controls&quot;&gt;
+      &lt;button type=&quot;button&quot; id=&quot;submitBtn&quot; class=&quot;primary&quot;&gt;Submit Quiz&lt;/button&gt;
+      &lt;button type=&quot;button&quot; id=&quot;resetBtn&quot; class=&quot;ghost&quot;&gt;Try again&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;result&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+
+  &lt;/form&gt;
+
+  &lt;script&gt;
+    (function(){
+      const answers = {
+        q1: &apos;B&apos;, q2: &apos;B&apos;, q3: &apos;C&apos;, q4: &apos;B&apos;, q5: &apos;B&apos;,
+        q6: &apos;C&apos;, q7: &apos;B&apos;, q8: &apos;C&apos;, q9: &apos;B&apos;, q10: &apos;B&apos;,
+        q11: &apos;B&apos;, q12: &apos;B&apos;, q13: &apos;B&apos;, q14: &apos;B&apos;, q15: &apos;B&apos;
+      };
+
+      const total = Object.keys(answers).length;
+      const form = document.getElementById(&apos;quizForm&apos;);
+      const submitBtn = document.getElementById(&apos;submitBtn&apos;);
+      const resetBtn = document.getElementById(&apos;resetBtn&apos;);
+      const resultEl = document.getElementById(&apos;result&apos;);
+      const progressBar = document.getElementById(&apos;progressBar&apos;);
+      const progressText = document.getElementById(&apos;progressText&apos;);
+
+      function updateProgress(){
+        const answered = Array.from(form.querySelectorAll(&apos;input[type=radio]&apos;))
+          .filter(i =&gt; i.checked)
+          .map(i =&gt; i.name);
+        // unique question names answered
+        const unique = new Set(answered);
+        const n = unique.size;
+        const pct = Math.round((n/total)*100);
+        progressBar.style.width = pct + &apos;%&apos;;
+        progressText.textContent = `Answered ${n} of ${total}`;
+      }
+
+      // update progress when any radio changes
+      form.addEventListener(&apos;change&apos;, updateProgress);
+
+      function showAnswers(){
+        let score = 0;
+        for(const q in answers){
+          const correct = answers[q];
+          const selector = `input[name=&quot;${q}&quot;]`;
+          const inputs = Array.from(document.querySelectorAll(selector));
+          const chosen = inputs.find(i =&gt; i.checked);
+
+          inputs.forEach(i =&gt; {
+            const label = i.parentElement;
+            label.classList.remove(&apos;correct&apos;,&apos;incorrect&apos;);
+            // highlight correct option
+            if(i.value === correct){
+              label.classList.add(&apos;correct&apos;);
+            }
+          });
+
+          if(chosen){
+            if(chosen.value === correct){ score++; }
+            else {
+              // mark chosen wrong option red
+              chosen.parentElement.classList.add(&apos;incorrect&apos;);
+            }
+          }
+        }
+
+        // Disable all inputs after submission
+        form.querySelectorAll(&apos;input[type=radio]&apos;).forEach(i =&gt; i.disabled = true);
+
+        // show score with a friendly message
+        resultEl.innerHTML = `You scored &lt;strong&gt;${score} / ${total}&lt;/strong&gt;.` + (score === total ? &apos; Brilliant! 🎉&apos; : &apos; Nice attempt — review the highlighted answers.&apos;);
+
+        // Reveal short explanations (kept brief for the blog)
+        addExplanations();
+      }
+
+      function addExplanations(){
+        const explanations = {
+          q1: &apos;A z-score measures how many standard deviations a value is from the mean.&apos;,
+          q2: &apos;Tidy data makes it easier to visualize and analyze because each variable is a column and each observation a row.&apos;,
+          q3: &apos;pandas is the most common Python library for data manipulation and tabular data.&apos;,
+          q4: &apos;Recall is useful on imbalanced datasets because it focuses on correctly identifying the positive class.&apos;,
+          q5: &apos;R² indicates how much variance in the dependent variable is explained by the predictors.&apos;,
+          q6: &apos;Historical datasets commonly have missing or incomplete records due to preservation and collection practices.&apos;,
+          q7: &apos;groupby() groups rows by a key and allows aggregated operations (e.g., sum, mean) per group.&apos;,
+          q8: &apos;Cross-validation evaluates model performance on unseen folds to reduce overfitting.&apos;,
+          q9: &apos;Feature engineering creates and transforms variables to help models learn patterns better.&apos;,
+          q10: &apos;Histograms show the distribution of continuous variables by binning values.&apos;,
+          q11: &apos;A z-score of +2.5 is 2.5 standard deviations above the mean.&apos;,
+          q12: &apos;R has a rich set of statistical packages and expressive visualization (ggplot2).&apos;,
+          q13: &apos;Normalization rescales numeric values, commonly to 0–1, to make features comparable.&apos;,
+          q14: &apos;Bias occurs because records may be selective, incomplete, or created under historical constraints.&apos;,
+          q15: &apos;scipy.stats.zscore() is a ready-made function; you can also compute (x-mean)/std manually.&apos;
+        };
+
+        for(const q in explanations){
+          const section = document.querySelector(`section[data-q=&quot;${q}&quot;]`);
+          if(section &amp;&amp; !section.querySelector(&apos;.explanation&apos;)){
+            const div = document.createElement(&apos;div&apos;);
+            div.className = &apos;explanation&apos;;
+            div.textContent = explanations[q];
+            section.appendChild(div);
+          }
+        }
+      }
+
+      function resetQuiz(){
+        // enable inputs and clear checked states
+        form.querySelectorAll(&apos;input[type=radio]&apos;).forEach(i =&gt; { i.checked = false; i.disabled = false; i.parentElement.classList.remove(&apos;correct&apos;,&apos;incorrect&apos;); });
+        // remove explanations
+        form.querySelectorAll(&apos;.explanation&apos;).forEach(e =&gt; e.remove());
+        resultEl.textContent = &apos;&apos;;
+        progressBar.style.width = &apos;0%&apos;;
+        progressText.textContent = `Answered 0 of ${total}`;
+      }
+
+      submitBtn.addEventListener(&apos;click&apos;, function(){
+        // count how many answered
+        const answeredCount = new Set(Array.from(form.querySelectorAll(&apos;input[type=radio]&apos;)).filter(i =&gt; i.checked).map(i =&gt; i.name)).size;
+        if(answeredCount &lt; total){
+          if(!confirm(`You have answered ${answeredCount} of ${total}. Submit anyway?`)) return;
+        }
+        showAnswers();
+      });
+
+      document.getElementById(&apos;submit-btn&apos;).addEventListener(&apos;click&apos;, function() {
+        gtag(&apos;event&apos;, &apos;submit_quiz&apos;, {
+          event_category: &apos;quiz&apos;,
+          event_label: &apos;data_science_quiz&apos;
+        });
+      });
+
+      resetBtn.addEventListener(&apos;click&apos;, function(){ if(confirm(&apos;Reset the quiz and try again?&apos;)) resetQuiz(); });
+
+      // initial progress compute in case some radios are pre-selected
+      updateProgress();
+
+    })();
+  &lt;/script&gt;
+
+&lt;/div&gt;
+</description>
+                <pubDate>Sat, 22 Nov 2025 00:00:00 +0100</pubDate>
+                <link>http://localhost:4000/2025/11/22/Data-Science-Quiz.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2025/11/22/Data-Science-Quiz.html</guid>
+                
+                <category>r</category>
+                
+                <category>statistics</category>
+                
+                <category>python</category>
+                
+                
+            </item>
         
             <item>
                 <title>T test in R</title>
