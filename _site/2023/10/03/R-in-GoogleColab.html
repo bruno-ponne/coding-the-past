@@ -20,10 +20,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="google colab, R, babynames">
-    <meta name="description" content="Discover how to use R in Google Colab and dive into the world of online coding with R. Set up your Colab environment seamlessly and start programming right away!">
+    <meta name="keywords" content="Google Colab R, use R online, R programming browser, R runtime Colab 2026, babynames dataset R">
+    <meta name="description" content="Discover how to use R in Google Colab in 2026. Set up your cloud environment seamlessly, avoid local installations, and dive into online coding with this step-by-step R tutorial!">
     <meta property= og:image content= />
-    <title>How to use R in Google Colab?</title>
+    <title>How to Use R in Google Colab (2026 Update)</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <!-- Google icon: -->
     <link rel="stylesheet"
@@ -65,36 +65,13 @@
 </nav>
     </div>
     <div class="content">
-        <div class="content-body">
-            <div class="post-body">
-    <h1 id = "post-main-title">How to use R in Google Colab?</h1>
-    <p id = "author">Bruno Ponne &#9679 03 Oct 2023</p>
+        <div class="content-body-minimal">
+            <div class="post-body-minimal">
+    <h1 id = "post-main-title">How to Use R in Google Colab (2026 Update)</h1>
+        <p id="author">Originally Published:  03 Oct 2023  &#9679;  Updated: 28 Mar 2026</p>
+
     <hr>
-    <ul class = "meta-info">
-        
-        <li>Easy</li>
-        
-        <li>R</li>
-        
-        <li>5 min</li>
-        
-    </ul>
     <br>
-    <p class = "pre-lesson">What you will learn</p>
-    <ul>
-        
-        <li class = "objectives"> Get a foundational understanding of Google Colab's concept and capabilities;</li>
-        
-        <li class = "objectives"> Learn a step-by-step on setting up R within Google Colab;</li>
-        
-        <li class = "objectives"> Follow a hands-on example of online coding using the 'babynames' R package,</li>
-        
-    </ul>
-    <br>
-    <p class = "pre-lesson">Table of Contents</p>
-
-
-    <ul class="toc-entry"><li><a href="#1-data-source">1. Data source</a></li><li><a href="#2-set-the-right-runtime">2. Set the right runtime</a></li><li><a href="#3-example-using-r-in-google-colab">3. Example: using R in Google Colab</a></li><li><a href="#4-conclusions">4. Conclusions</a></li></ul>
 
     <p><br /></p>
 
@@ -102,17 +79,33 @@
 
 <p><br /></p>
 
-<p>Ever imagined a world where any computer with an internet browser could be your playground for programming in R? Believe it, because this is your reality! Google Colab enables you to execute R code with remarkable ease, eliminating the need for installations and providing a seamless setup process. The cherry on top? It’s free and allows easy sharing and collaboration on your projects.</p>
+<p>Ever imagined a world where any computer with an internet browser could be your playground for programming in R? As cloud computing dominates data science in 2026, this is your reality! Google Colab enables you to execute R code with remarkable ease, completely eliminating the need for complex local installations. The cherry on top? It’s free and allows seamless sharing and collaboration on your projects.</p>
 
 <p><br /></p>
 
-<p>In this lesson, I will show you how to use R in Google Colab and suggest a code example to explore the popularity of baby names over the last century. Don’t forget to check out the step-by-step tutorial in the video below! Additionally, feel free to copy the example code from the sections that follow.</p>
+<h3 id="quick-answer-how-to-run-r-in-google-colab">⚡Quick Answer: How to Run R in Google Colab?</h3>
+
+<p><br /></p>
+
+<p>If you are in a hurry, here is the short version of how to get R running in your Colab notebook:</p>
+
+<ol class="conclusion-list">
+  <li>Open a new Google Colab notebook.</li>
+  <li>Go to the top menu and click on <strong>Runtime</strong>.</li>
+  <li>Select <strong>Change runtime type</strong>.</li>
+  <li>Under the <em>Runtime type</em> dropdown, change it from Python 3 to <strong>R</strong>.</li>
+  <li>Click <strong>Save</strong>. You are ready to code!</li>
+</ol>
+
+<p><br /></p>
+
+<p>In this lesson, I will walk you through the details of using R in Google Colab and provide a hands-on code example exploring the popularity of baby names over the last century. Don’t forget to check out the step-by-step tutorial in the video below!</p>
 
 <p><br /></p>
 
 <div class="videoWrapper">
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WKtcrvd_2-0?si=BGqZJ7ekj47PCTYP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+<iframe src="https://www.youtube.com/embed/WKtcrvd_2-0?si=BGqZJ7ekj47PCTYP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
 
 </div>
 
@@ -122,30 +115,24 @@
 
 <p><br /></p>
 
-<h2 id="1-data-source">1. Data source</h2>
+<h2 id="1-step-by-step-setting-the-r-runtime-in-colab">1. Step-by-Step: Setting the R Runtime in Colab</h2>
 
-<p>The data used in this tutorial comes from the <code class="language-plaintext highlighter-rouge">babynames</code> package. It contains a dataset with baby names registered between 1880 and 2017 in the United States. For further details, please explore the documentation of the package <a href="https://cran.r-project.org/web/packages/babynames/index.html">here</a>.</p>
+<p>It is incredibly straightforward to configure Google Colab to accept R code. By default, Colab notebooks spin up Python environments. All you have to do is change the runtime type.</p>
 
-<p><br /></p>
-
-<hr />
+<p>In the top navigation menu, click on <em>Runtime</em>, then choose the option <em>Change Runtime Type</em>. Select <strong>R</strong> from the dropdown menu, as shown in the figure below. That’s all it takes!</p>
 
 <p><br /></p>
 
-<h2 id="2-set-the-right-runtime">2. Set the right runtime</h2>
-
-<p>It is actually quite straightforward to configure Google Colab to accept R code. All you have to do is change the runtime type from <code class="language-plaintext highlighter-rouge">Python 3</code> to <code class="language-plaintext highlighter-rouge">R</code>. In the menu <em>Runtime</em>, choose the option <em>Change Runtime Type</em>, as shown in the figure below. That’s all!</p>
+<p><img src="/assets/images/lesson_15_01.png" alt="Screenshot showing the Google Colab menu path: Runtime &gt; Change runtime type &gt; R" /></p>
 
 <p><br /></p>
 
-<p><img src="/assets/images/lesson_15_01.png" alt="Figure explaining how to use R in Google Colab" width="650" height="650" /></p>
-
-<div class="text-note">
+<div class="text-note-minimal">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
     <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> You can also set which type of hardware accelerator you would like to use to process your code. Usually graphics processing units (GPU) are better for machine learning applications.
+    <div class="text-note-content"> You can also set which type of hardware accelerator you would like to use to process your code. Graphics processing units (GPUs) and TPUs are available and are excellent for heavy machine learning applications or large dataset operations.
         
     </div>
 </div>
@@ -156,9 +143,19 @@
 
 <p><br /></p>
 
-<h2 id="3-example-using-r-in-google-colab">3. Example: using R in Google Colab</h2>
+<h2 id="2-the-data-source-historical-baby-names">2. The Data Source: Historical Baby Names</h2>
 
-<p>Below you find the code used in the video tutorial. Feel free to copy, test and change it!</p>
+<p>The data used in our hands-on tutorial comes from the <code class="language-plaintext highlighter-rouge">babynames</code> package. It contains a comprehensive dataset with baby names registered between 1880 and 2017 in the United States. For further details on the structure of the data, please explore the official documentation of the package <a href="https://cran.r-project.org/web/packages/babynames/index.html">here</a>.</p>
+
+<p><br /></p>
+
+<hr />
+
+<p><br /></p>
+
+<h2 id="3-hands-on-example-coding-with-r-in-google-colab">3. Hands-On Example: Coding with R in Google Colab</h2>
+
+<p>Below you will find the R code used in the video tutorial. Paste this into a Colab code block. Feel free to copy, test, and change the parameters—for example, try searching for your own name!</p>
 
 <p><br /></p>
 
@@ -168,39 +165,71 @@
 </span></p>
 <div id="code-15-1">
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s2">"babynames"</span><span class="p">)</span><span class="w">
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Install the necessary package directly in the Colab cell</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"babynames"</span><span class="p">)</span><span class="w">
 
+</span><span class="c1"># Load the library</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">babynames</span><span class="p">)</span><span class="w">
 
+</span><span class="c1"># Inspect the structure of the dataset</span><span class="w">
 </span><span class="n">str</span><span class="p">(</span><span class="n">babynames</span><span class="p">)</span><span class="w">
 
+</span><span class="c1"># Filter the dataset for a specific name</span><span class="w">
 </span><span class="n">bruno_df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">babynames</span><span class="p">[</span><span class="n">babynames</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Bruno"</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
 
+</span><span class="c1"># Plot the historical popularity of the name</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bruno_df</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> 
     </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bruno_df</span><span class="o">$</span><span class="n">n</span><span class="p">,</span><span class="w">
     </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w">
-    </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Popularity of the name Bruno"</span><span class="p">)</span></code></pre></figure>
-
+    </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Historical Popularity of the Name Bruno in the US"</span><span class="p">,</span><span class="w">
+    </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Year"</span><span class="p">,</span><span class="w">
+    </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Number of Babies"</span><span class="p">)</span></code></pre></figure>
 
 </div>
 
 <p><br /></p>
 
+<p>The R code in above accomplishes the following:</p>
+<ul class="conclusion-list">
+  <li>Setup: It installs and loads the babynames package, which contains the historical dataset.</li>
+  <li>Inspection: It uses the str() function to let you inspect the internal structure of the dataset.</li>
+  <li>Filtering: It filters the massive dataset to isolate the records specifically for your name, saving them into a new data frame (bruno_df).</li>
+  <li>Visualization: It generates a line plot (type = “l”) with the years on the x-axis and the number of babies on the y-axis, effectively showing how the popularity of the name has fluctuated over time.</li>
+</ul>
+
 <p><br /></p>
 
-<div class="text-note">
+<p><img src="/assets/images/lesson_15_02.png" alt="Plot Showing the Historical Popularity of the Name Bruno in the US" width="60%" /></p>
+
+<div class="text-note-minimal">
     <span class="material-symbols-outlined">
         tips_and_updates
     </span>
     <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> Note that each time you reopen a Colab notebook, you will need to reinstall the libraries required to run your code. While this might seem like a disadvantage, it also encourages you to code without relying heavily on numerous libraries, potentially leading to more robust code.
+    <div class="text-note-content"> Important Colab Behavior: Note that each time you close and reopen a Colab notebook, the virtual machine resets. You will need to rerun the `install.packages()` commands required to run your code. While this might seem like a disadvantage, it encourages you to write highly reproducible code.
         
     </div>
 </div>
 
 <p><br /></p>
 
-<p><strong>Leave any questions or concerns you might have in the comments below.</strong></p>
+<hr />
+
+<p><br /></p>
+
+<h2 id="4-frequently-asked-questions-faq">4. Frequently Asked Questions (FAQ)</h2>
+
+<p><br /></p>
+
+<p><strong>Is R completely free to use on Google Colab?</strong> Yes, the standard tier of Google Colab is entirely free and supports R programming.</p>
+
+<p><br /></p>
+
+<p><strong>Can I install any CRAN package in Colab?</strong> Yes! You can use the standard <code class="language-plaintext highlighter-rouge">install.packages("package_name")</code> command just like you would in RStudio.</p>
+
+<p><br /></p>
+
+<p><strong>Can I read local CSV files into Colab using R?</strong> Yes, you can upload files directly to the temporary session storage using the folder icon on the left sidebar, or you can mount your Google Drive to read datasets directly from your cloud storage.</p>
 
 <p><br /></p>
 
@@ -208,20 +237,19 @@
 
 <p><br /></p>
 
-<h2 id="4-conclusions">4. Conclusions</h2>
+<h2 id="5-conclusions">5. Conclusions</h2>
 
 <p><br /></p>
 
 <ul class="conclusion-list">
-  <li>Google Colab provides a hassle-free journey into the world of R programming and data exploration;</li>
-  <li>with a small change in Google Colab runtime type, it can proccess R code</li>
-  <li>mastering the use of R within Google Colab not only enriches our data analysis skills but also paves the way for enhanced collaborative computing in the cloud.</li>
+  <li>Google Colab provides a hassle-free, browser-based journey into the world of R programming and data exploration.</li>
+  <li>With a quick toggle in the runtime menu, a Python environment instantly transforms to process R code.</li>
+  <li>Mastering the use of R within Google Colab not only enriches your data analysis workflows but paves the way for enhanced, hardware-accelerated collaborative computing in the cloud.</li>
 </ul>
 
 <p><br /></p>
 
-<hr />
-
+<p><strong>Leave any questions or concerns you might have in the comments below!</strong></p>
 
     
 </div>

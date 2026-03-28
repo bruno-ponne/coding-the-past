@@ -4,7 +4,7 @@ layout: default
 
 <div class="post-body">
     <h1 id = "post-main-title">{{ page.title }}</h1>
-    <p id = "author">{{ page.author }} &#9679 {{ page.date | date_to_string }}</p>
+    <p id="author">{{ page.author }}  &#9679;  Originally Published: {{ page.date | date_to_string }}  &#9679;  Updated: {{ page.last_modified_at | date_to_string }}</p>
     <hr>
     <ul class = "meta-info">
         {% for item in page.attributes %}

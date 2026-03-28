@@ -762,6 +762,20 @@ nav {
   border: 1px solid #F5F7FA;
 }
 
+.text-note-minimal {
+  background-color: #F5F7FA;
+  color: #2E2E2E;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px; /* Keeps the edges a bit sharper for this style */
+  border: 1px solid #E2E8F0;
+  border-left: 5px solid #C84848; /* Blue accent line on the left side */
+}
+
 .text-note a {
   color: #F5F7FA;
 }
@@ -955,16 +969,19 @@ nav {
 }
 .videoWrapper {
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   height: 0;
+  overflow: hidden; /* Ensures nothing spills out of the container */
+  width: 100%;
 }
 
 .videoWrapper iframe {
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 100%;
+  width: 100%; /* Changed from max-width to force it to fill the container */
   height: 100%;
+  border: 0; /* Removes default iframe borders */
 }
 
 /* D3 Viz Styles */
