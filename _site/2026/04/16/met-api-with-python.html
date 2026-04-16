@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6640999414600963"
+     crossorigin="anonymous"></script>
+    <!-- Structured data -->
+    
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2DKTESR2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-K2DKTESR2N');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="met api python, json to pandas dataframe, python art history, data science humanities, francisco goya, data visualization python, python requests">
+    <meta name="description" content="Discover how to retrieve data from the MET API using Python. Convert complex JSON data into pandas DataFrames and create a visualization of the most frequent terms in Francisco Goya's artwork tags.">
+    <meta property= og:image content= />
+    <title>Exploring the MET API with Python - Francisco Goya's Artworks</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Google icon: -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Canonical Domain -->
+    <link rel="canonical" href="http://localhost:4000/2026/04/16/met-api-with-python.html">
+    <link rel="icon" href="/favicon.png">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta name='impact-site-verification' value='ca1c851b-2b22-4fb4-bdc9-3d4329b314c1'>
+</head>
+
+<body>
+    <div class="menu">
+        <nav class="header-nav">
+    <div class="logo">
+        <a href="/"><img src="/assets/images/coding-the-past.png" alt="site logo"></a>
+    </div>
+    <ul class = "menu-items">
+        
+        <li>
+            <a href="/" >
+                home
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about.html" >
+                about
+            </a>
+        </li>
+        
+        <li>
+            <a href="/subscribe.html" >
+                subscribe
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+    </div>
+    <div class="content">
+        <div class="content-body-minimal">
+            <div class="post-body-minimal">
+    <h1 id = "post-main-title">Exploring the MET API with Python - Francisco Goya's Artworks</h1>
+        <p id="author">Originally Published:  16 Apr 2026  &#9679;  Updated: 16 Apr 2026</p>
+
+    <hr>
+    <br>
+
+    <p><em>The act of painting is about one heart telling another heart where he found salvation.</em></p>
+
+<p>— Francisco Goya</p>
+
+<p><br /></p>
+
+<p>Francisco Goya is one of my favorite artists. His work has a beautiful darkness that tells a lot about his experience in his time. In this post, we’ll dive into his world using the Metropolitan Museum of Art (MET) application programming interface (API), which gives developers access to data on hundreds of thousands of artworks.</p>
+
+<p><br /></p>
+
+<p>You will learn how to interact with the MET API using Python. We will journey through the process of making HTTP requests, parsing the returned JSON data into a structured <code class="language-plaintext highlighter-rouge">pandas</code> DataFrame, and exploring the collection to extract meaningful insights about Goya’s work.</p>
+
+<p><br /></p>
+
+<h2 id="1-requesting-data-from-the-api">1. Requesting data from the API</h2>
+
+<p><br /></p>
+
+<p>We begin by importing the <code class="language-plaintext highlighter-rouge">requests</code> library, which allows us to send HTTP requests to the MET REST API in Python. We’ll query the <code class="language-plaintext highlighter-rouge">search</code> endpoint to find Goya’s paintings. In API terms, an endpoint is a specific URL used to access a particular resource.</p>
+
+<p><br /></p>
+
+<p>The MET API has four endpoints starting with “https://collectionapi.metmuseum.org/”:</p>
+<ul class="conclusion-list">
+  <li>GET /public/collection/v1/objects returns a listing of all valid <code class="language-plaintext highlighter-rouge">objectID</code> available to use.</li>
+  <li>GET /public/collection/v1/objects/[objectID] returns a record for an object, containing all open access data about that object, including its image (if the image is available under Open Access).</li>
+  <li>GET /public/collection/v1/departments returns a listing of all departments of the museum.</li>
+  <li>GET /public/collection/v1/search returns a listing of all <code class="language-plaintext highlighter-rouge">objectID</code> for objects that match the search query.</li>
+</ul>
+
+<p><br /></p>
+
+<p>You can find more details about each endpoint and its functionality in the <a href="https://metmuseum.github.io/">official MET API documentation</a>.</p>
+
+<div class="text-note-minimal">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> A REST (Representational State Transfer) API is a set of rules used to communicate between your computer and the MET server using HTTP methods and endpoints. Note that many APIs require authentication; however, the MET API is public and does not require an API key.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-31-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">search_query</span> <span class="o">=</span> <span class="sh">"</span><span class="s">https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&amp;q=Francisco Goya</span><span class="sh">"</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">search_query</span><span class="p">)</span>
+<span class="n">search_data</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="nf">json</span><span class="p">()</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Found </span><span class="si">{</span><span class="n">search_data</span><span class="p">[</span><span class="sh">'</span><span class="s">total</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> artworks for Francisco Goya.</span><span class="sh">"</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>API endpoints can be followed by query parameters that refine our search. In the example above, <code class="language-plaintext highlighter-rouge">hasImages=true</code> filters for objects with images, and <code class="language-plaintext highlighter-rouge">q</code> specifies our search term—in this case, the artist’s name.</p>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">requests</code> library contains a method called <code class="language-plaintext highlighter-rouge">get()</code>, which we use to send our request to the API, passing our endpoint saved in the string <code class="language-plaintext highlighter-rouge">search_query</code>.</p>
+
+<p><br /></p>
+
+<p>The resulting <code class="language-plaintext highlighter-rouge">response</code> object can then be parsed into a JSON structure using the <code class="language-plaintext highlighter-rouge">.json()</code> method.</p>
+
+<p><br /></p>
+
+<h2 id="2-converting-json-to-a-list-of-painting-ids">2. Converting JSON to a list of painting ids</h2>
+
+<p><br /></p>
+
+<p>While JSON is the standard for data exchange, working with raw JSON can be cumbersome for direct data analysis. In Python, you can think of JSON as a dictionary of keys and values. These values can themselves be other dictionaries, lists, numbers, strings, or booleans. By printing the <code class="language-plaintext highlighter-rouge">search_data</code> object, we can see that it’s a dictionary containing two main keys:</p>
+<ul class="conclusion-list">
+  <li><strong>total</strong>: An integer representing the total number of objects returned.</li>
+  <li><strong>objectIDs</strong>: A list containing the unique IDs of the artworks matching our search.</li>
+</ul>
+
+<p><br /></p>
+
+<p>To retrieve the list of IDs associated with the key “objectIDs” we use the standard dictionary notation <code class="language-plaintext highlighter-rouge">search_data["objectIDs"]</code> and save it to the variable <code class="language-plaintext highlighter-rouge">goya_ids</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-31-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nf">print</span><span class="p">(</span><span class="n">search_data</span><span class="p">)</span>
+<span class="n">goya_ids</span> <span class="o">=</span> <span class="n">search_data</span><span class="p">[</span><span class="sh">"</span><span class="s">objectIDs</span><span class="sh">"</span><span class="p">]</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<h2 id="3-getting-the-details-of-each-of-goyas-works">3. Getting the details of each of Goya’s works</h2>
+
+<p><br /></p>
+
+<p>To retrieve details for each artwork — such as its title, date, and thematic tags — we need to iterate through the list of IDs and send a request to the <code class="language-plaintext highlighter-rouge">/objects/{objectID}</code> endpoint for each item. We implement this using a for loop that repeats the request for each artwork.</p>
+
+<p><br /></p>
+
+<p><em>(Note: Depending on the number of results, fetching these details can take a few minutes. We use <code class="language-plaintext highlighter-rouge">time.sleep(1)</code> to respect the API’s rate limits and avoid being blocked.)</em></p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-31-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">time</span>
+
+<span class="n">all_objects_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="k">for</span> <span class="n">object_id</span> <span class="ow">in</span> <span class="n">goya_ids</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">obj_response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">https://collectionapi.metmuseum.org/public/collection/v1/objects/</span><span class="si">{</span><span class="n">object_id</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">obj_response</span><span class="p">.</span><span class="nf">raise_for_status</span><span class="p">()</span> 
+        <span class="n">all_objects_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">obj_response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="p">.</span><span class="n">exceptions</span><span class="p">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error for object ID </span><span class="si">{</span><span class="n">object_id</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Respect the API, one request per second to be safe
+</span>
+<span class="c1"># Convert the gathered data to a DataFrame
+</span><span class="n">goya_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">json_normalize</span><span class="p">(</span><span class="n">all_objects_data</span><span class="p">)</span>
+
+<span class="c1"># Filter only Goya works
+</span><span class="n">goya_df</span> <span class="o">=</span> <span class="n">goya_df</span><span class="p">[</span><span class="n">goya_df</span><span class="p">[</span><span class="sh">'</span><span class="s">artistDisplayName</span><span class="sh">'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="nf">contains</span><span class="p">(</span><span class="sh">'</span><span class="s">Goya</span><span class="sh">'</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="bp">False</span><span class="p">)]</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>We use a <code class="language-plaintext highlighter-rouge">try-except</code> block to ensure the loop continues even if a specific object ID fails to load. We also log any errors to help with debugging.</p>
+
+<p><br /></p>
+
+<p>Finally, we convert the collected data into a Pandas DataFrame using <code class="language-plaintext highlighter-rouge">pd.json_normalize</code>. Since a broad search might return works <em>about</em> Goya or mentioning him in metadata, we filter the DataFrame to ensure the <code class="language-plaintext highlighter-rouge">artistDisplayName</code> actually contains “Goya.”</p>
+
+<p><br /></p>
+
+<p>The resulting DataFrame contains intriguing data about each of his works, including name, year when the painting or drawing was started and finished, descriptive tags and dimensions, among other information. Feel free to explore it. We will continue working with the descriptive tags in the next steps.</p>
+
+<p><br /></p>
+
+<h2 id="4-flattening-nested-json-data">4. Flattening nested JSON data</h2>
+
+<p><br /></p>
+
+<p>For keys whose values are lists or other dictionaries, the resulting columns will contain those respective objects. This happens, for example, with the <code class="language-plaintext highlighter-rouge">tags</code> column. When you have nested elements like this, you can “flatten” them into a tabular format.</p>
+
+<p><br /></p>
+
+<div class="new-image">
+  <div class="card">
+    <img src="/assets/images/lesson_31_01.png" alt="JSON structure" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+    <p style="text-align: center; font-size: 0.7em; color: grey;">JSON data structure</p>
+  </div>
+</div>
+
+<p><br /></p>
+
+<p>Flattening an element changes the granularity of the data. Whereas before each row represented a single artwork, in the flattened table each row represents an individual tag belonging to one artwork.</p>
+
+<p><br /></p>
+
+<p>To flatten these nested tags, we can use <code class="language-plaintext highlighter-rouge">json_normalize</code> by specifying the element to unnest in the <code class="language-plaintext highlighter-rouge">record_path</code>. We also include the <code class="language-plaintext highlighter-rouge">objectID</code> in the <code class="language-plaintext highlighter-rouge">meta</code> parameter so we don’t lose the relationship between a tag and its original artwork. Later on, we can join this tags table back to our main DataFrame if we want.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-31-4">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">tags_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">json_normalize</span><span class="p">(</span>
+    <span class="n">all_objects_data</span><span class="p">,</span>
+    <span class="n">record_path</span><span class="o">=</span><span class="sh">'</span><span class="s">tags</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">meta</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">objectID</span><span class="sh">'</span><span class="p">]</span>
+<span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<h2 id="5-visualizing-the-most-frequent-themes">5. Visualizing the most frequent themes</h2>
+
+<p><br /></p>
+
+<p>The MET API provides a <code class="language-plaintext highlighter-rouge">tags</code> field containing descriptive terms associated with each artwork. To understand the prevailing themes in Goya’s works — famous for documenting the social upheaval and dark realities of his era — we can extract these terms and calculate their frequency.</p>
+
+<p><br /></p>
+
+<p>Once we isolate the individual tags into a new column, we can use <code class="language-plaintext highlighter-rouge">matplotlib</code> to create a horizontal bar plot of the top 10 terms and check if indeed his artwork contained themes related to death and misery.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-1-5">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Calculate the frequency of each term for the filtered Goya artworks
+# We filter tags_df to only include IDs present in our filtered goya_df
+</span><span class="n">term_frequency</span> <span class="o">=</span> <span class="n">tags_df</span><span class="p">[</span><span class="n">tags_df</span><span class="p">[</span><span class="sh">'</span><span class="s">objectID</span><span class="sh">'</span><span class="p">].</span><span class="nf">isin</span><span class="p">(</span><span class="n">goya_df</span><span class="p">[</span><span class="sh">'</span><span class="s">objectID</span><span class="sh">'</span><span class="p">])][</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">].</span><span class="nf">value_counts</span><span class="p">().</span><span class="nf">reset_index</span><span class="p">()</span>
+<span class="n">term_frequency</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="c1"># Select the top N terms for better readability if there are many unique terms
+# For this example, let's take the top 10 terms
+</span><span class="n">top_terms</span> <span class="o">=</span> <span class="n">term_frequency</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">barh</span><span class="p">(</span><span class="n">top_terms</span><span class="p">[</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">],</span> <span class="n">top_terms</span><span class="p">[</span><span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">#FF6885</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">'</span><span class="s">Top 10 Most Frequent Terms in Goya Dataset</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Frequency</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Term</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<div class="new-image">
+  <div class="card">
+    <img src="/assets/images/lesson_31_02.png" alt="Top 10 Most Frequent Terms in Goya Dataset" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+    <p style="text-align: center; font-size: 0.7em; color: grey;">Top 10 Most Frequent Terms chart</p>
+  </div>
+</div>
+
+<p><br /></p>
+
+<p>The resulting visualization provides a fascinating window into Goya’s thematic world. Beyond common subjects like “Men,” “Women,” and “Portraits,” we see a strong representation of “Bulls” (reflecting his famous <em>Tauromaquia</em> series) and “Self-portraits.”</p>
+
+<p><br /></p>
+
+<p>Most strikingly, terms like “Death” and “Suffering” appear prominently in the top 10. This data-driven insight confirms Goya’s historical reputation as an artist who didn’t shy away from the darker aspects of the human experience. By quantifying these themes through the MET API, we move from subjective observation to empirical evidence of his artistic focus.</p>
+
+<p><br /></p>
+
+<div class="new-image">
+  <div class="card">
+    <img src="/assets/images/lesson_31_03.jpg" alt="The sleep of reason produces monsters" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+    <p style="text-align: center; font-size: 0.7em; color: grey;">Plate 43 from "Los Caprichos": The sleep of reason produces monsters (El sueño de la razon produce monstruos)</p>
+  </div>
+</div>
+
+<p><br /></p>
+
+<p>You could also use the main dataset we created to collect a series of images of Goya works. I am thinking of using AI to help me download all images of Goya in the public domain and try to build a model to describe or classify them in Python. Feel free to use the data and let me know about your analysis. Leave your comments or any questions below and happy coding!</p>
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>The <code class="language-plaintext highlighter-rouge">requests</code> library combined with <code class="language-plaintext highlighter-rouge">pd.json_normalize</code> makes extracting and structuring data from web APIs both seamless and efficient.</li>
+  <li>Navigating public collections like the MET API enables us to perform large-scale data analysis on historical and cultural artifacts.</li>
+  <li>Combining data extraction with clear visualizations (using Matplotlib) provides interpretable insights into an artist’s thematic legacy and creative focus.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+    
+</div>
+
+
+<div class = "comments-style">
+    <script>function setText(elementId, textContent) {
+		document.getElementById(elementId).textContent = textContent;
+	};
+
+	function show(elementId) {
+		document.getElementById(elementId).style.display = 'inline';
+	};
+
+	function hide(elementId) {
+		document.getElementById(elementId).style.display = 'none';
+	};
+
+	function getValue(elementId) {
+		return document.getElementById(elementId).value;
+	};
+
+	function setValue(elementId, value) {
+		return document.getElementById(elementId).value = value;
+	};
+
+	function fadeIn(element) {
+		var duration = 400;
+		element.style.opacity = 0;
+		let opacity = 0;
+		const timer = setInterval(function() {
+		  opacity += 50 / duration;
+		  if (opacity >= 1) {
+		    clearInterval(timer);
+		    opacity = 1;
+		  }
+		  element.style.opacity = opacity;
+		}, 50);
+	};
+
+
+	function disableButtonWithLoader(elementId) {
+		var buttonToDisable = document.getElementById(elementId);
+		if (buttonToDisable == null) {
+			return;
+		}
+		buttonToDisable.disabled = true;
+		setText(elementId, "\xa0");
+	}
+
+	function disablePostCommentButton() {
+		disableButtonWithLoader("comment-submit");
+	};
+
+	function enablePostCommentButton() {
+		var postCommentButton = document.getElementById("comment-submit");
+		postCommentButton.disabled = false;
+		setText("comment-submit", "Post");
+	};async function initialCommentLoad() {
+		disableButtonWithLoader("load-comment-button");var loadJquery = document.createElement("script");
+		loadJquery.type = "text/javascript";
+		loadJquery.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js";
+		document.head.appendChild(loadJquery);var loadValidator = document.createElement("script");
+		loadValidator.src = "https://cdnjs.cloudflare.com/ajax/libs/validator/13.9.0/validator.min.js";
+		document.head.appendChild(loadValidator);await loadValidator.onload;loadJquery.onload = function() {async function checkJQuery() {
+				if (typeof jQuery === "undefined") {
+					return false;
+				} else {
+					clearTimeout(interval);var loadJqueryCsv = document.createElement("script");
+					loadJqueryCsv.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js";
+					document.head.appendChild(loadJqueryCsv);await loadJqueryCsv.onload;reloadComments();
+				}
+			};var interval = setInterval(checkJQuery, 250);
+		};};
+
+	var thisPageUrl = "/2026/04/16/met-api-with-python.html";
+	const EXTRA_INFO_START = "chunkedCommentInfoStart";
+	const EXTRA_INFO_END = "chunkedCommentInfoEnd";var visibleComments = [];
+	var hiddenComments = [];
+	var netNewComments = [];function formatDate(stringDate) {
+		var date = new Date(stringDate);
+		var dateOptions = { year: 'numeric', month: 'long', day: 'numeric'};
+		var timeOptions = { hour: 'numeric', minute: 'numeric' };
+		return `${date.toLocaleDateString("en-us", dateOptions)} at ${date.toLocaleTimeString("en-us", timeOptions)}`;
+	};async function displayComments(comments) {
+		show("comments-and-input");
+		hide("load-comments");
+		var hasVisibleComments = visibleComments.length > 0;if (comments == null || comments === "" || comments == []) {
+			if (!hasVisibleComments) {
+				show("no-comments");
+				hide("load-more-comments");
+				hide("num-comments-displayed");
+			}
+			return;
+		}comments = `timestamp,name,comment,isAuthor\n${comments}`;
+		var newHiddenComments = $.csv.toObjects(comments).sort((a, b) => (new Date(a.timestamp).getTime() || 0) - (new Date(b.timestamp).getTime() || 0))
+			.map(item => JSON.stringify(item));if (hasVisibleComments) {
+			netNewComments = newHiddenComments
+				.filter(item => !visibleComments.includes(item))
+				.filter(item => !hiddenComments.includes(item));
+		}
+
+		hiddenComments = newHiddenComments
+			.filter(item => !visibleComments.includes(item))
+			.filter(item => !netNewComments.includes(item));
+
+		loadMoreComments(false || !hasVisibleComments);
+	};function loadMoreComments(isLoadMoreAction) {var newCommentsToDisplay = hiddenComments.slice(-5);if (isLoadMoreAction) {newCommentsToDisplay.reverse().forEach(element => displaySingleComment(element, true));
+			hiddenComments = hiddenComments.filter(item => !newCommentsToDisplay.includes(item) && !visibleComments.includes(item));
+		} else {netNewComments.forEach(element => displaySingleComment(element, false));
+			netNewComments = []
+		}
+
+		setText("num-comments-displayed", `Showing ${visibleComments.length} of ${visibleComments.length + hiddenComments.length} comments`);
+
+		if (hiddenComments.length == 0) {
+			hide("load-more-comments");
+		} else {
+			show("load-more-comments");
+		}
+	};function getCommentInfo(comment) {
+		var extraCommentInfo = comment?.match(EXTRA_INFO_START + ".+" + EXTRA_INFO_END);
+		return {
+			text : comment?.replace(extraCommentInfo, ""),
+			extraCommentInfo : JSON.parse(extraCommentInfo?.toString()?.replace(EXTRA_INFO_START, "")?.replace(EXTRA_INFO_END, "") ?? "{}")
+		};
+	};
+
+	function displaySingleComment(element, isPrepend) {if (visibleComments.includes(element)) {
+			return;
+		}
+
+		var jsonElement = JSON.parse(element);
+		var comment = getCommentInfo(jsonElement.comment?.toString());var verifiedAuthorTag = "";
+		if (jsonElement.isAuthor == true || jsonElement.isAuthor === "TRUE") {
+			verifiedAuthorTag = "&nbsp;<strong>(Author)</strong>";
+		}var newItem = document.createElement("div");
+		newItem.classList.add("comment-item");newItem.innerHTML = `
+			<p class="commenter-name">${validator.escape(jsonElement.name.toString())}${verifiedAuthorTag}
+				<small>${formatDate(jsonElement.timestamp)}</small>
+			</p>
+			<div><p>${validator.escape(comment?.text?.toString()).replace(new RegExp('\r?\n','g'), '<br />')}</p>
+			</div>
+		`.trim();
+		if (isPrepend) {
+			document.getElementById("comment-container").prepend(newItem);
+		} else {
+			document.getElementById("comment-container").append(newItem);
+		}
+		fadeIn(newItem);
+		visibleComments.push(element);hide("no-comments");
+		show("num-comments-displayed");
+	};function reloadComments() {var sqlStatement = encodeURIComponent(`SELECT A, C, D, E WHERE B = '${thisPageUrl}'`);
+		fetch(`https://docs.google.com/spreadsheets/d/1RiK_RAn062s6AjFH00JIWGo19h4BnHns-WbLzoK2S0I/gviz/tq?tqx=out:csv&sheet=comments&tq=${sqlStatement}&headers=0`)
+		.then(response => response.text())
+		.then(response => displayComments(response));
+	};const encodeFormData = (data) => {
+	    return Object.keys(data)
+	        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+	        .join('&');
+	};function getCommentContent() {
+		var comment = getValue("comment-comment")?.toString();
+
+		var extraCommentInfo = {};if (Object.keys(extraCommentInfo).length !== 0) {
+			comment = EXTRA_INFO_START + JSON.stringify(extraCommentInfo) + EXTRA_INFO_END + comment;
+		}
+
+		return comment;
+	};function postComment(recaptchaToken) {
+		disablePostCommentButton();
+		var username = getValue("comment-name");
+		var comment = getCommentContent();
+
+		fetch(`https://docs.google.com/forms/d/e/1FAIpQLSdHJGUw54uOd945wKEEhQtbSfWKCR9atiu30u044gaduhSgvw/formResponse`, {
+		  method: 'POST',
+		  mode: 'no-cors',
+		  headers: {
+		    "Content-Type": "application/x-www-form-urlencoded"
+		  },
+		  body: encodeFormData({
+		  	"entry.1627158409" : thisPageUrl?.toString(),
+		  	"entry.1988119021" : username?.toString(),
+		  	"entry.1039248696" : comment?.toString()
+		  })
+		}).then(response => {
+			setValue("comment-name", '');
+			setValue("comment-comment", '');reloadComments();
+		})
+		.catch(error => {console.log(error);})
+		.finally(() => { enablePostCommentButton(); });
+
+		return false;
+	};initialCommentLoad();</script><h2 class="post-subtitle">Comments</h2>
+<div id="load-comments" class="comments">
+	<button id="load-comment-button" class="comment-button" onclick="initialCommentLoad()">Load Comments</button>
+</div>
+<div id="comments-and-input">
+	<div id="comment-section" class="comments">
+		<p id="num-comments-displayed"></p>
+		<button id="load-more-comments" class="comment-button" onclick="loadMoreComments(true)" type="button">Load Older Comments</button>
+		<div id="no-comments" class="comment-info-text">
+			<p>There are currently no comments on this article, be the first to add one below</p>
+		</div>
+		<div id="comment-container"></div>
+	</div>
+	<h2 class="post-subtitle">Add a Comment</h2>
+	<div class="comments">
+		<div class="comment-info-text">
+			<p>If you are looking for a response to your comment, either leave your email address or check back on this page periodically.</p></div>	
+		<div class="comments-form"><form onsubmit="return postComment()" id="comment-form" autocomplete="off"><ul>
+					<li>
+						<input id="comment-name" name="username" type="text" placeholder="Name" required="" value=""></li>
+					<li><textarea id="comment-comment" name="comment" placeholder="Comment" required=""></textarea></li>
+					<li><button id="comment-submit" type="submit" class="comment-button">Post</button></li>
+				</ul><p>
+			</form>
+		</div>
+	</div>
+</div><style>
+	.comment-item {
+		position: relative;
+		padding: 2%;
+		background: white;
+		width: 95%;
+		margin-bottom: 4%;
+		box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+		color: #2E3031;
+	}
+	
+	.comment-item:after {
+		content: "";
+		position: relative;
+		display: block;
+		clear: both;
+	}
+	
+	.comment-item p {
+		line-height: 1.6;
+	}
+	
+	.comment-item small {
+		padding-left: 0.7em;
+		color: #999;
+		font-size: 1em;
+	}
+	
+	.commenter-name {
+		color: #367588;
+		text-decoration: none;
+		font-size: 1em;
+
+	}
+	
+	.commenter-name strong {
+		color: #e91e63;
+		text-decoration: none;
+		font-size: 1em;
+
+	}#comment-reply-info p {
+		margin: 0;
+	}
+	
+	.comments-form {
+		width: 95%;
+
+
+	}
+	
+	.comments-form ul {
+		list-style: none;
+	}
+	
+	.comments-form ul li {
+		margin-bottom: 15px;
+	}
+	
+	.comments {
+		border-top: 2px solid rgba(206, 202, 202, 0.2);
+		padding-top: 1rem;
+		position: relative;
+	}
+	
+	.comment-button {
+		border: 0;
+		background: #C84848;
+		cursor: pointer;
+		color: #fff;
+		font-size: 1em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+		outline-style: none;
+		padding: 10px 20px;
+		width: auto;
+		min-width: 25%;
+	}
+	
+	#comment-submit {
+		width: auto;
+		min-width: 25%;
+		position: relative;
+	}
+	
+	.comment-button:disabled::after,
+	.comment-button[disabled]::after {
+		content: "";
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		border: 4px solid transparent;
+		border-top-color: #ffffff;
+		-webkit-animation: button-loading-spinner 1s ease infinite;
+		animation: button-loading-spinner 1s ease infinite;
+	}
+	
+	@keyframes button-loading-spinner {
+		from {
+			transform: rotate(0turn);
+		}
+	
+		to {
+			transform: rotate(1turn);
+		}
+	}
+	
+	@-webkit-keyframes button-loading-spinner {
+		from {
+			transform: rotate(0turn);
+		}
+	
+		to {
+			transform: rotate(1turn);
+		}
+	}
+	
+	#load-more-comments {
+
+	}
+	
+	#load-more-comments,
+	#num-comments-displayed {
+		display: none;
+	}
+	
+	#comment-name,
+	#comment-comment {
+		width: 50%;
+		padding: 10px;
+		border: 0;
+		font-size: 1em;
+		background: #F2F2F2;
+		color: #2E3031;
+		border: 1px solid #E0E0E0;
+    	border-radius: 8px;
+	}
+	
+
+	
+	#comment-name:focus,
+	#comment-comment:focus {
+		background: #fff;
+	}
+	
+	#comment-comment {
+		width: 100%;
+		height: 80px;
+		resize: vertical;
+		min-height: 80px;
+	}.comment-info-text {
+		letter-spacing: 0.5px;
+	}
+	
+	.comment-info-text p {
+		margin: 0 0 1rem;
+		text-align: justify;
+		font-size: 1em;
+	}
+	
+	#comment-container {
+		width: 100%;
+	}
+	
+	#comment-section, #load-comments {
+
+	}
+
+#comment-name::-webkit-input-placeholder,
+#comment-comment::-webkit-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::-moz-placeholder,
+#comment-comment::-moz-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name:-ms-input-placeholder,
+#comment-comment:-ms-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::-ms-input-placeholder,
+#comment-comment::-ms-input-placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name::placeholder,
+#comment-comment::placeholder {
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}
+
+#comment-name:focus,
+#comment-comment:focus {
+	background: #fff;
+	font-family: 'Montserrat', Helvetica, sans-serif;   
+}#load-comments {
+		display: none;
+	}</style>
+</div>
+<div class = "share">
+    
+
+<style>
+#share-buttons {display: inline-block; vertical-align: middle; }
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > div {
+    position: relative;
+    text-align: left; 
+    height: 36px; 
+    width: 32px; 
+    float: left; 
+    text-align: center;
+}
+#share-buttons > div > svg {height: 16px; fill: #d5d5d5; margin-top: 10px;}
+#share-buttons > div:hover {cursor: pointer;}
+#share-buttons > div.facebook:hover > svg {fill: #3B5998;}
+#share-buttons > div.twitter:hover > svg {fill: #55ACEE;}
+#share-buttons > div.linkedin:hover > svg {fill: #0077b5;}
+#share-buttons > div.pinterest:hover > svg {fill: #CB2027;}
+#share-buttons > div.gplus:hover > svg {fill: #dd4b39;}
+#share-buttons > div.mail:hover > svg {fill: #7D7D7D;}
+#share-buttons > div.instagram:hover > svg {fill: #C73B92;}
+#share-buttons > div.facebook > svg {height: 18px; margin-top: 9px;}
+#share-buttons > div.twitter > svg {height: 20px; margin-top: 8px;}
+#share-buttons > div.linkedin > svg {height: 19px; margin-top: 7px;}
+#share-buttons > div.pinterest > svg {height: 20px; margin-top: 9px;}
+#share-buttons > div.gplus > svg {height: 17px; margin-top: 9px; position: relative; left: 1px;}
+#share-buttons > div.mail > svg {height: 14px; margin-top: 11px;}
+</style>
+
+<span style="color: white;"> Share on </span><div id="share-buttons">
+    <div class="facebook" title="Share this on Facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost:4000/2026/04/16/met-api-with-python.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"/></svg></div>
+    <div class="twitter" title="Share this on Twitter" onclick="window.open('http://twitter.com/home?status=http://localhost:4000/2026/04/16/met-api-with-python.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg></div>
+    <div class="linkedin" title="Share this on Linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2026/04/16/met-api-with-python.html&title=&summary=&source=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"/></svg></div>
+    <div class="pinterest" title="Share this on Pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url=&media=http://localhost:4000lesson_31.jpg&description=');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M256 597q0-108 37.5-203.5t103.5-166.5 152-123 185-78 202-26q158 0 294 66.5t221 193.5 85 287q0 96-19 188t-60 177-100 149.5-145 103-189 38.5q-68 0-135-32t-96-88q-10 39-28 112.5t-23.5 95-20.5 71-26 71-32 62.5-46 77.5-62 86.5l-14 5-9-10q-15-157-15-188 0-92 21.5-206.5t66.5-287.5 52-203q-32-65-32-169 0-83 52-156t132-73q61 0 95 40.5t34 102.5q0 66-44 191t-44 187q0 63 45 104.5t109 41.5q55 0 102-25t78.5-68 56-95 38-110.5 20-111 6.5-99.5q0-173-109.5-269.5t-285.5-96.5q-200 0-334 129.5t-134 328.5q0 44 12.5 85t27 65 27 45.5 12.5 30.5q0 28-15 73t-37 45q-2 0-17-3-51-15-90.5-56t-61-94.5-32.5-108-11-106.5z"/></svg></div>
+    <div class="mail" title="Share this through Email" onclick="window.open('mailto:?&body=http://localhost:4000/2026/04/16/met-api-with-python.html');"><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"/></svg></div>
+</div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to the top">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_up
+    </span>
+</button>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <footer class="footer">
+    <div class="footer-content">
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css">
+        <div id="mc_embed_signup">
+            <form
+                action="https://gmail.us13.list-manage.com/subscribe/post?u=ae95cc65e2d79bab1a22dba39&amp;id=9481205f08&amp;f_id=002cabe2f0"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <h2><b>Subscribe here to know about new lessons!</b> </h2>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group">
+                        <label for="mce-EMAIL">Email Address <span class="asterisk">*</span>
+                        </label>
+                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+                        <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+                    </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_ae95cc65e2d79bab1a22dba39_9481205f08" tabindex="-1" value=""></div>
+                    <div class="optionalParent">
+                        <div class="clear foot">
+                            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                class="button">
+                            <p class="brandingLogo"><a href="http://eepurl.com/ikypNP"
+                                    title="Mailchimp - email marketing made easy and fun"><img
+                                        src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+        <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+        </script>
+        <!--End mc_embed_signup-->
+        <div>
+            <h3><b>Additional resources</b></h3>
+            <a href="https://programminghistorian.org/">Programming Historian</a>
+            <a href="https://rweekly.org/">R Weekly</a>
+            <a href="https://www.r-bloggers.com/">R Bloggers</a>
+            <a href="https://python-bloggers.com/">Python Bloggers</a>
+        </div>
+        <br>
+        <div class = "policy-box">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms-of-use.html">Terms of Use</a>
+            <div class="license">
+                <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+                    <a property="dct:title" rel="cc:attributionURL" href="https://www.codingthepast.com/">Coding the
+                        Past</a>
+                    by
+                    <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                        href="https://brunoponne.com/">Bruno Ponne
+                    </a> is licensed under
+                    <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank"
+                        rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img
+                            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                            src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
+                    </a>
+                </p>
+            </div>
+           <br>
+        </div>
+    </div>
+</footer>
+    </div>
+</body>
+<script src="/assets/js/filter.js"></script>
+<script src="/assets/js/copycode.js"></script>
+<script src="/assets/js/up.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+</html>

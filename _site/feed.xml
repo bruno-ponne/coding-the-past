@@ -1,4 +1,296 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-03-28T14:46:38+01:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Data Science Quiz For Humanities</title><link href="http://localhost:4000/2025/11/22/Data-Science-Quiz.html" rel="alternate" type="text/html" title="Data Science Quiz For Humanities" /><published>2025-11-22T00:00:00+01:00</published><updated>2025-11-22T00:00:00+01:00</updated><id>http://localhost:4000/2025/11/22/Data-Science-Quiz</id><content type="html" xml:base="http://localhost:4000/2025/11/22/Data-Science-Quiz.html"><![CDATA[<p>Test your skills with this interactive data science quiz covering statistics, Python, R, and data analysis.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-04-16T21:25:45+02:00</updated><id>http://localhost:4000/feed.xml</id><entry><title type="html">Exploring the MET API with Python - Francisco Goya’s Artworks</title><link href="http://localhost:4000/2026/04/16/met-api-with-python.html" rel="alternate" type="text/html" title="Exploring the MET API with Python - Francisco Goya’s Artworks" /><published>2026-04-16T00:00:00+02:00</published><updated>2026-04-16T00:00:00+02:00</updated><id>http://localhost:4000/2026/04/16/met-api-with-python</id><content type="html" xml:base="http://localhost:4000/2026/04/16/met-api-with-python.html"><![CDATA[<p><em>The act of painting is about one heart telling another heart where he found salvation.</em></p>
+
+<p>— Francisco Goya</p>
+
+<p><br /></p>
+
+<p>Francisco Goya is one of my favorite artists. His work has a beautiful darkness that tells a lot about his experience in his time. In this post, we’ll dive into his world using the Metropolitan Museum of Art (MET) application programming interface (API), which gives developers access to data on hundreds of thousands of artworks.</p>
+
+<p><br /></p>
+
+<p>You will learn how to interact with the MET API using Python. We will journey through the process of making HTTP requests, parsing the returned JSON data into a structured <code class="language-plaintext highlighter-rouge">pandas</code> DataFrame, and exploring the collection to extract meaningful insights about Goya’s work.</p>
+
+<p><br /></p>
+
+<h2 id="1-requesting-data-from-the-api">1. Requesting data from the API</h2>
+
+<p><br /></p>
+
+<p>We begin by importing the <code class="language-plaintext highlighter-rouge">requests</code> library, which allows us to send HTTP requests to the MET REST API in Python. We’ll query the <code class="language-plaintext highlighter-rouge">search</code> endpoint to find Goya’s paintings. In API terms, an endpoint is a specific URL used to access a particular resource.</p>
+
+<p><br /></p>
+
+<p>The MET API has four endpoints starting with “https://collectionapi.metmuseum.org/”:</p>
+<ul class="conclusion-list">
+  <li>GET /public/collection/v1/objects returns a listing of all valid <code class="language-plaintext highlighter-rouge">objectID</code> available to use.</li>
+  <li>GET /public/collection/v1/objects/[objectID] returns a record for an object, containing all open access data about that object, including its image (if the image is available under Open Access).</li>
+  <li>GET /public/collection/v1/departments returns a listing of all departments of the museum.</li>
+  <li>GET /public/collection/v1/search returns a listing of all <code class="language-plaintext highlighter-rouge">objectID</code> for objects that match the search query.</li>
+</ul>
+
+<p><br /></p>
+
+<p>You can find more details about each endpoint and its functionality in the <a href="https://metmuseum.github.io/">official MET API documentation</a>.</p>
+
+<div class="text-note-minimal">
+    <span class="material-symbols-outlined">
+        tips_and_updates
+    </span>
+    <span class="text-note-title">&nbsp; </span> 
+    <div class="text-note-content"> A REST (Representational State Transfer) API is a set of rules used to communicate between your computer and the MET server using HTTP methods and endpoints. Note that many APIs require authentication; however, the MET API is public and does not require an API key.
+        
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-1')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-31-1">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">search_query</span> <span class="o">=</span> <span class="sh">"</span><span class="s">https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&amp;q=Francisco Goya</span><span class="sh">"</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">search_query</span><span class="p">)</span>
+<span class="n">search_data</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="nf">json</span><span class="p">()</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Found </span><span class="si">{</span><span class="n">search_data</span><span class="p">[</span><span class="sh">'</span><span class="s">total</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> artworks for Francisco Goya.</span><span class="sh">"</span><span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>API endpoints can be followed by query parameters that refine our search. In the example above, <code class="language-plaintext highlighter-rouge">hasImages=true</code> filters for objects with images, and <code class="language-plaintext highlighter-rouge">q</code> specifies our search term—in this case, the artist’s name.</p>
+
+<p><br /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">requests</code> library contains a method called <code class="language-plaintext highlighter-rouge">get()</code>, which we use to send our request to the API, passing our endpoint saved in the string <code class="language-plaintext highlighter-rouge">search_query</code>.</p>
+
+<p><br /></p>
+
+<p>The resulting <code class="language-plaintext highlighter-rouge">response</code> object can then be parsed into a JSON structure using the <code class="language-plaintext highlighter-rouge">.json()</code> method.</p>
+
+<p><br /></p>
+
+<h2 id="2-converting-json-to-a-list-of-painting-ids">2. Converting JSON to a list of painting ids</h2>
+
+<p><br /></p>
+
+<p>While JSON is the standard for data exchange, working with raw JSON can be cumbersome for direct data analysis. In Python, you can think of JSON as a dictionary of keys and values. These values can themselves be other dictionaries, lists, numbers, strings, or booleans. By printing the <code class="language-plaintext highlighter-rouge">search_data</code> object, we can see that it’s a dictionary containing two main keys:</p>
+<ul class="conclusion-list">
+  <li><strong>total</strong>: An integer representing the total number of objects returned.</li>
+  <li><strong>objectIDs</strong>: A list containing the unique IDs of the artworks matching our search.</li>
+</ul>
+
+<p><br /></p>
+
+<p>To retrieve the list of IDs associated with the key “objectIDs” we use the standard dictionary notation <code class="language-plaintext highlighter-rouge">search_data["objectIDs"]</code> and save it to the variable <code class="language-plaintext highlighter-rouge">goya_ids</code>.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-2')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-31-2">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nf">print</span><span class="p">(</span><span class="n">search_data</span><span class="p">)</span>
+<span class="n">goya_ids</span> <span class="o">=</span> <span class="n">search_data</span><span class="p">[</span><span class="sh">"</span><span class="s">objectIDs</span><span class="sh">"</span><span class="p">]</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<h2 id="3-getting-the-details-of-each-of-goyas-works">3. Getting the details of each of Goya’s works</h2>
+
+<p><br /></p>
+
+<p>To retrieve details for each artwork — such as its title, date, and thematic tags — we need to iterate through the list of IDs and send a request to the <code class="language-plaintext highlighter-rouge">/objects/{objectID}</code> endpoint for each item. We implement this using a for loop that repeats the request for each artwork.</p>
+
+<p><br /></p>
+
+<p><em>(Note: Depending on the number of results, fetching these details can take a few minutes. We use <code class="language-plaintext highlighter-rouge">time.sleep(1)</code> to respect the API’s rate limits and avoid being blocked.)</em></p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-3')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-31-3">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">time</span>
+
+<span class="n">all_objects_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="k">for</span> <span class="n">object_id</span> <span class="ow">in</span> <span class="n">goya_ids</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">obj_response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">https://collectionapi.metmuseum.org/public/collection/v1/objects/</span><span class="si">{</span><span class="n">object_id</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">obj_response</span><span class="p">.</span><span class="nf">raise_for_status</span><span class="p">()</span> 
+        <span class="n">all_objects_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">obj_response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="p">.</span><span class="n">exceptions</span><span class="p">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error for object ID </span><span class="si">{</span><span class="n">object_id</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Respect the API, one request per second to be safe
+</span>
+<span class="c1"># Convert the gathered data to a DataFrame
+</span><span class="n">goya_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">json_normalize</span><span class="p">(</span><span class="n">all_objects_data</span><span class="p">)</span>
+
+<span class="c1"># Filter only Goya works
+</span><span class="n">goya_df</span> <span class="o">=</span> <span class="n">goya_df</span><span class="p">[</span><span class="n">goya_df</span><span class="p">[</span><span class="sh">'</span><span class="s">artistDisplayName</span><span class="sh">'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="nf">contains</span><span class="p">(</span><span class="sh">'</span><span class="s">Goya</span><span class="sh">'</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="bp">False</span><span class="p">)]</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<p>We use a <code class="language-plaintext highlighter-rouge">try-except</code> block to ensure the loop continues even if a specific object ID fails to load. We also log any errors to help with debugging.</p>
+
+<p><br /></p>
+
+<p>Finally, we convert the collected data into a Pandas DataFrame using <code class="language-plaintext highlighter-rouge">pd.json_normalize</code>. Since a broad search might return works <em>about</em> Goya or mentioning him in metadata, we filter the DataFrame to ensure the <code class="language-plaintext highlighter-rouge">artistDisplayName</code> actually contains “Goya.”</p>
+
+<p><br /></p>
+
+<p>The resulting DataFrame contains intriguing data about each of his works, including name, year when the painting or drawing was started and finished, descriptive tags and dimensions, among other information. Feel free to explore it. We will continue working with the descriptive tags in the next steps.</p>
+
+<p><br /></p>
+
+<h2 id="4-flattening-nested-json-data">4. Flattening nested JSON data</h2>
+
+<p><br /></p>
+
+<p>For keys whose values are lists or other dictionaries, the resulting columns will contain those respective objects. This happens, for example, with the <code class="language-plaintext highlighter-rouge">tags</code> column. When you have nested elements like this, you can “flatten” them into a tabular format.</p>
+
+<p><br /></p>
+
+<div class="new-image">
+  <div class="card">
+    <img src="/assets/images/lesson_31_01.png" alt="JSON structure" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+    <p style="text-align: center; font-size: 0.7em; color: grey;">JSON data structure</p>
+  </div>
+</div>
+
+<p><br /></p>
+
+<p>Flattening an element changes the granularity of the data. Whereas before each row represented a single artwork, in the flattened table each row represents an individual tag belonging to one artwork.</p>
+
+<p><br /></p>
+
+<p>To flatten these nested tags, we can use <code class="language-plaintext highlighter-rouge">json_normalize</code> by specifying the element to unnest in the <code class="language-plaintext highlighter-rouge">record_path</code>. We also include the <code class="language-plaintext highlighter-rouge">objectID</code> in the <code class="language-plaintext highlighter-rouge">meta</code> parameter so we don’t lose the relationship between a tag and its original artwork. Later on, we can join this tags table back to our main DataFrame if we want.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-31-4')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+
+<div id="code-31-4">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">tags_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">json_normalize</span><span class="p">(</span>
+    <span class="n">all_objects_data</span><span class="p">,</span>
+    <span class="n">record_path</span><span class="o">=</span><span class="sh">'</span><span class="s">tags</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">meta</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">objectID</span><span class="sh">'</span><span class="p">]</span>
+<span class="p">)</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<h2 id="5-visualizing-the-most-frequent-themes">5. Visualizing the most frequent themes</h2>
+
+<p><br /></p>
+
+<p>The MET API provides a <code class="language-plaintext highlighter-rouge">tags</code> field containing descriptive terms associated with each artwork. To understand the prevailing themes in Goya’s works — famous for documenting the social upheaval and dark realities of his era — we can extract these terms and calculate their frequency.</p>
+
+<p><br /></p>
+
+<p>Once we isolate the individual tags into a new column, we can use <code class="language-plaintext highlighter-rouge">matplotlib</code> to create a horizontal bar plot of the top 10 terms and check if indeed his artwork contained themes related to death and misery.</p>
+
+<p><br /></p>
+
+<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-1-5')">
+  content_copy
+  <span class="tooltiptext">Copy</span>
+</span></p>
+<div id="code-1-5">
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Calculate the frequency of each term for the filtered Goya artworks
+# We filter tags_df to only include IDs present in our filtered goya_df
+</span><span class="n">term_frequency</span> <span class="o">=</span> <span class="n">tags_df</span><span class="p">[</span><span class="n">tags_df</span><span class="p">[</span><span class="sh">'</span><span class="s">objectID</span><span class="sh">'</span><span class="p">].</span><span class="nf">isin</span><span class="p">(</span><span class="n">goya_df</span><span class="p">[</span><span class="sh">'</span><span class="s">objectID</span><span class="sh">'</span><span class="p">])][</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">].</span><span class="nf">value_counts</span><span class="p">().</span><span class="nf">reset_index</span><span class="p">()</span>
+<span class="n">term_frequency</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="c1"># Select the top N terms for better readability if there are many unique terms
+# For this example, let's take the top 10 terms
+</span><span class="n">top_terms</span> <span class="o">=</span> <span class="n">term_frequency</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">barh</span><span class="p">(</span><span class="n">top_terms</span><span class="p">[</span><span class="sh">'</span><span class="s">term</span><span class="sh">'</span><span class="p">],</span> <span class="n">top_terms</span><span class="p">[</span><span class="sh">'</span><span class="s">count</span><span class="sh">'</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">#FF6885</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">'</span><span class="s">Top 10 Most Frequent Terms in Goya Dataset</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Frequency</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Term</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span></code></pre></figure>
+
+</div>
+
+<p><br /></p>
+
+<div class="new-image">
+  <div class="card">
+    <img src="/assets/images/lesson_31_02.png" alt="Top 10 Most Frequent Terms in Goya Dataset" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+    <p style="text-align: center; font-size: 0.7em; color: grey;">Top 10 Most Frequent Terms chart</p>
+  </div>
+</div>
+
+<p><br /></p>
+
+<p>The resulting visualization provides a fascinating window into Goya’s thematic world. Beyond common subjects like “Men,” “Women,” and “Portraits,” we see a strong representation of “Bulls” (reflecting his famous <em>Tauromaquia</em> series) and “Self-portraits.”</p>
+
+<p><br /></p>
+
+<p>Most strikingly, terms like “Death” and “Suffering” appear prominently in the top 10. This data-driven insight confirms Goya’s historical reputation as an artist who didn’t shy away from the darker aspects of the human experience. By quantifying these themes through the MET API, we move from subjective observation to empirical evidence of his artistic focus.</p>
+
+<p><br /></p>
+
+<div class="new-image">
+  <div class="card">
+    <img src="/assets/images/lesson_31_03.jpg" alt="The sleep of reason produces monsters" style="max-width:100%; height:auto; display:block; margin:0 auto;" />
+    <p style="text-align: center; font-size: 0.7em; color: grey;">Plate 43 from "Los Caprichos": The sleep of reason produces monsters (El sueño de la razon produce monstruos)</p>
+  </div>
+</div>
+
+<p><br /></p>
+
+<p>You could also use the main dataset we created to collect a series of images of Goya works. I am thinking of using AI to help me download all images of Goya in the public domain and try to build a model to describe or classify them in Python. Feel free to use the data and let me know about your analysis. Leave your comments or any questions below and happy coding!</p>
+
+<p><br /></p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><br /></p>
+
+<ul class="conclusion-list">
+  <li>The <code class="language-plaintext highlighter-rouge">requests</code> library combined with <code class="language-plaintext highlighter-rouge">pd.json_normalize</code> makes extracting and structuring data from web APIs both seamless and efficient.</li>
+  <li>Navigating public collections like the MET API enables us to perform large-scale data analysis on historical and cultural artifacts.</li>
+  <li>Combining data extraction with clear visualizations (using Matplotlib) provides interpretable insights into an artist’s thematic legacy and creative focus.</li>
+</ul>
+
+<p><br /></p>
+
+<hr />]]></content><author><name></name></author><category term="python" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Discover how to retrieve data from the MET API using Python. Convert complex JSON data into pandas DataFrames and create a visualization of the most frequent terms in Francisco Goya's artwork tags.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_31.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_31.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Data Science Quiz For Humanities</title><link href="http://localhost:4000/2025/11/22/Data-Science-Quiz.html" rel="alternate" type="text/html" title="Data Science Quiz For Humanities" /><published>2025-11-22T00:00:00+01:00</published><updated>2025-11-22T00:00:00+01:00</updated><id>http://localhost:4000/2025/11/22/Data-Science-Quiz</id><content type="html" xml:base="http://localhost:4000/2025/11/22/Data-Science-Quiz.html"><![CDATA[<p>Test your skills with this interactive data science quiz covering statistics, Python, R, and data analysis.</p>
 
 <div class="quiz-container">
   <style>
@@ -2396,165 +2688,4 @@ At this point, if you check the results, you will note that the function deliver
 
 <p><br /></p>
 
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Understand R and Power BI differences and applications, from academic research to business intelligence, and discover how they can enrich your data analysis.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_22.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_22.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Treemaps In R</title><link href="http://localhost:4000/2024/05/09/Treemaps-in-R.html" rel="alternate" type="text/html" title="Treemaps In R" /><published>2024-05-09T00:00:00+02:00</published><updated>2024-05-09T00:00:00+02:00</updated><id>http://localhost:4000/2024/05/09/Treemaps-in-R</id><content type="html" xml:base="http://localhost:4000/2024/05/09/Treemaps-in-R.html"><![CDATA[<p><br /></p>
-
-<h2 id="1-what-is-a-treemap">1. What is a treemap?</h2>
-
-<p>A treemap consists of a set of rectangles that represent different categories in your data and whose sizes are defined by a numeric value associated with the respective category. For example, a treemap could illustrate the continents on Earth, sized according to their population. For a deeper analysis, treemaps can include nested rectangles, that is, categories within categories. Going back to our example of the continents, within each continent rectangle, new rectangles could represent countries and their populations.</p>
-
-<p><br /></p>
-
-<p>You might also think of the more general category — in our example, the continents — as branches of a tree and each branch has its own leaves — in our example, the countries. Below you see a visual representation of the concept behind a treemap.</p>
-
-<p class="larger"><img src="/assets/images/lesson_21_01.png" alt="Visual representation of a treemap." /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="2-when-should-you-use-a-treemap">2. When should you use a treemap?</h2>
-
-<p>One of the main advantages of a treemap is that it allows for the interpretation of a large amount of data at a single glance. It is well-suited to show part-to-whole relationships and to highlight the hierarchies in your data. Do not use treemaps when the variable defining the size of rectangles presents little variation.</p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="3-how-to-plot-a-treemap-in-r">3. How to plot a treemap in R?</h2>
-
-<p>To exemplify a treemap in R, we will use the <code class="language-plaintext highlighter-rouge">Cholera</code> dataset, which contains that on the mortality caused by cholera in England in the years 1848-1849. This data comes from the <code class="language-plaintext highlighter-rouge">histdata</code> R package. Moreover, you will need to install the <code class="language-plaintext highlighter-rouge">treemap</code> package, one of the alternatives to plot a treemap in R. We will also use <code class="language-plaintext highlighter-rouge">RColorBrewer</code> package for a color palette and <code class="language-plaintext highlighter-rouge">dplyr</code> to transform the data.</p>
-
-<p><br /></p>
-
-<p>After you install the packages, load them and explore the structure of the <code class="language-plaintext highlighter-rouge">Cholera</code> data frame.</p>
-
-<p><br /></p>
-
-<p><span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-1')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-21-1">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">treemap</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Load the data to your R environment</span><span class="w">
-</span><span class="n">data</span><span class="p">(</span><span class="s2">"Cholera"</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Check the dataframe structure</span><span class="w">
-</span><span class="n">str</span><span class="p">(</span><span class="n">Cholera</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p>We would like to create a treemap in which we have bigger rectangles representing the regions of London (branches) and smaller rectangles representing the districts (leaves) within their respective region. The size of the rectangles will inform us about the mortality caused by cholera in a given region and district. For us, the following variables are important:</p>
-
-<ul class="conclusion-list">
-  <li><code class="language-plaintext highlighter-rouge">region</code> will define our outer rectangles (higher hierarchy) and will represent regions of London (West, North, Central, South, Kent);</li>
-  <li><code class="language-plaintext highlighter-rouge">district</code> will define our inner rectangles (lower hierarchy), representing the districts of London;</li>
-  <li><code class="language-plaintext highlighter-rouge">cholera_drate</code> represents deaths caused by cholera per 10,000 inhabitants in 1849 and will define the size of rectangles</li>
-</ul>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To learn more about the data, please see the
-        
-        <a href="https://cran.r-project.org/web/packages/HistData/HistData.pdf" target="_blank"> package documentation here.</a>
-        
-    </div>
-</div>
-
-<p><br /></p>
-
-<p>The <code class="language-plaintext highlighter-rouge">treemap</code> function is used to plot the treemap in R. The main arguments necessary are:</p>
-
-<ul class="conclusion-list">
-  <li>the first argument is the dataframe;</li>
-  <li><code class="language-plaintext highlighter-rouge">index</code> defines the two levels of hierarchy in our plot: region (our branches) and district (our leaves);</li>
-  <li><code class="language-plaintext highlighter-rouge">vSize</code> specifies the death rate to define the size of our rectangles;</li>
-  <li><code class="language-plaintext highlighter-rouge">vColor</code> specifies the region to define the color of our higher hierarchy rectangles;</li>
-  <li><code class="language-plaintext highlighter-rouge">type</code> informs the function that <code class="language-plaintext highlighter-rouge">vColor</code> is a categorical variable;</li>
-  <li>the remaining parameters are used to adjust format options like color palette and position of elements.</li>
-</ul>
-
-<p><br /></p>
-
-<div class="text-note">
-    <span class="material-symbols-outlined">
-        tips_and_updates
-    </span>
-    <span class="text-note-title">&nbsp; </span> 
-    <div class="text-note-content"> To further format your treemap, check more options in the
-        
-        <a href="https://cran.r-project.org/web/packages/treemap/treemap.pdf" target="_blank"> package documentation.</a>
-        
-    </div>
-</div>
-
-<p><br />
-<span class="material-symbols-outlined" id="copy-button" onclick="copyCode('code-21-2')">
-  content_copy
-  <span class="tooltiptext">Copy</span>
-</span></p>
-<div id="code-21-2">
-
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">treemap</span><span class="p">(</span><span class="n">Cholera</span><span class="p">,</span><span class="w">
-        </span><span class="n">index</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"region"</span><span class="p">,</span><span class="s2">"district"</span><span class="p">),</span><span class="w">
-        </span><span class="n">vSize</span><span class="o">=</span><span class="s2">"cholera_deaths"</span><span class="p">,</span><span class="w">
-        </span><span class="n">vColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"region"</span><span class="p">,</span><span class="w">
-        </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"categorical"</span><span class="p">,</span><span class="w">
-        </span><span class="c1"># formatting options:</span><span class="w">
-        </span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brewer.pal</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Accent"</span><span class="p">),</span><span class="w">
-        </span><span class="n">align.labels</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="w">
-          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">),</span><span class="w"> 
-          </span><span class="nf">c</span><span class="p">(</span><span class="s2">"right"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bottom"</span><span class="p">)</span><span class="w">
-        </span><span class="p">),</span><span class="w">     
-        </span><span class="n">border.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w">
-        </span><span class="n">bg.labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">,</span><span class="w">
-        </span><span class="n">position.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span></code></pre></figure>
-
-
-</div>
-
-<p><br /></p>
-
-<p class="larger"><img src="/assets/images/lesson_21_02.png" alt="Treemap plotted in R" /></p>
-
-<p><br /></p>
-
-<p><strong>Note that Kent is the region with the largest death rate, followed by Southern London. Moreover, districts like Lambeth and Bethnal Green were especially affected by the disease. This treemap is a powerful tool to give you a general picture of the data at first glance.</strong></p>
-
-<p><br /></p>
-
-<p><strong>If you have any questions, please feel free to comment below!</strong></p>
-
-<p><br /></p>
-
-<hr />
-
-<p><br /></p>
-
-<h2 id="4-conclusions">4. Conclusions</h2>
-
-<p><br /></p>
-
-<ul class="conclusion-list">
-  <li>A treemap is very useful to represent hierarchical relations in your data and provide a quick overall picture of your data;</li>
-  <li>Plotting a treemap in R can be easily accomplished with the <code class="language-plaintext highlighter-rouge">treemap</code> package.</li>
-</ul>
-
-<p><br /></p>
-
-<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="historicaldata" /><summary type="html"><![CDATA[Explore how to effectively use a treemap in R to visualize hierarchical data and analyze part-to-whole relationships. This guide covers what a treemap is, when to use it, and a step-by-step tutorial on plotting with the treemap package.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_21.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_21.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<hr />]]></content><author><name>Bruno Ponne</name></author><category term="r" /><category term="digitalhumanities" /><summary type="html"><![CDATA[Understand R and Power BI differences and applications, from academic research to business intelligence, and discover how they can enrich your data analysis.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/lesson_22.jpg" /><media:content medium="image" url="http://localhost:4000/lesson_22.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

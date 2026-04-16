@@ -1029,4 +1029,20 @@ text {
   fill: #F5F7FA;
 }
 
+/* New images style */
+.new-image {
+  display: flex;
+  justify-content: center;
+  margin: 0rem 0;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  max-width: 600px;
+  width: 100%;
+}
+
 /*# sourceMappingURL=styles.css.map */

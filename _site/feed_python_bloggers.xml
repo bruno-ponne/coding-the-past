@@ -5,9 +5,317 @@
         <description></description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed_python_bloggers.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 28 Mar 2026 14:46:38 +0100</pubDate>
-        <lastBuildDate>Sat, 28 Mar 2026 14:46:38 +0100</lastBuildDate>
+        <pubDate>Thu, 16 Apr 2026 21:25:45 +0200</pubDate>
+        <lastBuildDate>Thu, 16 Apr 2026 21:25:45 +0200</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
+        
+            <item>
+                <title>Exploring the MET API with Python - Francisco Goya&apos;s Artworks</title>
+				<author>bruno.ponne@gmail.com (Ponne, Bruno)</author>
+                <description>&lt;p&gt;&lt;em&gt;The act of painting is about one heart telling another heart where he found salvation.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;— Francisco Goya&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Francisco Goya is one of my favorite artists. His work has a beautiful darkness that tells a lot about his experience in his time. In this post, we’ll dive into his world using the Metropolitan Museum of Art (MET) application programming interface (API), which gives developers access to data on hundreds of thousands of artworks.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You will learn how to interact with the MET API using Python. We will journey through the process of making HTTP requests, parsing the returned JSON data into a structured &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas&lt;/code&gt; DataFrame, and exploring the collection to extract meaningful insights about Goya’s work.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-requesting-data-from-the-api&quot;&gt;1. Requesting data from the API&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;We begin by importing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;requests&lt;/code&gt; library, which allows us to send HTTP requests to the MET REST API in Python. We’ll query the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;search&lt;/code&gt; endpoint to find Goya’s paintings. In API terms, an endpoint is a specific URL used to access a particular resource.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The MET API has four endpoints starting with “https://collectionapi.metmuseum.org/”:&lt;/p&gt;
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;GET /public/collection/v1/objects returns a listing of all valid &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;objectID&lt;/code&gt; available to use.&lt;/li&gt;
+  &lt;li&gt;GET /public/collection/v1/objects/[objectID] returns a record for an object, containing all open access data about that object, including its image (if the image is available under Open Access).&lt;/li&gt;
+  &lt;li&gt;GET /public/collection/v1/departments returns a listing of all departments of the museum.&lt;/li&gt;
+  &lt;li&gt;GET /public/collection/v1/search returns a listing of all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;objectID&lt;/code&gt; for objects that match the search query.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can find more details about each endpoint and its functionality in the &lt;a href=&quot;https://metmuseum.github.io/&quot;&gt;official MET API documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;text-note-minimal&quot;&gt;
+    &lt;span class=&quot;material-symbols-outlined&quot;&gt;
+        tips_and_updates
+    &lt;/span&gt;
+    &lt;span class=&quot;text-note-title&quot;&gt;&amp;nbsp; &lt;/span&gt; 
+    &lt;div class=&quot;text-note-content&quot;&gt; A REST (Representational State Transfer) API is a set of rules used to communicate between your computer and the MET server using HTTP methods and endpoints. Note that many APIs require authentication; however, the MET API is public and does not require an API key.
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-31-1&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-31-1&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;search_query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&amp;amp;q=Francisco Goya&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search_query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;search_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Found &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; artworks for Francisco Goya.&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;API endpoints can be followed by query parameters that refine our search. In the example above, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hasImages=true&lt;/code&gt; filters for objects with images, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt; specifies our search term—in this case, the artist’s name.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;requests&lt;/code&gt; library contains a method called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;get()&lt;/code&gt;, which we use to send our request to the API, passing our endpoint saved in the string &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;search_query&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The resulting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;response&lt;/code&gt; object can then be parsed into a JSON structure using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.json()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-converting-json-to-a-list-of-painting-ids&quot;&gt;2. Converting JSON to a list of painting ids&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;While JSON is the standard for data exchange, working with raw JSON can be cumbersome for direct data analysis. In Python, you can think of JSON as a dictionary of keys and values. These values can themselves be other dictionaries, lists, numbers, strings, or booleans. By printing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;search_data&lt;/code&gt; object, we can see that it’s a dictionary containing two main keys:&lt;/p&gt;
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;&lt;strong&gt;total&lt;/strong&gt;: An integer representing the total number of objects returned.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;objectIDs&lt;/strong&gt;: A list containing the unique IDs of the artworks matching our search.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;To retrieve the list of IDs associated with the key “objectIDs” we use the standard dictionary notation &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;search_data[&quot;objectIDs&quot;]&lt;/code&gt; and save it to the variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goya_ids&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-31-2&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-31-2&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;goya_ids&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;search_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;objectIDs&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-getting-the-details-of-each-of-goyas-works&quot;&gt;3. Getting the details of each of Goya’s works&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;To retrieve details for each artwork — such as its title, date, and thematic tags — we need to iterate through the list of IDs and send a request to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/objects/{objectID}&lt;/code&gt; endpoint for each item. We implement this using a for loop that repeats the request for each artwork.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;(Note: Depending on the number of results, fetching these details can take a few minutes. We use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time.sleep(1)&lt;/code&gt; to respect the API’s rate limits and avoid being blocked.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-31-3&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-31-3&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;all_objects_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object_id&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;goya_ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;obj_response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://collectionapi.metmuseum.org/public/collection/v1/objects/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;obj_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;raise_for_status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;all_objects_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RequestException&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Error for object ID &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Respect the API, one request per second to be safe
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Convert the gathered data to a DataFrame
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;goya_df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json_normalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all_objects_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Filter only Goya works
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;goya_df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;goya_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;goya_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;artistDisplayName&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Goya&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;na&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;We use a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;try-except&lt;/code&gt; block to ensure the loop continues even if a specific object ID fails to load. We also log any errors to help with debugging.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, we convert the collected data into a Pandas DataFrame using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.json_normalize&lt;/code&gt;. Since a broad search might return works &lt;em&gt;about&lt;/em&gt; Goya or mentioning him in metadata, we filter the DataFrame to ensure the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;artistDisplayName&lt;/code&gt; actually contains “Goya.”&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The resulting DataFrame contains intriguing data about each of his works, including name, year when the painting or drawing was started and finished, descriptive tags and dimensions, among other information. Feel free to explore it. We will continue working with the descriptive tags in the next steps.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-flattening-nested-json-data&quot;&gt;4. Flattening nested JSON data&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;For keys whose values are lists or other dictionaries, the resulting columns will contain those respective objects. This happens, for example, with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tags&lt;/code&gt; column. When you have nested elements like this, you can “flatten” them into a tabular format.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;new-image&quot;&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;img src=&quot;/assets/images/lesson_31_01.png&quot; alt=&quot;JSON structure&quot; style=&quot;max-width:100%; height:auto; display:block; margin:0 auto;&quot; /&gt;
+    &lt;p style=&quot;text-align: center; font-size: 0.7em; color: grey;&quot;&gt;JSON data structure&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Flattening an element changes the granularity of the data. Whereas before each row represented a single artwork, in the flattened table each row represents an individual tag belonging to one artwork.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;To flatten these nested tags, we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;json_normalize&lt;/code&gt; by specifying the element to unnest in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;record_path&lt;/code&gt;. We also include the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;objectID&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;meta&lt;/code&gt; parameter so we don’t lose the relationship between a tag and its original artwork. Later on, we can join this tags table back to our main DataFrame if we want.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-31-4&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;div id=&quot;code-31-4&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;tags_df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;json_normalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;all_objects_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;record_path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;objectID&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-visualizing-the-most-frequent-themes&quot;&gt;5. Visualizing the most frequent themes&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The MET API provides a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tags&lt;/code&gt; field containing descriptive terms associated with each artwork. To understand the prevailing themes in Goya’s works — famous for documenting the social upheaval and dark realities of his era — we can extract these terms and calculate their frequency.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once we isolate the individual tags into a new column, we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matplotlib&lt;/code&gt; to create a horizontal bar plot of the top 10 terms and check if indeed his artwork contained themes related to death and misery.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;material-symbols-outlined&quot; id=&quot;copy-button&quot; onclick=&quot;copyCode(&apos;code-1-5&apos;)&quot;&gt;
+  content_copy
+  &lt;span class=&quot;tooltiptext&quot;&gt;Copy&lt;/span&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;code-1-5&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Calculate the frequency of each term for the filtered Goya artworks
+# We filter tags_df to only include IDs present in our filtered goya_df
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term_frequency&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tags_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tags_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;objectID&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;isin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;goya_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;objectID&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])][&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;value_counts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Select the top N terms for better readability if there are many unique terms
+# For this example, let&apos;s take the top 10 terms
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top_terms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;barh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top_terms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top_terms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;#FF6885&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Top 10 Most Frequent Terms in Goya Dataset&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Term&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;xticks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;yticks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;tight_layout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;new-image&quot;&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;img src=&quot;/assets/images/lesson_31_02.png&quot; alt=&quot;Top 10 Most Frequent Terms in Goya Dataset&quot; style=&quot;max-width:100%; height:auto; display:block; margin:0 auto;&quot; /&gt;
+    &lt;p style=&quot;text-align: center; font-size: 0.7em; color: grey;&quot;&gt;Top 10 Most Frequent Terms chart&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The resulting visualization provides a fascinating window into Goya’s thematic world. Beyond common subjects like “Men,” “Women,” and “Portraits,” we see a strong representation of “Bulls” (reflecting his famous &lt;em&gt;Tauromaquia&lt;/em&gt; series) and “Self-portraits.”&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Most strikingly, terms like “Death” and “Suffering” appear prominently in the top 10. This data-driven insight confirms Goya’s historical reputation as an artist who didn’t shy away from the darker aspects of the human experience. By quantifying these themes through the MET API, we move from subjective observation to empirical evidence of his artistic focus.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;new-image&quot;&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;img src=&quot;/assets/images/lesson_31_03.jpg&quot; alt=&quot;The sleep of reason produces monsters&quot; style=&quot;max-width:100%; height:auto; display:block; margin:0 auto;&quot; /&gt;
+    &lt;p style=&quot;text-align: center; font-size: 0.7em; color: grey;&quot;&gt;Plate 43 from &quot;Los Caprichos&quot;: The sleep of reason produces monsters (El sueño de la razon produce monstruos)&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You could also use the main dataset we created to collect a series of images of Goya works. I am thinking of using AI to help me download all images of Goya in the public domain and try to build a model to describe or classify them in Python. Feel free to use the data and let me know about your analysis. Leave your comments or any questions below and happy coding!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;conclusion-list&quot;&gt;
+  &lt;li&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;requests&lt;/code&gt; library combined with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.json_normalize&lt;/code&gt; makes extracting and structuring data from web APIs both seamless and efficient.&lt;/li&gt;
+  &lt;li&gt;Navigating public collections like the MET API enables us to perform large-scale data analysis on historical and cultural artifacts.&lt;/li&gt;
+  &lt;li&gt;Combining data extraction with clear visualizations (using Matplotlib) provides interpretable insights into an artist’s thematic legacy and creative focus.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+                <pubDate>Thu, 16 Apr 2026 00:00:00 +0200</pubDate>
+                <link>http://localhost:4000/2026/04/16/met-api-with-python.html</link>
+                <guid isPermaLink="true">http://localhost:4000/2026/04/16/met-api-with-python.html</guid>
+                
+                <category>python</category>
+                
+                <category>digitalhumanities</category>
+                
+                
+            </item>
         
             <item>
                 <title>Data Science Quiz For Humanities</title>
