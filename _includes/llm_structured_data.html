@@ -1,0 +1,33 @@
+{% if page.layout == 'post' or page.layout == 'post_minimal' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "abstract": {{ page.abstract | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": "Bruno Ponne",
+    "url": "https://www.codingthepast.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Coding the Past",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.codingthepast.com/favicon.png"
+    }
+  },
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "dateModified": "{% if page.last_modified_at %}{{ page.last_modified_at | date: '%Y-%m-%d' }}{% else %}{{ page.date | date: '%Y-%m-%d' }}{% endif %}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ page.url }}"
+  },
+  "keywords": {{ page.keywords | jsonify }},
+  "articleSection": {{ page.tags | join: ', ' | jsonify }},
+  "image": "{{ site.url }}/assets/images/{{ page.image }}"
+}
+</script>
+{% endif %}
