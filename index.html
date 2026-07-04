@@ -35,6 +35,12 @@ last_modified_at: 02-Sep-23
         {% endfor %}
         {% assign all_tags = all_tags | split: "," | sort %}
 
+        <!-- Search bar for filtering lessons -->
+        <div class="search-container">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" id="search-input" placeholder="Search lessons..." aria-label="Search lessons">
+            <span class="material-symbols-outlined clear-icon" id="clear-search" style="display: none;">close</span>
+        </div>
 
         <div id="tag-buttons">
             <button class="tag-button" data-tag="all">ALL LESSONS ({{ site.posts.size }})</button>
@@ -54,6 +60,10 @@ last_modified_at: 02-Sep-23
         <br>
         <ul class="lessons-list">
             <div id="posts">
+                <div id="no-posts-message" style="display: none; text-align: center; padding: 3rem 1rem; color: #64748B; width: 100%;">
+                    <span class="material-symbols-outlined" style="font-size: 3rem; color: #94A3B8; margin-bottom: 0.5rem; display: block;">search_off</span>
+                    <p style="margin: 0; font-size: 1.1rem; font-weight: 500;">No lessons found matching your criteria.</p>
+                </div>
                 {% for post in site.posts %}
                 <div class="post" data-tags="{{ post.tags | join: ',' }}">
                     <li class="lesson-style">
